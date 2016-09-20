@@ -1,0 +1,201 @@
+<tagLib name="htmlA" />
+<table cellspacing="0" cellpadding="0" id="formTb" style="width: 100%; float: left; margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+		<tbody>
+		<tr class="trBg">
+			<td class="tdTitle">
+				第一联系人：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="contact1" value="{$vo.contact1}" class="text2" addstr="onkeyup='Cn_name(this)'"/>
+                <div id="dvcontact1" class="inline"></div>
+			</td>
+			<td id="dv_firstname" class="tdTip">
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				联系电话：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="contact1_tel" value="{$vo.contact1_tel}" class="text2" addstr="onkeyup='Blurphone(this)'" />
+                <div id="dvcontact1_tel" class="inline">格式：010-12345678，手机11位</div>
+			</td>
+			<td id="dv_firstmobile" class="tdTip">
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				关系：
+			</td>
+			<td class="tdContent">
+			<htmlA:radio id="contact1_re" default="家庭成员|家庭成员,朋友|朋友,商业伙伴|商业伙伴" value="key|vo.contact1_re" />
+			</td>
+			<td id="dv_firstrelation" class="tdTip">
+			</td>
+		</tr>
+		
+		<tr class="trBg">
+			<td class="tdTitle">
+				第二联系人：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="contact2" value="{$vo.contact2}" class="text2"  addstr="onkeyup='Cn_name(this)'"/>
+                <div id="dvcontact2" class="inline"></div>
+			</td>
+			<td id="dv_secondname" class="tdTip">
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				联系电话：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="contact2_tel" value="{$vo.contact2_tel}" class="text2" addstr="onkeyup='Blurphone(this)'" />
+                <div id="dvcontact2_tel" class="inline">格式：010-12345678，手机11位</div>
+			</td>
+			<td id="dv_secondmobile" class="tdTip">
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				关系：
+			</td>
+			<td class="tdContent">
+			<htmlA:radio id="contact2_re" default="家庭成员|家庭成员,朋友|朋友,商业伙伴|商业伙伴" value="key|vo.contact2_re" />
+			</td>
+			<td id="dv_secondrelation" class="tdTip">
+			</td>
+		</tr>
+		
+		<tr>
+			<td>&nbsp;
+				
+			</td>
+			<td style="height: 50px;padding-left: 10px;" class="tdContent">
+			<input class="btn-style-3 allbgcolor" type="button" style="margin-top: 5px; cursor: pointer; margin-right:13px;" onmouseout="this.style.filter = 'alpha(opacity=100)'" onmousemove="this.style.filter = 'alpha(opacity=60)'; this.style.cursor='hand' " onclick="goback();" value="上一步">
+				<input class="btn-style-3 allbgcolor" type="button" style="margin-top: 5px; cursor: pointer;" onmouseout="this.style.filter = 'alpha(opacity=100)'" onmousemove="this.style.filter = 'alpha(opacity=60)'; this.style.cursor='hand' " onclick="editContact();" value="下一步">
+			</td>
+			<td id="Td1" class="tdTip">
+			</td>
+		</tr>
+	</tbody> 
+</table>
+<script type="text/javascript">
+var tid = $('#tid').val();
+var fg1 = true;
+var flg1 = true;
+var flog1 = true;
+var fg = true;
+var flg = true;
+var flog = true;
+var reg_phone = /^(13|14|15|17|18)[0-9]{9}$/;
+//var reg_tel = /^(0[0-9]{2,3}\-){1}([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/;
+var reg_tel = /^(0[0-9]{2,3}\-){1}([0-9]{7,8})+(\-[0-9]{1,4})?$/;
+$("#contact1").blur( function () { 
+	c1 = $("#contact1").val(); 
+	if(!(/^[\u4e00-\u9fa5]+$/.test(c1))){
+		fg=false;
+		$("#dvcontact1").html("<font style='color:red;'>请输入汉字！</font>");
+	}else{
+		fg=true;
+		$("#dvcontact1").html('');
+	}
+	
+} );
+$("#contact1_tel").blur( function () { 
+	t1 = $("#contact1_tel").val();
+	if(!((reg_phone.test(t1))||(reg_tel.test(t1)))){
+		$("#dvcontact1_tel").html("<font style='color:red;'>手机或座机号码不符合规则！</font>");
+		flg=false;
+	}else{
+		flg=true;
+		$("#dvcontact1_tel").html('');
+	}
+});
+$("#contact2").blur( function () { 
+	c2 = $("#contact2").val(); 
+	if(!(/^[\u4e00-\u9fa5]+$/.test(c2))){
+		flog=false;
+		$("#dvcontact2").html("<font style='color:red;'>请输入汉字！</font>");
+	}else{
+		flog=true;
+		$("#dvcontact2").html('');
+	}
+	
+} );
+$("#contact2_tel").blur( function () { 
+	t2 = $("#contact2_tel").val();
+	if(!((reg_phone.test(t2))||(reg_tel.test(t2)))){
+		$("#dvcontact2_tel").html("<font style='color:red;'>手机或座机号码不符合规则！</font>");
+		fg1=false;
+	}else{
+		fg1=true;
+		$("#dvcontact2_tel").html('');
+	}
+});
+
+function editContact(){
+	if(fg===false || flg===false || flog===false || fg1===false){
+		layer.msg('请正确填写资料信息，可以提高通过机率！', {icon: 0});
+		return false;
+	}
+	p = makevar(['contact2_tel','contact1_tel','contact2_re','contact1_re','contact1','contact2']);
+	p['_tps'] = "post";
+	
+	var mxs = true;
+	$.each(p,function(i){
+		if(typeof p[i] == "undefined"){
+			mxs=false;
+			return false;
+		}
+	});
+	if(mxs===false){
+		layer.msg('所有项目都不能为空！', {icon: 0});
+	 	return false;
+	}
+	if($("#contact1_tel").val()==$("#contact2_tel").val()){
+		layer.msg('联系电话不能重复！', {icon: 0});
+	 	return false;
+	}
+    var arrTds = new Array("#dvcontact1_tel", "#dvcontact2_tel","#dvcontact1","#dvcontact2");
+    for (var i = 0; i < arrTds.length; i++) {
+        if ($(arrTds[i]).html().indexOf('reg_wrong') > -1) {
+			layer.msg('您的信息有错误！', {icon: 2});
+            return false;
+        }
+    }
+	
+    layer.msg('提交中...', {icon: 16});
+	$.ajax({
+		url: "__URL__/editcontact/",
+		data: p,
+		timeout: 5000,
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==1){
+					setTimeout('window.location.href="/member/memberinfo/index_index?ckid=2&tid='+ tid +'"',1000);
+				}
+				else  {
+					layer.msg(d.message, {icon: 2});
+					return false;
+				}
+			}
+		}
+	});
+}
+function makevar(v){
+	var d={};
+	for(i=0;i<v.length;i++){
+		var id = v[i];
+		d[id] = $("#"+id).val();
+		if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+	}
+	return d;
+}
+function goback(){	//上一步
+	check(6);
+}
+</script>

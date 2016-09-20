@@ -1,0 +1,179 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>找回密码</title>
+    <link rel="icon" type="image/png" href="__ROOT__/Style/NewWeChat/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.min.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>找回密码</h1>
+        <a href="javascript:;" onclick="window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="mod-logo">
+        <img src="__ROOT__/Style/NewWeChat/images/icon-logo.png" class="am-image" alt="">
+    </div>
+    <div class="am-container">
+        <form class="am-form am-form-horizontal form-login">
+            <div class="am-form-group">
+                <label class="am-u-sm-3 am-form-label">手机号</label>
+                <div class="am-u-sm-9">
+                    <input type="text" class="am-radius" id="user_phone"/>
+                </div>
+            </div>
+            <div class="am-form-group">
+                <label class="am-u-sm-3 am-form-label">验证码</label>
+                <div class="am-u-sm-9">
+                    <div class="am-cf input-width-btn">
+                        <div class="verify-input">
+                            <input type="text" class="am-radius " id="phone_code" />
+                        </div>
+                        <div class="get-verify-btn">
+                            <a href="javascript:void(0);" class="am-btn am-btn-danger am-radius am-btn-block " id="sendSMSTip" onclick="resendMobileValidSMSCode();">获取验证码</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="am-form-group">
+               <label class="am-u-sm-3 am-form-label">新密码</label>
+               <div class="am-u-sm-9">
+                   <input type="password" class="am-radius" id="user_pass"/>
+                   <input type="hidden" class="am-radius" id="user_name" value="{$name}" />
+               </div>
+           </div>
+           
+            <a href="javascript:void(0);" class="am-radius am-margin-bottom-lg am-text-xl am-btn am-btn-danger am-btn-block" id="submit">确 &nbsp; 认</a>
+        </form>
+    </div>
+    <script>
+        var t = 5;
+        var mbTest = /^(13|14|15|18)[0-9]{9}$/;
+        function settimesf5(){
+            t -=1;
+            if(t == 0){
+                $("#loading").show();
+                window.location.href="__URL__/logins";
+            }
+            setTimeout("settimesf5()", 500 )
+        }
+
+        $(function(){
+            $("#submit").click(function(){
+
+                var user_phone =  $.trim($("#user_phone").val());//手机号码
+                var phone_code =$.trim($("#phone_code").val());//手机验证码
+                var user_pass =  $.trim($("#user_pass").val());//密码
+                var user_name =  $.trim($("#user_name").val());//用户名
+//                alert(user_name);
+//                return false;
+
+                if(user_pass == ''){
+                    $().toastmessage('showErrorToast', '请输入密码!');
+                    return false;
+                }
+
+                if (!mbTest.test(user_phone)) {
+                    $().toastmessage('showErrorToast', '手机号码有误!');
+                    return false;
+                }
+
+//                if(phone_code == ''){
+//                    $().toastmessage('showErrorToast', '验证码不允许为空!');
+//                    return false;
+//                }
+
+
+                $.ajax({
+                    url: "__URL__/setuppass/",
+                    data: {"user_phone": user_phone,"pass_word": user_pass,"phone_code": phone_code,"user_name":user_name},
+                    timeout: 1500,
+                    //cache: false,
+                    type: "post",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $("#loading").show();
+                    },
+                    success: function (d, s, r) {
+                        if(d){
+                            if(d.status==0){
+                                $().toastmessage('showErrorToast', d.message);
+                                return false;
+                            }else{
+                                settimesf5();
+                                $().toastmessage('showSuccessToast', "新密码修改成功");
+                            }
+                        }
+                    },
+                    complete: function(){
+                        $("#loading").hide();
+                    }
+                });
+            })
+        })
+    </script>
+    <script type="text/javascript">
+        var isInvite = $('#is_invite').val();
+        var mbTest = /^(13|14|15|18)[0-9]{9}$/;
+        var timer = null;
+        var leftsecond = 60; //倒计时
+        var msg = "";
+        var sendSMSTip = $('#sendSMSTip');
+        function resendMobileValidSMSCode() {
+            var mobile =  $.trim($("#user_phone").val());//手机号码
+            //alert(mobile);
+            if (mbTest.test(mobile)) {
+                sendSMSTip.html("短信发送中...");
+                $.ajax({
+                    url: "__URL__/sendphonepass/",
+                    type: "post",
+                    dataType: "json",
+                    data: {"cellphone":mobile},
+                    success: function(d) {
+                        leftsecond = 120;
+                        if (d.status == 1) {
+                            clearInterval(timer);
+                            timer = setInterval(setLeftTime1, 1000, "1");
+                        }
+                        else {
+                            $().toastmessage('showErrorToast', d.message);
+                            return false;
+                        }
+                    }
+                });
+            }else {
+                $().toastmessage('showErrorToast', '手机号码有误!');
+                return false;
+            }
+        }
+        function setLeftTime1() {
+            var second = Math.floor(leftsecond);
+            sendSMSTip.html(msg + second + "秒");
+            leftsecond--;
+            if (leftsecond < 1) {
+                sendSMSTip.html("重新获取验证码");
+                clearInterval(timer);
+                sendSMSTip.html('重新发送');
+                try {
+
+                } catch (E) { }
+                return;
+            }
+        }
+    </script>
+</body>
+
+</html>

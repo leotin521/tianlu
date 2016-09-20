@@ -1,0 +1,207 @@
+<!doctype html>
+<html class="no-js">
+<!--投资管理-立即转让页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>立即转让</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+	<script>
+		$(function(){
+			// 顶部点击展示下拉事件
+			$("header h1").on("click",function(){
+				$(this).find("i").toggleClass("am-icon-caret-up");
+				$("nav a.am-menu-toggle").trigger("click");
+			})
+		})
+	</script>
+</head>
+
+<body>
+    <header>
+        <h1>立即转让</h1>
+        <a href="__URL__/debt_1" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+   	
+   	<form class="am-form am-form-horizontal mod-manage-lijizr">
+
+	  <div class="am-form-group" style="border-bottom:1px solid #ccc;">
+        <label class="am-u-sm-4 am-form-label mod-managelabel">转让本金：</label>
+        <div class="am-u-sm-8 am-text-right">
+            <input type="text" id="ben_money" placeholder="" value="{$vo.capital}" disabled />
+      		<span>{$vo.capital}</span>
+          <input type="hidden" id="ids" value="{$invest_id}"/>
+        </div>
+      </div>
+          
+      <div class="am-form-group" style="border-bottom:1px solid #ccc;">
+        <label for="" class="am-u-sm-4 am-form-label mod-managelabel">手续费:</label>
+        <div class="am-u-sm-8 am-text-right ">
+			  <input type="text" id="fee" class="fee mod-manage-red" placeholder="" value="" disabled>
+      		  <span class="fee"></span>
+        </div>
+      </div>
+          
+      <div class="am-form-group" style="border-bottom:1px solid #ccc;">
+        <label for="" class="am-u-sm-4 am-form-label mod-managelabel">预期到帐金额:</label>
+        <div class="am-u-sm-8  am-text-right">
+            <input type="text" id="Expect_money" class="mod-manage-red" placeholder="" value="" disabled>
+      		<span class="Expect_money"></span>
+        </div>
+      </div>
+          
+      <div class="am-form-group" style="border-bottom:1px solid #ccc;">
+        <label for="" class="am-u-sm-4 am-form-label am-text-left mod-managelabel">折让率:</label>
+      		
+        <div class="am-u-sm-8  am-text-right">
+			<span>0%-7.5%</span>
+			<input class="am-radius zheranglv-input am-fr" type="number" id="zherang" placeholder="" value="0" onchange="jishizhanshi();">
+        </div>
+      </div>
+      
+      <div class="am-form-group" style="border-bottom:1px solid #ccc;">
+        <label for="" class="am-u-sm-4 am-form-label am-text-left mod-managelabel">支付密码:</label>
+        <div class="am-u-sm-8 am-text-right">
+            <input type="password" id="pin_pass" class="am-radius zr-passward-input" placeholder="" value="">
+        </div>
+      </div>
+      <div class="am-form-group mod-manage-btn ">
+        <div class="am-container">
+            <input type="button" class="am-btn am-btn-block am-radius am-btn-danger" id="liji" onclick="submits();" value="立即转让" />
+        </div>
+      </div>
+    </form>
+   
+   <div class="mod-manage-zrguize am-u-sm-11 am-u-sm-centered ">
+   		<!-- <p>913.16元  =  1000.00  +  6.16  - （  1000.00  x  7.5%  ）转让价格 申请转让本金 本期应收利息 申请转让本金 折让率</p>
+   		        <p>926.50元  =  931.16  x  （  100%  -  0.5%  ）逾期到账金额 手续费用</p>
+   		        <p>-73.50元  =  926.50  +  0.00  -  1000.00</p>
+   		        <p>逾期收益 逾期到账金额 累计到账利息 购买价格</p>
+   		         -->
+        <p>温馨提示：<br/>
+        1.    发起债权转让将放弃本期及以后各期利息，同时从成交之日
+               起，此债权权责由受让人承担；<br/>
+        2.    转让人通过折让近设置转让价格，只可以打折，手续费为成交
+               份额的0.5%；<br/>
+        3.    所有产品可多次转让；<br/>
+        4.    还款日前5天不可以转让债权；<br/>
+        5.    债权一次性转让，转让份额（剩余本金部分）/人购份额最低
+               10元，按整数倍递增；<br/>
+        6.    转让有效期为提出申请起5个自然日，有效期内被认购的部分
+               即时成交，债权在未有人购买时可随时取消<br/>；
+        7.    逾期的借款标不可以转让；<br/>
+        8.    债权未完成转让的，超过转让期的，剩余债权归转让人所有；<br/>
+        9.    折让金定价区间：负的本债权转让份额未收的利息<=折让金
+              <=本债权转让份额已收到的利息；<br/>
+        10.  若不设置折让金，则系统默认上次付息日到申请日的利息归转
+               让人所有；<br/>
+        11.  债权转让如果已经有承接人，则不能撤销转让；<br/>
+        12.  债权转让过程中遇到问题，请联系客服，8888887.</p>
+
+   </div>
+
+    <script>
+		$(function(){
+			var zherang = $("#zherang").val();//折让率
+			 var money = $("#ben_money").val();//本金
+            var ids = $("#ids").val();//id
+			if(zherang == 0){
+					$.ajax({
+					url: "__URL__/jisuan/",
+					data: {"zherang":zherang,"money":money,"dis":ids},
+					cache: false,
+					type: "post",
+					dataType: "json",
+					success: function (d) {
+						$(".fee").val(d.fee_in_2);
+						$("span.fee").html(d.fee_in_2);
+						$("#Expect_money").val(d.yuqi_money_2);
+						$("span.Expect_money").html(d.yuqi_money_2);
+					}
+				});
+			}
+		})
+
+        $('#zherang').bind('input propertychange', function() {   //防止客户胡乱填写
+            var num = $("#zherang").val();
+            var re=/^[\d]{1}\.[0-9]{1}$|^\d{1}$/;  //匹配小数点后1位
+            if(!re.test(num)){
+                $("#zherang").val('');
+            }
+        });
+
+
+        function jishizhanshi(){
+            var zherang = $("#zherang").val();//折让率
+            if(zherang < 0 || zherang > 7.5){
+                return setError("折让率不能小于0或者大于7.5%");
+            }
+
+            var money = $("#ben_money").val();//本金
+            var ids = $("#ids").val();//id
+
+            $.ajax({
+                url: "__URL__/jisuan/",
+                data: {"zherang":zherang,"money":money,"dis":ids},
+                cache: false,
+                type: "post",
+                dataType: "json",
+                success: function (d) {
+                    $(".fee").val(d.fee_in);
+					$("span.fee").html(d.fee_in);
+                    $("#Expect_money").val(d.yuqi_money);
+                    $("span.Expect_money").html(d.yuqi_money);
+                }
+            });
+        }
+
+        function setError(tip){
+            layer.msg(tip,{icon:0});
+            return false;
+        }
+
+        function setOk(tip){
+            layer.msg(tip,{icon:1});
+            window.location.href="__URL__/debt_1";
+        }
+
+        function submits(){
+            var discount_gold = $("#zherang").val();//折让率
+            if(zherang < 0 || zherang > 7.5){
+                return setError("这让率不能小于0或者大于7.5%");
+            }
+            var money = $("#ben_money").val();//本金
+            var ids = $("#ids").val();//id
+            var paypass = $("#pin_pass").val();//支付密码
+
+            $.ajax({
+                url: "__URL__/sell_debt",
+                data: {"discount_gold":discount_gold,"money":money,"id":ids,"paypass":paypass},
+                cache: false,
+                type: "post",
+                dataType: "json",
+                success: function (d) {
+                   if(d.status == 1){
+                        return setOk(d.message);
+
+                   }else{
+                       return setError(d.message);
+                   }
+                }
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

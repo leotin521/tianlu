@@ -1,0 +1,296 @@
+<!doctype html>
+<html class="no-js">
+<!--账户信息-个人资料页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>个人资料</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>个人资料</h1>
+        <a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+ 			<form action="" class="am-form am-form-horizontal form-apply">
+            <div class="mod-info-usermeg">
+            	 <ul class="am-list ">
+                	<li class="mod-info-listline">
+                        <a href="">
+                            <div class="con">
+                                <if condition="$vo.id_status eq 1 ">{$vo.real_name|hidecard=###,7}<else />
+                                    <a href="__APP__/m/user/idcard" style="color:blue;">未认证(去认证)</a></if>&nbsp;&nbsp;&nbsp;&nbsp;<i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field" style="font-size:1.6rem;" >
+                                真实姓名：
+                            </div>
+                        </a>
+                    </li>
+                  
+                    <li class="mod-info-listline">
+                        <a href="">
+                            <div class="con">
+                                {$vo.idcard|hidecard=###,1}&nbsp;&nbsp;&nbsp;&nbsp;<i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field" style="font-size:1.6rem;">
+                                身份证号：
+                            </div>
+                        </a>
+                    </li>
+                    <li class="mod-info-listline">
+                        <a href="">
+                            <div class="con">
+                                {$vo.idcard|hidecard=###,8}&nbsp;&nbsp;&nbsp;&nbsp;<i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field" style="font-size:1.6rem;">
+                                出生年月：
+                            </div>
+                        </a>
+                    </li>
+                    <li class="mod-info-listline">
+                         <div class="am-form-group">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">籍贯地址</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <input class="am-radius" type="text" id="address_" class="input-text-style-1" value="{$minfo.address}">
+                             </div>
+                         </div>
+                     </li>
+                       <li class="mod-info-listline">
+                         <div class="am-form-group">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">现居地址</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <input class="am-radius" type="text" id="address_" class="input-text-style-1" value="{$minfo.address}">
+                             </div>
+                         </div>
+                     </li>
+                      <li class="mod-info-listline">
+                        <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">婚姻状况</label>
+                            <div class="am-u-sm-9" style="margin-top:15px;">
+                               <div class="am-form-group ">
+                                    <if condition="$minfo.marry eq '已婚'">
+                                       <input type="radio" id="yihun" value="已婚" checked="checked" name="merriage_status">&nbsp;
+                                       <label for="yihun">已婚</label> &nbsp;&nbsp;
+                                       <input type="radio" id="weihun" value="未婚" name="merriage_status">&nbsp;
+                                       <label for="weihun">未婚</label>&nbsp;&nbsp;
+                                    <elseif condition="$minfo.marry eq '未婚'"/>
+                                        <input type="radio" id="yihun" value="已婚" name="merriage_status">&nbsp;
+                                        <label for="yihun">已婚</label> &nbsp;&nbsp;
+                                        <input type="radio" id="weihun" value="未婚" checked="checked" name="merriage_status">&nbsp;
+                                        <label for="weihun">未婚</label>&nbsp;&nbsp;
+                                    </if>
+                                    <if condition="$minfo.marry eq ''">
+                                        <input type="radio" id="yihun" value="已婚"  name="merriage_status">&nbsp;
+                                        <label for="yihun">已婚</label> &nbsp;&nbsp;
+                                        <input type="radio" id="weihun" value="未婚" name="merriage_status">&nbsp;
+                                        <label for="weihun">未婚</label>&nbsp;&nbsp;
+                                    </if>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                     <li class="mod-info-listline">
+                         <div class="am-form-group">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">最高学历</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <div class="am-form-group">
+                                     <select id="education" name="education" class="am-radius" style="height:3.8rem;">
+                                         <option value="{$minfo.education}">{$minfo.education}</option>
+                                         <volist name="education" id="data">
+                                             <option value="{$data}">{$data}</option>
+                                         </volist>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                     </li>
+
+                    <!-- <li class="mod-info-listline">
+                                        <div class="am-form-group">
+                        <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">毕业院校：</label>
+                        <div class="am-u-sm-9" style="margin-top:12px;">
+                            <input id="school_" class="am-radius" type="text" class="input-text-style-1" value="{$minfo.school}">
+                        </div>
+                    </div>
+                                        </li> -->
+
+					<!--  <li class="mod-info-listline">
+                                            <div class="am-form-group">
+                                                <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">婚姻状况：</label>
+                                                <div class="am-u-sm-9">
+                                                   <div class="am-form-group ">
+                                                        <if condition="$minfo.marry eq '已婚'">
+                                                           <input type="radio" id="yihun" value="已婚" checked="checked" name="merriage_status">&nbsp;
+                                                           <label for="yihun">已婚</label> &nbsp;&nbsp;
+                                                           <input type="radio" id="weihun" value="未婚" name="merriage_status">&nbsp;
+                                                           <label for="weihun">未婚</label>&nbsp;&nbsp;
+                                                        <elseif condition="$minfo.marry eq '未婚'"/>
+                                                            <input type="radio" id="yihun" value="已婚" name="merriage_status">&nbsp;
+                                                            <label for="yihun">已婚</label> &nbsp;&nbsp;
+                                                            <input type="radio" id="weihun" value="未婚" checked="checked" name="merriage_status">&nbsp;
+                                                            <label for="weihun">未婚</label>&nbsp;&nbsp;
+                                                        </if>
+                                                        <if condition="$minfo.marry eq ''">
+                                                            <input type="radio" id="yihun" value="已婚"  name="merriage_status">&nbsp;
+                                                            <label for="yihun">已婚</label> &nbsp;&nbsp;
+                                                            <input type="radio" id="weihun" value="未婚" name="merriage_status">&nbsp;
+                                                            <label for="weihun">未婚</label>&nbsp;&nbsp;
+                                                        </if>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                     -->
+                   <!--   <li class="mod-info-listline">
+                       <div class="am-form-group">
+                           <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">居住地址：</label>
+                           <div class="am-u-sm-9" style="margin-top:12px;">
+                               <input class="am-radius" type="text" id="address_" class="input-text-style-1" value="{$minfo.address}">
+                           </div>
+                       </div>
+                   </li> -->
+<!-- 
+                     <li class="mod-info-listline">
+                         <div class="am-form-group">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">公司行业：</label>
+                             <div class="am-u-sm-9">
+                                 <div class="am-form-group">
+                                     <select name="business_type" id="business_type_" class="am-radius">
+                                         <option value="{$minfo.range}">{$minfo.range}</option>
+                                         <volist name="business_type" id="data">
+                                             <option value="{$data}">{$data}</option>
+                                         </volist>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                     </li>
+ -->
+                    <!--  <li class="mod-info-listline">
+                        <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">公司规模：</label>
+                            <div class="am-u-sm-9">
+                                <div class="am-form-group">
+                                    <select name="business_scale" id="officeScale" class="am-radius">
+                                        <option value="{$minfo.number}">{$minfo.number}</option>
+                                        <volist name="business_scale" id="data">
+                                            <option value="{$data}">{$data}</option>
+                                        </volist>
+                                    </select>
+                                    <span class="am-form-caret"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li> -->
+
+                     <li class="mod-info-listline">
+                         <div class="am-form-group">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">职位：</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <input type="text" class="am-radius" id="position" class="input-text-style-1" value="{$minfo.position}">
+                             </div>
+                         </div>
+                     </li>
+
+                    
+                    <li class="mod-info-listline">
+                        <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">月收入：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                               <div class="am-form-group">
+
+                                   <select class="am-radius" name="month_income" id="salary" style="height:3.8rem;">
+                                       <option value="{$minfo.income}">{$minfo.income}</option>
+                                       <volist name="month_income" id="data">
+                                           <option value="{$data}">{$data}</option>
+                                       </volist>
+                                   </select>
+
+                                  <span class="am-form-caret"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                     <div class="am-u-sm-6 am-u-sm-centered mod-infon-tijiao" style="width:100%;">
+                      <!--<button type="submit" class="am-btn am-btn-block  am-radius am-btn-danger">保存</button>-->
+                         <!--<input id="up_head" class="am-btn am-btn-block  am-radius am-btn-danger" type="button" value="保存">-->
+                         <input class="am-btn am-btn-block  am-radius am-btn-danger" type="button" type="button" value="保存" onclick="check()" style="width:90%;margin:0 auto;font-size:18px;">
+                         <!--<input class="btn-style-4" type="reset" value="取消">-->
+                    </div>
+                </ul>
+                
+            </div>
+
+            </form>
+
+    <script>
+        function check(){
+            var p = makevar(['education','school_','merriage_status','address_','business_type_','officeScale','position','salary']);
+
+            var education = $("#education").val();
+            var school_ = $("#school_").val();
+            var merriage_status = $("#merriage_status").val();
+            var address_ = $("#address_").val();
+            var business_type_ = $("#business_type_").val();
+            var officeScale = $("#officeScale").val();
+            var position = $("#position").val();
+            var salary = $("#salary").val();
+
+
+            if(education == '' || school_ == '' || address_ == '' || business_type_ == '' || officeScale =='' || position == '' || salary == ''){
+                $().toastmessage('showErrorToast', "资料必须全部填写~!");
+                return false;
+            }
+
+
+            $.ajax({
+                url: "__URL__/submemberinfo/",
+                data: p,
+                timeout: 5000,
+                cache: false,
+                type: "post",
+                dataType: "json",
+                success: function (d, s, r) {
+                    if(d){
+                        if(d.status==1) {
+                            $().toastmessage('showSuccessToast', d.message);
+                            setTimeout(window.location = "__URL__/index",2000);
+                        }
+                        else {
+                            $().toastmessage('showErrorToast', d.message);
+                            return false;
+
+                        }
+                    }
+                }
+            });
+        }
+
+        function makevar(v){
+            var d={};
+            for(i=0;i<v.length;i++){
+                var id = v[i];
+                d[id] = $("#"+id).val();
+                if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+            }
+            return d;
+        }
+
+    </script>
+</body>
+
+</html>

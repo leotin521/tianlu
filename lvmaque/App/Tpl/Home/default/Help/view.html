@@ -1,0 +1,102 @@
+<include file="Public:_header_common" />
+<title>{$vo.title}-{$glo.web_name}帮助中心</title>
+<meta name="keywords" content="{$vo.art_keyword}" />
+<meta name="description" content="{$vo.art_info}" />
+<style type="text/css">
+.cms-details img,.cms-details a img{ 
+border:0; 
+margin:0; 
+padding:0; 
+max-width:710px; 
+width:expression(this.width>710?"710px":this.width); 
+}
+.cms-details p{ width:710px; overflow:hidden;}
+</style>
+<script>
+//iframe高度自适应
+
+function IFrameReSize(iframename) {
+
+var pTar = document.getElementById(iframename);
+
+if (pTar) { //ff && google
+
+if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight && !window.ActiveXObject) {
+
+pTar.height = pTar.contentDocument.body.offsetHeight + 100;
+
+} //ie && 360
+
+else if (pTar.Document && pTar.Document.body.scrollHeight) {
+
+pTar.height = pTar.Document.body.scrollHeight;
+
+}
+
+}
+
+}
+
+//iframe宽度自适应
+
+function IFrameReSizeWidth(iframename) {
+
+var pTar = document.getElementById(iframename);
+
+if (pTar) { //ff
+
+if (pTar.contentDocument && pTar.contentDocument.body.offsetWidth) {
+
+pTar.width = pTar.contentDocument.body.offsetWidth;
+
+} //ie
+
+else if (pTar.Document && pTar.Document.body.scrollWidth) {
+
+pTar.width = pTar.Document.body.scrollWidth;
+
+}
+
+}
+
+}
+
+</script>
+
+<include file="Public:_header_main" />
+<!--中部开始-->
+<div class="main h50 ft16 line3-5e">&nbsp;&nbsp;&nbsp;首页 > {$wo.type_name}</div> 
+<div class="cms_page"> <!--{:get_ad(5)}-->
+  <div class="cms_frame cf"> <include file="left" />
+    <div class="cms_content">
+      <div class="cms-title-1"><div class="pleft30 ptop10 h30 right" style="width:212px;"><div class="bdsharebuttonbox" style="width:212px;"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="" style=" background:none; padding-left:0;">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","sqq","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","sqq","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></div>
+        <h2>{$wo.type_name}</h2>
+      </div>
+      <div class="cms-details">
+        <div class="article-list-wrap mgt">
+          <table width="720" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;">
+            <tr>
+              <td height="50" align="center" valign="middle" style="font-size:24px; color:#666;" title="{$vo.title}">{$vo.title|cnsubstr=###,26}</td>
+            </tr>
+            <tr>
+              <td height="50" align="center" valign="middle" style="border-bottom:1px solid #dedede;">发布时间：{$vo.art_time|date="Y-m-d H:i",###}</td>
+            </tr>
+            <tr>
+              <td>
+                <iframe scrolling="no" frameborder="0" height="100%" id="mainFrame" width="100%" onload='IFrameReSize("mainFrame");IFrameReSizeWidth("mainFrame");' src="__URL__/fram?id={$id}" ></iframe>
+              </td>
+            </tr>
+			<tr>
+              <td>
+                <a href="__ROOT__/{$wo.type_nid}/index.html" class="blue float right">返回列表>></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+</div>
+<include file="Public:_footer" />

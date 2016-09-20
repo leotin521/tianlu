@@ -1,0 +1,60 @@
+<include file="default:Public:_header"  group="Admin"/>
+<tagLib name="htmlA" />
+
+<div class="so_main">
+  <div class="page_tit">投资列表</div>
+  <div class="Toolbar_inbox" style="height: 25px;">
+    <div class="page right">{$pagebar}</div>
+   
+  </div>
+  <div class="list">
+    <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th style="width:30px;"> <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+          <label for="checkbox"></label>
+        </th>
+        <th class="line_l">ID</th>
+        <th class="line_l">项目编号</th>
+        <th class="line_l">用户名</th>
+        <th class="line_l">投资金额</th>
+        <th class="line_l">投资时间</th>
+        <th class="line_l">状态</th>
+
+      </tr>
+        <volist name="list" id="vo">
+        <tr overstyle='on' id="list_{$vo.id}">
+          <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+          <td>{$vo.id}</td>
+          <td>{$vo.batch_no}</td>
+          <td>{$vo.user_name}</td>
+          <td>{$vo.money}元</td>
+          <td>{$vo.add_time|date="Y-m-d",###}</td>
+          <td>
+            <if condition="$vo.status eq 0">
+            <font color="red">待处理</font>
+            <elseif condition="$vo.status eq 1" />
+            <font color="#00FF00">通过</font>
+            <elseif condition="$vo.status eq 2" />
+            退回
+            <elseif condition="$vo.status eq 3" />
+            打款中
+            </if>
+          </td>
+         
+        </tr>
+        </volist>
+
+    </table>
+  </div>
+  <div class="Toolbar_inbox" style="height: 25px;">
+    <div class="page right">{$pagebar}</div>
+
+  </div>
+</div>
+<script type="text/javascript">
+function verifyIn(id)
+{
+    ui.box.load("__URL__/verifyIn?id="+id, {title:"入金审核"});   
+}
+</script>
+<include file="default:Public:_footer" group="Admin" />

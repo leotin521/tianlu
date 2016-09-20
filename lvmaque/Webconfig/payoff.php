@@ -1,0 +1,2 @@
+<?php
+return array ( 'BANK' => array ( 0 => array ( 'bank' => '中国银行', 'payee' => '张三', 'account' => '6227601503205623211', 'address' => '北京市海淀区丹棱街18号', ), 1 => array ( 'bank' => '中国工商银行', 'payee' => '李四', 'account' => '6222021302003272720', 'address' => '北京市海淀区丹棱街18号', ), ), 'BANK_INFO' => '请上传支付凭证', 'IS_OPEN' => '1', ); ?>

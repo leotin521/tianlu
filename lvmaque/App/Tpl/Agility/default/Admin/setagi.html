@@ -1,0 +1,124 @@
+<include file="default:Public:_header" group="Admin"/>
+<tagLib name="htmlA" />
+<style type="text/css">
+    .alertDiv { margin: 0px auto; background-color: #FEFACF; border: 1px solid green; line-height: 25px; background-image: url(__ROOT__/Style/M/images/info/001_30.png); background-position: 20px 4px; background-repeat: no-repeat; }
+    .alertDiv li { margin: 5px 0; list-style-type: decimal; color: #005B9F; padding: 0px; line-height: 20px; }
+    .alertDiv ul { text-align: left; list-style-type: decimal; display: block; padding: 0px; margin: 0px 0px 0px 75px; }
+</style>
+<div class="so_main">
+    <div class="page_tit">发布计划默认参数设置</div>
+    <div class="page_tab">
+        <span data="tab_1" class="active">默认参数</span>
+        
+    </div>
+    <div class="form2">
+        
+        <form method="post" action="" enctype="multipart/form-data">
+            <div id="tab_1">
+                <div class="Toolbar_inbox">
+                    <div class="page right">{$pagebar}</div>
+
+                </div>
+                <div class="list">
+                    <table id="area_listbuse" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            
+                            <th class="line_l">序号</th>
+                            <th class="line_l">参数名称</th>
+                            <th class="line_l">默认值</th>
+                            <th class="line_l">说明</th>
+                        </tr>
+
+                        <tr overstyle='on'>
+                            <td>1</td>
+                            <td>计划金额</td>
+                            <td><htmlA:input style="width:100px"  addstr='onkeyup="checkIntType(this);"'    id="agi[funds]" value="{$info.funds}" /></td>
+                            <td>必须为正整数，计划金额是起投金额的整数倍  </td>
+                        </tr>
+                        
+                        <tr overstyle='on'>
+                            <td>2</td>
+                            <td>起投金额</td>
+                            <td><htmlA:input style="width:100px"  addstr='onkeyup="checkIntType(this);"'    id="agi[start_funds]" value="{$info.start_funds}" />(元)</td>
+                            <td>必须为正整数  </td>
+                        </tr>
+                        <tr overstyle='on'>
+                            <td>3</td>
+                            <td>年化利率</td>
+                            <td><htmlA:input style="width:100px"  addstr='onkeyup="checkFloatType(this);"'    id="agi[interest_rate]" value="{$info.interest_rate}" />%</td>
+                            <td>精确到两位小数比如5.35%  </td>
+                        </tr>
+                        <tr overstyle='on'>
+                            <td>4</td>
+                            <td>封存期限</td>
+                            <td><htmlA:input style="width:100px"  addstr='onkeyup="checkIntType(this);"'    id="agi[term]" value="{$info.term}" />（天）</td>
+                            <td>必须正整数  </td>
+                        </tr>
+                        <tr overstyle='on'>
+                            <td>5</td>
+                            <td>还款期限</td>
+                            <td><htmlA:input style="width:100px"  addstr='onkeyup="checkIntType(this);"'    id="agi[repayment_period]" value="{$info.repayment_period}" />（月）</td>
+                            <td>必须正整数  </td>
+                        </tr>
+                        
+                    </table>
+                </div>
+
+            </div><!--tab1-->
+            
+            <div class="page_btm"><input type="submit" class="btn_b" value="确定" />
+            </div>
+        </form>
+    </div>
+
+
+</div>
+<script type="text/javascript">
+   function checkIntType(t) {
+               var num = t.value;
+                var re=/^\d*$/;
+                if(!re.test(num)){
+                        isNaN(parseInt(num))?t.value='':t.value=parseInt(num);
+                }
+    }
+    function checkFloatType(t) {
+                    var num = t.value;
+                    var re=/^\d{0,20}(\.)\d*$/;
+                    if(!re.test(num)){
+                        isNaN(parseFloat(num))?t.value='':t.value=parseFloat(num);
+                    }
+    }
+            var xssa = parseInt({$a}) || 0;
+            var xssb = parseInt({$b}) || 0;
+            var xssc = parseInt({$c}) || 0;
+            var xssd = parseInt({$d}) || 0;
+
+            var xssn = parseInt({$n}) || 0;
+            var xsso = parseInt({$o}) || 0;
+            var xssp = parseInt({$p}) || 0;
+            function addone($j){
+
+
+            switch ($j){
+            case 1:
+
+                    var htmladd = '<tr overstyle="on" id="list_buse' + xssa + '">';
+                    htmladd += '<td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="' + xssa + '"></td>';
+                    htmladd += '<td>' + xssa + '</td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_USE][] value="" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_USE][]" value="" /></td>';
+                    htmladd += '<td><a href="javascript:void(0);" onclick="delxa(' + xssa + ');">删除</a></td>';
+                    htmladd += '</tr>';
+                    $(htmladd).appendTo("#area_listbuse");
+                    xssa++;
+                    break;
+                   
+            }
+
+            }
+    function delxa(id){
+    if (confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_buse" + id).remove();
+            }
+    
+</script>
+<include file="default:Public:_footer" group="admin" />

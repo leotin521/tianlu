@@ -1,0 +1,124 @@
+<style type="text/css">
+.x_member_form{width:800px; overflow:hidden}
+.x_member_form .form2{height:465px; overflow:auto;}
+
+.x_member_form .form2 .lineD {overflow:hidden; }
+.x_member_form .form2 .lineD label{margin-right:15px;}
+.x_member_form .form2 .lineD dt{width:150px; color:#9CB8CC; font-weight:bold}
+.x_member_form .form2 .lineD dd{width:200px; float:left; margin-left:0px}
+
+
+.page_btm {border-top: 1px solid #9CB8CC;padding: 15px 0 10px 355px;bottom: 0;}
+</style>
+
+<div class="so_main x_member_form">
+<div class="page_tab">
+	<span data="tab_1">发放红包</span>
+</div>
+<div class="form2">
+	<div id="tab_1" style="height:395px;display:none">
+		<form action="do_give" method="post" class="sendsms1" onsubmit="return subcheck();">
+			<input type="hidden" name="uid" id="uids"  value="{$_GET['uid']}">
+			<dl class="lineD">
+				<dt>会员名：</dt>
+				<dd>{$minfo.user_name}</dd>
+			</dl>
+			<dl class="lineD">
+				<dt>注册时间：</dt>
+				<dd>{$minfo.reg_time}</dd>
+			</dl>
+			<dl class="lineD">
+				<dt>红包类型：</dt>
+				<dd>
+					<select name="rewards_type" id="rewards_type">
+						<volist id="vo" name="exp_type">
+                        <option value="{$key}">{$vo}</option>
+                        </volist>
+					</select>
+				</dd>
+			</dl>
+			<dl class="lineD">
+				<dt>金额：</dt>
+				<dd style="width:400px;"><input type="text" name="money"  id="money" /><span>元（必填）</span></dd>
+			</dl>
+			<dl class="lineD">
+				<dt>最低使用限制金额：</dt>
+				<dd style="width:600px;"><input type="text" name="investmoney"  id="investmoney" /><span>元 （必填） 大于X金额可以使用，必须大于发放额度。</span></dd>
+			</dl>
+             <php> $exp_day = date("Y-m-d",strtotime("+5 day"));</php>
+             <dl class="lineD"><dt>有效期：</dt>
+             <dd><input onclick="WdatePicker({dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true});" name="expired_time" id="expired_time" style="width:180px;" class="input" type="text" value="2015-03-12"></dd>
+             </dl>
+             
+             <dl class="lineD"><dt>备注：</dt>
+             <dd><textarea name="remark" id="remark" class="areabox"></textarea><span id="tip_remark" class="tip">* 说明</span></dd>
+             </dl>
+             
+			<dl class="lineD" style="text-align:center;margin-top:10px;">
+				<img class="img_button" data="1" src="/Style/H/images/sub_offline.jpg" style="cursor: pointer;" alt="发放红包">
+			</dl>
+		</form>
+	</div>
+	
+	
+</div>
+
+</div>
+<script type="text/javascript">
+	function closeui(){
+		ui.box.close();
+	}
+
+	$(document).ready(function(){
+		
+		$('.page_tab span').click(function(){
+			if($(this).attr('class')=='active')	return ;
+
+			$('.active').removeClass('active');
+			$(this).addClass('active');
+			$("#tab_1").hide();
+			$("#"+$(this).attr('data')).show();
+			return false;
+		});
+		$(".page_tab span").eq({$tab}-1).trigger("click")
+
+		$('.img_button').click(function(){
+            var remark = $("#remark").val();
+			if($('#money').val() == '' || $('#investmoney').val() == ''){
+				ui.error('必填项必须填写！');return false;
+			}
+            if(!remark){
+                ui.error("备注不能为空!");return false;
+            }
+			data = {
+					uid:$('#uids').val(),
+					type:$('#rewards_type').val(),
+					money:$('#money').val(),
+					investmoney:$('#investmoney').val(),
+                    remark:remark,
+                    expired_time: $('#expired_time').val(),
+				};
+			
+			$.post('/admin/expmoney/give_rewards',data,function(d){
+						if(d){
+							ui.success("优惠券发放成功，请勿重复操作");
+							ui.box.close();
+						}else{
+							ui.error("优惠券发放失败");
+							return false;
+						}
+					});
+			
+		});
+	});
+	
+var cansub = true;
+function subcheck(){
+	if(!cansub){
+		alert("请不要重复提交，如网速慢，请耐心等待！");
+		return false;	
+	}
+	cansub = false;
+	return true;
+}
+</script>

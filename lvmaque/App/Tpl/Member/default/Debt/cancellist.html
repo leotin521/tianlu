@@ -1,0 +1,79 @@
+<style type="text/css">
+.fontred { color: #005B9F; }
+.infolist { margin: 5px 0 10px 20px; border: solid 1px #ddd; padding: 2px; width: 715px; text-align: left; }
+.infolist table td { height: 28px; }
+.infolist .myfont { color: #ff6500; font-weight: bold; }
+#pager a.current { background-color: #ddd; border: solid 1px #ccc; color: #fff; }
+#pager a:hover { background-color: #ddd; border: solid 1px #ccc; color: red; }
+.tdHeard, .tdContent { border: solid 1px #ccc; }
+.tdContent a { text-decoration: underline; }
+.tdHeard { background-image: url(__ROOT__/Style/M/images/thbg.jpg); height: 29px; }
+.divtitle { height: 20px; line-height: 30px; text-align: left; padding-left: 20px; font-size: 12px; text-indent: 25px; margin-top: 8px; margin-bottom: 1PX; }
+#noinfotip .tdContent{width:auto}
+.tdContent a{color:#06F; text-decoration:none}
+</style>
+
+<div style="margin: 10px 0px; overflow: hidden; text-align: left; clear: both; float: left;
+    padding-left: 6px;">
+    <table id="content" style="width: 785px; border-collapse: collapse;" cellspacing="0">
+        <tbody><tr>
+            <th scope="col" class="tdHeard" style="width: 163px;">
+                投标标题
+            </th>
+            <th scope="col" class="tdHeard" style="width: 73px;">
+                利率
+            </th>
+            <th scope="col" class="tdHeard" style="width: 103px;">
+                未还期数/总期数
+            </th>
+            <th scope="col" class="tdHeard" style="width: 80px;">
+                待收本息
+            </th>
+            <th scope="col" class="tdHeard" style="width: 80px;">
+                撤销次数
+            </th>
+            <th scope="col" class="tdHeard" style="width: 143px;">
+                撤销时间
+            </th>
+            <th scope="col" class="tdHeard" style="width: 80px;">
+                备注
+            </th>
+        </tr>
+        <volist name="list.data" id="vo">
+        <tr id="noinfotip" style="">
+            <td class="tdContent"><a target="_blank" href="{$vo.borrow_id|getInvestUrl=###}" title="{$vo.borrow_name}">{$vo.borrow_name|cnsubstr=###,10}</a></td>
+            <td class="tdContent">{$vo.borrow_interest_rate}%</td>
+            <td class="tdContent">{$vo.period}期/{$vo.total_period}期</td>
+            <td class="tdContent">￥{$vo.money|default=0}</td>
+            <td class="tdContent">{$vo.cancel_times|default=0}次</td>
+            <td class="tdContent">{$vo.cancel_time|date="Y-m-d H:i",###}</if></td> 
+            <td class="tdContent">{$vo.remark}</td>
+        </tr>
+        </volist>
+    </tbody></table>
+<div data="fragment-2" id="pager" style="float: right; text-align: right; width: 500px; padding-right: 0px;" class="yahoo2 ajaxpagebar">{$list.page}</div>
+</div>
+<div style="clear: both;">
+</div>
+
+<script type="text/javascript">
+$('.ajaxpagebar a').click(function(){
+    try{    
+        var geturl = $(this).attr('href');
+        var id = $(this).parent().attr('data');
+        var x={};
+        $.ajax({
+            url: geturl,
+            data: x,
+            timeout: 5000,
+            cache: false,
+            type: "get",
+            dataType: "json",
+            success: function (d, s, r) {
+                  if(d) $("#"+id).html(d.html);//更新客户端竞拍信息 作个判断，避免报错
+            }
+        });
+    }catch(e){};
+    return false;
+})
+</script>

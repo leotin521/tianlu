@@ -1,0 +1,41 @@
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">充值处理</div>
+<div class="form2">
+	<form method="post" action="__URL__/doEdit" onsubmit="return subcheck();">
+	<input type="hidden" name="id" value="{$id}" />
+	<div id="tab_1">
+        <dl class="lineD"><dt>充值结果：</dt><dd><htmlA:radio id="status" default="3|充值失败,1|充值成功"/></dd></dl>
+        <if condition="$img">
+        <dl>
+        <dt>打款凭证：</dt>
+        <volist name='img' id='vo' >
+            <dd><a href="{$vo}" target="_blank" title="点击查看大图"><img src="{$vo}" width=130 /></a></dd>
+        </volist>
+        </dl>
+        </if>
+	</div><!--tab1-->
+	
+	<div class="page_btm">
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+</div>
+
+</div>
+<script type="text/javascript">
+var cansub = true;
+function subcheck(){
+	if(!cansub){
+		alert("请不要重复提交，如网速慢，请等待！");
+		return false;	
+	}
+	
+	if($("input[name='status']:checked").val()!=1 && $("input[name='status']:checked").val()!=3){ui.error("请选择充值结果");return false;}
+	else{
+		cansub = false;
+		return true;
+	}
+}
+</script>

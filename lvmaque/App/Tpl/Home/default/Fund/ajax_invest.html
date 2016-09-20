@@ -1,0 +1,184 @@
+<div  id="tcc"></div>
+<form class="ajax-invest" method="post" name="investForm" id="investForm" action="__URL__/investmoney">
+        <input type="hidden" name="T_borrow_id" id="T_borrow_id" value="{$vo.id}" />
+	<input type="hidden" name="T_time_unit" id="T_time_unit" value="{$vo.time_unit}" />
+          <input type="hidden" name="chooseWay" id="chooseWay" value="{$chooseway}" />
+	<input type="hidden" name="transfer_invest_num" id="transfer_invest_num" value="{$num}" />
+        <input type="hidden" name="per_transfer" id="per_transfer" value="{$vo.per_transfer}" />
+          <div class="payment">
+                <h2><span>确认付款</span>
+                    <a href="javascript:;" id="btnClose">关闭</a></h2>
+              <div style="clear: both"></div>
+        <div class="payB">
+                <table>
+                    <tr>
+                        <td>投资金额</td>
+                        <td>实际支付金额</td>
+                        <td>到期总回款</td>
+                        <td>净收益</td>
+                    </tr>
+                    <tr>
+                        <td><span>{$num}元</span></td>
+                        <td><span data-value="{$investMoney}" id="investMoney">{$num}元</span></td>
+                        <td><span>{$receive_account}元</span></td>
+                        <td><span data-value="{$jingli}" id="backMoney">{:round($jingli,2)}元</span></td>
+                    </tr>
+                </table>
+            <ul <if condition="$need_money eq 0">class="normal"</if>  id="needMoney" data-value="{$need_money}">
+            <li>账户余额&nbsp;:&nbsp; <span>{$account_money}</span>元</li>
+            <if condition="$need_money gt 0">
+                <li>还需金额&nbsp;:&nbsp; <span>{$need_money}</span>元</li>
+                <li>
+                    <a href="__APP__/member/charge#fragment-1" target="_blank" style="color: #fff;margin-top: 10px;">立即充值</a>
+                </li>
+                <else/>
+                <li>支付&nbsp;:&nbsp; {$investMoney}元</li>
+                <li>支付后余额&nbsp;:&nbsp; {$account_money - $investMoney}元</li>
+            </if>
+            </ul>
+
+            <p>优惠券&nbsp;:&nbsp;
+            <if condition="empty($expand_list)">您暂且没有使用的优惠券
+            <else />
+
+                <input type="radio" name="lingdu" id="zero" checked><label for="zero">最高面额</label><input type="radio" name="lingdu" id="zero_bb"><label for="zero_bb">即将到期</label><img id="reset" src="__APP__/Style/M/images/refresh.jpg" title="重选"><a target="_blank" href="{:U('/member/promotion/coupon')}">了解详情</a>
+                <span>可减&nbsp;:&nbsp;<em id="discountAccount">0</em>元</span></p>
+            <div id="max_big">
+            <volist name="expand_list" id="vo" key="k">
+                <p class="ti_more <if condition='$k gt 1'>color_shallow</if>  <if condition="$investMoney lt $vo['invest_money']">ti_disable</if> " id="big_order{$k}">
+                <if condition="$investMoney lt $vo['invest_money']">
+                    <input type="radio"  name="coupon[]" value="{$vo.id}" disabled class="J_coupon" data-value="{$vo.money}" data-limit="{$vo.invest_money}" id="coupon_{$vo.id}"><i>{$vo.coupon_type}{$vo.money}元</i><em>满{$vo.invest_money}元抵{$vo.money}元</em><em>{$vo.expired_time|date='Y-m-d',###}到期</em>
+                    <if condition='$k eq 1'>
+                    <img src="__ROOT__/Style/H/images/icon/jian.png" />
+                    </if>
+                    <else/>
+                    <input type="radio"  name="coupon[]" value="{$vo.id}" class="J_coupon" data-value="{$vo.money}" data-limit="{$vo.invest_money}" id="coupon_{$vo.id}"><i>{$vo.coupon_type}{$vo.money}元</i><em>满{$vo.invest_money}元抵{$vo.money}元</em><em>{$vo.expired_time|date='Y-m-d',###}到期</em>
+                    <if condition='$k eq 1'>
+                    <img src="__ROOT__/Style/H/images/icon/jian.png" />
+                    </if>
+                </if>
+                </p>
+            </volist>
+            </div>
+            <div id="max_expired" style="display: none;">
+            <volist name="expand_expired_list" id="vo" key="k">
+                <p class="ti_more <if condition='$k gt 1'>color_shallow</if>  <if condition="$investMoney lt $vo['invest_money']">ti_disable</if> " id="expired_order{$k}">
+                <if condition="$investMoney lt $vo['invest_money']">
+                    <input type="radio"  name="coupon[]" value="{$vo.id}" disabled class="J_coupon" data-value="{$vo.money}" data-limit="{$vo.invest_money}" id="coupon_{$vo.id}"><i>{$vo.coupon_type}{$vo.money}元</i><em>满{$vo.invest_money}元抵{$vo.money}元</em><em>{$vo.expired_time|date='Y-m-d',###}到期</em>
+                    <if condition='$k eq 1'>
+                    <img src="__ROOT__/Style/H/images/icon/jian.png" />
+                    </if>
+                    <else/>
+                    <input type="radio"  name="coupon[]" value="{$vo.id}" class="J_coupon" data-value="{$vo.money}" data-limit="{$vo.invest_money}" id="coupon_{$vo.id}"><i>{$vo.coupon_type}{$vo.money}元</i><em>满{$vo.invest_money}元抵{$vo.money}元</em><em>{$vo.expired_time|date='Y-m-d',###}到期</em>
+                    <if condition='$k eq 1'>
+                    <img src="__ROOT__/Style/H/images/icon/jian.png" />
+                    </if>
+                </if>
+                </p>
+            </volist>
+            </div>
+            <if condition="count($expand_list) gt 3">
+                <p class="ti_more"><span style='margin:-10px auto;'><a href="__APP__/member/promotion/coupon/">查看更多优惠券>></a></span></p>
+              </if>
+              </if>
+            <p class="p_bb"></p>
+
+            <li>
+                <p class="height_36 ">支付密码
+                    <if condition="$has_pin eq 'yes'">
+                    <input type="password" maxlength="20" id="T_pin" name="T_pin" style="border: 1px solid #dedede;" />
+                    <else/>
+                    <a href='__APP__/member/verify?curMod=password#passwordAnchor' target="_blank" class="center">请设置支付密码</a>
+                    </if>
+                </p>
+            </li>
+            <if condition="!empty($vo['password'])">
+                <li>
+                    <h6>定向标密码</h6>
+                    <input type="password"  maxlength="20" id="borrow_pass" name="borrow_pass" />
+                </li>
+            </if>
+
+            <!-- <p class="p_a"><input type="checkbox" value="1" name="" id="pay_nxp"><label for="pay_nxp">同意按<a href="/dtbht/index.html">《定投宝投标合同范本》</a>的格式和条款生成借款协议</label></p> -->
+            <a href="javascript:;" class="pay-a" onclick="F_PostData();" >立即投资</a>
+        </div>
+     </div>
+</form>
+<script type="text/javascript">
+$('#zero').live('click', function() {
+    $('#max_big').css('display','block');
+    $('#max_expired').css('display','none');
+
+})
+$('#zero_bb').live('click', function() {
+    $('#max_big').css('display','none');
+    $('#max_expired').css('display','block');
+
+})
+
+borrow_min = {$vo.borrow_min|default=0};
+borrow_max = {$vo.borrow_max|default=0};
+
+$('#btnClose').click( function() {
+    $('#investForm').remove();
+    $('#tcc').remove();
+})
+var investMoney = $('#investMoney');
+//var backMoney = $('#backMoney');
+var discountMoney;
+var actualMoneyValue;
+$('.J_coupon').live('click', function() {
+    discountMoney=0;
+    $('.J_coupon').each( function() {
+        var limitMoney = parseFloat($(this).attr('data-limit'));
+        if($(this).attr('checked') && (parseFloat(investMoney.attr('data-value')) >= limitMoney || limitMoney == 0)){
+            discountMoney += parseFloat($(this).attr('data-value'));
+        }else {
+            $(this).attr('checked', false);
+        }
+    })
+     actualMoneyValue = parseFloat(investMoney.attr('data-value'));
+//    var backMoneyValue = parseFloat(backMoney.attr('data-value'));
+    investMoney.html((actualMoneyValue - discountMoney).toFixed(2) + "元");
+//    backMoney.html((backMoneyValue + discountMoney).toFixed(2) + "元");
+    $('#discountAccount').html(discountMoney);
+})
+
+// 冒泡排序
+function bubbleSort(array) {
+    var i = 0,
+    len = array.length,
+    j, d;
+    for (; i < len; i++) {
+        for (j = 0; j < len; j++) {
+            if (array[i] < array[j]) {
+                d = array[j];
+                array[j] = array[i];
+                array[i] = d;
+            }
+        }
+    }
+    return array;
+}
+
+$('#T_pin').live('keydown', function() {
+    var needMoney = $('#needMoney').attr('data-value');
+    if( needMoney > 0 ) {
+		layer.msg("请先充值",{icon:0});
+        return false;
+    }
+});
+    $("#reset").click(function(){
+        var arrays = new Array();
+        var objs = document.getElementsByTagName("input");
+        for (var i = 0; i < objs.length; i++) {
+            if (objs.item(i).type == 'radio') {
+                var id = "#" + objs.item(i).id;
+                $(id).removeAttr("checked");
+                discountMoney = 0;
+                $('#discountAccount').html(discountMoney);
+                investMoney.html(actualMoneyValue);
+            }
+        }
+    })
+</script>

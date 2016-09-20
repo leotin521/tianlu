@@ -1,0 +1,147 @@
+<include file="Public:_header_common" />
+<title>{$glo.index_title}</title>
+<meta name="keywords" content="{$glo.web_keywords}" />
+<meta name="description" content="{$glo.web_descript}" />
+<link rel="stylesheet" href="__ROOT__/Style/N/css/lv.css">
+
+<style type="text/css">
+    .ul_scre li a.list_active {
+        margin-top: 22px;
+    }
+</style>
+<script type="text/javascript" src="__ROOT__/Style/H/js/common.js" language="javascript"></script>
+<script type="text/javascript">
+    var Transfer_invest_url = "__APP__/tinvest";
+</script>
+<script type="text/javascript" src="__ROOT__/Style/Common/js/area.js"></script>
+<include file="Public:_header_main" />
+<tagLib name="htmlA" />
+<script type="text/javascript">
+    var url = window.location.href;
+    if(url)var allargs = url.split("?")[1];
+    if(allargs)var tab1= allargs.split("=")[1];
+    if(tab1)var tab= tab1.split("&")[0];
+
+    $(function(){
+        if(tab==9){
+            $('#a1').addClass("show_style");
+        }
+        if(tab==4){
+            $('#a2').addClass("show_style");
+            $('#a1').removeClass("show_style");
+        }
+        if(tab==6){
+            $('#a3').addClass("show_style");
+            $('#a1').removeClass("show_style");
+        };
+        if(tab==7){
+            $('#a4').addClass("show_style");
+            $('#a1').removeClass("show_style");
+        };
+        if(tab==10){
+            $('#a5').addClass("show_style");
+            $('#a1').removeClass("show_style");
+            $('#black').attr('style','display:block');
+            $('#con').attr('style','display:none');
+        };
+    });
+
+</script>
+<div class="list_box clearfix">
+    <ul class="list_boxUl allbgcolor">
+        <volist name="navigate" id="vo">
+            <li><a href="{$vo.type_url}" <if condition="$vo['id'] eq 19 ">class="list_cur"</if> >{$vo.type_name}</a></li>
+        </volist>
+    </ul>
+    <ul class="ul_scre">
+        <li style="text-align:left; width:82px;">筛选条件&nbsp;:&nbsp;</li>
+        <php>foreach($searchMap['borrow_status'] as $key=>$v){</php>
+        <php>if($key==$searchUrl['borrow_status']['cur']){</php>
+        <li><a class="list_active allbgcolor">{$v}</a></li>
+        <php>}else{</php>
+        <li><a class="" href="__URL__/index.html?type=search&{$searchUrl.borrow_status.url}&borrow_status={$key}">{$v}</a></li>
+        <php>}</php>
+        <php>}</php>
+    </ul>
+    <ul class="ul_scre">
+        <li style="text-align:left; width:82px;">信用等级&nbsp;:&nbsp;</li>
+        <php>foreach($searchMap['leve'] as $key=>$v){</php>
+        <php>if($key==$searchUrl['leve']['cur']){</php>
+        <li><a class="list_active allbgcolor">{$v}</a></li>
+        <php>}else{</php>
+        <li><a class="a_lb_2" href="__URL__/index.html?type=search&{$searchUrl.leve.url}&leve={$key}">{$v}</a></li>
+        <php>}</php>
+        <php>}</php>
+    </ul>
+    <ul class="ul_scre">
+        <li style="text-align:left; width:82px;">项目周期&nbsp;:&nbsp;</li>
+        <php>foreach($searchMap['borrow_duration'] as $key=>$v){</php>
+        <php>if($key==$searchUrl['borrow_duration']['cur']){</php>
+        <li><a href="__ROOT__/invest/index.html"  class="list_active allbgcolor">{$v}</a></li>
+        <php>}else{</php>
+        <li><a class="" href="__URL__/index.html?type=search&{$searchUrl.borrow_duration.url}&borrow_duration={$key}">{$v}</a></li>
+        <php>}</php>
+        <php>}</php>
+    </ul>
+</div>
+<div class="index_sca">
+    <h2 class="allbgcolor">投资列表</h2>
+    <volist name="list.list" id="vb">
+        <div class="index_scaSon">
+            <h3>{:getIco($vb)}<a href="{$vb.id|getInvestUrl=###}"title="{$vb.borrow_name}" class="BL_name">{$vb.borrow_name|cnsubstr=###,30}</a></h3>
+            <div class="index_scaSonS">
+                <h4>{$vb.borrow_money|getMoneyFormt=###}元</h4>
+                <p>投资总额</p>
+            </div>
+            <div class="index_scaSonSc"><img src="__ROOT__/Style/N/images/index_scaS.png" alt=""></div>
+            <div class="index_scaSonS">
+                <h4>{$vb.borrow_interest_rate}%</h4>
+                <p>年化收益</p>
+            </div>
+            <div class="index_scaSonSc"><img src="__ROOT__/Style/N/images/index_scaS.png" alt=""></div>
+            <div class="index_scaSonS">
+                <h4>{$vb.need}元</h4>
+                <p>可投金额</p>
+            </div>
+            <div class="index_scaSonSc"><img src="__ROOT__/Style/N/images/index_scaS.png" alt=""></div>
+            <div class="index_scaSonS">
+                <h4>{$vb.borrow_duration}<if condition="$vb['repayment_type'] eq 1">天
+                    <else/>
+                    个月</if></h4>
+                <p>投资期限</p>
+            </div>
+            <div class="index_scaSonS index_scaSonSL">
+				<span style="background: url('__ROOT__/Style/H/images/progressbar_detail.png') repeat;display: block;font-size: 16px;height: 74px;line-height: 75px;float: left;text-align: center;width: 75px; margin-left:13px; background-position:-<php>echo 	
+bcmul(intval($vb['progress']),75);</php>px 0"><em style="color: #e25353;">{$vb.progress|intval}%</em></span>
+			</div>
+            <div class="index_scaSonSR">
+                <p>项目进度&nbsp;:&nbsp;{$vb.progress}%</p>
+                <p>
+                    <if condition="$vb.borrow_status eq 3"> <a href="javascript:;">
+                        <img src="__ROOT__/Style/H/images/status/sanbiao-yjlb.png" /></a>
+                        <elseif condition="$vb.borrow_status eq -1"/>
+                        <a href="{$vb.id|getInvestUrl=$vb.borrow_type}"><img src="__ROOT__/Style/H/images/status/sanbiao_yugao.png"  /></a>
+                        <elseif condition="$vb.borrow_status eq 4"/>
+                        <a href="javascript:;"><img src="__ROOT__/Style/H/images/status/sanbiao-zzfs.png" /></a>
+                        <elseif condition="$vb.borrow_status eq 6"/>
+                        <a href="javascript:;"><img  src="__ROOT__/Style/H/images/status/index_scaIn.png"  /></a>
+                        <elseif condition="$vb.borrow_status gt 6"/>
+                        <a href="{$vb.id|getInvestUrl=$vb.borrow_type}"><img src="__ROOT__/Style/H/images/status/sanbiao-yjwc.png"  /></a>
+                        <else/>
+                        <a href="{$vb.id|getInvestUrl=$vb.borrow_type}"><img src="__ROOT__/Style/H/images/status/index_scal.png" /></a>
+                    </if>
+                </p>
+            </div>
+        </div>
+    </volist>
+    <if condition="empty($list['list'])">
+                    <div style="width:1000px;margin:0px auto;text-align: center;background-color: #fff;height: 100px;line-height: 50px;">   该搜索条件下没有符合条件的项目</div>
+    <else/>
+        <div class="list1_page">
+            {$list.page}
+        </div>
+    </if>
+   
+</div>
+<!--中部结束-->
+<include file="Public:_footer" />

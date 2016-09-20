@@ -1,0 +1,151 @@
+<!doctype html>
+<html class="no-js">
+<!--我的红包页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>我的红包</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+</head>
+
+<body>
+<header>
+    <h1>我的红包</h1>
+   <a href="__URL__/index" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+</header>
+
+<div class="mod-myred">
+    <div class="mod-myred-top">
+        <form class="am-form">
+            <div class="am-g">
+                <div class="am-u-sm-3"><label for="money" class="num num-zt">红包金额：</label></div>
+                <div class="am-u-sm-5"><input type="text" id="money" class="am-radius" name="money" value="" /></div>
+                <div class="am-u-sm-4"><button type="button" class="am-btn am-btn-danger am-btn-block am-radius" id="redbtn" >生成红包连接</button></div>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- 红包分享弹窗 -->
+    <div class="am-modal myred-modal" tabindex="-1" id="myred-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">分享红包
+                <a href="javascript: void(0)" class="btn btn-cancel" onclick="shuaxin();">取消</a>
+                <a href="javascript: void(0)" class="btn btn-cancel" onclick="shuaxin();">取消</a>
+            </div>
+            <div class="am-modal-bd ">
+                <div class="am-panel-bd mod-myred-fenxiang num num-sm" id="messa">
+                    亲们，这是我给你们的红包，快来领取吧！<br/>
+                    <font id="uuu" color="fa4343">http://newbz.lvmaque.biz/b/pktijrN</font>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!---------------------->
+
+    <div class="am-tabs am-padding-top mod-bonus">
+        <ul class="am-tabs-nav am-nav am-nav-tabs am-g mod-tab-btn-group am-container">
+            <li class="am-u-sm-4"><a class="am-btn am-btn-block" href="__URL__/redbaolist">已生成</a></li>
+            <li class="am-u-sm-4 am-active"><a class="am-btn am-btn-block" href="__URL__/redbaolist2">已抢到</a></li>
+            <li class="am-u-sm-4"><a class="am-btn am-btn-block" href="__URL__/redbaolist3">已过期</a></li>
+        </ul>
+
+        <div>
+            <div class="am-tab-panel">
+                <volist name="datas" id="vos">
+                    <ul class="am-g mod-myred-li mod-myred-li-one">
+                        <li class="am-u-sm-4 am-text-center">红包金额 <br><span><font color="#fa4343">{$vos.bonus_money}元</font></span></li>
+                        <li class="am-u-sm-4 am-text-center">领取时间<br> <span>{$vos.take_time}</span></li>
+                        <li class="am-u-sm-4 am-text-center">来源<br><span>{$vos.source_name}</span></li>
+                    </ul>
+                </volist>
+                <span>{$page}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+<script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+<script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+<script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+<script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+
+<!--红包分享提示-->
+<script>
+    $(function(){
+        /*初始化隐藏*/
+        $("#tab2").hide();
+        $("#tab3").hide();
+
+
+        var $modal = $('#myred-modal');
+        $('#redbtn').on('click', function(e) {
+            var s = /^[0-9]*$/;
+            var $target = $(e.target);
+            var urls = $("#urls").val();
+            var money = $("#money").val();
+            if(money == ''){
+                return setError("红包不允许为空！");
+            }
+            if(money > 200){
+                return setError("红包上限200元");
+            }
+            if(isNaN(money)){
+                return setError("红包金额必须为数字");
+            }
+            if (($target).hasClass('js-modal-open')) {
+                $modal.modal();
+            } else if (($target).hasClass('js-modal-close')) {
+                $modal.modal('close');
+            } else {
+
+                $.ajax({
+                    url: "__URL__/send/",
+                    data: {"bonus_money":money},
+                    cache: false,
+                    type: "post",
+                    dataType: "json",
+                    success: function (d) {
+                        if(d.status == 1){
+                            $("#uuu").html(d.ur1);
+                        }else{
+                            return setError(d.message);
+                        }
+                    }
+                });
+                $modal.modal('toggle');
+
+            }
+        });
+    });
+
+    function shuaxin(){
+        window.location.reload();
+    }
+    function setError(tip){
+        layer.msg(tip,{icon:2});
+        return false;
+    }
+
+    function setOk(tip){
+        layer.msg(tip,{icon:1});
+        //window.location.href="__URL__/debt_1";
+    }
+
+    function tishi(urls){
+        $().toastmessage('showSuccessToast', "亲们，这是我给你们的红包快来领取吧！"+urls);
+        //setOk("亲们，这是我给你们的红包快来领取吧！"+urls);
+    }
+</script>
+</body>
+
+</html>

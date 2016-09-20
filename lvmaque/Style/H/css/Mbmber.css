@@ -1,0 +1,76 @@
+/*****************************************member*******************************************************************/
+#container { width:980px; margin:0 auto; padding:10px 0; }
+#hy_left {  float:left; }
+#hy_right { width:805px; height:auto; float:right; }
+.datum { background-image:url(../../M/images/account/uctop.jpg); width: 760px; height: 35px; }
+.datum strong { float: left; padding-top:10px; padding-left:20px; }
+.divtitle, .top_account_bg { text-indent:20px; font-weight:bold; color:#333333; padding:10px 0px; background:#F6F6F6 }
+.loding { text-align:center; color:#009900; font-size:24px; font-weight:bold; font-family:"微软雅黑" }
+.contentright { text-align:left; overflow:hidden; border:1px solid #E9E8E7; border-top:0; padding-bottom:20px;clear:both;padding-top:20px }
+.fontred { color:#FF0000; font-weight:bold }
+.text1 { width: 330px; height: 17px; padding: 3px 3px 0; background-color:#fff; border: 1px solid #d0d0d0; margin-right: 4px; vertical-align: middle; }
+.text2 { width:325px;height:30px;line-height:30px;padding: 0px 0px 0px; background-color:#fff; border: 1px solid #d0d0d0; margin-right: 4px; vertical-align: middle;text-indent: 5px;}
+.textarea1 { width: 600px; height: 150px; background-color:#fff; border: 1px solid #d0d0d0;text-indent: 5px; }
+.selectStyle { border-width: 1px; border-style: solid; border-color: #7F9DB9; background-color:#fff; padding: 2px; }
+
+.userLink { color: #000000; height: 24px; float: right; margin-right: 15px; margin-top:5px; font-size: 24px; font-weight: 7; font-family: 楷体; }
+#ulink1, #ulink2 { color: #3a3a3a; }
+#ubottom1, #ubottom2, #ubottom3, #ubottom4, #ubottom5 { background-image: url(../../M/images/account/ucbottom.jpg); width: 760px; height: 10px; }
+.xtitle { cursor:pointer }
+.xtitle img{ margin-top:-12px;}
+.dv_list { border: #ccc 1px solid; overflow:hidden; width: 374px; height:370px; display:block; overflow:hidden; float:left; margin-bottom:6px; }
+.dv_list_2 { border: #ccc 1px solid; overflow:hidden; width: 374px; height:260px; display:block; overflow:hidden; float:left; margin-bottom:6px; }
+.dv_list_2k { border: #ccc 1px solid; overflow:hidden; width: 756px; height:175px; display:block; overflow:hidden; float:left; margin-bottom:6px; }
+.dv_kx { width:6px; display:block; float:left; height:150px; }
+.accounttb { width:374px; overflow:hidden; }
+.accounttbk { width:756px; overflow:hidden; }
+.lieb1 { float: left; padding-top: 10px; margin-left:0px; }
+.titleyh { POSITION: relative; PADDING-LEFT: 40px; BACKGROUND: url(../images/accounttj.jpg) no-repeat; HEIGHT: 33px; line-height:33px; FONT-WEIGHT: bold; text-align:left; }
+.titleyhk { POSITION: relative; PADDING-LEFT: 40px; BACKGROUND: url(../images/accounttjk.jpg) no-repeat; HEIGHT: 33px; line-height:33px; FONT-WEIGHT: bold; text-align:left; }
+.tdContent{  vertical-align: middle; width: 520px; height: 28px; color: Gray; }
+
+/*****************************************member结束*******************************************************************/
+.timeInput_Day { height: 15px; width: 95px; text-align: left; background-color: #fff; padding: 2px; font-size: 12px; margin-right: 4px; vertical-align: middle; border: 1px #ccc solid; }
+.tdEven { background-color: #f9f9f9; }
+.tdHeard { text-align: center; vertical-align: middle; background-color: #f9f9f9; font-size: 12px; font-weight: bold; height: 35px; border: 1px #cee1ee solid; }
+DIV.yahoo2 { font-size: 12px; width: 738px; line-height: 28px; overflow: hidden; padding-top: 10px; text-align: right; padding-right: 14px; }
+DIV.yahoo2 A { padding: 4px 8px; margin: 2px; text-decoration: none; color: #000; border: 1px solid #ccc; font-size: 12px; }
+DIV.yahoo2 A:hover { border: 1px solid #B8B8B8; color: #FFF; background-color: #B8B8B8; }
+DIV.yahoo2 A.current { border: 1px solid #B8B8B8; color: #FFF; background-color: #B8B8B8; cursor: text; }
+DIV.yahoo2 A.disabled { color: #888; background-color: #fff; border: 1px solid #ccc; cursor: text; }
+DIV.yahoo2 A.last { padding: 4px 8px; margin: 2px; text-decoration: none; color: #888; font-size: 12px; border: 1px solid #ccc; }
+.jiben01 { width: 685px; float: left; margin: 0px; padding: 0px; border-collapse: collapse; text-align: left; }
+.tdTitle { text-align: right; line-height: 50px; padding-left: 3px; vertical-align: middle; width: 120px; font-weight: bold;  }
+.tdTitle01 { text-align: right; line-height: 50px; padding-left: 3px; vertical-align: middle; width: 120px; font-weight: bold;  }
+.tdTip { text-align: left; padding-left: 10px; vertical-align: middle; }
+.trBg { width: 100%; }
+.radioPos { padding-top: 2px; vertical-align:middle; }
+.fontred { color: #bf0707; font-weight: bold; }
+.divtitle { height: 30px; line-height: 30px; text-align: left; font-size: 12px; font-weight: bold; background-color: #F6F6F6; text-indent: 25px; margin-top: 8px; margin-bottom: 1PX; }
+.loding { text-align:center; color:#009900; font-size:24px; font-weight:bold; font-family:"微软雅黑" }
+.tagMenu { height: 30px; line-height: 28px; width: 100%; background: #fff; position: relative; border-bottom: 1px solid #cccccc; overflow:visible; }
+.tagMenu a:hover { color: #bf0707; }
+.tagMenu ul { height: 30px; left: 0px; }
+.box { height:100%; position: relative; }
+.box .tl, .box .tr, .box .bl, .box .br { background:url(../images/beijin/sijiao.jpg) no-repeat; font-size: 1px; height: 12px; position: absolute; width: 12px; z-index: 999; }
+.box .tl { background-position: left 0; left: 0; top: 0; }
+.box .tr { background-position: right 0; right: 0; top: 0; }
+.ui-tabs-hide { display: none; }
+
+.Menubox1 {  height:39px; }
+.Menubox1  ul{display:block;height:38px;border-bottom:1px solid #d9d9d9}
+.Menubox1 li { float:left;  margin-right:3px; font-size:14px;text-align:center;background:#fff  }
+.Menubox1 li.ui-tabs-selected {border-top: 4px solid #1181d0;border-left:1px solid #d9d9d9;border-right:1px solid #d9d9d9;}
+.Menubox1 li A { color:gray;display:block;height:35px; padding:0 20px;line-height: 35px;}
+.Menubox1 li.ui-tabs-selected a { color:#4f4f4f;}
+.Nav{background:url(../images/navbg.png) bottom repeat-x;}
+
+/****个人信息*****/
+.person_wrz{width:590px;margin-left:62px;font-size: 12px;font-weight: bold;}
+.person_wrz tr{height:50px;line-height:50px;}
+.person_wrz tr td{width:235px;}
+.person_wrz tr td  h1{float:left;text-align:right;font-size: 12px;font-weight: bold;width: 62px;}
+.person_wrz tr td span{margin-left:14px;}
+
+
+

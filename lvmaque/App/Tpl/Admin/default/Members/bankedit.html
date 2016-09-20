@@ -1,0 +1,39 @@
+<tagLib name="htmlA" />
+<form method="post" action="__URL__/dobankEdit">
+		<!--银行卡信息-->
+		<div id="tab_4">
+		<dl class="lineD"><dt>银行账号：</dt><dd><htmlA:input id="bank_num"  value="{$vo.bank_num}"/></dd></dl>
+		<dl class="lineD"><dt>银行名称：</dt><dd><htmlA:select id="bank_name" value="key|vo.bank_name" datakey='bank_list' class="selectStyle" addstr='style="width: 110px;"' tip="*"/></dd></dl>
+		<dl class="lineD"><dt>开户银行所在省份：</dt><dd>
+		<select id="bank_province" name="bank_province" onchange="sel('bank_province','bank_city')">
+           <option>请选择</option>
+         <volist name="province" id="pro">
+          <if condition="$vo.bank_province eq $pro.id ">
+           <option value="{$pro.id}" selected="selected" >{$pro.name}</option>
+          <else />
+           <option value="{$pro.id}">{$pro.name}</option>
+          </if>
+		 </volist>
+        </select>
+		</dd></dl>
+		<dl class="lineD"><dt>开户银行所在市：</dt><dd>
+		<select id="bank_city" name="bank_city" onchange="sel('bank_city','')">
+             <option value="">请选择</option>
+         <foreach name="city" item="ci">
+           <if condition="$vo.bank_city eq $ci.id ">
+             <option value="{$ci.id}" selected="selected" >{$ci.name}</option>
+           <else />	
+             <option value="{$ci.id}" >{$ci.name}</option>
+           </if>
+		 </foreach>
+        </select>
+		</dd></dl>
+		<dl class="lineD"><dt>开户行支行名称：</dt><dd><htmlA:input id="bank_address" value="{$vo.bank_address}" tip="如:高新区支行" /></dd></dl>
+		</div>
+		<!--银行卡信息-->
+		<div class="page_btm">
+		<input type="hidden" name="id" value="{$vo.id}" />
+        <input type="hidden" name="uid" value="{$vo.uid}" />
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+</form>

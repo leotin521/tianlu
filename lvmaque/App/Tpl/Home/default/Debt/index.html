@@ -1,0 +1,149 @@
+<include file="Public:_header_common" />
+<title>{$glo.index_title}</title>
+<meta name="keywords" content="{$glo.web_keywords}" />
+<meta name="description" content="{$glo.web_descript}" />
+<script type="text/javascript" src="__ROOT__/Style/H/js/common.js" language="javascript"></script>
+<script type="text/javascript">
+var Transfer_invest_url = "__APP__/tinvest";
+</script>
+<script type="text/javascript" src="__ROOT__/Style/Common/js/area.js"></script>
+<include file="Public:_header_main" />
+<script type="text/javascript">
+var url = window.location.href;
+if(url)var allargs = url.split("?")[1];
+if(allargs)var tab1= allargs.split("=")[1];
+if(tab1)var tab= tab1.split("&")[0];
+
+$(function(){ 
+    if(tab==9){
+        $('#a1').addClass("show_style");
+    }
+    if(tab==4){
+        $('#a2').addClass("show_style");
+        $('#a1').removeClass("show_style");
+    }
+    if(tab==6){
+        $('#a3').addClass("show_style");
+        $('#a1').removeClass("show_style");
+    };
+    if(tab==7){
+        $('#a4').addClass("show_style");
+        $('#a1').removeClass("show_style");
+    };
+    if(tab==10){
+        $('#a5').addClass("show_style");
+        $('#a1').removeClass("show_style");
+        $('#black').attr('style','display:block');
+        $('#con').attr('style','display:none');
+    };
+});
+
+</script>
+  <script language="javascript">
+	$(function() {
+		$(".borrowlistp").bind("mouseover", function(){
+			$(this).css("background", "#fce8e1");
+		})
+
+		$(".borrowlistp").bind("mouseout", function(){
+			$(this).css("background", "#fff");
+		})
+
+
+		$(".borrowlistl").bind("mouseover", function(){
+			$(this).css("background", "#f8f8f8");
+		})
+
+		$(".borrowlistl").bind("mouseout", function(){
+			$(this).css("background", "#fff");
+		})
+	});
+
+</script>
+	<div class="list_box clearfix">
+		<ul class="list_boxUl allbgcolor">
+		<volist name="navigate" id="vo">
+            <li><a href="{$vo.type_url}" <if condition="$vo['id'] eq 41 ">class="list_cur"</if> >{$vo.type_name}</a></li>
+        </volist>
+		</ul>
+		<ul class="ul_scre">
+			<li style="text-align:left; width:82px;">标的状态&nbsp;:&nbsp;</li>
+	        <php>foreach($searchMap['status'] as $key=>$v){</php>
+	        <php>if($key==$searchUrl['status']['cur']){</php>
+	        <li><a class="list_active allbgcolor">{$v}</a></li>
+	        <php>}else{</php>
+	        <li><a href="__URL__/index.html?type=search&{$searchUrl.status.url}&status={$key}">{$v}</a></li>
+	        <php>}</php>
+	        <php>}</php>
+		</ul>
+		<ul class="ul_scre">
+			<li style="text-align:left; width:82px;">年化收益&nbsp;:&nbsp;</li>
+			
+			<php>foreach($searchMap['interest_rate'] as $key=>$v){</php>
+	        <php>if($key==$searchUrl['interest_rate']['cur']){</php>
+	        <li><a class="list_active allbgcolor">{$v}</a></li>
+	        <php>}else{</php>
+	        <li><a href="__URL__/index.html?type=search&{$searchUrl.interest_rate.url}&interest_rate={$key}">{$v}</a></li>
+	        <php>}</php>
+	        <php>}</php>
+		</ul>
+		<ul class="ul_scre">
+			<li style="text-align:left; width:82px;">项目周期&nbsp;:&nbsp;</li>
+			
+			
+			<php>foreach($searchMap['borrow_duration'] as $key=>$v){</php>
+	        <php>if($key==$searchUrl['borrow_duration']['cur']){</php>
+	        <li><a class="list_active allbgcolor" href="__ROOT__/invest/index.html">{$v}</a></li>
+	        <php>}else{</php>
+	        <li><a href="__URL__/index.html?type=search&{$searchUrl.borrow_duration.url}&borrow_duration={$key}">{$v}</a></li>
+	        <php>}</php>
+	        <php>}</php>
+		</ul>
+	</div>
+	<div class="index_sca">
+		<h2 class="allbgcolor">债权转让列表</h2>
+		<volist name="list.data" id="vb">
+		<div class="index_scaSon">
+			<h3>{:getIco($vb)}<a href="/debt/detail/id/{$vb.debt_id}" title="{$vb.borrow_name}" class="BL_name">{$vb.borrow_name|cnsubstr=###,12}</a></h3>
+			<div class="index_scaSonS">
+				<h4>{$vb.amount_money|default=0}元</h4>
+				<p>转让金额</p>
+			</div>
+			<div class="index_scaSonSc"><img src="__ROOT__/Style/N/images/index_scaS.png" alt=""></div>
+			<div class="index_scaSonS">
+				<h4>{$vb.interest_rate}%</h4>
+				<p>年化收益</p>
+			</div>
+			<div class="index_scaSonSc"><img src="__ROOT__/Style/N/images/index_scaS.png" alt=""></div>
+			<div class="index_scaSonS">
+				<h4>{$vb.money|default=0}元</h4>
+				<p>可投金额</p>
+			</div>
+			<div class="index_scaSonSc"><img src="__ROOT__/Style/N/images/index_scaS.png" alt=""></div>
+			<div class="index_scaSonS">
+				<h4>{$vb.surplus|default=0}天</h4>
+				<p>剩余期限</p>
+			</div>
+			<div class="index_scaSonS index_scaSonSL"><span style="background: url('__ROOT__/Style/H/images/progressbar_detail.png') repeat;display: block;font-size: 16px;height: 74px;line-height: 75px;float: left;text-align: center;width: 75px; margin-left:13px; background-position:-<php>echo 	
+bcmul(intval($vb['progress']),75);</php>px 0"><em>{$vb.progress|intval}%</em></span></div>
+			<div class="index_scaSonSR">
+				<p>项目进度&nbsp;:&nbsp;{$vb.progress|intval}%</p>
+				<p>
+					<if condition="$vb.status eq '2'">
+                        <a href="/debt/detail/id/{$vb.debt_id}"><img src="__ROOT__/Style/H/images/status/index_scal.png" /></a>
+                  	<elseif condition="$vb.status eq '4'"/>
+                  		<img src="__ROOT__/Style/H/images/status/sanbiao-yzr.png" />
+                  	</if>
+				</p>
+			</div>
+		</div>
+		</volist>
+                <if condition="empty($list['data'])">
+                    <div style="width:1000px;margin:0px auto;text-align: center;background-color: #fff;height: 100px;line-height: 50px;">   该搜索条件下没有符合条件的项目</div>
+                <else/>
+                    <div class="list1_page">
+                        {$list.page}
+                    </div>
+                </if>
+	</div>
+<include file="Public:_footer" />

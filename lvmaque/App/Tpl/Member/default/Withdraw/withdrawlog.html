@@ -1,0 +1,205 @@
+<include file="default:Public:_header_common"/>
+<style type="text/css">
+.sanjiao {
+	font-size: 14px;
+	font-family: 宋体, sans-serif;
+	height: 8px;
+}
+.sanjiao_ddd1 {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: 1;
+}
+.sanjiao_fff2 {
+	color: #fff;
+	position: absolute;
+	left: 0px;
+	top: 2px;
+	z-index: 2;
+}
+.sanjiao_fff3 {
+	color: #fff;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: 2;
+}
+.sanjiao_ddd4 {
+	position: absolute;
+	left: 0px;
+	top: 2px;
+	z-index: 1;
+}
+</style>
+<style id="poshytip-css-tip-yellow" type="text/css">
+div.tip-yellow {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	font-style: inherit;
+	font-variant: inherit;
+	vertical-align: middle;
+}
+div.tip-yellow td.tip-bg-image span {
+	display: block;
+	font: 1px/1px sans-serif;
+	height: 10px;
+	width: 10px;
+	overflow: hidden;
+}
+div.tip-yellow td.tip-right {
+	background-position: 100% 0;
+}
+div.tip-yellow td.tip-bottom {
+	background-position: 100% 100%;
+}
+div.tip-yellow td.tip-left {
+	background-position: 0 100%;
+}
+div.tip-yellow div.tip-inner {
+	background-position: -10px -10px;
+}
+div.tip-yellow div.tip-arrow {
+	visibility: hidden;
+	position: absolute;
+	overflow: hidden;
+	font: 1px/1px sans-serif;
+}
+</style>
+</head><body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+  <div class="user-main clearfix"> <include file="default:Public:_left"/> 
+
+        <!--交易记录begin-->
+        <div class="user-con user-deal-record">
+            <div class="user-box-1">
+                <div class="user-box-title-1 clearfix">
+                    <h2>提现记录</h2>
+                    <div class="user-box-title-more">
+                        <a href="__ROOT__/member/withdraw/">
+                            <strong>申请提现</strong>
+                        </a>
+                    </div>
+                </div>
+                <div class="user-box-con-2">
+                    <dl class="classify-selected clearfix">
+                        <dt>提现时间</dt>
+                        <dd>
+                            <ul class="classify-selected-list clearfix">
+								<li>
+                                    <a <if condition="$curr_time eq 'time=1'"> class="selected"</if> href="__URL__/withdrawlog?time=1{$curr_type}">全部</a>
+                                </li>
+                                <li>
+                                    <a <if condition="$curr_time eq 'time=2'"> class="selected"</if> href="__URL__/withdrawlog?time=2{$curr_type}">最近7天</a>
+                                </li>
+                                <li>
+                                    <a <if condition="$curr_time eq 'time=3'"> class="selected"</if> href="__URL__/withdrawlog?time=3{$curr_type}">1个月</a>
+                                </li>
+                                <li>
+                                    <a <if condition="$curr_time eq 'time=4'"> class="selected"</if> href="__URL__/withdrawlog?time=4{$curr_type}">3个月</a>
+                                </li>
+                            </ul>
+                            <div class="classify-selected-other clearfix" style="width:450px;">
+                                <span class="classify-selected-other-date">选择日期</span>
+                                <input id="beginDate" type="text" class="input-text-style-1" readonly value="">
+                                <span>-</span>
+                                <input id="endDate" type="text" class="input-text-style-1" readonly value="">
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl class="classify-selected clearfix" style="margin-top:15px;">
+                        <dt>提现状态</dt>
+                        <dd>
+                            <ul class="classify-selected-list clearfix">
+                                <li>
+                                    <a <if condition="$curr_type eq ''"> class="selected"</if> href="__URL__/withdrawlog?{$curr_time}">全部</a>
+                                </li>
+                                <li>
+                                    <a <if condition="$curr_type eq '&type=0'"> class="selected"</if>   href="__URL__/withdrawlog?{$curr_time}&type=0">请求处理中</a>
+                                </li>
+                                <li>
+                                    <a  <if condition="$curr_type eq '&type=1'"> class="selected"</if>  href="__URL__/withdrawlog?{$curr_time}&type=1">银行处理中</a>
+                                </li>
+                                <li>
+                                    <a  <if condition="$curr_type eq '&type=2'"> class="selected"</if>  href="__URL__/withdrawlog?{$curr_time}&type=2">成功记录</a>
+                                </li>
+                                <li>
+                                    <a <if condition="$curr_type eq '&type=3'"> class="selected"</if>   href="__URL__/withdrawlog?{$curr_time}&type=3">失败记录</a>
+                                </li>
+                                <!--<li>
+                                    <a href="__URL__/withdraw?{$curr_time}&type=5">取消提现</a>
+                                </li>-->
+                            </ul>
+                        </dd>
+                    </dl>
+                    <style type="text/css">
+                        .current_record th{text-align: center;}
+                        .current_record1 td{text-align: center;}
+                    </style>
+                    <table class="table-style-2">
+                      <tbody><tr class="current_record">
+                        <th width="132">申请时间</th>
+                        <th width="156">提现银行</th>
+                        <th width="150">提现账号</th>
+                        <th width="90">提现金额</th>
+						<th width="80">手续费</th>
+						<th width="100">状态</th>
+                      </tr>
+                      <volist name="list" id="vo">
+                      <tr class="current_record1">
+                        <td>{$vo.add_time|date="Y-m-d H:i",###}</td>
+                        <td>{$vo.bank_name}</td>
+                        <td>{$vo.bank_num}</td>
+                        <td>{$vo.withdraw_money}</td>
+						<td>{$vo.second_fee}</td>
+						<td>{$vo.status}</td>  
+                       </tr>   
+                       </volist>              
+                    </tbody></table>
+                    <div class="pager-content table-style-footer">
+                                          <div class="list-value-none-style">
+                <if condition="empty($list)">该搜索条件下暂无提现记录</if>
+                      </div>
+                                          </div> <!-- //pager-content --> 
+                                          <div data="fragment-2" id="pager" style="float: right; text-align: right; width: 500px; padding-right: 0px;" class="yahoo2 ajaxpagebar">{$pagebar}</div>
+                </div>
+            </div>
+        </div>
+        <!--交易记录end-->
+    </div>
+</div>
+<div id="user_drawings_cancel" class="user-drawings-cancel" style="width:300px; display:none;">
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>取消提现</h2>
+        </div>
+        <p>
+            确定取消提现申请？
+        </p>
+        <div class="debt-prompt-form-btn clearfix" style="margin-top:0;">
+            <input id="cancelBtn" type="submit" class="btn-style-3 allbgcolor" value="确认提交">
+            <input type="reset" class="btn-style-4 closeBtn" value="取消">
+        </div>
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/withdrawlog.js"></script>
+<script>
+$(function(){
+    var withdrawlogData = {};
+    itz.withdrawlog.init(withdrawlogData);
+});
+</script>
+
+</body></html>

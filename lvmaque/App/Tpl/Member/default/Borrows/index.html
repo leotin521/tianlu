@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)### -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<title>用户中心 - 借款列表</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="__ROOT__/favicon.ico">
+<script type="text/javascript" src="__ROOT__/Style/Common/js/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/M/css/jquery-ui.min.css"/>
+<link rel="stylesheet" href="__ROOT__/Style/M/css/min.user.css?v=2015020312">
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<style type="text/css">
+.sort_N,.sort_ASC,.sort_DESC{ display:inline-block;height:11px;cursor:pointer;line-height:20px;width:8px;margin-left:4px }
+.sort_DESC{ background:url(/Style/H/images/sortdesc.png) no-repeat -4px 0; }
+.sort_ASC{ background:url(/Style/H/images/sortasc.png) no-repeat -4px 0; }
+</style>
+<style type="text/css">
+	.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}
+	.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}
+	.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}
+	.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}
+	.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}
+</style>
+<style id="poshytip-css-tip-yellow" type="text/css">
+	div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}
+	div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}
+	div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}
+	div.tip-yellow td.tip-right{background-position:100% 0;}
+	div.tip-yellow td.tip-bottom{background-position:100% 100%;}
+	div.tip-yellow td.tip-left{background-position:0 100%;}
+	div.tip-yellow div.tip-inner{background-position:-10px -10px;}
+	div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}
+</style>
+</head><body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"></div>
+    </div>
+    <div class="user-main clearfix">
+<include file="default:Public:_left"/>
+        <!--爱担保begin-->
+        <div class="user-con user-business-invest">
+            <div class="user-box-1">
+                <div class="user-box-title-1 clearfix">
+                    <h2>借款记录</h2>
+                </div>
+                <div class="user-box-con-2">
+                    <div class="classify-selected-1-con clearfix">
+                        <div class="classify-selected-1-a">
+                            <dl class="classify-selected-1 clearfix">
+                                <dt>借款类型</dt>
+                                <dd>
+                                    <select id="borrow_type" style="width: 224px;">
+                                        <option value="">全部</option>
+										<volist name="borrow_type" id="bt">
+											<option value="{$i}">{$bt}</option>
+										</volist>
+									</select>
+                                </dd>
+                            </dl>
+                            <dl class="classify-selected-1 clearfix">
+                                <dt>还款类型</dt>
+                                <dd>
+                                    <select id="repay_type" style="width: 224px;">
+                                        <option value="">全部</option>
+										<volist name="repay_type" id="rt">
+											<option value="{$i}">{$rt}</option>
+										</volist>
+									</select>
+                                </dd>
+                            </dl>
+                            <dl class="classify-selected-1 mbn clearfix">
+                                <dt>当前状态</dt>
+                                <dd>
+                                    <select id="cur_status" style="width: 224px;">
+                                        <option value="">全部</option>
+										<volist name="cur_status" id="cs">
+											<option value="{$i}">{$cs}</option>
+										</volist>
+									</select>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="classify-selected-1-time">
+                            <dl class="classify-selected-1 clearfix">
+                                <dt>发布日期</dt>
+                                <dd id="add_time" class="pairtimer">
+                                    <input type="text" readonly class="input-text-style-1 startone" />
+                                    <span>-</span>
+                                    <input type="text" readonly class="input-text-style-1 endone" />
+                                </dd>
+                            </dl>
+                            <dl class="classify-selected-1 clearfix">
+                                <dt>到期日期</dt>
+                                <dd id="deadline" class="pairtimer">
+                                    <input type="text" readonly class="input-text-style-1 startone" />
+                                    <span>-</span>
+                                    <input type="text" readonly class="input-text-style-1 endone" />
+                                </dd>
+                            </dl>
+                            <dl class="classify-selected-1-a classify-selected-1 mbn clearfix">
+                                <dt>计息方式</dt>
+                                <dd id="ratetype" _cur="selected">
+                                    <a href="###" _rate="" class="selected" onclick="onTabClick($(this));">不区分</a>
+                                    <a href="###" _rate="1" onclick="onTabClick($(this));">即投即计息</a>
+                                    <a href="###" _rate="2" onclick="onTabClick($(this));">满标计息</a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+					<div id="flash_table"></div>
+                    <div id="pagerContainer" class="rel">
+                        <div class="table-style-5">
+                            <table class="table-style-5-thead">
+                                <thead>   
+                                  <tr>
+                                    <th width="210" class="tal pdl-20">项目名称</th>
+                                    <th width="102">
+                                        <span class="sort-select sortSomething" id="sort_type" _sort="">
+                                            类型<span class="sort_N"></span>
+                                        </span>
+                                    </th>
+                                    <th width="64" class="tac">
+                                        <span class="sort-select sortSomething" id="sort_money" _sort="">
+                                            借款金额<span class="sort_N"></span>
+                                        </span>
+                                    </th>
+                                    <th width="143" style=" text-indent: 13px;">
+                                        <span class="sort-select sortSomething" id="sort_status" _sort="">
+                                            当前状态<span class="sort_N"></span>
+                                        </span>
+                                    </th>
+                                    <th width="82">
+                                        <span class="sort-select sortSomething" id="sort_time" _sort="ASC">
+                                            最近到期<span class="sort_ASC"></span>
+                                        </span>
+                                    </th>
+                                    <th width="141" class="tac">操作</th>
+                                  </tr>
+                                </thead>
+                            </table>
+                        </div>
+						<table class="table-style-6-tbody">
+							<tbody id="borrow_list">
+							</tbody>
+						</table>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/H/js/globalfunc.js"></script>
+<script id="borrowList" type="text/x-dot-template">
+      {{? it == 0}}
+        <tr>
+            <td colspan="6" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >登录状态已过期，请您重新 <a href="/member/common/login/" style="color:#3181d8">登录</a></td>
+        </tr>
+      {{?? it[0] == ""}}
+        <tr>
+            <td colspan="6" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >{{=it[1]}}</td>
+        </tr>
+      {{??}}
+          {{~it.list :value:index}}
+            <tr>
+				<td width="230" class="ffA">
+					<span class="icon-xiala inv_list" _bid="{{=value.bid}}"></span>
+					<span><a target="_blank" href="{{=value.borrow_url}}">{{=(value.borrow_name.length > 15 ? value.borrow_name.substring(0,15)+"..." : value.borrow_name )}}</a></span>
+				</td>
+				<td width="60" class="ffA">{{=value.type}}</td>
+				<td width="114" style="padding-right:10px" class="ffA tar">{{=value.borrow_money}}元</td>
+				<td width="128" class="ffA">{{=value.status}}</td>
+				<td width="87" class="ffA">{{=(value.deadline > 0) ? String((new Date(Number(value.deadline)*1000)).Format("yyyy-MM-dd")) : "-"}}</td>
+				<td width="141" style="position:relative" class="tac heTong ">
+					{{? value.inv_time > 0}}
+					<span style="width:72px; border-right:1px solid #a2a2a2;text-indent: 2px;" class="icon-detail_show fl">
+						<a target="_blank" href="/member/borrows/invPage?bid={{=value.bid}}" style="color:#3181d8">投资列表</a>
+					</span>
+					<span style="margin:1px 0 0 9px;" class="tips">
+						{{ var payclr="grey",paytxt="详情"; if (value.pay_status == "1"){ payclr=(value.deadline > it.near) ? '#3181d8' : ((value.deadline > it.now) ? 'green' : 'red'); paytxt="还款"; } }}
+						<a target="_blank" href="/member/borrows/payPage?bid={{=value.bid}}" style="color:{{=payclr}};" class="pay_list" _bid="{{=value.bid}}">{{=paytxt}}</a>
+					</span>
+					{{} else {}}无投标记录{{?}}
+				</td>
+            </tr>
+          {{~}}
+			<tr>
+				<td colspan="6">
+					<div class="pager-content table-style-footer-1">
+                        <div class="pagination" id="pageline" _cur="current">
+							{{for (var i = 1, p = Math.ceil(it.allpage / it.perpage); p >= i; i++){}}
+								{{? i == it.curpage}}<a class="current">{{ }else{ }}<a _page={{=i}} onclick="onTabClick($(this));">{{?}}{{=i}}</a>&nbsp;&nbsp;
+							{{}}}
+							<b class="flag_yeshu" style="font-weight:normal;">共{{=p}}页，{{=it.allpage}}条记录</b>
+						</div>
+                    </div> 
+				</td>
+			</tr>
+      {{?}}
+</script>
+<script id="invList" type="text/x-dot-template">
+	  {{? it == 0}}
+        <tr>
+            <td colspan="3" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >登录状态已过期，请您重新 <a href="/member/common/login/" style="color:#3181d8">登录</a></td>
+        </tr>
+      {{?? it[0] == ""}}
+        <tr>
+            <td colspan="3" style="text-align:center;" >{{=it[1]}}</td>
+        </tr>
+      {{??}}
+			<tr>
+				<th width="60" class="tal pdl-20">投资人</th>
+				<th width="80" class="tal pdl-20">投资金额</th>
+				<th width="80" class="tal pdl-20">投资日期</th>
+			</tr>
+          {{~it.list :value:index}}
+            <tr>
+				<td>{{=value.user_name}}</td>
+				<td>{{=value.investor_capital}}</td>
+				<td>{{=(value.add_time > 0) ? String((new Date(Number(value.add_time)*1000)).Format("yyyy-MM-dd")) : "-"}}</td>
+            </tr>
+          {{~}}
+		  {{? it.allpage > it.perpage}}
+			<tr><td></td><td></td><td><a target="_blank" href="/member/borrows/invPage?bid={{=it.bid}}" style="color:royalblue;">更多...</a></td>
+			</tr>
+		  {{?}}
+      {{?}}
+</script>
+<script> 
+	//借款表
+	var borrowData={
+		flash:"#flash_table",
+		transfer_type:"POST",
+		url:"/Member/borrows/borrowList/",
+		temp_id:"borrowList",
+		disp_id:"#borrow_list",
+		param:{
+			perpage:10
+		},
+		tabs:{
+			page:{
+				obj:"#pageline a",
+				cur:"current"
+			},
+			rate:{
+				obj:"#ratetype a",
+				cur:"selected"
+			}
+		},
+		attr:{
+			curpage:{
+				tab:"page",
+				key:"_page"
+			},
+			currate:{
+				tab:"rate",
+				key:"_rate"
+			}
+		},
+		select:{
+			brtype:"#borrow_type",
+			rptype:"#repay_type",
+			status:"#cur_status"
+		},
+		timer:{
+			add_time:"#add_time",
+			deadline:"#deadline"
+		},
+		sort:{
+			time:"#sort_time",
+			type:"#sort_type",
+			money:"#sort_money",
+			status:"#sort_status"
+		},
+		pops:{
+			inv:{
+				url:"/Member/borrows/invList/",
+				obj:".inv_list",
+				temp_id:"invList",
+				attr:{
+					bid:"_bid"
+				},
+				param:{
+					perpage:4
+				}
+			}
+		}
+	};
+	zz.userAction.init(borrowData);
+    zz.timer.init();
+</script>
+</body></html>

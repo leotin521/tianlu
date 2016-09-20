@@ -1,0 +1,25 @@
+.borrow-unit{background-color: #fff;margin-bottom: 10px;padding: 1rem .5rem;}
+.borrow-unit .media-body{padding-top: 1rem;}
+.borrow-unit .mod-media{padding: 1rem 0;}
+.borrow-unit .oper{padding: 1rem 0;}
+.borrow-unit .oper .am-text-danger{padding-left: 2rem;line-height: 3.2rem;}
+
+.mod-borrow-apply{padding: 1.6rem 0 0;}
+.mod-borrow-apply figcaption{font-size: 2rem;color: #333;}
+.mod-borrow-apply a{display: block;padding: 1rem -0px; }
+.mod-borrow-apply a:hover{background-color: #eee;color: #FA4343;}
+
+.borrow-info{margin: 1em 0;}
+.borrow-info li >a {padding: 0;} 
+.borrow-info li{padding: .5em;margin: 0;}
+.borrow-info li:nth-child(2){margin-bottom: 8px;}
+.borrow-info li:nth-child(8){margin-bottom: 8px;}
+.borrow-info li .con{float: right;color: #666;line-height: 2.9rem;}
+.borrow-info li .field{font-size: 2rem;line-height: 3rem;color: #333;}
+.borrow-info li:last{border-bottom: none;}
+.borrow-info textarea{width: 100%;min-height:10em }
+
+/*申请额度*/
+.form-apply{padding-top: 1rem;}
+.form-apply textarea{width: 100%;min-height:10em }
+.form-apply label.am-form-label{text-align: left;}

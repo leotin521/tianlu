@@ -1,0 +1,62 @@
+<!doctype html>
+<html class="no-js">
+<!--交易记录页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>资金记录</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <style>
+        .pagest{
+            margin: 0px 0px auto 15%;
+            float: left;
+        }
+        .pagest a{
+            margin: 0px 0px auto auto;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <header style="margin-bottom:5%;">
+        <h1>资金记录</h1>
+        <a href="__URL__/ling_info" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+   <div>
+    <volist name="lists" id="vos">
+        <a href="__URL__/linghuobaomoneylog?id={$vos.id}" style="display: block;">
+            <div class="mod-transaction mod-transaction-one">
+              <div class="mod-transaction-left">
+                <div class="mod-transaction-lefticon">
+                    <if condition="$vos.Redeem eq 0" >
+                        <img src="__ROOT__/Style/NewWeChat/images/shu.png" alt="" style="width；50px;height:50px;" border="0" />
+                    <else />
+                        <img src="__ROOT__/Style/NewWeChat/images/tou.png" alt="" style="width；50px;height:50px;" border="0" />
+                    </if>
+                </div>
+                <div class="mod-transaction-link">{$vos.batch_no}<br/><span>{$vos.add_time|date="Y-m-d H:i:s",###}</span></div>
+              </div>
+                <if condition="$vos.Redeem eq 0">
+                    <div class="mod-transaction-right" style="color:#02E738">-{$vos.money}元</div>
+                <else />
+                     <div class="mod-transaction-right" style="color: red;">+{$vos.money}元</div>
+                </if>
+            </div>
+        <a>
+    </volist>
+    <div class="pagest">
+        {$page}
+    </div>
+   </div>
+</body>
+
+</html>

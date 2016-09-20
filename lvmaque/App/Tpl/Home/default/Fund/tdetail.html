@@ -1,0 +1,370 @@
+<include file="Public:_header_common" />
+            <title>{$vo.borrow_name}-我要投资-{$glo.web_name}</title>
+            <meta name="keywords" content="{$glo.web_keywords}" />
+            <meta name="description" content="{$glo.web_descript}" />
+            <script type="text/javascript" src="__ROOT__/Style/H/js/common.js" language="javascript"></script>
+            <script type="text/javascript">
+                        var Transfer_invest_url = "__APP__/fund";
+            </script>
+<include file="Public:_header_main" />
+<tagLib name="htmlA" />
+        <!-- final start -->
+        <div id="fina" class="fina">
+            <div class="f_con_t">
+                <p class="f_con_text" title="{$vo.borrow_name}"><span style="display:inline-block;position:relative;top:-2px">{:getIco($vo)}</span><?php echo BorrowModel::get_borrow_type(7);?>（{$vo.borrow_name|cnsubstr=###,22}）</p>
+                <a href="/tools/id/1.html" id="J_contJisuanqi2"><div class="f_con_img fIcon" style="background-position:-31px -149px"></div></a>
+                <style type="text/css">
+                 #J_conutTan3{display:none;position: absolute;width: 180px;margin-left: 805px;border: 1px solid #ccc;background: #fff;padding-top: 10px;}
+                 #J_conutTan3 table{width: 100%;font-size: 12px;}
+                 #J_conutTan3 table tr td{font-size: 12px;text-align:right;line-height: 25px;padding: 0px;border: 0px;}
+                 #J_conutTan3 table tr td input{border: 1px solid #ccc;margin-right: 5px;width: 80px;}  
+                </style>  
+                <div id="J_conutTan3">
+                    <table>
+                        <tr>
+                            <td width="70" >投资金额：</td>
+                            <td width="100"><input type="text" id="qcMoney" onkeyup="quickCount()" placeholder="输入金额" /></td>
+                        </tr>
+                        <tr>
+                            <td>利息：</td>
+                            <td style="text-align:left"><span id="interest"></span>元&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>奖金：</td>
+                            <td style="text-align:left"><span id="reward_money">元&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>总收益：</td>
+                            <td style="text-align:left"><span id="total_interest">元&nbsp;</td>
+                        </tr>
+                    </table>
+                    <script type="text/javascript">
+                            function quickCount(){
+                                var borrow_id     = {$vo.id};
+                                var qcMoney = $("#qcMoney").val()
+                                    $.ajax({
+                                            url: "__APP__/tool/quickCountRate",
+                                            type: "GET",
+                                            dataType: "json",
+                                            data: {"borrow_id":borrow_id,"money":qcMoney},
+                                            success: function(d) {
+                                                $("#interest").html(d.interest);
+                                                $("#reward_money").html(d.reward_money);
+                                                $("#total_interest").html(d.total_interest);
+                                            }
+                                     });
+                            }
+                    </script>
+                </div>
+                  <script type="text/javascript">
+                    var oconutTan3=document.getElementById('J_conutTan3');
+                    var ocontJisuanqi2=document.getElementById('J_contJisuanqi2');
+                    var timer=null;
+
+                    ocontJisuanqi2.onmouseover=function(){
+                        clearTimeout(timer);
+                        oconutTan3.style.display='block';
+                    }
+                    ocontJisuanqi2.onmouseout=function(){
+                        timer=setTimeout(function(){
+                         oconutTan3.style.display='none';
+                        },300);                   
+                    }
+                    oconutTan3.onmouseover=function(){
+                        clearTimeout(timer);
+                        oconutTan3.style.display='block';
+                    }
+                    oconutTan3.onmouseout=function(){
+                        timer=setTimeout(function(){
+                         oconutTan3.style.display='none';
+                        },300);                   
+                    }
+                  </script>
+
+            </div>
+            <!-- f_main_l start -->
+            <div class="f_main_l">
+                <div class="t_con">
+                    <div class="t_con_div">
+                        <ul>
+                            <li class="t_con_text" style="margin-left:5px;min-width: 160px;text-align:center">
+                                <p class="t_con_mgn" style="margin-right:15px;">年化收益</p>
+                                <p class="t_con_mgn" style="color:#e25353;margin-right:15px;">
+                                 <span style="font-size:20px;">{$vo['borrow_interest_rate']}%</span>
+                            <if condition="$vo.duration_unit eq '1' and $vo.borrow_duration eq '1'"><else/>-<span style="font-size:20px;">{$Compound}</span>%</if>
+                            </li>
+                            <li class="t_con_text" style="min-width: 160px;text-align:center">
+                                <p class="t_con_mgn t_con_pad">计划金额</p>
+                                <p class="t_con_mgn t_con_pad" style="color:#e25353;"><span style="font-size:20px;">{$vo.borrow_money|getMoneyFormt=###}</span>元</p>
+                            </li>
+                            <li class="t_con_text" style="min-width: 160px;text-align:center">
+                                <p class="t_con_mgn t_con_pad">可投金额</p>
+                                <p class="t_con_mgn t_con_pad" style="color:#e25353;"><span style="font-size:20px;">{$vo.need}</span>元</p>
+                            </li>
+                            <li class="t_con_text t_con_text_nbor" style="min-width: 160px;text-align:center">
+                                <p class="t_con_mgn t_con_pad">计划期限</p>
+                                <p class="t_con_mgn t_con_pad">
+                                    <span style="font-size:20px;"> {$vo.borrow_duration}</span><if condition="$vo.duration_unit eq 1">个月<else/>天</if></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="b_con">
+                    <div class="b_l_con b_l_wh">
+                        <ul>
+                            <if condition="$vo.borrow_status eq -1">
+                                <li class="red">上线时间：{$vo.add_time|mydate="Y-m-d H:i",###}</li>
+                            <else/>
+                                <li>开始时间：{$vo.add_time|mydate="Y-m-d H:i",###}</li>
+                            </if>
+                            <li class="theBar" style="width:365px;">
+                                <span style="float:left;">当前进度：</span>
+<!--                                <img src="__ROOT__/Style/N/images/bar.png" width="256" height="14px" alt="" style="float:left;margin-top:2px;"/>-->
+<span class="progress"  style="width:260px;"><span class="precent" style="background: #e25353;width:{$vo.progress}%"></span></span>
+                                <span class="percent">{$vo.progress|intval}%</span>
+                            </li>
+                            <li style="clear:both;">担保方式：100%本息担保</li>
+                            <li>加入条件：加入金额 {$vo.per_transfer} 元起，且以 {$vo.per_transfer} 元的倍数递增</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- end f_main_l -->
+            <!-- f_main_r start -->
+            <div class="f_main_r">
+                <div class="r_main">
+                    <span class="mybal">我的可用余额：</span>
+                    <div class="bal">
+                        <span id="" class="bal_c">
+                                <p style="font-size:20px;font-weight:bold;float:left;">
+                                       <if condition="$_SESSION['u_id'] eq ''" >
+                                           <a style="color:#e25353;font-size:16px;font-weight: 400;cursor: pointer;" href='{$unlogin_home}'>[登陆]</a><span style="color:#656565;font-size:16px;">可查看</span>
+                                        <else/>
+                                             {$investInfo['account_money']+$investInfo['back_money']|getMoneyFormt=###}元
+                                       </if>
+                                </p>
+                        </span>
+                            <a href="__APP__/member/charge#fragment-1" target="_blank" class="rec">充值</a>
+                            <span class="put">起投{$vo['borrow_min']}元,限投{$vo['borrow_max']|maxInvest=$vo['need']}元</span>
+                            <input type="text" name="tnum" id="tnum_{$vo.id}" class="tzInput" placeholder="请输入 {$vo.per_transfer}的整数倍"/>
+                            <div class="clear"></div>
+                            <input  type="radio" value="4"  name="radios" class="choose"  id="lixireturn" checked="checked" />
+                            <label for='lixireturn' style='CURSOR:pointer;color:#697268'>按月还息</label>
+                            <if condition="$vo.duration_unit eq '1' and $vo.borrow_duration eq '1'">
+                                一月标没有利息复投
+                             <else/>
+                                <input  type="radio" value="6" name="radios"  class="choose" id="lift"/>
+                                <label for='lift' style='CURSOR:pointer;color:#697268'>利息复投</label>
+                             </if>
+                            <if condition="($vo['has_borrow']-$vo['borrow_money'] eq 0) and ($vo['borrow_status'] eq 7)">
+                                <input type="button" class="tzButton" style="background:#9D9D9D;border: 0 solid;" value="已完成"/>
+                            <elseif condition="($vo['has_borrow']-$vo['borrow_money'] eq 0) and ($vo['borrow_status'] eq 6)"/>
+                                  <input type="button" class="tzButton" style="background:#9D9D9D;border: 0 solid;" value="还款中"/>
+                            <elseif condition="$vo['borrow_status'] eq -1"/>
+                            <input type="submit" class="tzButton" style="background:#9D9D9D;border: 0 solid" value="敬请期待"/>
+                           <else/>
+                                 <if condition="session('u_id') !='' and ($vo['has_borrow']-$vo['borrow_money'] neq 0)">
+                                   <input type="button" class="tzButton" onclick="FTransfer({$vo.id})"  value="立即投资"/>
+                                 <else/>
+                                     <input type="button" class="tzButton" onclick="window.location.href='{$unlogin_home}'"  value="立即登录"/>
+                                 </if>
+                           </if>
+
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end final -->
+        <!-- loan start -->
+        <div class="loan">
+            <p class="loan_title allbgcolor">产品介绍</p>
+            <ul class="loan_main introduce">
+                <li class="itd_fst_sty_wh itdStybg" style="margin-top:10px;">
+                    <ul>
+                        <li class="itd_con">
+                            <span class="itd_con_l">产品名称信息 </span>
+                            <span class="itd_con_r"><?php echo BorrowModel::get_borrow_type(7);?>（{$vo.borrow_name|cnsubstr=###,22}）</span>
+                        </li>
+                        <li class="itd_con">
+                            <span class="itd_con_l">加入条件 </span>
+                            <span class="itd_con_r">加入金额 {$vo.per_transfer} 元起，且以 {$vo.per_transfer} 元的倍数递增</span>
+                        </li>
+                        <li class="itd_con">
+                            <span class="itd_con_l">发布时间 </span>
+                            <span class="itd_con_r">{$vo.add_time|mydate="Y-m-d H:i",###}</span>
+                        </li>
+                        <li class="itd_con">
+                            <span class="itd_con_l">期限 </span>
+                            <span class="itd_con_r">{$vo.borrow_duration}<if condition="$vo.duration_unit eq 1">个月<else/>天</if></span>
+                        </li>
+                        <li class="itd_con">
+                            <span class="itd_con_l">保障方式</span>
+                            <span class="itd_con_r">100%本息保障</span>
+                        </li>
+                        <li class="itd_con">
+                            <span class="itd_con_l">单笔额度上限</span>
+                            <span class="itd_con_r"><if condition="$vo['borrow_max'] gt 0">￥{$vo['per_transfer']*$vo['borrow_max']}<else/>无限制</if></span>
+                        </li>
+                        <li class="itd_con">
+                            <span class="itd_con_l">受益方式</span>
+                            <span class="itd_con_r">利息处理方式：
+                              <if condition="$vo.duration_unit eq '1' and $vo.borrow_duration eq '1'">
+                                 转入出借人在{$glo.web_name}平台的账户，{$vo.borrow_interest_rate}%年化利率
+                             <else/>
+                                 a.转入出借人在{$glo.web_name}平台的账户，{$vo.borrow_interest_rate}%年化利率
+                                  b.利息复投,{$Compound}%年化利率
+                             </if>
+                            </span>
+                        </li>
+                    </ul>
+                </li>
+                <li class="itd_scd_sty_wh itdStybg">
+                    <div class="itdTitle whatDtb">什么是<?php echo BorrowModel::get_borrow_type(7);?>？</div>
+                    <div class="itdImg itdImgBg"></div>
+                    <span class="itd_sum">1</span>
+                    <p class="idtText"><?php echo BorrowModel::get_borrow_type(7);?>是投向网上拥有100%本息担保的小额借款项目的理财计划。现阶段分为1个月、3个月、6个月及12个月等固定期限模式。除了按月还息，对理财期限大于1个月的产品，用户可以选择利息复投的方式进行投资，投资方式更加灵活。定投宝属于即投计息的计息方式，用户投标之后利息立即开始计算，从而减少了资金闲置。因而具有收益稳定，风险较低，投资灵活等特点。
+                    </p>
+                    <div class="itdRgBt itdImgBg"></div>
+                </li>
+                <li class="itd_scd_sty_wh itdStybg">
+                    <div class="itdTitle whatDtb"><?php echo BorrowModel::get_borrow_type(7);?>运作流程</div>
+                    <div class="itdImg itdImgBg"></div>
+                    <span class="itd_sum">2</span>
+                    <div class="idt_img"><img src="__ROOT__/Style/N/images/introduce_bz.png" width="792" height="150" alt="" /></div>
+                </li>
+                <li class="itd_scd_sty_wh itdStybg">
+                    <div class="itdTitle whatDtb"><?php echo BorrowModel::get_borrow_type(7);?>特点优势</div>
+                    <div class="itdImg itdImgBg"></div>
+                    <span class="itd_sum">3</span>
+                    <div>
+                        <ul style="width:810px;height:164px;margin:30px auto;">
+                            <li class="itdSupWH">
+                                <div class="itdImgBg itdImgWh safety"></div>
+                                <p class="itdImgText">安全保障</p>
+                            </li>
+                            <li class="itdSupWH itdSupMar">
+                                <div class="itdImgBg itdImgWh noBid"></div>
+                                <p class="itdImgText">无需抢标</p>
+                            </li>
+                            <li class="itdSupWH">
+                                <div class="itdImgBg itdImgWh guarantee"></div>
+                                <p class="itdImgText">收益保障</p>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <p class="loan_title award allbgcolor">投标有奖<a href="__APP__/fund/reward?id={$borrow_id}"  target="_Blank"><font style="float: right;color: #fff;font-size: 14px;padding-right: 25px;">查看规则</font></a></p>
+            <ul class="award_main">
+                <li class="ad_wh">
+                    <a href="__ROOT__/fund/reward?id={$borrow_id}#yima" target="_blank">
+                        <img src="__ROOT__/Style/N/images/award0.png" width="304" height="134" alt=""/>
+                        <ul class="ad_con_pos ad_con_pos1">
+                            <if condition="!empty($special_award[5])">
+                                <li class="ad_con_text">{$special_award[5]['user_name']}</li>
+                                <li class="ad_con_text">{$special_award[5]['add_time']|date="Y-m-d",###}</li>
+                                <li class="ad_con_text">获得<span style="color:#e25353;">{$special_award.5.money}</span>元优惠券</li>
+                                <else/>
+                                <li class="ad_con_text_no"><img src="__ROOT__/Style/N/images/baozangxiang.png" /></li>
+                                <li class="ad_con_text_no">快来赢取奖励吧！</li>
+                            </if>
+                        </ul>
+                    </a>
+                </li>
+                <li class="ad_wh ad_pad">
+                    <a href="__ROOT__/fund/reward?id={$borrow_id}#yichui" target="_blank">
+                        <img src="__ROOT__/Style/N/images/award1.png" width="304" height="134" alt=""/>
+                        <ul class="ad_con_pos ad_con_pos2">
+                            <if condition="!empty($special_award[6])">
+                                <li class="ad_con_text">{$special_award[6]['user_name']}</li>
+                                <li class="ad_con_text">{$special_award[6]['add_time']|date="Y-m-d",###}</li>
+                                <li class="ad_con_text">获得<span style="color:#e25353;">{$special_award.6.money}</span>元优惠券</li>
+                                <else/>
+                                <li class="ad_con_text_no"><img src="__ROOT__/Style/N/images/baozangxiang.png" /></li>
+                                <li class="ad_con_text_no">快来赢取奖励吧！</li>
+                            </if>
+                        </ul>
+                    </a>
+                </li>
+                <li class="ad_wh">
+                    <a href="__ROOT__/fund/reward?id={$borrow_id}#yiming" target="_blank">
+                        <img src="__ROOT__/Style/N/images/award2.png" width="304" height="134" alt=""/>
+                        <ul class="ad_con_pos ad_con_pos3">
+                            <if condition="!empty($special_award[7])">
+                                <li class="ad_con_text">{$special_award[7]['user_name']}</li>
+                                <li class="ad_con_text">{$special_award[7]['add_time']|date="Y-m-d",###}</li>
+                                <li class="ad_con_text">获得<span style="color:#e25353;">{$special_award.7.money}</span>元优惠券</li>
+                                <else/>
+                                <li class="ad_con_text_no"><img src="__ROOT__/Style/N/images/baozangxiang.png" /></li>
+                                <li class="ad_con_text_no">快来赢取奖励吧！</li>
+                            </if>
+                        </ul>
+                    </a>
+                </li>
+            </ul>
+            <p class="loan_title award allbgcolor" style="margin-top:40px;margin-bottom:10px;">投资记录</p>
+            <div class="loan_rec">
+                <table width="998px" height="" style="border-collapse:collapse;text-align:center;background:#FFF;">	
+                    <thead>
+                            <tr>
+                                <th width="200px" height="48px">投标人</th>
+                                <th width="200px" height="48px">年化利率</th>
+                                <th width="200px" height="48px">投资时间</th>
+                                <th width="200px" height="48px">购买金额</th>
+                                <th width="200px" height="48px">购买方式</th>
+                                <if condition="$is_mobile eq 1">
+                            		<th width="200px" height="48px">投资来源</th>
+                            	</if>
+                            </tr>
+                    </thead>
+                    <tbody id="investrecord"></tbody>
+                </table>
+                <div class="loan_rec_bt">
+                    <div class="l_bt_div">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end loan -->
+        
+         <script>
+         $(".loan_rec thead tr th:last").css("border-right","0px");
+                $(document).ready(function() {
+                            ajax_show(1);
+                });
+                function ajax_show(p)
+                {
+                $.get("__URL__/investRecord?borrow_id={$borrow_id}&p=" + p, function(data){
+                           $("#investrecord").html(data);
+                });
+                        $(".pages a").removeClass('current');
+                        $(".pages a").eq(p).addClass("current");
+                }
+             //div隐显
+               bindpage();
+                function bindpage(){
+                $('.ajaxpagebar a').click(function(){
+                        try{
+                               var geturl = $(this).attr('href');
+                               var id = $(this).parent().attr('data');
+                               var x = {};
+                               $.ajax({
+                               url: geturl,
+                                       data: x,
+                                       timeout: 5000,
+                                       cache: false,
+                                       type: "get",
+                                       dataType: "json",
+                                       success: function (d, s, r) {
+                                       if (d) $("#" + id).html(d.html); //更新客户端竞拍信息 作个判断，避免报错
+                                       }
+                               });
+                       } catch (e){};
+                               return false;
+                       })
+                }
+            </script>
+        <!-- foot start -->
+          <include file="Public:_footer" />

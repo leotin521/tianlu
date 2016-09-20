@@ -1,0 +1,43 @@
+<!doctype html>
+<html class="no-js">
+<!--奖励管理-详细信息页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>详细信息</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+</head>
+
+<body>
+    <header>
+        <h1>详细信息</h1>
+        <a href="javascript:window.history.go(-1);" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+   	
+   <div class="mod-reward-xiangxi">
+   		<ul class="am-avg-sm-1">
+          <li>{$data.type}</li>
+          <li><font size="+6">{$data.money}</font>元</li>
+        </ul>
+
+   </div>
+   
+   <div class="mod-reward-xiangxinr">
+    	<ul>
+        	<li>奖励时间：{$data.add_time}</li>
+            <li>获取详情：{$data.remark}<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5元抵现券，投资1000元可用</li>
+            <li>使用状态：<if condition="$data.status eq 0">未使用<elseif condition="$data.status eq 1" />已使用<else />已过期</if></li>
+        </ul>
+   </div>
+    
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</body>
+
+</html>

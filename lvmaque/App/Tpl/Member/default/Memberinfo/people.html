@@ -1,0 +1,270 @@
+<tagLib name="htmlA" />
+<table cellspacing="0" cellpadding="0" id="formTb" style="width: 100%; float: left; margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+		<tbody>
+		<tr>
+			<td colspan="3">
+				<table class="person_wrz">
+					<tr>
+						<td><h1>真实姓名：</h1><span><if condition="$vo.id_status eq 1 ">{$vo.real_name|hidecard=###,7}<else />未认证</if></span></td>
+						<td><h1>身份证号：</h1><span><if condition="$vo.id_status eq 1 ">{$vo.idcard|hidecard=###,1}<else />未认证</if></span></td>
+					</tr>
+					<tr>
+						<td><h1>手机号码：</h1><span><if condition="$vo.phone_status eq 1 ">{$vo.user_phone|hidecard=###,2}<else />未认证</if></span></td>
+						<td><h1>出生年月：</h1><span><if condition="$vo.id_status eq 1 ">{$vo.idcard|hidecard=###,8}<else />未认证</if></span></td>
+					</tr>					
+				</table>
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				籍贯地址：
+			</td>
+			<td class="user-info-value">
+			    <span class="select-style-1">
+			    <select name="province" id="province" onchange="sel('province','city')" style="width:88px">
+			    <option>请选择</option>
+			    <volist name="province" id="pro">
+			    	<if condition="$pro.id eq $sheng">
+			    		<option value="{$pro.id}" selected>{$pro.name}</option>
+			    	<else />
+			    		<option value="{$pro.id}">{$pro.name}</option>
+			    	</if>	
+			    </volist>
+			    </select>
+			    <select id="city" name="city" onchange="sel('city','')" style="width:88px">
+			    <option value="">请选择</option>
+			    <volist name="city_list" id="ci">
+			    	<if condition="$ci.id eq $shi">
+			    		<option value="{$ci.id}" selected>{$ci.name}</option>
+			    	<else />
+			    		<option value="{$ci.id}">{$ci.name}</option>
+			    	</if>	
+			    </volist>
+			    </select>
+			    		<htmlA:input style="width:250px;height:28px" id="origin_place" value="{$vo.origin_place}" class="text2" addstr="onkeyup='Cn_name(this)'"/>
+			    </span>
+			    
+	    	</td>
+			<!-- <td class="tdContent">
+				<htmlA:input id="origin_place" value="{$vo.origin_place}" class="text2" addstr="onkeyup='Cn_name(this)'"/>
+                <div id="origin_place" class="inline"></div>
+			</td> -->
+			<!-- <td id="dv_firstname" class="tdTip">
+			</td> -->
+		</tr>
+		
+		<tr class="trBg">
+			<td class="tdTitle">
+				现居住地：
+			</td>
+			
+			<td class="user-info-value">
+			    <span class="select-style-1">
+			    <select name="province2" id="province2" onchange="sel1('province2','city2')" style="width:88px">
+			    <option>请选择</option>
+			    <volist name="province2" id="pro2">
+			    	<if condition="$pro2.id eq $sheng2">
+			    		<option value="{$pro2.id}" selected>{$pro2.name}</option>
+			    	<else />
+			    		<option value="{$pro2.id}">{$pro2.name}</option>
+			    	</if>
+			    </volist>
+			    </select>
+			    <select id="city2" name="city2" onchange="sel1('city2','')" style="width:88px">
+			    <option value="">请选择</option>
+			    <volist name="city_list2" id="ci2">
+			    	<if condition="$ci2.id eq $shi2">
+			    		<option value="{$ci2.id}" selected>{$ci2.name}</option>
+			    	<else />
+			    		<option value="{$ci2.id}">{$ci2.name}</option>
+			    	</if>	
+			    </volist>
+			    </select>
+			    		<htmlA:input style="width:250px;height:28px" id="address" value="{$vo.address}" class="text2" addstr="onkeyup='Blurphone(this)'" />
+			    </span>
+			    
+	    	</td>
+			<!-- <td class="tdContent">
+				<htmlA:input id="address" value="{$vo.address}" class="text2" addstr="onkeyup='Blurphone(this)'" />
+                <div id="address" class="inline"></div>
+			</td>
+			<td id="dv_firstmobile" class="tdTip">
+			</td> -->
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				婚姻状况：
+			</td>
+			<td class="tdContent">
+			<htmlA:radio id="marry" default="未婚|未婚,已婚|已婚" value="key|vo.marry" />
+			</td>
+			<td id="dv_secondrelation" class="tdTip">
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				最高学历：
+			</td>							
+			<td class="tdContent">
+				<span class="select-style-gr">
+				<select id="education" name="education">
+					<option value="">请选择</option>
+					<volist name="education" id="data">
+						<if condition="$vo.education eq $data ">
+							<option value="{$vo.education}" selected>{$vo.education}</option>
+						<else />
+							<option value="{$data}">{$data}</option>
+						</if>
+					</volist>
+				</select>
+			   </span>
+			</td>
+						
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				月收入：
+			</td>
+			<td class="tdContent">
+				<span class="select-style-gr">
+				<select id="income" name="income">
+					<option value="">请选择</option>
+					<volist name="month_income" id="mi">
+						<if condition="$vo.income eq $mi ">
+							<option value="{$vo.income}" selected>{$vo.income}</option>
+						<else />
+							<option value="{$mi}">{$mi}</option>
+						</if>
+					</volist>
+				</select>
+			   </span>
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				职业：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="profession" value="{$vo.profession}" class="text2"  addstr="onkeyup='Cn_name(this)'"/>
+                <div id="profession" class="inline"></div>
+			</td>
+			<td id="dv_secondname" class="tdTip">
+			</td>
+		</tr>
+		
+		<tr class="trBg">
+			<td class="tdTitle">
+				借款原因：
+			</td>
+			<td style="height: 100px;" class="tdContent">
+			<htmlA:text style="height:80px;width:655px;" id="borrowing_causes" value="{$vo.borrowing_causes}" class="textarea1"/>
+			</td>
+			<td id="dv_secondname" class="tdTip">
+			</td>
+		</tr>
+		
+		
+		
+		<tr>
+			<td>&nbsp;
+				
+			</td>
+			<td style="height: 50px;padding-left: 10px;" class="tdContent">
+				<input class="btn-style-3 allbgcolor" type="button" style="margin-top: 5px; cursor: pointer;" onmouseout="this.style.filter = 'alpha(opacity=100)'" onmousemove="this.style.filter = 'alpha(opacity=60)'; this.style.cursor='hand' " onclick="Personal();" value="下一步">
+				<!-- <a href="#" onclick="window.location.href='/member/memberinfo/index_index?ckid=2';"><input class="btn-style-3" type="button" style="border:none; margin:5px 0 0 20px;" value="跳过并继续"></a> -->
+			</td>
+			<td id="Td1" class="tdTip">
+			</td>
+		</tr>
+	</tbody> 
+</table>
+<script>
+function sel(aid,bid) {
+	var pid=$("#"+aid).val();
+	$.ajax({
+		url:"__URL__/sele",
+		type:"post",
+		data:{"pid":pid},
+		success:function(e){
+			var o=eval("("+e+")");
+			var str="<option value=''>请选择</option>";
+			for(var a in o){
+				str=str+"<option value='"+o[a].id+"'>"+o[a].name+"</option>";
+			}
+			$("#"+bid).html(str);
+		}
+	})
+}
+function sel1(aid,bid) {
+	var pid=$("#"+aid).val();
+	$.ajax({
+		url:"__URL__/sele",
+		type:"post",
+		data:{"pid":pid},
+		success:function(e){
+			var o=eval("("+e+")");
+			var str="<option value=''>请选择</option>";
+			for(var a in o){
+				str=str+"<option value='"+o[a].id+"'>"+o[a].name+"</option>";
+			}
+			$("#"+bid).html(str);
+		}
+	})
+}
+</script>
+<script type="text/javascript">
+    var tid = $('#tid').val();
+function Personal(){
+	p = makevar(['origin_place','province','city','province2','city2','address','marry','education','income','profession','borrowing_causes']);
+	p['_tps'] = "post";
+	var mxs = true;
+	$.each(p,function(i){
+		if(typeof p[i] == "undefined"){
+			mxs=false;
+			return false;
+		}
+	});
+	if(mxs===false){
+		layer.msg('所有项目都不能为空！', {icon: 0});
+	 	return false;
+	}
+    var arrTds = new Array("#origin_place", "#profession", "#address");
+    for (var i = 0; i < arrTds.length; i++) {
+        if ($(arrTds[i]).html().indexOf('reg_wrong') > -1) {
+        	layer.msg('您的信息有错误！', {icon: 2});
+            return false;
+        }
+    }
+
+    layer.msg('提交中...', {icon: 16});
+	$.ajax({
+		url: "__URL__/people/",
+		data: p,
+		timeout: 5000,
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==1){
+					//alert(d.message);
+					setTimeout('window.location.href="/member/memberinfo/index_index?ckid=1&tid='+ tid +'"',1000);
+				}
+				else  {
+					layer.msg(d.message, {icon: 2});
+					return false;
+				}
+			}
+		}
+	});
+}
+function makevar(v){
+	var d={};
+	for(i=0;i<v.length;i++){
+		var id = v[i];
+		d[id] = $("#"+id).val();
+		if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+	}
+	return d;
+}
+</script>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>实名认证</title>
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+		<link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+	    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/email.css" rel="stylesheet" />
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+        <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+        <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+	</head>
+	<body class="bg-white">
+
+	<header>
+        <h1>实名认证</h1>
+        <a href="javascript:" onclick="window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+
+	<div class="am-container am-margin-top"> 
+
+        <form name="myform" id="postidadd" class="am-form am-form-horizontal" >
+            <div class="">
+				 <div class="am-form-group">
+					<label class="am-u-sm-3 am-form-label">真实姓名：</label>
+					<div class="am-u-sm-9">
+						<input class="am-radius re_name" id="realname" name="realname" type="text" placeholder="请输入真实姓名" />
+					</div>
+				</div>
+				<div class="am-form-group">
+					<label class="am-u-sm-3 am-form-label">身份证号：</label>
+					<div class="am-u-sm-9">
+						<input class="am-radius card_id" id="card_id" name="card_id" type="text" placeholder="请输入身份证号" />
+					</div>
+				</div>
+               <!--  <div class="approve_rz_02 clearfix">
+                    <b>身份证号</b>
+                    <input class="card_id" id="card_id" name="card_id" type="text" placeholder="请输入身份证号" />
+                </div> -->
+
+            </div>
+			<a  onclick="cksubmit();" class="am-radius am-margin-top am-text-lg am-btn am-btn-xl am-btn-danger am-btn-block" id="submit">验证</a>
+            <!-- <div class="approve_rz_03 clearfix">
+                <input type="button" class="com_bgcolor" name="sub" value="验证" onclick="cksubmit();" />
+            </div> -->
+        </form>
+    <script type="text/javascript">
+
+//        function idcard_ajax(){
+//            var realname = $("#realname").val();
+//            var card_id = $("#card_id").val();
+//
+//            if(!(/^[\u4e00-\u9fa5]+$/.test(realname))){
+//                var msg = '请输入真实姓名~';
+//                $().toastmessage('showErrorToast', msg);
+//                false;
+//            }
+//
+//            var regId = /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/;
+//            if( !regId.test(card_id) ) {
+//                var msg = '请输入正确的身份证号码~';
+//                $().toastmessage('showErrorToast', msg);
+//                false;
+//            }
+//        }
+
+        function cksubmit(){
+
+            var realname = $("#realname").val();
+            var card_id = $("#card_id").val();
+
+            if(!(/^[\u4e00-\u9fa5]+$/.test(realname))){
+                var msg = '请输入真实姓名~';
+                $().toastmessage('showErrorToast', msg);
+                return false;
+            }
+
+            var regId = /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/;
+            if( !regId.test(card_id) ) {
+                var msg = '请输入正确的身份证号码~';
+                $().toastmessage('showErrorToast', msg);
+                return false;
+            }
+
+            $.ajax({
+                cache:      false,
+                url:        '__APP__/m/user/up_idcard',
+                type:       'post',
+                async:      false,
+                datatype:   'json',
+                timeout:    2000,
+                data:       $("#postidadd").serialize(),
+                success:    function(d){
+                    var data = eval('('+d+')');
+                    if(data.status == 1){
+                        $().toastmessage('showSuccessToast', "审核已提交!");
+						setTimeout(window.location.href="__APP__/m/user/userinfo", 3000);
+                    }else{
+                        $().toastmessage('showErrorToast', data.message);
+                        return false;
+                    }
+                }
+
+            })
+        }
+    </script>
+	</body>
+</html>

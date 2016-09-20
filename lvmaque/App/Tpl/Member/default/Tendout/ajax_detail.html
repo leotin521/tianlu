@@ -1,0 +1,26 @@
+<script>
+//iframe高度自适应
+
+function IFrameReSize(iframename) {
+
+var pTar = document.getElementById(iframename);
+
+if (pTar) {
+    pTar.height = pTar.contentDocument.body.offsetHeight;
+if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight && !window.ActiveXObject) {
+
+pTar.height = pTar.contentDocument.body.offsetHeight;
+
+} //ie
+
+else if (pTar.Document && pTar.Document.body.scrollHeight) {
+
+pTar.height = pTar.Document.body.scrollHeight + 100;
+
+}
+
+}
+
+}
+</script>
+<iframe id="mainFrame" width="402px" scrolling="no" height="100%" onload='IFrameReSize("mainFrame");' frameborder="0" marginwidth="0" marginheight="0" src="{:U('Tendout/tenddetail', array('id'=>$investid))}"></iframe>

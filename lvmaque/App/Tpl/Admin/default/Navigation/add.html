@@ -1,0 +1,45 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">添加导航菜单</div>
+<div class="page_tab"><span data="tab_1" class="active">基本设置</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/doAdd" onsubmit="return subcheck();">
+	<div id="tab_1">
+	
+	<dl class="lineD"><dt>导航菜单名称：</dt><dd><htmlA:input id="type_name" value="" tip="*"/></dd></dl>
+	<dl class="lineD"><dt>上级菜单：</dt><dd><htmlA:select id="parent_id" vt='id|type_name' datakey='type_list' default="顶级菜单" tip="顶级菜单则无父菜单"/></dd></dl>
+	<!--<dl class="lineD"><dt>导航菜单唯一标志：</dt><dd><htmlA:input id="type_nid" tip="*菜单链接的网址标识"/></dd></dl>-->
+	<!--<dl class="lineD"><dt>导航菜单属性：</dt><dd><htmlA:radio id="type_set"  default="2|跳转" tip='*'/></dd></dl>-->
+	<dl class="lineD"><dt>导航菜单排序：</dt><dd><htmlA:input id="sort_order" tip="数字越大越靠前" addstr='onblur="NumberCheck(this);"'/></dd></dl>
+	<dl class="lineD"><dt>是否隐藏：</dt><dd><htmlA:radio id="is_hiden" default="0|否,1|是" tip='隐藏的菜单名称不会自动调用,指定ID才会调用'/></dd></dl>
+	<dl class="lineD"><dt>链接路径：</dt><dd><htmlA:input id="type_url" tip='*'/></dd></dl>
+	</div><!--tab1-->
+	
+	<div id="tab_2" style="display:none">
+		<dl class="lineD"><dt>单页内容：</dt>
+		  <dd>
+			<include file="./Style/Editor/kissy.html" />
+			<htmlA:editor id="type_content"  w='780px' type='kissy'/>
+		  </dd>
+		</dl>
+	</div><!--tab2-->
+	<div class="page_btm">
+      <input type="hidden" name="model" id="model" value="{$model}" />
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+</div>
+
+</div>
+<script type="text/javascript">
+$("input[name='type_nid']").bind("click", function(event){
+	if($(this).val()=="other"){
+		$("#other_nid").css("display","");
+	}else{
+		$("#other_nid").css("display","none");
+	}
+})
+</script>
+<include file="Public:_footer" />

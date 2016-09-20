@@ -1,0 +1,160 @@
+<include file="../Public/_header" />
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<style type="text/css">
+    .tip{color:#F2F4F6}
+</style>
+<tagLib name="htmlA" />
+<div class="so_main">
+    <!--列表模块-->
+    <form name="sdf" id="sdf" action="__URL__/index" method="get">
+        <div class="Toolbar_inbox">
+            <span>从<htmlA:timer id="start_time" tip='只选开始时间则查询从开始时间往后所有' arg="{maxDate:'#F{$dp.$D(\\\\'end_time\\\\')||\\\\'2020-10-01\\\\'}',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$search.start_time|mydate='Y-m-d H:i:s',###}"/>到<htmlA:timer id="end_time" tip='只选结束时间则查询从结束时间往前所有' arg="{minDate:'#F{$dp.$D(\\\\'start_time\\\\')}',maxDate:'2020-10-01',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}" class="Wdate" value="{$search.end_time|mydate='Y-m-d H:i:s',###}"/></span>
+            <a href="javascript:;" onclick="javascript:document.forms.sdf.submit();" class="btn_a"><span>统计</span></a></div>
+    </form>
+    <style type="text/css">
+        .ssx a{height:30px; line-height:30px}
+        .list td{border-right:1px solid #E3E6EB; width:30%}
+        .lx{width:100%; overflow:hidden; height:30px; line-height:30px}
+        .lx dt,.lx dd{float:left; width:40%}
+        .lx dt{text-align:right;}
+        .lx dd{text-align:left; text-indent:10px}
+    </style>
+    <div class="list">
+  
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th class="line_l">会员统计</th>
+                <th class="line_l">资金进出统计</th>
+                <th class="line_l">借款统计</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <dl class="lx"><dt>会员总数:</dt><dd>{$list.mm.num}人</dd></dl>
+                    <dl class="lx"><dt>通过身份认证:</dt><dd>{$list.mm.ms_id}人</dd></dl>
+                    <dl class="lx"><dt>通过手机认证:</dt><dd>{$list.mm.ms_phone}人</dd></dl>          
+                </td>
+                <td valign="top">
+                    <dl class="lx"><dt>线上充值:</dt><dd>{$list.3.money|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>线下充值:</dt><dd>{:Fmoney($list['27']['money']+$list['7']['money'])}</dd></dl>
+                    <dl class="lx"><dt>成功提现:</dt><dd>{$list.29.money|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>总计:</dt><dd>{:Fmoney($list['27']['money']+$list['3']['money']+$list['7']['money']-$list['29']['money'])}</dd></dl>
+                </td>
+                <td valign="top">
+                    <dl class="lx"><dt>成功借出总额:</dt><dd>{$list.17.money|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>已还款总额:</dt><dd>{$list.11.money|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>未还款总额:</dt><dd>{:Fmoney($list['17']['money']-$list['11']['money'])}</dd></dl>
+                    <dl class="lx"><dt>冻结中的保证金总额:</dt><dd>{:Fmoney($list['19']['money']-$list['24']['money'])}</dd></dl>
+                </td>
+            </tr>
+            <tr>
+                <th class="line_l">逾期统计</th>
+                <th class="line_l">网站收益统计</th>
+                <th class="line_l">投资者收益统计</th>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <dl class="lx"><dt>逾期已还款总额:</dt><dd>{$list['expired']['re_money']|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>逾期未还款总额:</dt><dd>{:Fmoney($list['expired']['money']-$list['expired']['re_money'])}</dd></dl>
+                    <dl class="lx"><dt>催收费总额:</dt><dd>{$list.31.money|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>逾期罚息总额:</dt><dd>{$list.30.money|Fmoney=###}</dd></dl>
+                </td>
+                <td valign="top">
+                    <dl class="lx"><dt>借款管理费总额:</dt><dd>{$list.18.money|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>利息管理费总额:</dt><dd>{$list.23.money|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>提现手续费总额:</dt><dd>{$list.tx.money|Fmoney=###}</dd></dl>
+                    <dl class="lx">
+                        <dt>总计:</dt>
+                        <dd>
+                            {:Fmoney($list['18']['money']+$list['23']['money']+$list['tx']['money'])}
+                        </dd>
+                    </dl>
+                </td>
+                <td valign="top">
+                    <dl class="lx"><dt>成功借款利息总额:</dt><dd>{$list.28.money|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>成功借款投标奖励总额:</dt><dd>{$list.21.money|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>邀请注册奖金总额:</dt><dd>{:Fmoney(rwards(4,'all'))}</dd></dl>
+                    <dl class="lx"><dt>线下充值奖励:</dt><dd>{$list.32.money|Fmoney=###}</dd></dl>
+                    <dl class="lx">
+                        <dt>总计:</dt>
+                        <dd>
+                            {:Fmoney($list['28']['money']+$list['21']['money']+$list['32']['money'])}
+                        </dd>
+                    </dl>
+                </td>
+            </tr>
+            <tr>
+            <if condition="$version.business eq 1 ">
+                <th class="line_l">{$designer[6]}统计</th>
+            </if>
+            <if condition="$version.fund eq 1 ">
+                <th class="line_l">{$designer[7]}投标统计</th>
+            </if>
+            <if condition="$version.single eq 1 ">
+                <th class="line_l">散标投标统计</th>
+            </if>
+            <if condition="($version.single neq 1) AND ($version.business neq 1) AND ($version.fund neq 1) AND ($version.agility eq 1) ">
+				<th class="line_l"><?php echo AgilityBehavior::$THE_SPIRIT;?>统计</th>
+			</if>
+            </tr>
+            <tr>
+            <if condition="$version.business eq 1 ">
+                <td valign="top">
+                    <dl class="lx"><dt>总借出金额:</dt><dd>{$transfer.investor_capital|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>已还金额:</dt><dd>{$transfer.receive_capital|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待还金额:</dt><dd>{:Fmoney($transfer['investor_capital']-$transfer['receive_capital'])}</dd></dl>
+                    <dl class="lx"><dt>已支付利息:</dt><dd>{$transfer.receive_interest|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待支付利息:</dt><dd>{:Fmoney($nopay_interest)}</dd></dl>
+                    <dl class="lx"><dt>已支付奖励:</dt><dd>{$transfer.reward_money|Fmoney=###}</dd></dl>
+                </td>
+            </if>
+            <if condition="$version.fund eq 1 ">
+                <td valign="top">
+                    <dl class="lx"><dt>总借出金额:</dt><dd>{$fund.investor_capital|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>已还金额:</dt><dd>{$fund.receive_capital|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待还金额:</dt><dd>{:Fmoney($fund['investor_capital']-$fund['receive_capital'])}</dd></dl>
+                    <dl class="lx"><dt>已支付利息:</dt><dd>{$fund.receive_interest|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待支付利息:</dt><dd>{$fund['need_pay_interest']}</dd></dl>
+                    <dl class="lx"><dt>已支付奖励:</dt><dd>{$fund.reward_money|Fmoney=###}</dd></dl>
+                </td>
+            </if>
+            <if condition="$version.single eq 1 ">
+                <td valign="top">	    
+                    <dl class="lx"><dt>总借出金额:</dt><dd>{$invest.investor_capital|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>已还金额:</dt><dd>{$invest.receive_capital|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待还金额:</dt><dd>{:Fmoney(wait_repay_total)}</dd></dl>
+                    <dl class="lx"><dt>已支付利息:</dt><dd>{$invest.receive_interest|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待支付利息:</dt><dd>{$invest['need_pay_interest']}</dd></dl>
+                    <dl class="lx"><dt>已支付奖励:</dt><dd>{$invest.reward_money|Fmoney=###}</dd></dl>
+                </td>
+            </if>
+            <if condition="($version.single neq 1) AND ($version.business neq 1) AND ($version.fund neq 1) AND ($version.agility eq 1) ">
+				<td valign="top">
+                    <dl class="lx"><dt>总借出金额:</dt><dd>{$bao['total']|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>已还（含赎回）金额:</dt><dd>{$bao['repay_total']|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待还金额:</dt><dd>{:Fmoney($bao['wait_repay_total'])}</dd></dl>
+                    <dl class="lx"><dt>已支付利息:</dt><dd>{$bao['repay_total_interest'] |Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待支付利息:</dt><dd>{$bao['wait_repay_total_interest']|Fmoney=###}</dd></dl>
+                </td>
+			</if>
+            </tr>
+
+			<if condition="($version.single eq 1) AND ($version.business eq 1) AND ($version.fund eq 1) AND ($version.agility eq 1) ">
+            <tr>
+                <th class="line_l"><?php echo AgilityBehavior::$THE_SPIRIT;?>统计</th>
+             
+            </tr>
+            <tr>
+                <td valign="top">
+                    <dl class="lx"><dt>总借出金额:</dt><dd>{$bao['total']|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>已还（含赎回）金额:</dt><dd>{$bao['repay_total']|Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待还金额:</dt><dd>{:Fmoney($bao['wait_repay_total'])}</dd></dl>
+                    <dl class="lx"><dt>已支付利息:</dt><dd>{$bao['repay_total_interest'] |Fmoney=###}</dd></dl>
+                    <dl class="lx"><dt>待支付利息:</dt><dd>{$bao['wait_repay_total_interest']|Fmoney=###}</dd></dl>
+                </td>
+              
+            </tr>
+            </if>
+        </table>
+    </div>
+</div>
+<include file="Public:_footer" />

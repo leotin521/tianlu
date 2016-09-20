@@ -1,0 +1,19 @@
+<ul>
+<li style="width:86px;">&nbsp;</li>
+<li style="width:160px;">&nbsp;</li>
+<li style="width:160px;">&nbsp;</li>
+<li style="width:149px;">&nbsp;</li>
+<li style="width:140px; border-right:0px;">{$mmoney}</li>
+</ul>
+
+<php>$total_capital = $mmoney;</php>
+<volist name="repay_detail" id="vo">
+<php>$total_capital-=$vo['capital'];</php>
+<ul>
+<li style="width:86px;">{$key+1}</li>
+<li style="width:160px;">{$vo.repayment_money}</li>
+<li style="width:160px;">{$vo.capital}</li>
+<li style="width:149px;">{$vo.interest}</li>
+<li style="width:140px; border-right:0px;"><if condition="($key+1) eq $m">0<else/>{$total_capital}</if></li>
+</ul>
+</volist>

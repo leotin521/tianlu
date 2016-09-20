@@ -1,0 +1,234 @@
+<include file="Public:_header_common" />
+<title>{$glo.index_title}</title>
+<meta name="keywords" content="{$glo.web_keywords}" />
+<meta name="description" content="{$glo.web_descript}" />
+<include file="Public:_header_main" />
+<link rel="stylesheet" href="__ROOT__/Style/H/css/borrowstyle.css" />
+<script type="text/javascript" src="__ROOT__/Style/Common/js/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/M/css/jquery-ui.min.css" />
+<link rel="stylesheet" href="__ROOT__/Style/M/css/min.user.css?v=2015020312">
+        <style type="text/css">
+            .apply_radio {
+                clear: both;
+                margin-left: 100px;;
+                margin-bottom: 50px;
+                overflow: hidden;
+            }
+            .apply_radio li {
+                float: left;
+                margin-right: 50px;
+            }
+            .allbgcolor{
+                color:#fff;
+            }
+        </style>
+<!--中部开始-->
+<div class="list_main">
+  <div class="list_account">
+    <div class="bb_list_banner">
+    <if condition="($single neq 1) OR ($apply_type eq 1) OR ($is_transfer eq 1)">
+      <div style="width:1000px; margin:0 auto; height:714px;">
+      	<div class="main_list_title allbgcolor">我要借款</div>
+      	<img src="__ROOT__/Style/H/images/new/borrow_1.jpg">
+      	<img src="__ROOT__/Style/H/images/new/borrow_2.jpg">
+      	<img src="__ROOT__/Style/H/images/new/borrow_3.jpg">
+      </div>
+     <else />
+      <div class="main_list">
+        <div class="main_list_title allbgcolor">我要借款</div>
+        <img src="__ROOT__/Style/H/images/new/borrow_title.png">
+      </div>
+      <div class="content">
+        <div class="main_list_title allbgcolor">借款详情</div>
+        <!--信-->
+        <div class="borrow_content">
+          <div class="borrow_cont_none borrow_cont_nonea">&nbsp;</div>
+          <p>信用借款标显示"信"字标记，是一种免抵押、免担保、纯信用的小额个人信用贷款标！</p>
+          <p>&nbsp;</p>
+          <p>【申请条件】：（1）23 - 60周岁，信用记录良好的中国大陆居民（2）所抵押房产的完全所有人（3）还款超过6个月的按揭房</p>
+          <p>&nbsp;</p>
+          <p>【借款额度】：可使用额度：{$minfo.credit_limit|Fmoney=###}&nbsp;&nbsp;&nbsp;&nbsp;总额度：{$minfo.credit_cuse|Fmoney=###}&nbsp;&nbsp;&nbsp;&nbsp; 已使用额度：{:Fmoney($minfo['credit_cuse']-$minfo['credit_limit'])}&nbsp;&nbsp;&nbsp;&nbsp;额度状态：<if condition="$minfo.credit_cuse gt 0">正常<else/>额度不足</if></p>
+          <p>&nbsp;</p>
+          <if condition="$minfo['credit_limit'] gt 0">
+              <a class="release" href="__ROOT__/borrow/post/normal.html"><span class="allbgcolor">发布借款</span></a>
+              <a href="/member/borrows/credit" class="J_applyCredit release" style="margin-left: 15px;color: #E25453;font-size: 15px;line-height: 36px;">申请额度&gt;&gt;</a>
+          <else/>
+              <a class="release" href="/member/borrows/credit"><span class="allbgcolor">申请额度</span></a>
+              <i>您需要先申请额度才可以发布<?php echo BorrowModel::get_borrow_type(1);?>。</i>
+          </if>
+        </div>
+        <!--担-->
+        <div class="borrow_content">
+          <div class="borrow_cont_none borrow_cont_noneb">&nbsp;</div>
+          <p>机构担保借款标显示标记"担"，担保人和借款人之间协商并签订抵押担保手续，是有担保机构进行担保的借款。</p>
+          <p>&nbsp;</p>
+          <p>【申请条件】：有担保机构为其进行担保；逾期由担保机构垫付本息还款。</p>
+          <p>&nbsp;</p>
+          <p>【借款额度】：此标未涉及借款额度。</p>
+          <p>&nbsp;</p>
+            <a class="release" href="__ROOT__/borrow/post/vouch.html"><span class="allbgcolor">发布借款</span></a>
+        </div>
+        <!--秒-->
+        <div class="borrow_content">
+          <div class="borrow_cont_none borrow_cont_nonec">&nbsp;</div>
+          <p><?php echo BorrowModel::get_borrow_type(3);?>显示标记"秒"，<?php echo BorrowModel::get_borrow_type(3);?>是一种娱乐庆祝送钱的标，可以很快提升发标者的积分，把快乐送给大家。</p>
+          <p>&nbsp;</p>
+          <p>【申请条件】：在网站有过投资记录；并且账户金额能够支付发这次秒标的手续费以及利息</p>
+          <p>&nbsp;</p>
+          <p>【借款额度】：此标未涉及借款额度。</p>
+          <p>&nbsp;</p>
+            <a class="release" href="__ROOT__/borrow/post/second.html"><span class="allbgcolor">发布借款</span></a>
+        </div>
+        <!--净-->
+        <div class="borrow_content">
+          <div class="borrow_cont_none borrow_cont_noned">&nbsp;</div>
+          <p>净值借款标显示标记"净"，如果客户净资产大于借款金额，网站运营方允许发布净值借款标用于临时周转。</p>
+          <p>&nbsp;</p>
+          <p>【申请条件】：本网站的投资者；在本网站拥有一定债权，以站内债权为担保</p>
+          <p>&nbsp;</p>
+          <p>【借款额度】：可使用额度：{$netMoney|default="0.00"}</php>&nbsp;&nbsp;&nbsp;&nbsp;总额度：{$allnetMoney|default="0.00"}&nbsp;&nbsp;&nbsp;&nbsp;已使用额度：{:Fmoney($allnetMoney-$netMoney)}&nbsp;&nbsp;&nbsp;&nbsp;额度状态：<if condition="$netMoney gt 0">正常<else/>额度不足</if></p>
+          <p>&nbsp;</p>
+            <a class="release" href="__ROOT__/borrow/post/net.html"><span class="allbgcolor">发布借款</span></a>
+        </div>
+        <!--抵-->
+        <div class="borrow_content">
+          <div class="borrow_cont_none borrow_cont_nonee">&nbsp;</div>
+          <p>抵押借款标显示标记"抵"，是网站运营方经过线下严格核查借款人资产负债！</p>
+          <p>&nbsp;</p>
+          <p>【申请条件】：有关政府以及商业银行推荐、优质资产和股权;一般为地区优质中小微企业、并且办理相关抵押手续</p>
+          <p>&nbsp;</p>
+          <p>【借款额度】：此标未涉及借款额度。</p>
+          <p>&nbsp;</p>
+            <a class="release" href="__ROOT__/borrow/post/mortgage.html"><span class="allbgcolor">发布借款</span></a>
+        </div>
+      </div>
+      </if>
+    </div>
+  </div>
+</div>
+<!--中部结束-->
+<include file="Public:_footer" />
+<?php if($user_type['code'] > 0):?>
+    <div id="generalizePop" style="display:none">
+        <div class="ps1-close">×</div>
+        <div class="ps1-con ps2-con cf">
+            <div class="ps1-title">
+                <h2>{$user_type['msg']}</h2>
+            </div>
+            <div class="generalizePop_con">
+                <div class="generalizePop_con_fuzhi clearfix">
+                    <?php if($user_type['code']==2){?>
+                        <p style="margin: 10px 0 50px 50px;">您的申请正在审核，请您耐心等待！</p>
+                        <a href="javascript:;"  type="submit" class="btn-style-3 J_btn" title="发起申请">确定</a>
+                    <?php }else if($user_type['code']==3){ ?>
+                        <p style="margin: 10px 0 50px 50px;">企业会员发标请联系客服！</p>
+                        <a href="javascript:;"  type="submit" class="btn-style-3 J_btn" title="发起申请">确定</a>
+                    <?php }else if($user_type['code']==4){ ?>
+                        <p style="margin: 10px 0 50px 50px;">您需要通过手机验证和实名认证才可以借款！</p>
+                        <a href="__ROOT__/member/verify/index"  type="submit" class="btn-style-3" title="发起申请">去认证</a>
+                    <?php }else if($user_type['code']==5){ ?>
+                        <p style="margin: 10px 0 50px 50px;">您的账户存在逾期未还的借款，请先偿还后再来借款！</p>
+                        <a href="__ROOT__/member/borrows/summa/index?status=overdue"  type="submit" class="btn-style-3" title="发起申请">去还款</a>
+                    <?php }else{ ?>
+                        <ul class="apply_radio">
+                            <volist name="member_type" id="vo">
+                                <li><input type="radio" value="{$key}" name="apply_borrow_type" id="apply_borrow_type_0{$key}"/><label for="apply_borrow_type_0{$key}">申请成为{$vo}</label> </li>
+                            </volist>
+                        </ul>
+                        <a href="javascript:;" id="applyBtn" type="submit" class="btn-style-3" title="发起申请">发起申请</a>
+                    <?php } ?>
+                    	
+                </div>
+                <if condition="$app_status heq '0'">
+                        <div style="color:red; margin-top:80px; margin-left:20px;">温馨提示:您上次审核未通过，请您再次申请！</div>
+                        </if>
+                <div id="generalizePop_error" class="generalizePop_error tac " style="display:none;"><span class="generalize_icon">&nbsp;</span><span class="em mgt"></span></div>
+            </div>
+        </div>
+    </div>
+<?php endif;?>
+
+<script type="text/javascript">
+    $('.ps1-close').live('click', function() {
+        var id = $(this).parents(".ui-dialog-content").attr("id");
+        $("#" + id).dialog("close")
+    })
+    $('.J_btn').live('click', function() {
+        $('.ps1-close').trigger('click');
+    })
+
+    $('#applyBtn').click( function() {
+        var borrowType = $("input[name=apply_borrow_type]:checked").val();
+        if( borrowType == <?php echo MembersModel::MEMBERS_IS_TRANSFER_BUSINESS;?> ) {
+            window.location.href="__ROOT__/member/memberinfo/index_index/tid/<?php echo MembersModel::MEMBERS_IS_TRANSFER_BUSINESS;?>";
+        } else if(borrowType == <?php echo MembersModel::MEMBERS_IS_TRANSFER_PERSONAL;?> ) {
+            window.location.href="__ROOT__/member/memberinfo/index_index/tid/<?php echo MembersModel::MEMBERS_IS_TRANSFER_PERSONAL;?>";
+        } else {
+            $(this).next('span').html('<span style="color:#F00;padding-left:10px;">请选择申请类别</span>');
+        }
+        return false;
+    })
+
+    $('input[name=apply_borrow_type]').click( function() {
+        $('#applyBtn').next('span').html('');
+    })
+
+    $('.release,.J_applyCredit').click( function() {
+        if($('#generalizePop').is(':visible') == false && $('#generalizePop').length > 0 ) {
+            $('.release').attr('href','javascript:;')
+            dialog();
+            return false;
+        }
+    })
+</script>
+<script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/jquery.zclip.min.js"></script>
+<!--<script src="__ROOT__/Style/M/js/invite.js"></script>-->
+<script type="text/javascript">
+    function dialog() {
+        $("#generalizePop").dialog({
+            dialogClass: "clearPop pop-style-1",
+            bgiframe: !0,
+            modal: !0,
+            resizable: !1,
+            closeOnEscape: !1,
+            show: {
+                effect: "fadeIn",
+                duration: 450
+            },
+            open: function() {
+                cpStatic && (ele = $("#generalizePop_error"), $("#copyBtn").zclip({
+                    path: copy.path,
+                    copy: function() {
+                        return $("#copyText").val()
+                    },
+                    afterCopy: function() {
+                        ele.show().find(".em").text("复制成功").end().find(".generalize_icon").removeClass("icon-tanhao").addClass("icon-check")
+                    }
+                }), cpStatic = !1), $("#generalizePop_error").hide()
+            },
+            width: 537,
+            close: 243
+        })
+    }
+    dialog();
+</script>
+
+<SCRIPT language=javascript>
+	function qiehuan1(num){
+		for(var id = 0;id<=6;id++)
+		{
+			if(id==num)
+			{
+				document.getElementById("qh_conn"+id).style.display="block";
+			    document.getElementById("ynav"+id).className = "current";
+			}
+			else
+			{
+				document.getElementById("qh_conn"+id).style.display="none";
+			    document.getElementById("ynav"+id).className = "";
+			}
+		}
+	}
+</SCRIPT>

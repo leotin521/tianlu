@@ -1,0 +1,40 @@
+  <!-------- 搜索游戏 -------->
+  <div id="search_div" style="display:none">
+      <div class="page_tit">
+      <script type="text/javascript">document.write(searchName);</script> [ <a href="javascript:void(0);" onclick="dosearch();">隐藏</a> ]</div>
+    
+    <div class="form2">
+    <form method="get" action="">
+    <dl class="lineD">
+      <dt>会员名：</dt>
+      <dd>
+        <input name="uname" style="width:190px" id="title" type="text" value="{$search.uname}">
+        <span>不填则不限制</span>
+      </dd>
+    </dl>
+    
+    <!-- <dl class="lineD">
+      <dt>奖励类型：</dt>
+      <dd>
+        <htmlA:select id="type" value="key|exp_type"  datakey='exp_type' tip="不选则不限制"/>
+      </dd>
+    </dl>
+
+    <dl class="lineD">
+        <dt>优惠券类型：</dt>
+        <dd>
+            <select name="coupon_type" id="coupon_type">
+                <option value="">不选则不限制</option>
+                <volist name="coupon_type_list"  id="vo">
+                    <option value="{$key}">{$vo}</option>
+                </volist>
+            </select>
+        </dd>
+    </dl> -->
+    
+    <div class="page_btm">
+      <input type="submit" class="btn_b" value="确定" />
+    </div>
+    </form>
+  </div>
+  </div>

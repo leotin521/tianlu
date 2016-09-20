@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)### -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<title>用户中心 - 信用等级</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="__ROOT__/favicon.ico">
+<link rel="stylesheet" href="/Style/Common/css/common.css">
+<script type="text/javascript" src="__ROOT__/Style/Common/js/jquery.min.js"></script>
+<link rel="stylesheet" href="__ROOT__/Style/M/css/min.user.css?v=2015020312">
+
+<style type="text/css">
+    .fn-clear{zoom:1;}.fn-clear:after{display:block; content:""; height:0; clear:both; overflow:hidden;}
+    .fn-left{float:left} .fn-right{float:right;} .fn-left,.fn-right{display:inline;}
+    .clear {font-size:0;height:0;line-height:0;overflow:hidden;clear: both}
+    i{ font-weight:normal;font-style:normal;}
+    .ml20 {
+        margin-left: 20px;
+    }
+    .bz_put {
+        width: 180px;
+        height: 28px;
+        padding: 2px;
+        border-radius: 3px;
+        border:1px solid #D3D3D3;
+    }
+    .bz_area {
+        display:block;
+        width: 600px;
+        height: 66px;
+        padding: 2px;
+        border:1px solid #D3D3D3;
+    }
+    .btn {
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        color:#FFF;
+        font-size: 14px;
+        background-color: #da4848;
+        text-align: center;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .classify-selected-1 {
+        margin-bottom: 22px;
+    }
+    .tdEven {
+        background-color:#f5f5f5;
+        height: 40px;
+    }
+    .tdContent {
+        padding: 7px 0;
+		text-align:center;
+		width:110px;
+    }
+    table tr th {
+        padding: 0 10px;
+    }
+    .user-box-title-1 .hidden {
+        border-bottom: none;
+    }
+    .user-box-title-1 .rh {
+        float: right;
+    }
+    .user-box-title-1 .rh a{
+        color:#3181d8;
+    }
+    .user-box-title-1 .rh i {
+        float: left;
+        display: block;
+        width: 14px;
+        height: 16px;
+        margin: 24px 9px 0 0;
+        background-image: url("__ROOT__/Style/A/images/ico/user_pic_icon.gif");
+    }
+    .user-box-title-1 h2 {
+        cursor: pointer;
+    }
+    #pager {
+        padding-top: 20px;
+        border-top: 1px solid #DEDEDE;
+    }
+    .out_ul {
+        margin-top: 25px;
+    }
+    .out_ul li.item {
+        float: left;
+        width: 92px;
+        height: 60px;
+        text-align: center;
+    }
+    .out_ul .division {
+        border-right: 1px solid #D3D3D3;
+        margin-right: 22px;
+        padding-right: 10px;
+    }
+    .out_ul .head {
+        font-size: 15px;
+    }
+    .out_ul .item .inner_li {
+        padding-bottom: 5px;
+    }
+    .out_ul .item .stress {
+        font-size: 15px;
+        color:#e25453;
+    }
+    .out_ul .item .stress i {
+        font-size: 20px;
+        font-family: "Verdana", "arial", "微软雅黑", "宋体";
+    }
+    /**************************************************************/
+    .account_list,.up_right {
+        margin-top: 15px;
+    }
+    .account_list{
+        float: left;
+    }
+    .account_list li {
+        clear: both;
+        width: 320px;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 10px;
+        background-color: #eeeeee;
+        text-indent: 1em;
+        overflow: hidden;
+    }
+    .account_list li i {
+        display: block;
+        float: right;
+        height: 30px;
+        line-height: 30px;
+        padding-right: 20px;
+    }
+    .up_right {
+        float: left;
+        margin-left: 178px;
+        margin-top: 15px;
+    }
+    .up_right .pic{
+        padding: 5px 0 15px 24px;
+        cursor: pointer;
+    }
+/**********************************************************************************************/
+    #content .head {
+        height: 38px;
+        background-color: #f4f4f4;
+    }
+</style>
+<style id="poshytip-css-tip-yellow" type="text/css">
+	div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}
+	div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}
+	div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}
+	div.tip-yellow td.tip-right{background-position:100% 0;}
+	div.tip-yellow td.tip-bottom{background-position:100% 100%;}
+	div.tip-yellow td.tip-left{background-position:0 100%;}
+	div.tip-yellow div.tip-inner{background-position:-10px -10px;}
+	div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}
+</style>
+</head><body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"></div>
+    </div>
+    <div class="user-main clearfix">
+		<include file="default:Public:_left"/>
+        <div class="user-con user-deal-record">
+			<div class="user-box-1">
+				<div class="user-box-title-1 clearfix">
+                    <h2>信用等级</h2>
+                    <h2 class="ml20 hidden" id="applyUrl">申请信用额度</h2>
+                    <span class="rh"><i></i><a href="__ROOT__/Member/memberinfo/index_index" >修改个人资料</a></span>
+                </div>
+				<div class="user-box-con-2" id="apply_list">
+                    <div class="fn-clear" style="width:687px;overflow: hidden;">
+                        <ul class="out_ul fn-clear">
+                            <li class="item division">
+                                <ul>
+                                    <li class="inner_li head">信用等级</li>
+                                    <li class="inner_li stress"><i>{$members.credit_rand}</i></li>
+                                </ul>
+                            </li>
+                            <li class="item">
+                                <ul>
+                                    <li class="inner_li head">信用积分</li>
+                                    <li class="inner_li stress"><i>{$members.credits}</i></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fn-clear">
+                        <ul class="account_list fn-clear">
+                            <li>已用额度<i>{$member_money.used_credit}元</i></li>
+                            <li>剩余额度<i>{$member_money.credit_limit}元</i></li>
+                            <li>可用额度<i>{$member_money.credit_limit}元</i></li>
+                            <li>全部额度<i>{$member_money.credit_cuse}元</i></li>
+                        </ul>
+                        <div class="up_right">
+                            <ul>
+                                <li class="pic"><a href="__ROOT__/member/memberinfo/index_index?ckid=4"><img src="/Style/M/images/update_pic.gif" /></a></li>
+                                <li><a href="__ROOT__/member/memberinfo/index_index?ckid=4">上传资料，提高等级</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; overflow: hidden; text-align: left;">
+                        <table id="content" style="width: 750px; border-collapse: collapse;margin-left: 8px;" cellspacing="0">
+                            <tbody>
+                            <tr class="head">
+                                <th scope="col" class="tdHeard" style="width: 110px;text-align:center;">发生日期</th>
+                                <th scope="col" class="tdHeard" style="width: 110px;text-align:center;">影响积分</th>
+                                <th scope="col" class="tdHeard" style="width: 110px;text-align:center;">剩余积分</th>
+                                <th scope="col" class="tdHeard" style="width: 110px;text-align:center;">说明</th>
+                            </tr>
+
+                            <volist name="list['data_items']" id="vo">
+                                <tr class="nodatashowtr">
+                                    <td class="tdContent">{$vo.add_time|date="Y-m-d H:i",###}</td>
+                                    <td class="tdContent">{$vo.affect_credits}</td>
+                                    <td class="tdContent">{$vo.account_credits}</td>
+                                    <td class="tdContent">{$vo.info}</td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <?php if(!empty($pagebar)):?>
+                        <div data="fragment-1" id="pager" style="float: right; text-align: right; width: 500px; padding-right: 3px;" class="yahoo2 ajaxpagebar">{$list.pagebar}</div>
+                        <?php endif;?>
+                    </div>
+
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#applyUrl').click( function() {
+        window.location = "__URL__/credit"
+    })
+</script>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/H/js/globalfunc.js"></script>
+</body></html>

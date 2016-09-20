@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="format-detection" content="email=no" />
+    <title>邮箱验证</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/email.css" rel="stylesheet" />
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    
+</head>
+<body>
+<header>
+	<h1>邮箱验证</h1>
+	<a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+</header>
+
+
+<!-- email_content star -->
+
+<div class="am-container clearfix">
+	<form class="am-form am-margin-top">
+    <div class="am-g clearfix">
+        <input class="u_password am-radius" id="email1" name="email1" required="required" type="text" placeholder="请输入需要验证的邮箱" autofocus="autofocus" />
+        <span id="newemail" style="color:red;"></span>
+    </div>
+
+	<div class="am-margin-top">
+		<a class="am-btn am-btn-block am-btn-danger am-radius am-btn-xl" id="phoneSubmitBtnnn" onClick="new_email()">验证</a>
+	</div>
+   </form>
+
+
+</div>
+
+<!-- email_content end -->
+
+<script type="text/javascript">
+    var reg_email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    var msg = "";
+
+    function SetError(tip){
+        layer.msg(tip,{icon:0});
+        return false;
+    }
+
+    function new_email(){
+        var email1 = $("#email1").val();
+        if (!reg_email.test(email1)){
+            // return SetError('邮箱格式不正确喔，亲~');
+            $().toastmessage('showErrorToast', '邮箱格式不正确喔，亲~');
+            return false;
+        }else{
+            AsyncEmail(email1);
+        }
+    }
+    function AsyncEmail(email) {
+        $("#newemail").html('正在检测电子邮件地址……');
+        $.ajax({
+            type: "post",
+            async: false,
+            dataType: "json",
+            url: "__URL__/ckemail/",
+            data: {"Email":email},
+            //timeout: 3000,
+            success: function (d, s, r) {
+                // alert(d);
+                if(d){
+                    // alert(d.status);
+                    if(d.status==1){
+                        send_email1(email);
+                    }else{
+                        $("#newemail").html('');
+                        //return SetError('该邮箱已被注册~');
+                        $().toastmessage('showErrorToast', '该邮箱已被注册~');
+                    }
+                }
+            }
+        });
+    }
+    function send_email1(email){
+        //2851336123@qq.com
+        $("#newemail").html('邮件发送中......');
+        $.ajax({
+            url: "__URL__/emailvsend/",
+            data: {"email":email},
+            timeout: 8000,
+            cache: false,
+            type: "post",
+            timeout: 2000,
+            dataType: "json",
+            success: function (d, s, r) {
+                if(d.status==1){
+                    $("#newemail").html(d.message);
+
+                    //setTimeout(window.location.href="__APP__/m/user/", 2000);
+                }else if(d.status==2){
+                    $("#newemail").html(d.message);
+                    return;
+                }else{
+                    $("#newemail").html(d.message);
+                    return;
+                }
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

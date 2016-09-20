@@ -1,0 +1,872 @@
+<include file="default:Public:_header_common"/>
+<script src="/Style/Js/jquery.validate.js"></script>
+<script src="/Style/Js/jquery.validate.cn.js"></script>
+<style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style>
+            
+<style type="text/css">
+.dv_header_8 { background-image: url(); }
+.dv_account_0 { margin-top: 10px; }
+.red {color:#F00;}
+
+.cz dl{line-height: 200%;margin-bottom: 12px;}
+.cz dt{width: 160px;text-align: right; display: inline-block;}
+.cz dd{display: inline-block;}
+.cz dd input{width: 95px; 
+	border: 1px solid #D4D4D4;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	color: #555555;
+    display: inline-block;
+    font-family: Tahoma,"微软雅黑","宋体";
+    font-size: 14px;
+    height: 26px;
+    line-height: 26px;
+	vertical-align: middle;
+}
+
+.btn{background: url("/Style/M/images/bank/fukan.jpg") repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 28px;
+    width: 124px;
+    color: #FFFFFF;
+	font-family: Tahoma,微软雅黑,宋体;
+}
+.btn:hover {
+    background-position: 0 -28px;
+}
+
+
+.radiobox {
+    display: inline-block;
+    font-size: 14px;
+	margin:5px;
+	width:80px;
+    position: relative;
+    text-decoration: none;
+    vertical-align: middle;
+}
+a.radiobox:link, a.radiobox:visited {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border: 2px solid #CFCFCF;
+    color: #555555;
+    height: 30px;
+	padding-top:5px;
+	padding-bottom:5px;
+	text-align:center;
+}
+.selected a.radiobox:link, .selected a.radiobox:visited, a.radiobox:active, a.radiobox:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    background-color: #F4F8EB;
+    border: 2px solid #A5C85B;
+    color: #608908;
+    height: 30px;
+    outline: 0 none;
+	text-align:center;
+}
+
+
+
+
+.radiobox .iconcheck {
+    bottom: 0;
+    display: none;
+    position: absolute;
+    right: 0;
+}
+
+.iconcheck {
+    background: url("/Style/M/images/bank/element.png") no-repeat  0 -103px transparent;
+    display: inline-block;
+    font-size: 0;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    width: 16px;
+}
+.selected .iconcheck {
+    display: block;
+    background-position: -112px -72px;
+    margin: -16px 0 0 104px;
+}
+
+.modbank:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.modbank {
+    color: #666666;
+    font: 12px/1.4 "微软雅黑","宋体",Tahoma;
+    padding-bottom: 10px;
+}
+
+.modbank .banklogo {
+    border: 1px solid #DDDEDE;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    margin: 16px 18px -1px 0;
+    position: relative;
+    width: 120px;
+    z-index: 0;
+}
+.modbank .banklogo:hover, .modbank .selected {
+   
+    z-index: 3;
+}
+
+
+.modbank .iconradio {
+    /*
+	background: url("/Style/M/images/bank/element.png") no-repeat scroll -48px -56px transparent;
+    margin-left: 8px;
+	*/
+    margin-right: 8px;
+    position: relative;
+    vertical-align: -2px;
+    display: inline-block;
+    font-size: 0;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    width: 16px;
+}
+.modbank .selected .iconradio {
+    background-position: -64px -56px;
+}
+
+.ico_icbc, .ico_cmb, .ico_ccb, .ico_abc, .ico_boc, .ico_spdb, .ico_sdb, .ico_cib, .ico_bob, .ico_cebb, .ico_boco, .ico_cmbc, .ico_ecitic, .ico_gdb, .ico_pingan, .ico_post, .ico_union, .ico_jsb, .ico_srcb, .ico_hkb, .ico_nbcb, .ico_njcb, .ico_bosh, .ico_hxb, .ico_hzb, .ico_hkbea, .ico_ordos, .ico_cbhb, .ico_jzb, .ico_gdrcu, .ico_nccb, .ico_glccb, .ico_bsb, .ico_ynrcc, .ico_gzcb, .ico_cqrcb, .ico_zjcb {
+    background: url("/Style/M/images/bank/bank_ico.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 18px;
+    line-height: 999px;
+    margin-right: 3px;
+    overflow: hidden;
+    position: relative;
+    vertical-align: -3px;
+    width: 18px;
+}
+.ico_icbc {
+    background-position: 0 0;
+}
+.ico_cmb {
+    background-position: -18px 0;
+}
+.ico_ccb {
+    background-position: -36px 0;
+}
+.ico_abc {
+    background-position: -54px 0;
+}
+.ico_boc {
+    background-position: -72px 0;
+}
+.ico_spdb {
+    background-position: -54px -18px;
+}
+.ico_sdb {
+    background-position: -108px -18px;
+}
+.ico_cib {
+    background-position: 0 -18px;
+}
+.ico_bob {
+    background-position: -126px -18px;
+}
+.ico_cebb {
+    background-position: -90px 0;
+}
+.ico_boco {
+    background-position: -36px -18px;
+}
+.ico_cmbc {
+    background-position: -90px -18px;
+}
+.ico_ecitic {
+    background-position: -126px 0;
+}
+.ico_gdb {
+    background-position: -72px -18px;
+}
+.ico_pingan {
+    background-position: 0 -36px;
+}
+.ico_post {
+    background-position: -18px -18px;
+}
+.ico_union {
+    background-position: -27px -36px;
+    width: 27px;
+}
+.ico_jsb {
+    background-position: -54px -36px;
+}
+.ico_srcb {
+    background-position: -72px -37px;
+}
+.ico_nbcb {
+    background-position: -90px -36px;
+}
+.ico_njcb {
+    background-position: -108px -36px;
+}
+.ico_hkb {
+    background-position: -126px -36px;
+}
+.ico_bosh {
+    background-position: 0 -54px;
+}
+.ico_hxb {
+    background-position: -18px -54px;
+}
+.ico_hzb {
+    background-position: -36px -54px;
+}
+.ico_hkbea {
+    background-position: -54px -54px;
+}
+.ico_ordos {
+    background-position: -72px -54px;
+}
+.ico_cbhb {
+    background-position: -108px -54px;
+}
+.ico_jzb {
+    background-position: -90px -54px;
+}
+.ico_gdrcu {
+    background-position: 0 -73px;
+}
+.ico_nccb {
+    background-position: -18px -73px;
+}
+.ico_glccb {
+    background-position: -36px -73px;
+}
+.ico_bsb {
+    background-position: -54px -73px;
+}
+.ico_ynrcc {
+    background-position: -72px -73px;
+}
+.ico_gzcb {
+    background-position: -90px -73px;
+}
+.ico_cqrcb {
+    background-position: -108px -73px;
+}
+.ico_zjcb {
+    background-position: -126px -73px;
+}
+.yihang_btn li{float:left;display:inline-block;}
+.isBank{float:left;}
+.user-pay-list{margin-left: 20px;}
+
+</style>            
+            </head>
+<body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-main clearfix">
+     <include file="default:Public:_left"/>
+
+    	<!--银行充值begin-->    
+        <div class="user-con user-pay">
+            <div class="user-box-1">
+            	<div class="user-box-title-1 clearfix">
+                	<h2>充&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;值</h2>
+                </div>
+                <div class="user-box-con-1">
+                    <form id="rechargeForm" target="_blank" action="__ROOT__/Member/Charge/actcharge" method="post" novalidate>
+                    <dl id="selectThird" class="user-pay-list clearfix">
+                    	<dt>充值方式</dt>
+                        <dd>
+                        	<ul class="clearfix">
+                            <if condition="$payConfig['unspay']['enable'] eq '1'">
+                                <li class="selected1 selected">
+                                    <label id="unspay" _thirdid="unspay"><img src="__ROOT__/Style/M/images/bank/ysb.jpg" width="143" height="38" onClick="showTailinkzf('yinshengb_zf',this);"><span class="icon-duigou1"></span></label>
+                                </li>
+                           </if>
+		  <!--宝付开始-->
+		  <if condition="$payConfig['baofoo']['enable'] eq '1'">
+          <li <if condition="$payConfig['baofoo']['enable'] eq '1'">class="selected3 selected" <else />class="selected3" </if>>
+                                    <label id="baofoo" _thirdid="baofoo"><img src="__ROOT__/Style/M/images/bank/baofu.jpg" width="143" height="38" onClick="showTailinkzf('baofu_zf',this);"><span class="icon-duigou1"></span></label>
+                                </li>
+
+		  </if>
+		  <!--宝付结束-->
+		  <!--融宝开始-->
+		  <if condition="$payConfig['reapal']['enable'] eq '1' ">
+		   <li <if condition="$payConfig['baofoo']['enable'] neq '1' ">class="selected3 selected" <else />class="selected3"</if>>
+                 <label id="reapal" _thirdid="reapal"><img src="__ROOT__/Style/M/images/bank/rongbao.png" width="143" height="38" onClick="showTailinkzf('reapal_zf',this);"><span class="icon-duigou1"></span></label>
+           </li>
+		  </if>
+		  <!--融宝结束-->
+		  <!--网银在线开始-->
+		  <if condition="$payConfig['chinabank']['enable'] eq '1'">
+          <li <if condition="$payConfig['baofoo']['enable'] neq '1' AND $payConfig['reapal']['enable'] neq '1'">class="selected3 selected" <else />class="selected3" </if>>
+                                    <label id="chinabank" _thirdid="chinabank"><img src="__ROOT__/Style/M/images/bank/chinabank1_b.jpg" width="143" height="38" onClick="showTailinkzf('chinabank_zf',this);"><span class="icon-duigou1"></span></label>
+                                </li>
+
+		  </if>
+		  <!--网银在线结束-->
+		   <if condition="$payoff eq '1'">
+            <li <if condition="($payConfig['unspay']['enable'] neq '1') AND ($payConfig['baofoo']['enable'] neq '1') AND ($payConfig['reapal']['enable'] neq '1') ">class="selected3 selected" <else />class="selected3"</if>>
+               <label id="payoff" _thirdid="payoff"><img src="__ROOT__/Style/M/images/bank/bank-offline.jpg" width="143" height="38" onClick="showTailinkzf('xianxia_zf',this);"><span class="icon-duigou1"></span></label>
+            </li>
+           </if>
+             </ul>
+                        </dd>
+                    </dl>
+                    
+                   <dl id="selectBank" class="user-pay-list clearfix">
+        <if condition="$payConfig['baofoo']['enable'] eq '1'">
+        <div id="baofu_zf" class="modbank">
+          <div class="">请选择网上银行：</div>
+          <dd style="width:570px;margin-top: 10px;">
+            
+            <li class="isBank"><label _bankid='3002'  class="banklogo"><i class="iconradio"></i><i class="ico_icbc"></i>工商银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label  _bankid='3003'  class="banklogo"><i class="iconradio"></i><i class="ico_ccb"></i>建设银行<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label  _bankid='3026'  class="banklogo"><i class="iconradio"></i><i class="ico_boc"></i>中国银行<i class="iconcheck"></i></label></li>           
+            <li class="isBank"><label  _bankid='3005'  class="banklogo"><i class="iconradio"></i><i class="ico_abc"></i>农业银行<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label _bankid='3038'   class="banklogo"><i class="iconradio"></i><i class="ico_post"></i>邮政储蓄<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label  _bankid='3020'  class="banklogo"><i class="iconradio"></i><i class="ico_boco"></i>交通银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label  _bankid='3006'  class="banklogo"><i class="iconradio"></i><i class="ico_cmbc"></i>民生银行<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label _bankid='3004'   class="banklogo"><i class="iconradio"></i><i class="ico_spdb"></i>浦发银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label  _bankid='3009'  class="banklogo"><i class="iconradio"></i><i class="ico_cib"></i>兴业银行<i class="iconcheck"></i></label></li>            
+			<li class="isBank"><label _bankid='3001'  class="banklogo"><i class="iconradio"></i><i class="ico_cmb"></i>招商银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label _bankid='3022'   class="banklogo"><i class="iconradio"></i><i class="ico_cebb"></i>光大银行<i class="iconcheck"></i></label></li>           
+            <li class="isBank"><label  _bankid='3032'  class="banklogo"><i class="iconradio"></i><i class="ico_bob"></i>北京银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label _bankid='3035'   class="banklogo"><i class="iconradio"></i><i class="ico_pingan"></i>平安银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label _bankid='3036'   class="banklogo"><i class="iconradio"></i><i class="ico_gdb"></i>广发银行<i class="iconcheck"></i></label></li>            
+            <li class="isBank"><label _bankid='3039'   class="banklogo"><i class="iconradio"></i><i class="ico_ecitic"></i>中信银行<i class="iconcheck"></i></label></li>
+           <!-- <label  _bankid='1050'  class="banklogo"><i class="iconradio"></i><i class="ico_hxb"></i>华夏银行<i class="iconcheck"></i></label>-->
+            <li class="isBank"><label _bankid='baofoo'   class="banklogo selected"><i class="iconradio"></i><i class="ico_union"></i>更多>><i class="iconcheck"></i></label></li>
+          </dd>
+        </div>
+        </if>
+        <if condition="$payConfig['reapal']['enable'] eq '1' ">
+		<div id="reapal_zf" class="modbank" style="display:none;">
+          <div class="">请选择网上银行：</div>
+          <dd style="width:570px;margin-top: 10px;">
+            <li class="isBank"><label _bankid='ICBC'  class="banklogo"><i class="iconradio"></i><i class="ico_icbc"></i>工商银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label  _bankid='CCB'  class="banklogo"><i class="iconradio"></i><i class="ico_ccb"></i>建设银行<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label  _bankid='BOC'  class="banklogo"><i class="iconradio"></i><i class="ico_boc"></i>中国银行<i class="iconcheck"></i></label></li>         
+            <li class="isBank"><label  _bankid='ABC'  class="banklogo"><i class="iconradio"></i><i class="ico_abc"></i>农业银行<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label _bankid='PSBC'   class="banklogo"><i class="iconradio"></i><i class="ico_post"></i>邮政储蓄<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label  _bankid='BOCM'  class="banklogo"><i class="iconradio"></i><i class="ico_boco"></i>交通银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label  _bankid='CMBC'  class="banklogo"><i class="iconradio"></i><i class="ico_cmbc"></i>民生银行<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label _bankid='SPDB'   class="banklogo"><i class="iconradio"></i><i class="ico_spdb"></i>浦发银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label  _bankid='CIB'  class="banklogo"><i class="iconradio"></i><i class="ico_cib"></i>兴业银行<i class="iconcheck"></i></label></li>            
+			<li class="isBank"><label _bankid='CMB'  class="banklogo"><i class="iconradio"></i><i class="ico_cmb"></i>招商银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label _bankid='CEB'   class="banklogo"><i class="iconradio"></i><i class="ico_cebb"></i>光大银行<i class="iconcheck"></i></label> </li>    
+            <li class="isBank"><label _bankid='SDB'   class="banklogo"><i class="iconradio"></i><i class="ico_pingan"></i>平安银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label _bankid='GDB'   class="banklogo"><i class="iconradio"></i><i class="ico_gdb"></i>广发银行<i class="iconcheck"></i></label></li>            
+            <li class="isBank"><label _bankid='CITIC'   class="banklogo"><i class="iconradio"></i><i class="ico_ecitic"></i>中信银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label _bankid='reapal'   class="banklogo selected"><i class="iconradio"></i><i class="ico_union"></i>更多>><i class="iconcheck"></i></label></li>
+          </dd>
+        </div>
+        </if>
+		<if condition="$payConfig['chinabank']['enable'] eq '1'">
+        <div id="chinabank_zf" class="modbank" style="display:none;">
+          <div class="">请选择网上银行：</div>
+          <dd style="width:570px;margin-top: 10px;">
+            
+            <li class="isBank"><label _bankid='1025'  class="banklogo"><i class="iconradio"></i><i class="ico_icbc"></i>工商银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label  _bankid='1051'  class="banklogo"><i class="iconradio"></i><i class="ico_ccb"></i>建设银行<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label  _bankid='104'  class="banklogo"><i class="iconradio"></i><i class="ico_boc"></i>中国银行<i class="iconcheck"></i></label></li>           
+            <li class="isBank"><label  _bankid='103'  class="banklogo"><i class="iconradio"></i><i class="ico_abc"></i>农业银行<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label _bankid='3230'   class="banklogo"><i class="iconradio"></i><i class="ico_post"></i>邮政储蓄<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label  _bankid='3407'  class="banklogo"><i class="iconradio"></i><i class="ico_boco"></i>交通银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label  _bankid='305'  class="banklogo"><i class="iconradio"></i><i class="ico_cmbc"></i>民生银行<i class="iconcheck"></i></label></li>
+			<li class="isBank"><label _bankid='314'   class="banklogo"><i class="iconradio"></i><i class="ico_spdb"></i>浦发银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label  _bankid='309'  class="banklogo"><i class="iconradio"></i><i class="ico_cib"></i>兴业银行<i class="iconcheck"></i></label></li>            
+			<li class="isBank"><label _bankid='3080'  class="banklogo"><i class="iconradio"></i><i class="ico_cmb"></i>招商银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label _bankid='312'   class="banklogo"><i class="iconradio"></i><i class="ico_cebb"></i>光大银行<i class="iconcheck"></i></label></li>           
+            <li class="isBank"><label  _bankid='310'  class="banklogo"><i class="iconradio"></i><i class="ico_bob"></i>北京银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label _bankid='307'   class="banklogo"><i class="iconradio"></i><i class="ico_pingan"></i>平安银行<i class="iconcheck"></i></label></li>
+            <li class="isBank"><label _bankid='3061'   class="banklogo"><i class="iconradio"></i><i class="ico_gdb"></i>广发银行<i class="iconcheck"></i></label></li>            
+            <li class="isBank"><label _bankid='313'   class="banklogo"><i class="iconradio"></i><i class="ico_ecitic"></i>中信银行<i class="iconcheck"></i></label></li>
+           <!-- <label  _bankid='1050'  class="banklogo"><i class="iconradio"></i><i class="ico_hxb"></i>华夏银行<i class="iconcheck"></i></label>-->
+            <li class="isBank"><label _bankid=''   class="banklogo selected"><i class="iconradio"></i><i class="ico_union"></i>更多>><i class="iconcheck"></i></label></li>
+          </dd>
+        </div>
+        </if>
+		
+                    </dl>
+                    <div class="form-style-1 clearfix" id="payonline" <if condition="($payConfig['baofoo']['enable'] neq '1') AND ($payConfig['reapal']['enable'] neq '1') ">style="padding-top:0px;display:none;"<else />style="padding-top:0px;"</if>>
+					<if condition="$payConfig['jdpay']['enable'] eq '1'">
+						<div style="padding-left: 20px; font-size:16px; margin-bottom:20px;">
+							<span>没有开通网银&nbsp;&nbsp;可以选择京东快捷支付</span>
+						</div>
+							<span onclick="jdpay();" id="jdpay"><img src="__APP__/Style/M/images/bank/jdpay.jpg" style="padding-left:20px; cursor:pointer;" /></span>
+					</if>
+                        <ul class="form-style-1-field ">
+                            <li class="form-style-1-item">
+                                <label class="form-style-1-label">可用余额</label>
+                                                                <span class="form-style-1-value"><strong class="user-pay-balance">{$account_money.account_money|default="0.00"}</strong> 元</span>
+                            </li>
+                            <li class="form-style-1-item">
+                                <label class="form-style-1-label">充值金额</label>
+                                
+                                <span class="form-style-1-value" style=" width:210px">
+                                    <input name="money" type="text" class="input-text-style-1 form-style-1-value user-pay-money" style=" margin-right:8px;" value="">
+                                    <span class="fl">元</span></span><span class="form-style-1-error"></span>
+                            </li>
+                            <li class="form-style-1-item">
+                                <label class="form-style-1-label">验证码</label>
+                                <span class="form-style-1-value" style=" width:100px"><input type="text" name="valicode" maxlength="4" placeholder="点击获取验证码" autocomplete="off" class="input-text-style-1 form-style-1-value" style=" margin-right:8px ; width:90px;"></span>
+                                <span class="form-style-1-other" style="margin-right:8px; height:33px; overflow:hidden; width:115px;"><img id="valicodeImg" title="点击获取验证码" alt="点击获取验证码" style="display:none;"></span>
+                                <span class="form-style-1-error"></span>
+                            </li>
+                            <li class="form-style-1-item">
+                                <label class="form-style-1-label">&nbsp;</label>
+                                <span class="form-style-1-value" style=" width:210px; margin-right:10px;"><input type="checkbox" name="importantInfo" class="" id="important">&nbsp;&nbsp;<label for="important">我已阅读并确认下方重要提示信息</label></span>
+                                <span class="form-style-1-error"></span>
+                            </li>
+                        </ul>
+                        <div id="bankError" class="error-style-1" style="display:none;"></div>
+                        <div class="form-style-1-submit">
+                        	<input type="hidden" id="bank_payment_id" name="bank_payment_id" value="1"><!-- {$pay_recently.bank} -->
+                            <input type="hidden" id="payment_id" name="payment_id" value="1"> <!-- {$pay_recently.way} -->
+                            <input id="rechargeSubmit" type="submit" class="btn-style-3 allbgcolor" value="确认充值">
+                        </div>
+                        
+                    </div>
+                    </form>
+                    
+                    
+                    <div id="xianxia_zf" <if condition="($payConfig['baofoo']['enable'] neq '1') AND ($payConfig['reapal']['enable'] neq '1') ">style="display:block;"<else />style="display:none;"</if>>
+          <style type="text/css">
+	body { margin: 0; _height: 100%; }
+	.tdTitle {text-align: right;font-size: 12px;height: 40px;line-height: 40px;vertical-align: middle;width:130px; }
+	.tdContent {width:605px; text-align: left;font-size:12px;height:40px;line-height: 40px;vertical-align: middle;  padding-left: 15px; }
+	.tdContent_pingzheng { text-align: left; padding-left: 15px; font-size: 12px;vertical-align: middle;}
+	.alertDiv_pin {background-color: #FEFACF; border: 1px solid green; line-height: 25px;margin-left: 0px; }
+	.alertDiv_pin li { margin: 5px 0; list-style-type: decimal; color: #005B9F; padding: 0px; line-height: 20px; list-style-type:circle }
+	.alertDiv_pin ul { text-align: left; list-style-type: decimal; display: block; padding: 0px; margin: 0px 0px 0px 75px; }
+	.font666 { color: #666; }
+	.dv_account_0 { margin-top: 8px; }
+	.albCt{height:200px; width:233px;}
+    .tdContentII div p{width:605px;}
+	</style>
+          <div class="alertDiv_pin">
+            <ul style="display: block;">
+              <li>请准确填写您的充值金额和账单流水号</li>
+            </ul>
+          </div>
+          <div style="margin-top: 5px;margin-left:-10px; margin-top:10px; display:block">
+            <form action="__APP__/Pay/offline" method="post" name="form" id="offlinePay">
+              <table style="float: left; margin: 0px 10px;padding:0px;border-collapse:collapse;text-align:left;" id="formTb" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <volist  name="bank" id="vo">
+                    <tr>
+                      <td class="tdTitle"><input type="radio" name="bank" id="bank" value="{$i}" <if condition="$i eq 1">checked="checked"</if>/>
+                         {$vo.bank}</td>
+                      <td class="tdContent"> 开户名：{$vo.payee}
+                        账户号：{$vo.account}
+                        开户地址：{$vo.address} </td>
+                    </tr>
+                  </volist>
+                  <tr>
+                    <td class="tdTitle"> 充值金额： </td>
+                    <td class="tdContent"><div style="float: left; line-height: 21px;">
+                        <input id="money_off" name="money_off"  class="input-text-style-1 form-style-1-value user-pay-money" type="text" onblur="testAmount();" />
+                      </div>
+                      <div id="d_money_2" style="width: 250px; height: 20px; line-height: 20px; margin-left: 10px; float: left;color: red;"></div></td>
+                  </tr>
+                  <tr>
+                    <td class="tdTitle"> 账单流水号： </td>
+                    <td class="tdContent"><input id="tran_id" name="tran_id" class="input-text-style-1 form-style-1-value user-pay-money" type="text" onblur="testTrand()" /><span class="red"></span>(请输入数字，最长不超过30位)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="tdTitle"> 充值方式： </td>
+                    <td class="tdContent"><input id="off_way" name="off_way" class="input-text-style-1 form-style-1-value user-pay-money" type="text" onblur="testOffWay()" /><span class="red"></span>
+                      (如网银转账，柜台汇款,汇款人等) </td>
+                  </tr>
+                  <tr>
+                    <td class="tdTitle">打款凭证：</td>
+                    <td class="tdContent_pingzheng">
+                        <div style="border: #d8d8d8 solid 1px;">
+                        <div class='tupianyulan' style="display: inline; border: solid 1px #7FAAFF; background-color: #C5D9FF; padding: 5px;cursor: pointer;" >
+                            <span id="spanButtonPlaceholder"></span>
+                        </div>
+                      <dt>图片预览：</dt>
+
+                      <dd style="overflow: hidden;">
+                        <table cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 20px 0;">
+                          <tr id="handfield">
+                            <td class="bline" style="background:url(images/albviewbg.gif) #fff 0 20px no-repeat;"><div id="divFileProgressContainer" style="height:75px;"></div>
+                              <div id="thumbnails"></div></td>
+                          </tr>
+                        </table>
+                      </dd>
+                      </div>
+                    </td>
+                  </tr>
+                  <if condition="$info neq '' ">
+                  <tr>
+                    <td class="tdTitle" style="margin-top:10px;">线下充值备注：</td>
+                    <td class="tdContent tdContentII">
+                        <div style="margin-top: 10px; height: auto;line-height:20px;
+  padding-left: 15px;">{$info}</div>                    
+                    </td>
+                  </tr>
+                  <else />
+                  </if>
+                </tbody>
+              </table>
+            </form>
+          </div>
+          <div class="Clr"></div>
+                <div style="padding-left: 95px; height: 30px; margin: 10px; clear:both">
+                	<input type="button" class="btn-style-3 allbgcolor" onclick="ckoffline()" value="确认充值">
+                </div>
+        </div>
+        
+                    <div class="form-warm-prompt-1 clearfix" style="clear:both; margin-top:10px;">
+                        <span class="form-warm-prompt-title">温馨提示：</span>
+                        <span class="form-warm-prompt-con">
+                            1.&nbsp;&nbsp;<b style=" color:#b73736" id="lprompt"><if condition="($payConfig['baofoo']['enable'] neq '1') AND ($payConfig['reapal']['enable'] neq '1') ">{$reward}<else />您线上充值的资金，第三方支付公司会收取您提现金额的{$feerate}%作为转账费用。</if></b>
+                            <br>2.&nbsp;&nbsp;为了您的资金安全，请您在充值前完成手机绑定，身份认证及支付密码设置。
+                            <br>3.&nbsp;&nbsp;{$glo.web_name}严禁信用卡充值、套现等行为，一经发现将予以处罚，包括但不限于：限制收款、冻结账户、永久停止服务，并会影响银行征信记录。
+                            <br>4.&nbsp;&nbsp;充值过程遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?>
+                        </span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    	<!--银行充值end-->
+    	
+    </div>
+</div>
+<div id="Pay_prompt" style="display:none; position: absolute;left:50%;top:50%;margin-left:-50%;margin-top:-35%;"></div>
+<include file="default:Public:_footer" group="Home"/>
+<script type="text/javascript">
+	function jdpay(){
+		var money = $("input[name='money']").val();
+		if(money == ''){
+			layer.msg('请输入充值金额！', {icon: 0});
+			return false;
+		}
+		window.open("/Pay/jdpay?t_money=" + money);
+	}
+	</script>
+<script id="promptTmpl" type="text/x-dot-template">
+    <div class="ps1-close">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>充值提示</h2>
+        </div>
+        <div>
+            <p class="state-prompt-txt">
+                请您在新打开的网上银行页面进行支付，支付完成前请不要关闭该窗口。
+            </p>
+        </div>
+        <div class="clearfix state-prompt-btn">
+            <a href="/Member/tendout/trade.html?type_list=search&&type=2" class="btn-style-2">已完成支付</a>
+            <a target="_blank" href="{:U('/bangzhu/index',array('curMod'=>11))}" class="btn-style-1">支付遇到问题</a>
+        </div>
+    </div>
+</script>
+<script id="promptTmp2" type="text/x-dot-template">
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2>
+        </div>
+        <div class="state-prompt-txt-{{?it[3]}}{{?it[3]==1}}duigou{{??}}tanhao{{?}}{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2>
+                {{=it[2]}}
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/javascript">
+var session_temp;
+var picid;
+var reid;
+session_temp = "<php> echo session_id(); </php>";
+picid = "<?php echo rand(0,999999999); ?>";
+reid = "<?php echo $id5_enable; ?>";
+</script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/recharge.js"></script>
+<script src="__ROOT__/Style/M/js/authpop.js"></script>
+<script type="text/javascript">
+      $(document).ready(function(){
+            $('.tupianyulan').click(function(){
+                $(this).children().css('border-bottom','1px dashed #000');
+            })
+			var baofu = {$payConfig['baofoo']['enable']};
+			var reapal = {$payConfig['reapal']['enable']};
+			var chinabank = {$payConfig['chinabank']['enable']};
+			if(baofu == 1){
+				$("#baofu_zf").show();
+				$("#reapal_zf").hide();
+				$("#chinabank_zf").hide();
+			}else if(reapal == 1){
+				$("#reapal_zf").show();
+				$("#baofu_zf").hide();
+				$("#chinabank_zf").hide();
+			}else if(chinabank == 1){
+				$("#chinabank_zf").show();
+				$("#baofu_zf").hide();
+				$("#reapal_zf").hide();
+			}
+		 })
+		function showTailinkzf(type,obj){
+			var reward = "<?php echo $reward; ?>";
+			var baofu_rate = {$payConfig['baofoo']['feerate']};
+			var reapal_rate = {$payConfig['reapal']['feerate']};
+			var chinabank_rate = {$payConfig['chinabank']['feerate']};
+				$("#state_info_navzf a").removeClass("zhifu_bk_bg");
+				$(obj).addClass("zhifu_bk_bg");
+				if(type=="baofu_zf"){
+					$("#baofu_zf").show();
+					$("#xianxia_bt").show();//顶部充值部分
+					$("#btn_s").show();//隐藏充值按钮
+					$("#payonline").show();
+					$("#xianxia_zf").hide();
+					$("#reapal_zf").hide();
+					$("#chinabank_zf").hide();
+					$("#lprompt").html("您线上充值的资金，第三方支付公司会收取您提现金额的"+baofu_rate+"%作为转账费用。");
+				}else if(type=="reapal_zf"){
+					$("#reapal_zf").show();
+					$("#baofu_zf").hide();
+					$("#xianxia_bt").show();//顶部充值部分
+					$("#btn_s").show();//隐藏充值按钮
+					$("#payonline").show();
+					$("#xianxia_zf").hide();
+					$("#chinabank_zf").hide();
+					$("#lprompt").html("您线上充值的资金，第三方支付公司会收取您提现金额的"+reapal_rate+"%作为转账费用。");
+				}else if(type=="chinabank_zf"){
+					$("#chinabank_zf").show();
+					$("#reapal_zf").hide();
+					$("#baofu_zf").hide();
+					$("#xianxia_bt").show();//顶部充值部分
+					$("#btn_s").show();//隐藏充值按钮
+					$("#payonline").show();
+					$("#xianxia_zf").hide();
+					$("#lprompt").html("您线上充值的资金，第三方支付公司会收取您提现金额的"+chinabank_rate+"%作为转账费用。");
+				}
+				else{
+                    var phoneStatus = parseInt({$windowuser.phone_status});
+                    var idStatus = parseInt({$windowuser.id_status});
+                    var payPwd_status = parseInt({$windowuser.payPwd_status});
+                    if( phoneStatus== 0 || idStatus == 0 || payPwd_status == 0 ) {
+                        $('#rechargeSubmit').trigger('click');
+                        return false;
+                    }
+					$("#baofu_zf").hide();
+					$("#xianxia_bt").hide();//顶部充值部分
+					$("#btn_s").hide();//隐藏充值按钮
+					$("#payonline").hide();
+					$("#xianxia_zf").show();
+					$("#reapal_zf").hide();
+					$("#chinabank_zf").hide();
+					$("#lprompt").html(reward);
+				}
+			}
+
+//选择银行
+		$('.isbank').click(function(){
+			if ($(this).hasClass('selected')) {
+				$(this).removeClass('selected');
+			}else{
+				$('.isbank').filter(".selected").removeClass('selected');
+				$(this).addClass('selected');
+			}
+            return false;
+		});
+
+$(function(){
+    var rechargeData = {getBankUrl:'###'};
+    itz.recharge.init(rechargeData);
+	itz.authpop({target:['dom','#rechargeSubmit'],csspath:'',title:'充值前请您完成以下认证'});
+});
+//支付
+        $('#rechargeSubmit').click(function(){
+            if (BlurMoney()) {
+                var money = $(".money").val();
+                var type = $('#selectThird lable').attr('id');
+                if (type=='baofoo') {
+                    bankCode = $('#baofu_zf .selected').attr('code');
+					if(bankCode=='baofoo'){
+					 	bankCode = 'baofoo';
+					 }
+                    var url = "bankCode=" + bankCode + "&t_money=" + money;
+                    window.open("/Pay/baofoo?" + url);
+                }else if (type=='reapal') {
+                    bankCode = $('#reapal_zf .selected').attr('code');
+					if(bankCode=='reapal'){
+					 	bankCode = 'reapal';
+					 }
+                    var url = "bankCode=" + bankCode + "&t_money=" + money;
+                    window.open("/Pay/reapal?" + url);
+                }
+            }
+            return false;
+        });		
+</script>
+<script type="text/javascript" src="__ROOT__/Style/Swfupload/handlers2.js"></script>
+  <script type="text/javascript">
+    var IS_AD = true;
+    var albImg = 0;
+    function addImage(src,pid,imgurl){
+        var newImgDiv = document.createElement("div");
+        var delstr = '';
+        var iptwidth = 180;
+        albImg++;
+        if(pid != 0) {
+            albImg = 'ok'+pid;
+            delstr = '<a href="javascript:;" onclick="delPic('+pid+')">[删除]</a>';
+        } else {
+            albImg = 'err' + albImg;
+        }
+        newImgDiv.className = 'albCt';
+        newImgDiv.id = 'albCt'+albImg;
+        $('#thumbnails').append(newImgDiv)
+//        document.getElementById("thumbnails").appendChild(newImgDiv);
+
+        if(typeof swf_justimg != 'undefined' && swf_justimg == true){
+            newImgDiv.innerHTML = '<img src="'+src+'"/>';
+            newImgDiv.innerHTML += '<input type="hidden" name="swfimglist[]" value="'+src+'" />';
+        }else{
+            newImgDiv.innerHTML = '<img src="'+src+'" width="120" height="120" />'+delstr;
+            
+            if(typeof arctype != 'undefined' && arctype ==  'article' )
+            { 
+                iptwidth = 100;
+                if(pid != 0) {
+                    newImgDiv.innerHTML = '<img src="'+src+'" width="120" onClick="addtoEdit('+pid+')"/>'+delstr;
+                }
+            }
+            newImgDiv.innerHTML += '<input type="hidden" name="swfimglist[]" value="'+src+'" />';      
+        }
+    }
+    //swf上传后删除图片start
+    function delPic(id){
+        var imgpath = $("#albCtok"+id).find("input[type='hidden']").eq(0).val();
+        var datas = {'picpath':imgpath,'oid':id};
+        $.post("__URL__/uploadimg?delpic", datas, picdelResponse,'json');
+    }
+
+    function picdelResponse(res){
+        var imgdiv = $("#albCtok"+res.data);
+            imgdiv.remove();
+            ui.success(res.info);
+            ui.box.close();
+    }
+    //swf上传后删除图片end
+</script>
+  <script type="text/javascript">
+      var amountValidate = tranValidate = offValidate = false;
+      function testAmount() {
+          var dReg = /^[1-9][0-9]+$/;
+          var money = $("#money_off").val();
+          if( !dReg.test(money) || money == 0) {
+              $('#d_money_2').html('充值金额必须为大于0的整数');
+              return;
+          }else if(dReg.test(money) && money>5000000){
+              $('#d_money_2').html('单笔充值金额不能大于500万');
+              return;
+          }else {
+              $('#d_money_2').html('');
+              amountValidate = true;
+          }
+      }
+
+      function testTrand() {
+          var istring=/^[0-9]{1,30}$/;
+          var tran_id = $("#tran_id").val();
+          if( !istring.test(tran_id)) {
+              $('#tran_id').next().html('您的账单流水号填写有误！');
+              return;
+          }else {
+              $('#tran_id').next().html('');
+              tranValidate = true;
+          }
+      }
+
+      function testOffWay() {
+          var zhReg = /^[\u4e00-\u9fa5]+$/;
+          var off_way = $('#off_way').val();
+          if( !zhReg.test(off_way)) {
+              $('#off_way').next().html('您的充值方式填写有误！');
+              return;
+          }else {
+              $('#off_way').next().html('');
+              offValidate = true;
+          }
+      }
+
+function ckoffline(){
+    testAmount();
+    testTrand();
+    testOffWay();
+    if( amountValidate == true && tranValidate == true && offValidate == true ) {
+        $("#offlinePay").submit();
+    }
+
+}
+
+      $( function() {
+          //后台手动验证
+          $('#phoneAuth').live("click", function() {
+              var mbTest = /^(13|14|15|17|18)[0-9]{9}$/;
+              var mobile = $("#phoneNum3").val();
+              if (mobile == "") {
+                  $('#errorTips').html("请输入手机号码");
+                  return;
+              }
+              var div = '';
+
+              if (mbTest.test(mobile)) {
+                  $('#errorTips').html("手机验证审核提交中...");
+                  $.ajax({
+                      url: "{:U('member/verify/sendphone')}",
+                      type: "post",
+                      dataType: "json",
+                      data: {"cellphone":mobile},
+                      success: function(d) {
+                          if (d.status == 1) {
+                              window.location.reload();
+                          }
+                          else if (d.status == 2) {
+                              $('#errorTips').html("该手机号码已被其他用户使用");
+                          }
+                          else {
+                              $('#errorTips').html(d.message);
+                          }
+                      }
+                  });
+              }
+              else {
+                  $("#errorTips").html("手机号码有误");
+              }
+          })
+          $('#authModify').live("click", function() {
+              var smsSwitch = {$sms_switch};
+              if( smsSwitch == 1 ) { //为1则是手动验证
+                  var div = '<form> <div><label>手机号码:</label><input type="text" class="realTel ti1" id="phoneNum3" name="phone"><span id="errorTips" class="autherror" style="display: inline;"></span><input type="sumbit"  class="authModifyBtn" style="width:96px;" id="phoneAuth" value="提交认证"></div></form>';
+                  $('#authModifyPop').find('form').replaceWith(div);
+              }
+          })
+          var phoneStatus = {$phonestatus|default=0};
+          if( phoneStatus == 3 ) {
+              var div='<a id="authModify" class="authBtn1" style="color: rgb(153, 153, 153); cursor: default;">审核中</a>';
+                $('#authModify').remove();
+                $('#authSettingTitle1').find('.authItem1').after(div);
+          }
+      })
+</script>
+<!-- baidu static codes -->
+
+</body></html>

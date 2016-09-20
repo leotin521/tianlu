@@ -1,0 +1,46 @@
+<style type="text/css">
+	.tdTitle { text-align: right; padding-left: 10px; font-size: 12px; height: 40; line-height: 40px; vertical-align: middle; width: 160px; font-weight: bold; background-color: #F9F9F9; }
+	.tdContent1 { text-align: left; padding-left: 10px; font-size: 12px; height: 40; line-height: 40px; vertical-align: middle; width: 535px; }
+	.tdContent { line-height: 28px; border: 1px solid #ccc; }
+	.tdHeard { border: 1px solid #ccc; }
+</style>
+<div style="height: 25px; line-height: 25px; padding: 16px 0px; width: 708px; margin-left: 24px;text-align: left; float: left;border-bottom:#eb790d 0px solid"> 截止<span class="fontred">
+  <php>echo date("Y-m-d H:i:s",time());</php>
+  </span>您成功邀请的会员有： </div>
+<div style="width: 100%;">
+  <table id="content" style="width: 755px; margin-left: 24px; float: left;
+		border-collapse: collapse;" cellspacing="0">
+    <tbody>
+      <tr id="tdHead">
+        <th scope="col" class="tdHeard"> 会员名单 </th>
+        <th scope="col" class="tdHeard"> 注册时间 </th>
+      </tr>
+      <volist name="vi" id="vi">
+        <tr class="nodatashowtr">
+          <td class="tdContent">{$vi.user_name}</td>
+          <td class="tdContent">{$vi.reg_time|date="Y-m-d H:i",###}</td>
+        </tr>
+      </volist>
+    </tbody>
+  </table>
+</div>
+<div style="height: 25px; line-height: 25px; padding: 16px 0px; width: 708px; margin-left: 24px;text-align: left; float: left;border-bottom:#eb790d 0px solid"> 截止<span class="fontred">
+  <php>echo date("Y-m-d H:i:s",time());</php>
+  </span>对您有投标奖励的会员有： </div>
+<div style="width: 100%;">
+  <table id="content" style="width: 755px; margin-left: 24px; float: left;
+		border-collapse: collapse;" cellspacing="0">
+    <tbody>
+      <tr id="tdHead">
+        <th scope="col" class="tdHeard"> 会员名单 </th>
+        <th scope="col" class="tdHeard"> 奖金贡献 </th>
+      </tr>
+      <volist name="vm" id="vo">
+        <tr class="nodatashowtr">
+          <td class="tdContent">{$vo.user_name}</td>
+          <td class="tdContent">{$vo.jiangli|default=0}</td>
+        </tr>
+      </volist>
+    </tbody>
+  </table>
+</div>

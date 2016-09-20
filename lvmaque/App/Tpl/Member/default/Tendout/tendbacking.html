@@ -1,0 +1,91 @@
+<tagLib name="htmlA" />
+<style type="text/css">
+.fontred { color: #005B9F; }
+.infolist { margin: 5px 0 10px 20px; border: solid 1px #ddd; padding: 2px; width: 715px; text-align: left; }
+.infolist table td { height: 28px; }
+.infolist .myfont { color: #ff6500; font-weight: bold; }
+#pager a.current { background-color: #ddd; border: solid 1px #ccc; color: #fff; }
+#pager a:hover { background-color: #ddd; border: solid 1px #ccc; color: red; }
+.tdHeard, .tdContent { border: solid 1px #ccc; }
+.tdContent a { text-decoration: underline; }
+.tdHeard { background-image: url(__ROOT__/Style/H/images/thbg.jpg); height: 29px; }
+.divtitle { height: 20px; line-height: 30px; text-align: left; padding-left: 20px; font-size: 12px; text-indent: 25px; margin-top: 8px; margin-bottom: 1PX; }
+#noinfotip .tdContent{width:auto}
+.tdContent a{color:#03F; text-decoration:none}
+</style>
+
+<div style="margin: 10px 0px; overflow: hidden; text-align: left; clear: both; float: left;padding-left: 8px;">
+	<table id="content" style="width: 785px; border-collapse: collapse;" cellspacing="0">
+		<tbody>
+	<tr>
+		<th style="width: 63px;" class="tdHeard" scope="col">
+			借款标号
+		</th>
+		<th style="width: 103px;" class="tdHeard" scope="col">
+			借入人
+		</th>
+		<th style="width: 93px;" class="tdHeard" scope="col">
+			投资金额
+		</th>
+		<th style="width: 63px;" class="tdHeard" scope="col">
+			已还本息
+		</th>
+		<th style="width: 73px;" class="tdHeard" scope="col">
+			年化利率
+		</th>
+		<th style="width: 163px;" class="tdHeard" scope="col">
+			已还/总期数(还款期)
+		</th>
+		<th class="tdHeard" style="width: 50px;" scope="col">
+			备注
+		</th>
+	</tr>
+		<volist name="list" id="vo">
+		<tr id="noinfotip" style="">
+			<td class="tdContent"><a href="{$vo.borrow_id|getInvestUrl=###}" title="{$vo.borrow_name}" target="_blank">{$vo.borrow_id}</a></td>
+			<!-- <td class="tdContent"><a href="{$vo.borrow_id|getInvestUrl=###}" title="{$vo.borrow_name}" target="_blank">{$vo.borrow_name|cnsubstr=###,10}</a></td> -->
+			<td class="tdContent">{$vo.borrow_user}</td>
+			<td class="tdContent">{$vo.investor_capital}</td>
+			<td class="tdContent">{$vo['receive_capital'] + $vo['receive_interest']}</td>
+			<td class="tdContent">{$vo.borrow_interest_rate}%</td>
+			<td class="tdContent">{$vo.back|default="0"}/{$vo.total}({$vo.repayment_time|date="Y-m-d",###})(<a href="__URL__/tendoutdetail?id={$vo.id}" target="_blank">详情</a>)</td>
+			<td class="tdContent">
+            <if condition="$vo.period gt 0 and $vo.detb_status eq 1 and $vo.debt_uid eq $uid">
+            
+            购买 {$vo.period}期债权
+            <elseif condition="$vo.period gt 0 and $vo.detb_status eq 1"/>
+            转让 {$vo.period}期债权
+            
+            <else />
+            <a href="__APP__/member/agreement/downfile?id={$vo.id}" target="_blank">合同</a>
+            </if>
+            </td>
+		</tr>
+		</volist>
+	</tbody></table>
+<div data="fragment-3" id="pager" style="float: right; text-align: right; width: 500px; padding-right: 0px;" class="yahoo2 ajaxpagebar">{$pagebar}</div>
+</div>
+<div style="clear: both;">
+</div>
+
+<script type="text/javascript">
+$('.ajaxpagebar a').click(function(){
+	try{	
+		var geturl = $(this).attr('href');
+		var id = $(this).parent().attr('data');
+		var x={};
+        $.ajax({
+            url: geturl,
+            data: x,
+            timeout: 5000,
+            cache: false,
+            type: "get",
+            dataType: "json",
+            success: function (d, s, r) {
+              	if(d) $("#"+id).html(d.html);//更新客户端 作个判断，避免报错
+            }
+        });
+	}catch(e){};
+	return false;
+})
+</script>

@@ -1,0 +1,137 @@
+@charset "utf-8";
+/* CSS Document */
+body { margin:0px; padding:0px;font: normal 100% Helvetica, Arial, sans-serif; font-size: 14px; color:#333333;}
+a{ text-decoration:none;}
+a:hover { text-decoration:none; }
+ul{ margin:0; padding:0;}
+li{margin:0; padding:0;list-style:none;}
+img{border:0;} 
+input{border-radius:5px;}
+p{ margin:0; padding:0;}
+.left{ float:left;}
+.right{ float:right;}
+.red{color:#FF0000;}
+.verify{ padding:2px;}
+
+.header{ width:100%; height:42px; background:#f08012;}
+.logo{ width:160px; height:32px; float:left; padding:5px 4px;}
+.nav{ float:right;}
+.nav ul{ height:22px; padding:10px 0px;}
+.nav ul li{ float:left; padding:0 10px;}
+
+.main{ margin:0px 5px;}
+.main_box{ width:100%; height:auto; padding-top:20px;clear:both;}
+.title{ width:100%; height:24px; float:left;background:#f3f3f3; border:1px solid #e7e7e7; border-top-left-radius:5px; border-top-right-radius:5px;}
+.title a{ font-size:16px;line-height:24px; float:left; margin-left:8px; color:#333; }
+.title_img{ padding:3px; float:left;}
+.box_ner{ width:100%; height:auto; float:left; clear:both;border-left:1px solid #e7e7e7;border-right:1px solid #e7e7e7;border-bottom:1px solid #e7e7e7;
+border-bottom-left-radius:5px; border-bottom-right-radius:5px; overflow:hidden; padding:5px 0;}
+.col{ color:#f08012;}
+.box_ner ul{ float:left;}
+.box_ner ul li{ font-size:14px; height:20px; line-height:20px; float:left; padding:0 8px;}
+.box_ner .jd{ float:left;}
+.progress{ display: block; float:left;  width: 70px; height: 12px; border: 1px solid #dedede; padding: 1px; overflow: hidden; margin-top:3px; }
+.precent{ background:#f08012; display: block; height: 12px; line-height: 12px; float: left; overflow: hidden;}
+.box_ner table{ width:100%;}
+.tz_bt{ width:72px; height:20px; padding-right:4px;line-height:20px; background:#f08012; float:right; font-size:14px; color:#fff; padding:4px 6px; border-radius:5px; margin-right:5px;}
+.tz_btt{ width:72px; height:20px; padding-right:4px;line-height:20px; background:#787878; float:right; font-size:14px; color:#fff; padding:4px 6px; border-radius:5px; margin-right:5px;}
+
+.gengduo{ text-align:center; height:28px; line-height:22px; padding-top:20px;font-size:14px; clear:both; }
+.gengduo a{  background:#d6d6d6; padding:5px 8px;color:#333; border-radius:5px;}
+.footer{ margin:auto; text-align:center;font-size:14px; margin-top:20px; padding:10px 0; clear:both;border-top:1px solid #d0d0d0; padding-bottom:30px; }
+.footer p{ line-height:24px;}
+.footer img{vertical-align: middle; margin-top:-2px;*margin-top:2px; }
+.footer span a{ color:#f08012;}
+
+.box1{ width:99%; max-width:600px; height:auto; padding:10px 0; clear:both;}
+.box1_title{ float:left; font-size:16px; }
+.box1 img{ padding:2px;float:left;}
+.box1 ul{ max-width:600px; float:left; overflow: hidden;}
+.box1 ul li{ width:100%; float:left; line-height:24px; font-size:14px; padding:0 8px;}
+.box2{ width:100%; height:auto;border-top:1px dashed #d6d6d6; clear:both;}
+.box2_ner{ width:100%; margin:auto; text-align:center; padding:7px 0;}
+.box2_ner .box_bt{ width:72px; height:20px; line-height:20px; background:#f08012; font-size:14px; color:#fff; padding:4px 6px;}
+.box2_ner .box_btt{ width:72px; height:20px; line-height:20px; background:#787878; font-size:14px; color:#fff; padding:4px 6px;}
+
+.box2_ner p{ text-align:center; font-size:12px; height:20px; padding:5px; line-height:16px; color:#7b7a7a;}
+.box3{width:auto; max-width:600px;clear:both;}
+.box3 ul{ max-width:600px; float:left;}
+.box3 ul li{ max-width:600px; float:left; line-height:24px; font-size:14px; padding:0 8px;}
+.box3 .wenb{ width:80px; height:12px;}
+.box3{ font-size:12px; color:#7b7a7a;} 
+.box4{ width:100%; padding:10px 0; clear:both;}
+.box4_title{ width:64px; font-size:16px; border:1px solid #d6d6d6; position: absolute; z-index: 9px;  padding:5px; float:left; border-bottom:1px solid #fff; background: #fff; }
+.line{ height:29px; border-bottom:1px solid #d6d6d6;}
+.box4 p{ font-size:13px; line-height:22px; text-indent:20px;}
+
+.box5{ width:100%; height:auto; padding:10px 0; clear:both;}
+.box5_title{ width:100%;}
+.box5_title span{float:left; font-size:16px;}
+.box5_ner1{ border-bottom:1px dashed #b5b5b5; clear:both; padding:5px 0;}
+.box5_ner1 table{ width:100%; font-size:14px;}
+.gm{ width:72px; height:20px; line-height:20px; background:#f08012; font-size:14px; color:#fff; padding:4px 6px;}
+.gmm{ width:72px; height:20px; line-height:20px; background:#787878; font-size:14px; color:#fff; padding:4px 6px;}
+.box5_ner2{border-bottom:1px dashed #b5b5b5; clear:both; padding-bottom:5px;}
+.box5_ner2 table{ width:100%; font-size:14px;}
+.box5_ner2 .jd{ float:left;}
+.box5_ner2 .progress{ display: block; float:left;  width: 70px; height: 12px; border: 1px solid #dedede; padding: 1px; overflow: hidden; margin-top:3px; }
+.box5_ner2 .precent{ background:#f08012; display: block; height: 12px; line-height: 12px; float: left; overflow: hidden;}
+.box6{ width:100%; padding:10px 0; clear:both;}
+.box6_title{ width:115px; text-align:center; position: absolute; background: #fff; font-size:16px; border:1px solid #d6d6d6; padding:5px; float:left; border-bottom:1px solid #fff; }
+.line{ height:29px; border-bottom:1px solid #d6d6d6;}
+.box6 p{ font-size:13px; line-height:22px; text-indent:20px;}
+
+.fixed_div{ width:100%; height:30px; margin-bottom: 10px;  text-align:center; overflow: hidden; }
+.fixed_div a{float:none; margin:0 auto;  padding:5px 30px; text-align:center; color:#fff;  line-height:30px; vertical-align:middle; border-radius:5px;}
+
+.login{  padding:25px 0;  }
+.login .name{width:100%; overflow: hidden;}
+.login label{float:left;}
+.login input{float:left;}
+.name{ padding:8px 0;}
+.wbk{ width:165px; height:22px; border:1px solid#dedede;}
+.button{ padding-top:20px; cursor:pointer }
+.butt{ width:100%; height:28px; background:#f08012;  border:0px; color:#fff; font-size:16px;}
+
+.user{ width:100%; padding:20px 0;clear:both;}
+.user table{ width:100%;}
+.user .table_top{ font-size:16px; background:#dfdfdf; padding-left:10px; line-height: 32px;}
+.table_xinx{ width:120px; height:40px; background:#f3f3f3; border-radius:5px; border:1px solid#dedede; text-align:center; }
+.table_xinx a{ line-height:40px; font-size:16px; color:#333;}
+.table_xinx img{ vertical-align:middle; padding:0 2px 6px 0;}
+
+.box7{ width:100%; float:left; clear:both; padding:10px 0;}
+.box7_title{ width:100%; height:32px; line-height:32px; font-size:16px; background:#dfdfdf; margin:10px 0;}
+.box7_title img{ vertical-align:middle; padding: 2px 4px 4px 2px;}
+.box7 table{ float:left; padding-left:5px; font-size:16px; padding-bottom:10px;}
+.box7_wbk{ width:110px; height:14px; border:1px solid #ccc; padding:2px; border-radius:5px;}
+.box7_but{ width:72px; height:24px; background:#f08012; border-radius:4px; border:0px; color:#fff; font-size:14px; vertical-align:middle;}
+.box7_butt{ width:72px; height:24px; background:#787878; border-radius:4px; border:0px; color:#fff; font-size:14px; vertical-align:middle;}
+
+.bt1{border:0; cursor: pointer; padding:2px 10px; font-size: 14px;}
+
+.hint{ width:70%; margin:0 auto; padding:20px; line-height: 20px;  border:1px solid #e4e4e4; position:absolute;  left:50%;   top:50%;   margin:-150px 0 0 -150px }
+
+.hint p{color:#666; font-size: 12px;}  
+.hint font {font-size:20px; padding-left:20px} 
+   
+.error{ width:260px; margin:auto; clear:both;border:1px solid #e7e7e7; background:#f3f3f3; border-radius:5px; margin-top:30px;}
+.error_title{ font-size:22px; font-weight:bold; font-family:"黑体"; text-align:center; line-height:44px; border-bottom:1px dashed #dedede;}
+.error table p{ font-size:14px; line-height:28px;}
+.error table a{ color:#f08012; font-weight:bold;}
+
+/*******资金记录*********/
+.r_list{width:99%; height:auto; overflow: hidden; font-size: 12px; border-bottom: 1px solid #e7e7e7; margin:2px 5px; }
+.r_list span{float:left; width:35px; border:1px solid #d0d0d0; background :#e6e6e6; font-size: 14px; border-radius:5px; text-align: center; padding:3px;}
+.r_list ul {padding-left:5px;}
+.r_list li{width:auto; padding-left:5px; height: 20px; overflow:hidden}
+.r_list .r_right{float:right}
+.r_list font{color:red;}
+
+/******站内信*********/
+.r_list tr{ line-height: 30px;}
+.r_list  th{font-size: 12px; font-weight: 400; text-align: center;}
+.r_list  td{text-align: center; border-top:1px solid #e6e6e6; font-size: 12px;}
+.page{ width:100%;margin:0 auto; font-size: 12px; text-align: center;}
+
+

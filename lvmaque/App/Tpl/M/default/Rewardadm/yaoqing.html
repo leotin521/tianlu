@@ -1,0 +1,83 @@
+<!doctype html>
+<html class="no-js">
+<!--奖励管理-邀请奖励页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>邀请奖励</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>邀请奖励</h1>
+        <a href="javascript:window.history.go(-1);" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+   	<!-- 邀请好友-->
+	<div class="am-modal myred-modal" tabindex="-1" id="myred-modal">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">邀请奖励
+				<a href="javascript: void(0)" class="btn btn-cancel" onclick="shuaxin();">取消</a>
+				<a href="javascript: void(0)" class="btn btn-cancel" onclick="shuaxin();">取消</a>
+			</div>
+			<div class="am-modal-bd ">
+				<div class="am-panel-bd mod-myred-fenxiang num num-sm" id="messa">
+						100元做投资人，注册就送50元！10-15%年化收益，网上理财赚翻天！从此告别死工资，速速注册吧！{$spread_url}<br/>
+						<font id="uuu" color="fa4343"></font>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 邀请好友 -->
+    <div class="mod-reward-yaoqing">
+    	<div class="mod-reward-yaoqing-guize">
+			
+				<div class="mod-reward-yaoqing-guizenr">
+					<li><img src="__ROOT__/Style/NewWeChat/images/member/reward_yaoqing2.png" alt="" border="0" /></li>
+					<li class="guizetxt"> 每成功邀请1位好友 <br />即送<font color="#fa4343" size="+3">10</font>元优惠券 <br />上不封顶!</li>
+				</div>
+				<div class="mod-reward-yaoqing-anniu"><button type="button" class="am-btn am-btn-danger am-radius am-btn-block am-btn-lg" id="redbtn">+邀请好友</button></div>
+			</div>
+        </div>
+    </div>
+    <if condition="$data ">
+    <div class="mod-reward-yaoqing-jilu">
+    	<div class="am-g jiluone jiluli">
+          <div class="am-u-sm-3">邀请用户</div>
+          <div class="am-u-sm-3">注册时间</div>
+          <div class="am-u-sm-3">邀请奖励</div>
+          <div class="am-u-sm-3">是否生效</div>
+        </div>
+        <volist name="data" id="vo">
+            <div class="am-g jiluli">
+              <div class="am-u-sm-3">{$vo.user_name}</div>
+              <div class="am-u-sm-3">{$vo.reg_time}</div>
+              <div class="am-u-sm-3">{$vo.money}</div>
+              <div class="am-u-sm-3">{$vo.be}</div>
+            </div>
+        </volist>
+        <span>{$page}</span>
+    </div>
+	</if>
+	
+	<script>
+		var $modal = $('#myred-modal');
+        $('#redbtn').on('click', function(e) {
+           $modal.modal('toggle');
+        });
+		
+		function shuaxin(){
+			window.location.reload();
+		}
+	</script>
+</body>
+
+</html>

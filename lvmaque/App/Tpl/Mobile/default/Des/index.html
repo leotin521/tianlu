@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head lang="en">
+
+    <meta charset="UTF-8">
+    <title>项目描述</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="__ROOT__/Style/H/js/ios-orientationchange-fix.js"></script>
+    <script src="__ROOT__/Style/H/js/jquery-2.1.0.min.js"></script>
+    <script src="__ROOT__/Style/H/js/jquery.swipebox.js"></script>
+    
+	<style>
+		img {width:100%!important;}
+		li { list-style:none}
+		ul { list-style:none}
+		p{font-size:16px;line-height:25px}
+	</style>
+</head>
+<body>
+
+
+
+
+
+<div class="lead text-center">
+    <h3 style="border-bottom:1px #ccc solid">项目详情</h3>
+    <p class="tagline">{$list['borrow_breif']}</p>
+</div>
+<div class="lead text-center">
+</div>
+
+<div class="lead text-center">
+    <h3 style="border-bottom:1px #ccc solid;">借款人信息</h3>
+    <p class="tagline">{$list['borrow_capital']}</p>
+</div>
+
+<div class="lead text-center">
+    <h3 style="border-bottom:1px #ccc solid">资金用途</h3>
+    <p class="tagline">{$list['borrow_use']}</p>
+</div>
+
+<div class="lead text-center">
+    <h3 style="border-bottom:1px #ccc solid">风险控制</h3>
+    <p class="tagline">{$list['borrow_risk']}</p>
+</div>
+<php>if($list['updata']!=''){</php>
+<div class="lead text-center">
+    <h3 style="border-bottom:1px #ccc solid">认证图片</h3>
+
+</div>
+
+
+
+
+
+<section id="exemple" class="container">
+    <div class="wrap small-width" style="background:#fff">
+        <div id="try"></div>
+        <ul id="box-container">
+            <php>$i=0;foreach(unserialize($list['borrow_img']) as $v){ $i++;</php>
+            <li class="box">
+                <a href="__ROOT__/<php>echo $v['img'];</php>"  class="swipebox"  title="<php>echo $v['info'];</php>">
+
+                        <img  alt="<php>echo $v['info'];</php>" src="__ROOT__/<php>echo get_thumb_pic($v['img']);</php>">
+
+                </a>
+
+            </li>
+            <php>}</php>
+
+        </ul>
+    </div>
+</section>
+<php>}</php>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+
+        /* Basic Gallery */
+        $( '.swipebox' ).swipebox();
+
+        /* Video */
+        $( '.swipebox-video' ).swipebox();
+
+        /* Dynamic Gallery */
+        $( '#gallery' ).click( function( e ) {
+            e.preventDefault();
+            $.swipebox( [
+                { href : 'http://swipebox.csag.co/mages/image-1.jpg', title : 'My Caption' },
+                { href : 'http://swipebox.csag.co/images/image-2.jpg', title : 'My Second Caption' }
+            ] );
+        } );
+
+    });
+</script>
+</body>
+
+</html>

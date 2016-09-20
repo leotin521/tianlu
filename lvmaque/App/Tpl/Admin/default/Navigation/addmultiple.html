@@ -1,0 +1,42 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">批量添加导航菜单</div>
+<div class="page_tab"><span data="tab_1" class="active">基本设置</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/doAddMul" onsubmit="return subcheck();">
+	<div id="tab_1">
+	
+	<dl class="lineD"><dt style="color:#FF0000; font-weight:bold">注意：</dt><dd>批量添加时程序不会做相关验证，所以请确保输入数据准确！</dl>
+	<dl class="lineD"><dt>导航菜单名称：</dt><dd><htmlA:text id="type_name" tip="用,号隔开"/></dd></dl>
+	<dl class="lineD"><dt>上级菜单：</dt><dd><htmlA:select id="parent_id" datakey='type_list' vt='id|type_name' default="顶级导航菜单" tip="顶级菜单则无父菜单"/></dd></dl>
+	<dl class="lineD"><dt>菜单唯一标志：</dt><dd><htmlA:text id="type_nid" tip="用,号隔开，与上面的分类名称一一对应，如果不没有完全对应就会出错"/></dd></dl>
+	<!--<dl class="lineD"><dt>菜单属性：</dt><dd><htmlA:radio id="type_set"  default="2|跳转" tip='*'/></dd></dl>-->
+	
+	</div><!--tab1-->
+	
+	<div id="tab_2" style="display:none">
+	
+	<dl class="lineD"><dt>是否隐藏：</dt><dd><htmlA:radio id="is_hiden" default="0|否,1|是" tip='隐藏的分类名称不会自动调用,指定ID才会调用'/></dd></dl>
+	<dl class="lineD"><dt>跳转路径：</dt><dd><htmlA:input id="type_url" tip='*'/></dd></dl>
+	
+	</div><!--tab2-->
+	<div class="page_btm">
+      <input type="hidden" name="model" id="model" value="{$model}" />
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+</div>
+
+</div>
+<script type="text/javascript">
+$("input[name='type_nid']").bind("click", function(event){
+	if($(this).val()=="other"){
+		$("#other_nid").css("display","");
+	}else{
+		$("#other_nid").css("display","none");
+	}
+})
+</script>
+<include file="Public:_footer" />

@@ -1,0 +1,39 @@
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">授信额度调整</div>
+<div class="form2">
+	<form method="post" action="__URL__/doCreditEdit" onsubmit="return subcheck();">
+	<input type="hidden" name="id" value="{$id}" />
+	<div id="tab_1">
+	
+	<dl class="lineD"><dt>信用额度({$credit_limit})：</dt><dd><htmlA:input id="credit_limit" value="" tip="如果是减少额度，请填负数，如'-1000'"/></dd></dl>
+	<!--<dl class="lineD"><dt>借款担保额度：</dt><dd><htmlA:input id="borrow_vouch_limit" value="" tip="如果是减少额度，请填负数，如'-1000'"/></dd></dl>-->
+	<!--<dl class="lineD"><dt>投资担保额度：</dt><dd><htmlA:input id="invest_vouch_limit" value="" tip="如果是减少额度，请填负数，如'-1000'"/></dd></dl>-->
+	<dl class="lineD"><dt>信用等级积分({$active_integral})：</dt><dd><htmlA:input id="credits" value="" tip="如果是减少信用等级积分，请填负数，如'-1000'"/></dd></dl>
+	</div><!--tab1-->
+	
+	<div class="page_btm">
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+</div>
+
+</div>
+<script type="text/javascript">
+var cansub = true;
+function subcheck(){
+	if(!cansub){
+		alert("请不要重复提交，如网速慢，请等待！");
+		return false;	
+	}
+	
+	if($("#credit_limit").val()=="" && $("#borrow_vouch_limit").val()=="" && $("#invest_vouch_limit").val()=="" && $("#credits").val()==""){
+		ui.error("如果不做任何修改，请点关闭按钮退出！");
+		return false;
+	}else{
+		cansub = false;
+		return true;
+	}
+}
+</script>

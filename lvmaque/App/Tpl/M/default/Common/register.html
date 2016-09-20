@@ -1,0 +1,136 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>用户注册</title>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.min.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>用户注册</h1>
+        <a href="__URL__/logins" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="mod-logo">
+        <img src="__ROOT__/Style/NewWeChat/images/icon-logo.png" width="30%" height="30%" class="am-image" alt="">
+    </div>
+    <div class="am-container">
+        <form class="am-form am-form-horizontal form-login" id="myform">
+            <div class="am-form-group">
+                <label class="am-u-sm-3 am-form-label">用户名</label>
+                <div class="am-u-sm-9">
+                    <input type="text" class="am-radius" id="user_name" />
+                </div>
+            </div>
+            <div class="am-form-group">
+                <label class="am-u-sm-3 am-form-label">手机号</label>
+                <div class="am-u-sm-9">
+                    <input type="tel" class="am-radius" id="user_phone" />
+                </div>
+            </div>
+            <div class="am-form-group am-form-group-sm">
+                <div class="am-u-sm-offset-2 am-u-sm-10">
+                    <div class="am-checkbox">
+                        <label>
+                            <input type="checkbox"> 
+                            <!--<a class="am-text-danger am-text-lg" href="/">同意《注册协议》</a>-->
+                            <input type="checkbox" value="同意并查看《注册协议》"  id="frut" name="frut" checked="checked" style="background:red;"/>
+                            <!--<a href="javascript:;" style="color:red;" onclick="commom_xieyi('服务协议')">同意并查看《注册协议》</a>-->
+                            <a href="__URL__/protocal">同意并查看《注册协议》</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="am-radius am-radius am-margin-bottom-lg am-text-lg am-btn am-btn-danger am-btn-block" id="submit">下一步</a>
+        </form>
+    </div>
+    <script>
+        /**********注册协议***********/
+        function commom_xieyi(name){
+            $.get("__APP__/m/aboutus/index?name="+name,function(data){
+                //alert(data);
+                layer.open({
+                    type: 1,
+                    title: ['注册协议',
+                        'background-color: #B53354;'
+                    ],
+                    area: ['100%', '100%'],
+                    fix: true, //不固定
+                    maxmin: false,
+                    content: data
+                });
+            });
+        }
+
+
+
+        $(function(){
+            $("#submit").click(function(){
+
+                var user_name =  $.trim($("#user_name").val());//用户名
+                var user_phone =  $.trim($("#user_phone").val());//手机号码
+
+                //alert(user_name);
+                if(user_name.indexOf(" ")!=-1){
+                    $().toastmessage('showErrorToast', '请输入正确的用户名!');
+                    return false;
+                }
+                var pat = /^1[3|4|5|7|8][0-9]\d{4,8}$/;//验证手机号码
+
+                if(user_name == ''){
+                    $().toastmessage('showErrorToast', '请输入用户名!');
+                    return false;
+                }
+
+                if(user_phone == ''){
+                    $().toastmessage('showErrorToast', '请输入手机号码!');
+                    return false;
+                }
+                if (!pat.test(user_phone)) {
+                    $().toastmessage('showErrorToast', '请输入正确手机号码!');
+                    return false;
+                }
+
+                if(!$("#frut").is(':checked')){
+                    $().toastmessage('showErrorToast', '您必须同意注册协议!');
+                    return false;
+                }
+
+
+                $.ajax({
+                    url: "__URL__/register2/",
+                    data: {"user_name":user_name,"user_phone":user_phone},
+                    timeout: 1500,
+                    //cache: false,
+                    type: "post",
+                    dataType: "json",
+                    success: function (d) {
+                        if(d.status==0){
+                            $().toastmessage('showErrorToast', d.message);
+                            return false;
+                        }else{
+                            $("#loading").show();
+                            setTimeout(window.location.href="__URL__/register3", 500 )
+                        }
+                    }
+                });
+            })
+        })
+    </script>
+</body>
+
+</html>

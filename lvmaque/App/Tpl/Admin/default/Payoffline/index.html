@@ -1,0 +1,76 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+  <div class="page_tit">线下充值银行设置</div>
+  <div class="Toolbar_inbox">
+    <htmlA:commonBtn type="jsfun" action="addBank();" value="添加银行" style="search_action" />
+  </div>
+  <div class="list">
+    <form action="__URL__/index" name="bankForm" id="bankForm" method="post" >
+      <table id="bank_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th class="line_l">序号</th>
+          <th class="line_l">银行名称</th>
+          <th class="line_l">收款人</th>
+          <th class="line_l">收款账号</th>
+          <th class="line_l">开户地址</th>
+          <th class="line_l" width="80">操作</th>
+        </tr>
+        <volist name='bank' id='vo'>
+          <tr overstyle='on' id="bank_{$i}">
+            <td>{$i}</td>
+            <td><input type="text" name="bank[]"  value="{$vo.bank}" /></td>
+            <td><input type="text" name="payee[]"  value="{$vo.payee}" /></td>
+            <td><input type="text" name="account[]"  value="{$vo.account}" size="30" /></td>
+            <td><input type="text" name="address[]"  value="{$vo.address}" size="40" /></td>
+            <td><a href="javascript:void(0);" onclick="delBank({$i})">删除</a></td>
+          </tr>
+        </volist>
+      </table>
+      <table>
+        <tr>
+          <td> 说明： </td>
+          <td><textarea id="info" name="info" >{$info}</textarea>
+          </td>
+        </tr>
+      </table>
+      <hr/>
+      <table>
+        <tr>
+          <td><span style="color:#FF0000">是否开启：</span> </td>
+          <td>
+            <htmlA:radio id="is_open" value="key|is_open.is_open" default="0|否,1|是" tip="是否允许开启线下充值通道"/>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class="Toolbar_inbox">
+    <htmlA:commonBtn type="jsfun" action="dosubmit();" value="保存设置" style="search_action" />
+  </div>
+</div>
+<script type="text/javascript">
+function addBank()
+{
+    id = parseInt($("#bank_list tr").last().find("td").eq(0).html())+1; 
+
+    var html = '<tr overstyle="on" id="bank_'+id+'"><td>'+id+'</td><td><input type="text" name="bank[]" value=""></td> <td><input type="text" name="payee[]" value=""></td><td><input type="text" name="account[]"  value="" size="30"></td>  <td><input type="text" name="address[]" value="" size="40"></td><td><a href="javascript:void(0);" onclick="delBank('+id+')">删除</a></td></tr>';
+    
+    $("#bank_list").append(html); 
+}
+function delBank(id)
+{
+    $("#bank_"+id).remove();
+}
+function dosubmit()
+{
+   $("#bankForm").submit(); 
+}
+</script>
+{$keshow}
+<style type="text/css">
+body .ke-container td{
+    padding:0;
+}
+</style>
+<include file="Public:_footer" />

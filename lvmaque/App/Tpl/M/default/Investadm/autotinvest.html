@@ -1,0 +1,308 @@
+<!doctype html>
+<html class="no-js">
+<!--投资管理-自动投标页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>企业直投</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+	<script>
+		$(function(){
+			// 顶部点击展示下拉事件
+			$("header h1").on("click",function(){
+				$(this).find("i").toggleClass("am-icon-caret-up");
+				$("nav a.am-menu-toggle").trigger("click");
+			})
+		})
+	</script>
+</head>
+
+<body>
+<header>
+    <h1>企业直投 <i class="am-menu-toggle-icon am-icon-caret-down "></i></h1>
+    <a href="__URL__/investadmlist" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+</header>
+
+<nav data-am-widget="menu" class="am-menu menu-customize am-menu-dropdown1 " data-am-menu-collapse  >
+    <a href="javascript: void(0)" class="am-menu-toggle mod-manage-toubiao">
+        <i class="am-menu-toggle-icon am-icon-caret-down "></i>
+    </a>
+    <ul class="am-menu-nav am-avg-sm-1 am-collapse">
+        <li class="menu-item">
+            <a href="__URL__/autoinvest" class="" >普通标</a>
+            <input type="hidden" name="type" value="6"/>
+        </li>
+        <li class="menu-item">
+            <a href="__URL__/autotinvest" class="selected" ><img class="am-fr" src="__ROOT__/Style/NewWeChat/images/ok_min.png"  /> 企业直投</a>
+        </li>
+        <li class="menu-item">
+            <a href="__URL__/autofund" class="" >定投宝</a>
+        </li>
+    </ul>
+
+</nav>
+
+<div class="mod-manage-toubiaonr">
+    <ul>
+        <li class="am-u-sm-11 am-u-sm-centered num num-zt">同时满足以下条件，将进行自动投标 <i id="use-btn" class="num num-um"> </i>
+            <input type="hidden" id="is_uses" name="is_use" value="1"/>
+        </li>
+    </ul>
+
+    <form class="am-form am-form-horizontal">
+        <div class="am-form-group">
+            <label  class="am-u-sm-6 am-text-left am-form-label mod-managelabel">最大投资金额：</label>
+            <div class="am-u-sm-6 mod-manage-lijizr2  ">
+                <input type="text" id="max_money" name="invest_money" class="am-radius" placeholder="该数值必须不小于200元的整数" value="">
+            </div>
+        </div>
+
+        <div class="am-form-group">
+            <label class="am-u-sm-6 am-text-left am-form-label mod-managelabel">最小投资金额:</label>
+            <div class="am-u-sm-6  mod-manage-lijizr2 ">
+                <input type="text" id="min_money" name="min_invest" class="am-radius" placeholder="大于等于50元，不大于最大投资金额" value="">
+            </div>
+        </div>
+
+        <div class="am-form-group">
+            <label class="am-u-sm-6 am-text-left am-form-label mod-managelabel"><input type="checkbox" id="is_interest_rate" name="is_interest_rate" value="1">年化利率</label>
+            <div class="am-u-sm-6 mod-manage-lijizr2  ">
+                <input type="text" id="interest_rate" class="am-radius" name="interest_rate" placeholder="%" value="">
+            </div>
+        </div>
+
+        <div class="am-form-group">
+            <label class="am-u-sm-6 am-text-left am-form-label mod-managelabel"><input type="checkbox" id="is_duration_from" name="is_duration_from" value="1">借款期限</label>
+            <div class="am-u-sm-6  mod-manage-lijizr2">
+                 <input type="text" id="duration_from1" class="input-inline input-duration-start am-radius" name="duration_from" value=""> 个月到
+                 <input type="text" id="duration_from2" class="input-inline input-duration-end am-radius" name="duration_to" value=""> 个月
+            </div>
+        </div>
+
+        <div class="am-form-group">
+            <label class="am-u-sm-6 am-text-left am-form-label mod-managelabel"><input type="checkbox" id="is_auto_day" name="is_auto_day" value="1">包含天标</label>
+			<div class="am-u-sm-6  mod-manage-lijizr2 ">
+				<input type="text" style="visibility:hidden">
+			</div>
+        </div>
+			
+        <div class="am-form-group">
+            <label class="am-u-sm-6 am-text-left am-form-label mod-managelabel"><input type="checkbox"  id="is_account_money" name="is_account_money" value="1">账户保留金额</label>
+            <div class="am-u-sm-6 mod-manage-lijizr2 ">
+                <input type="text" id="account_money" name="account_money" class="am-radius" placeholder="元" value="">
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label class="am-u-sm-6 am-text-left am-form-label mod-managelabel"><input type="checkbox" id="is_end_time" name="is_end_time" value="1">自动投标日期置于</label>
+            <div class="am-u-sm-6 mod-manage-lijizr2">
+                <input type="text" class="am-form-field am-radius" id="end_time" name="end_time" placeholder="自动消失" data-am-datepicker readonly value=""/>
+            </div>
+        </div>
+
+        <div class="am-form-group mod-manage-btn">
+            <div class="am-container">
+                <input type="button" class="am-btn am-btn-block  am-radius am-btn-danger" onclick="submits();" value="确定"/>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="mod-manage-zrguize am-u-sm-11 am-u-sm-centered ">
+
+
+    <p>温馨提示：<br />
+        绿麻雀系统自动投标设置规则说明：<br />
+        1.    单笔借出金额最小投资金额为50元，最大投资金额必须大于或
+        等于200元。<br />
+        2.    设置自动投标金额<=可用金额-账户保留金额，否则不能自动
+        投标。<br />
+        绿麻雀系统自动投标排序规则说明<br />：
+        1.    投标顺序按照开启自动投标功能的时间先后进行<br />排序。
+        2.    每个会员每个 仅自动投标一次，投标成功后，排到自动投标
+        会员的末尾。<br />
+        3.    中间对自动投标进行修改的，排名不变。<br />
+        4.   新开启自动投标用户，自动排到所有自动投标的末尾。<br />
+        5.   当账户余额不足时，系统按顺序进行，但不投标，依次转移到
+        下一个自动投标。 </p>
+
+</div>
+<script>
+    $(function(){
+      // 切换开关按钮
+	  var useBtn = $("#use-btn");
+      $(".mod-manage-toubiaonr>ul>li").on("click",function(){
+        if(useBtn.hasClass("am-icon-toggle-on")){
+			useBtn.removeClass("am-icon-toggle-on").addClass("am-icon-toggle-off");
+			$("#is_uses").val(0);
+		}else{
+			useBtn.removeClass("am-icon-toggle-off ").addClass("am-icon-toggle-on");
+			$("#is_uses").val(1);
+		}
+      })
+    })
+
+    function setError(tip){
+        layer.msg(tip,{icon:0});
+        return false;
+    }
+
+    function setOk(tip){
+        layer.msg(tip,{icon:1});
+        //window.location.href="__URL__/debt_1";
+    }
+
+    $(function(){
+        $.ajax({
+            url: "__URL__/autolong/",
+            data: {"type":6},
+            cache: false,
+            type: "post",
+            dataType: "json",
+            success: function (d) {
+                if(d.invest_money != ''){
+                    $("#max_money").val(d.invest_money);
+                }
+                if(d.min_invest != ''){
+                    $("#min_money").val(d.min_invest);
+                }
+                if(d.is_interest_rate == 1){
+                    $("#is_interest_rate").attr('checked',true);
+                    $("#interest_rate").val(d.interest_rate);
+                }
+
+                if(d.is_duration_from == 1){
+                    $("#is_duration_from").attr('checked',true);
+                    $("#duration_from1").val(d.duration_from);
+                    $("#duration_from2").val(d.duration_to);
+                }
+                if(d.is_auto_day == 1){
+                    $("#is_auto_day").attr('checked',true);
+                }
+                if(d.is_account_money == 1){
+                    $("#is_account_money").attr('checked',true);
+                    $("#account_money").val(d.account_money);
+                }
+                if(d.is_account_money == 1){
+                    $("#is_account_money").attr('checked',true);
+                    $("#account_money").val(d.account_money);
+                }
+                if(d.is_end_time == 1){
+                    $("#is_end_time").attr('checked',true);
+                    $("#end_time").val(d.end_time);
+                }
+                if(d.is_use == 1){
+                    $("#is_uses").attr('value',1);
+					$("#use-btn").addClass('am-icon-toggle-on');
+                }else{
+                    $("#is_uses").attr('value',0);
+					$("#use-btn").addClass('am-icon-toggle-off');
+                }
+            }
+        });
+
+    })
+
+    function submits(){
+
+        var invest_money = $('#max_money').val();//最大投资金额
+        var min_invest = $('#min_money').val();//最小投资金额
+
+
+        /*如果取消选中状态，则清空对应的值,仿照pc端*/
+                if ($("#is_interest_rate").is(":checked")) {
+                    /*如果选中，一切正常，不做操作*/
+                }else{
+                    $("#interest_rate").val("");
+                }
+                //=====================================//
+                if ($("#is_duration_from").is(":checked")) {
+                    /*如果选中，一切正常，不做操作*/
+                }else{
+                    $("#duration_from1").val("");
+                    $("#duration_from2").val("");
+                }
+                //=====================================//
+                if ($("#is_duration_from").is(":checked")) {
+                    /*如果选中，一切正常，不做操作*/
+                }else{
+                    $("#duration_from1").val("");
+                    $("#duration_from2").val("");
+                }
+                //=====================================//
+                if ($("#is_auto_day").is(":checked")) {
+                    /*如果选中，一切正常，不做操作*/
+                    //alert("选中");
+                }else{
+                    //alert("取消");
+                    $("#is_auto_day").attr("checkbox",false);
+                    $("#is_auto_day").val('');
+                }
+
+                //=====================================//
+                if ($("#is_account_money").is(":checked")) {
+                    /*如果选中，一切正常，不做操作*/
+                }else{
+                    $("#account_money").val("");
+                }
+                //=====================================//
+
+//                if ($("#is_end_time").is(":checked")) {
+//                    /*如果选中，一切正常，不做操作*/
+//                    return setError("");
+//                }
+            /*如果取消选中状态，则清空对应的值,仿照pc端*/
+
+            if(parseInt(invest_money) < 200){
+                return setError("最大投资金额必须大于等于200");
+            }
+
+            if(parseInt(invest_money) < parseInt(min_invest)){
+                return setError("最大投资金额必须大于最小投资金额");
+            }
+
+            if(parseInt(min_invest)<50){
+                return setError("最小投资金额必须大于50元");
+            }
+
+        var p=makevar(['type','invest_money','min_invest','is_interest_rate','interest_rate','is_duration_from','duration_from','duration_to','is_auto_day','is_account_money','account_money','is_end_time','end_time','is_use']);
+
+        $.ajax({
+            url: "__URL__/savelong/",
+            data:p,
+            cache: false,
+            type: "post",
+            dataType: "json",
+            success: function (d) {
+                if(d.status == 1){
+                    return setOk(d.message);
+                }else{
+                    return setError(d.message);
+                }
+            }
+        });
+    }
+
+    function makevar(v){
+        var d={};
+        for(i in v){
+            var id = v[i];
+            d[id] = $("#"+id).val();
+            if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+            if(!d[id]) d[id] = $("input[name='"+id+"']").val();
+            if(typeof d[id] == "undefined") d[id] = "";
+        }
+        return d;
+    }
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html class="no-js">
+<!--投资管理-灵活宝回款结清页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>灵活宝</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>灵活宝</h1>
+        <a href="__URL__/investadmlist" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="mod-myred-convert">
+        <div class="mod-myred-convert-keyong">累计收益(元)</div>
+        <div class="mod-myred-convert-jifen">{$info.interest}</div>
+        <div class="mod-myred-convert-tongji invest-lhbbg">
+            <ul class="am-avg-sm-2">
+                <li class="am-text-left">资产总额：</li>
+                <li class="am-text-right"><a class="num num-lt" href="__URL__/jiaoyijilv">{$info.assets}元<i class="am-icon-chevron-right invest-lhbjt"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="am-tabs mod-invest-shouyijilu am-padding-top" data-am-tabs>
+		<ul class="am-tabs-nav am-nav am-nav-tabs am-g mod-tab-btn-group am-container am-margin-bottom">
+			<li class="am-u-sm-6 am-active"><a class="am-btn am-btn-block" href="javascript: void(0)">回款项目</a></li>
+			<li class="am-u-sm-6"><a class="am-btn am-btn-block" href="javascript: void(0)">结清项目</a></li>
+		</ul>
+        <div class="am-tabs-bd">
+            <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                <volist name="listinfo" id="vo">
+                <a href="__URL__/iteminfo?batch={$vo.batch_no}" title="">
+                    <div class="mod-invest-zr">
+                        <div class="mod-invest-zrxx2">
+                            <div class="mod-invest-zrtitle num num-lt">项目编号：{$vo.batch_no}<span class="am-icon-chevron-right mod-weizhi"></span></div>
+                            <div class="mod-invest-zrnr invest-xiangmutop">
+                                <ul class="am-avg-sm-4 zrnrone">
+                                    <li class="zrnronet">投资本金</li>
+                                    <li class="zrnronec">年化收益</li>
+                                    <li class="zrnronec">累计收益</li>
+                                    <li class="zrnronec">已赎本息</li>
+                                </ul>
+                                <ul class="am-avg-sm-4 zrnrtwo num num-sm">
+                                    <li class="zrnronet">{$vo.capital}</li>
+                                    <li class="zrnronec">{$vo.interest_rate}%</li>
+                                    <li class="zrnronec">
+                                        <font color="#fa4343">{$vo.interest}</font>
+                                    </li>
+                                    <li class="zrnronec">{$vo.out_money}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                </volist>
+            </div>
+
+
+
+            <div class="am-tab-panel am-fade" id="tab2">
+                <div class="mod-invest-zr">
+                    <div class="mod-invest-zrxx2">
+                        <volist name="overlistinfo" id="vos">
+                            <div class="mod-invest-zrtitle num num-sm">项目编号：{$vos.batch_no}<span class="am-icon-chevron-right mod-weizhi"></span></div>
+                            <a href="__URL__/iteminfo?batch={$vos.batch_no}" title="">
+                                <div class="mod-invest-zrnr invest-xiangmutop">
+                                    <ul class="am-avg-sm-4 zrnrone">
+                                        <li class="zrnronet">投资本金</li>
+                                        <li class="zrnronec">年化收益</li>
+                                        <li class="zrnronec">收益总额</li>
+                                        <li class="zrnronec">结清日期</li>
+                                    </ul>
+                                    <ul class="am-avg-sm-4 zrnrtwo num num-lt">
+                                        <li class="zrnronet">{$vos.batch_no}</li>
+                                        <li class="zrnronec">{$vos.interest_rate}%</li>
+                                        <li class="zrnronec">
+                                            <font color="#fa4343">{$vos.interest}</font>
+                                        </li>
+                                        <li class="zrnronec">{$vos.deadline}</li>
+                                    </ul>
+                                </div>
+                            </a>
+                            <span>{$vos.nowPage}</span>
+                        </volist>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<tagLib name="htmlA" />
+<table cellspacing="0" cellpadding="0" id="formTb" style="width: 100%; float: left; margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+		<tbody><tr class="trBg">
+			<td class="tdTitle">
+				单位名称：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="department_name" value="{$vo.department_name}" class="text2" addstr="onkeyup='Cn_name(this)'"/>
+                <div id="dvdepartment_name" class="inline"></div>
+			</td>
+			<td id="dv_company" class="tdTip">
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				电话：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="department_tel" value="{$vo.department_tel}" class="text2"/>
+				<div id="dvdepartment_tel" class="inline">格式：010-12345678，手机11位</div>
+			</td>
+			<td id="dv_companytel" class="tdTip">
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				地址：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="department_address" value="{$vo.department_address}" class="text2"/>
+			</td>
+			<td id="dv_companyaddress" class="tdTip">
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				工作年限：
+			</td>
+			<td class="tdContent">
+			<htmlA:radio id="department_year" default="1年以下|1年以下,1-3年|1-3年,3-5年|3-5年,5-10年|5-10年,10年以上|10年以上" value="key|vo.department_year" />
+			</td>
+			<td id="dv_workyear" class="tdTip">
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				证明人：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="voucher_name" value="{$vo.voucher_name}" class="text2" addstr="onkeyup='Cn_name(this)'"/>
+                <div id="dvvoucher_name" class="inline"></div>
+			</td>
+			<td id="dv_references" class="tdTip">
+			</td>
+		</tr>
+		<tr style=" border-bottom:1px solid #dedede;">
+			<td class="tdTitle">
+				证明人手机：
+			</td>
+			<td class="tdContent">
+				<htmlA:input id="voucher_tel" value="{$vo.voucher_tel}" class="text2" addstr="onkeyup='Blurphone(this)'"/>
+                <div id="dvvoucher_tel" class="inline"></div>
+			</td>
+			<td id="dv_referencestel" class="tdTip">
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;
+				
+			</td>
+			<td style="height: 50px;padding-left: 10px;" class="tdContent">
+			<input class="btn-style-3 allbgcolor" type="button" style="margin-top: 5px; cursor: pointer; margin-right:13px;" onmouseout="this.style.filter = 'alpha(opacity=100)'" onmousemove="this.style.filter = 'alpha(opacity=60)'; this.style.cursor='hand' " onclick="goback();" value="上一步">
+			<input class="btn-style-3 allbgcolor" type="button" style="margin-top: 5px; cursor: pointer; margin-right:13px;" onmouseout="this.style.filter = 'alpha(opacity=100)'" onmousemove="this.style.filter = 'alpha(opacity=60)'; this.style.cursor='hand' " onclick="editdepartment();" value="下一步">
+			<input class="btn-style-3 allbgcolor" type="button" style="margin-top: 5px; cursor: pointer;" onmouseout="this.style.filter = 'alpha(opacity=100)'" onmousemove="this.style.filter = 'alpha(opacity=60)'; this.style.cursor='hand' " onclick="skip();" value="跳过">
+			</td>
+			<td id="Td1" class="tdTip">
+			</td>
+		</tr>
+</tbody></table>
+<script type="text/javascript">
+var tid = $('#tid').val();
+var fg=true;
+var flg=true;
+var flog=true;
+//电话
+$("#department_tel").blur( function () { 
+	t1 = $("#department_tel").val();
+	if(!((/^1[0-9]{10}$/.test(t1))||(/^(0[0-9]{2,3}\-){1}([0-9]{7,8})+(\-[0-9]{1,4})?$/.test(t1)))){
+		$("#dvdepartment_tel").html("<font style='color:red;'>手机或座机号码不符合规则！</font>");
+		flg=false;
+	}else{
+		flg=true;
+		$("#dvdepartment_tel").html('');
+	}
+});
+//证明人
+$("#voucher_name").blur( function () { 
+	c3 = $("#voucher_name").val(); 
+	if(!(/^[\u4e00-\u9fa5]+$/.test(c3))){
+		fg=false;
+		$("#dvvoucher_name").html("<font style='color:red;'>请输入汉字！</font>");
+	}else{
+		fg=true;
+		$("#dvvoucher_name").html('');
+	}
+	
+} );
+//手机
+$("#voucher_tel").blur( function () { 
+	v1 = $("#voucher_tel").val();
+	if(!(/^1[0-9]{10}$/.test(v1))){
+		$("#dvvoucher_tel").html("<font style='color:red;'>手机号码不符合规则！</font>");
+		flog=false;
+	}else{
+		flog=true;
+		$("#dvvoucher_tel").html('');
+	}
+});
+
+function editdepartment(){
+	if(fg===false || flg===false || flog===false){
+		layer.msg('请正确填写资料信息，可以提高通过机率！', {icon: 0});
+		return false;
+	}
+	p = makevar(['department_name','department_tel','department_address','voucher_name','voucher_tel','department_year']);
+	p['_tps'] = "post";
+	
+	var mxs = true;
+	$.each(p,function(i){
+		if(typeof p[i] == "undefined"){
+			mxs=false;
+		}
+	});
+	if(mxs===false){
+		layer.msg('所有项目都不能为空！', {icon: 0});
+	  	return false;
+	}
+
+    var arrTds = new Array("#dvdepartment_name","#dvvoucher_name","#dvvoucher_tel");
+    for (var i = 0; i < arrTds.length; i++) {
+        if ($(arrTds[i]).html().indexOf('reg_wrong') > -1) {
+        	layer.msg('您的信息有错误！', {icon: 2});
+            return false;
+        }
+    }
+
+    layer.msg('提交中...', {icon: 16});
+	$.ajax({
+		url: "__URL__/editdepartment/",
+		data: p,
+		timeout: 5000,
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==1){
+					setTimeout('window.location.href="/member/memberinfo/index_index?ckid=3&tid='+ tid +'";',1000);
+				}
+				else  {
+					layer.msg(d.message, {icon: 2});
+					return false;
+				}
+			}
+		}
+	});
+}
+function makevar(v){
+	var d={};
+	for(i=0;i<v.length;i++){
+		var id = v[i];
+		d[id] = $("#"+id).val();
+		if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+	}
+	return d;
+}
+function goback(){	//上一步
+	check(1);
+}
+function skip(){	//跳过
+	check(3);
+}
+</script>

@@ -1,0 +1,54 @@
+<include file="default:Public:_header_common"/>
+            <style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style></head>
+<body>
+<include file="default:Public:_header_main"/>
+<div class="user-page user-msg-page">
+    <div class="user-main clearfix">
+    <include file="default:Public:_left"/>
+      <div class="user-con">
+            <div class="user-box-1 user-notifications-setting">
+              <div class="user-box-title-1 clearfix">
+                  <h2>快捷登录</h2>
+                </div>
+                <div class="user-box-con-1" style="min-height: 567px;">
+                  <if condition="$loginconfig['sina']['enable'] eq '1'">
+                      <div class="m_oauth" style="width: 145px;float: left;text-align:center">
+                        <div class="oauth_title">
+                          <a href="{:U('add_oauth', array('type'=>'sina'))}" >
+                            <img src="/Style/H/images/k_sina.png" style="margin-bottom:10px;"><br/>
+                            新浪微博绑定
+                          </a>
+                        </div>
+                        <ul>
+                          <volist name="sina_list" id="sina">
+                            <li>{$sina.nickname}<span><a href="{:U("del_oauth", array('id'=>$sina['id']))}">解除绑定</a></span></li>
+                          </volist>
+                        </ul>
+                      </div>
+                  </if>
+                  <div style="float: left;margin-top: -22px;"> <img src="/Style/H/images/k_fgx.png"></div>
+                  <if condition="$loginconfig['qq']['enable'] eq '1'">
+                      <div class="m_oauth" style="width: 145px;float: left;text-align:center">
+                        <div class="oauth_title">
+                          <a href="{:U("add_oauth", array('type'=>'qq'))}">
+                            <img src="/Style/H/images/k_qq.png" style="margin-bottom:10px;"> <br/>
+                            QQ登录绑定
+                          </a>
+                        </div>
+                        <ul>
+                          <volist name="qq_list" id="qq">
+                            <li>{$qq.nickname}<span><a href="{:U("del_oauth", array('id'=>$qq['id']))}">解除绑定</a></span></li>
+                          </volist>
+                        </ul>
+                      </div>
+                  </if>
+                    
+                </div>
+            </div>
+        </div>
+    	
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+</body></html>

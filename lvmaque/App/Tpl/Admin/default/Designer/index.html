@@ -1,0 +1,48 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<script type="text/javascript">
+	var delUrl = '__URL__/doDel';
+	var addUrl = '__URL__/add';
+	var addTitle = '添加分类';
+</script>
+<div class="so_main">
+  <div class="page_tit">标名设置</div>
+
+  <div class="Toolbar_inbox">
+    <htmlA:commonBtn type="button" value="标名列表"/>
+  </div>
+  
+  <div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th style="width:30px;">
+        <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+        <label for="checkbox"></label>
+    </th>
+    <th class="line_l">ID</th>
+    <th class="line_l">标名</th>
+    <th class="line_l">操作</th>
+  </tr>
+  <foreach name="list" item="vo" key="key">
+      <tr overstyle='on' id="list_{$key}">
+        <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$key}"></td>
+        <td>{$key}</td>
+        <td>{$vo}</td>
+        <td>
+            <a href="__URL__/edit?id={$key}">编辑</a> 
+        </td>
+      </tr>
+  </foreach>
+  </table>
+
+  </div>
+  
+  <div class="Toolbar_inbox">
+  	<div class="page right">{$pagebar}</div>
+    <htmlA:commonBtn type="button" value="标名列表"/>
+    *标名修改完毕后，请您手动对导航菜单做相应调整。
+  </div>
+</div>
+
+
+<include file="Public:_footer" />

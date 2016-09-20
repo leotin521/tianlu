@@ -1,0 +1,67 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<script type="text/javascript">
+	var delUrl = '__URL__/doDel';
+	var addUrl = '__URL__/add';
+	var editUrl = '__URL__/edit';
+	var editTitle = '处理充值';
+	var isSearchHidden = 1;
+	var searchName = "搜索";
+</script>
+<div class="so_main">
+  <div class="page_tit">会员投资积分列表</div>
+<!--搜索-->
+  <include file="search" />
+<!--搜索-->
+
+  <div class="Toolbar_inbox">
+
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索/筛选会员" style="search_action" />  
+	
+  </div>
+  
+  <div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th style="width:30px;">
+        <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+        <label for="checkbox"></label>
+    </th>
+    <th class="line_l">ID</th>
+    <th class="line_l">会员名</th>
+    <th class="line_l">已用投资积分</th>
+    <th class="line_l">可用投资积分</th>
+    <th class="line_l">投资总积分</th>
+	<th class="line_l">操作</th>
+  </tr>
+  <volist id="vo" name="list">
+      <tr overstyle='on' id="list_{$vo.id}">
+        <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+        <td>{$vo.id}</td>
+        <td><htmlA:user id="vo.uid" uname="vo.user_name" /></td>
+        <td>{$vo['integral']-$vo['active_integral']}</td>
+        <td>{$vo.active_integral}</td>
+        <td>{$vo.integral}</td>
+		<td><a href="/admin/integration/investdetail?uid={$vo.id}&uname={$vo.user_name}">积分明细</a></td>
+      </tr>
+  </volist>
+  </table>
+
+  </div>
+  
+  <div class="Toolbar_inbox">
+  	<div class="page right">{$pages}</div>
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索/筛选会员" style="search_action" />
+  </div>
+</div>
+
+<script type="text/javascript">
+
+ function rewards_rules(){
+    ui.box.load("__URL__/addexp", {title:"手动奖励优惠券"});
+}
+
+</script>
+
+<include file="Public:_footer" />

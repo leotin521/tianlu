@@ -1,0 +1,76 @@
+<include file="Public:_header" />
+<link href="__ROOT__/Style/Swfupload/swfupload.css" rel="stylesheet" type="text/css">
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">处理提现</div>
+<div class="page_tab"><span data="tab_1" class="active">提现信息</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/doEdit" onsubmit="return subcheck();" enctype="multipart/form-data">
+	<input type="hidden" name="id" value="{$vo.id}" />
+	<div id="tab_1">
+
+	<dl class="lineD"><dt>提现会员：</dt><dd>{$vo.uname}</dd></dl>
+	<dl class="lineD"><dt>提现时间：</dt><dd>{$vo.add_time|date="Y-m-d",###}</dd></dl>
+	<dl class="lineD"><dt>提现金额：</dt><dd>{$vo.withdraw_money}</dd></dl>
+	<dl class="lineD"><dt>提现手续费：</dt><dd><htmlA:input id="withdraw_fee" value="{$vo.withdraw_fee}"  tip="*"/></dd></dl>
+	<dl class="lineD"><dt>到帐金额：</dt><dd id="paymoney"></dd></dl>
+	<dl class="lineD"><dt>真实姓名：</dt><dd>{$vo.real_name}</dd></dl>
+	<dl class="lineD"><dt>银行名称：</dt><dd>{$vo.bank_name}</dd></dl>
+	<dl class="lineD"><dt>银行账号：</dt><dd>{$vo.bank_num}</dd></dl>
+	<dl class="lineD"><dt>银行开户行：</dt><dd class="xwidth">{$vo.bank_province}{$vo.bank_city}{$vo.bank_address}</dd></dl>
+	<dl class="lineD"><dt><span style="color:#FF0000">处理结果</span></dt><dd>&nbsp;</dd></dl>
+	<dl class="lineD"><dt>提现状态：</dt><dd><htmlA:radio id="withdraw_status" datakey="type_list" value="key|vo.withdraw_status"/></dd></dl>
+	<dl class="lineD"><dt>处理说明：</dt><dd><htmlA:text id="deal_info" value="{$vo.deal_info}"  tip="*"/></dd></dl>
+	
+	</div><!--tab1-->
+	
+	<div class="page_btm">
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+</div>
+
+</div>
+<script type="text/javascript">
+var wm ={$vo.withdraw_money|default=0};
+var am = {$vo.all_money|default=0};
+var fee = {$vo.withdraw_fee|default=0};
+$("#withdraw_fee").change(function(){
+	showpay();	
+});
+
+function showpay(){
+	var withdraw_fee = parseFloat($("#withdraw_fee").val());
+	if((am+fee-withdraw_fee)<0){
+		if(wm+fee<withdraw_fee){
+			$("#withdraw_fee").val(fee);
+		}
+		$("#paymoney").html(parseFloat(wm+fee-withdraw_fee+am));
+	}else{
+		$("#paymoney").html(parseFloat(wm));
+	}
+	
+}
+showpay();
+var cansub = true;
+function subcheck(){
+	if(!cansub){
+		alert("请不要重复提交，如网速慢，请耐心等待！");
+		return false;	
+	}
+	if($("input[name='withdraw_status']:checked").val()!=1 && $("input[name='withdraw_status']:checked").val()!=0 && $("input[name='withdraw_status']:checked").val()!=2 && $("input[name='withdraw_status']:checked").val()!=3){
+		ui.error("请选择处理结果");
+		return false;
+	}
+	
+	var deal_info = $('#deal_info').val();
+	if(deal_info==''||deal_info==null){
+		ui.error("请填写处理说明");
+		return false;
+	}
+	cansub = false;
+	return true;
+}
+</script>
+<include file="Public:_footer" />

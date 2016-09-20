@@ -1,0 +1,25 @@
+.jsq_ta{padding: 5px; margin: 10px auto; font-size: 14px;}
+
+.jsq_ta p{  display:block; height: 35px; line-height: 35px; margin: 10px auto; padding: 2px;}
+.jsq_ta p input{float: left;}
+.jsq_ta p .jsq_ta_inp { width: 37%; height:30px; padding: 3px; line-height: 35px; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;border:1px solid #DEDEDE;}
+.jsq_ta p b{width: 60px; text-align: right;display: block; float:left;padding-right: 15px;}
+.jsq_ta p label{display: block; height: 35px;position: relative;width: 30px; text-align: right;}
+.jsq_ta p label.rad_x{ padding-left: 16px; margin-left: 5px;}
+.jsq_ta p label.rad_y{ padding-left: 10px; margin-left: 15px;}
+.jsq_ta p label input{ position:absolute; top: 12px; left:0px;}
+
+.jsq_ta .jsq_ta_inp_selse{width: 50%; padding-left: 3px; height: 35px; line-height: 35px; border: 1px solid #DEDEDE;border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;}
+
+
+.jsq_ta .jsq_ta_button{height: 40px; line-height: 40px; width: 92%; margin: 10px auto;border: 1px solid #DEDEDE;border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;
+	color:#fff;
+	text-align: center;
+	font-size: 16px;
+}
+
+.jsq_ta_fot{width: 100%; margin: 10px auto; padding: 10px; background: #fff; border-bottom: 2px solid #DEDEDE; border-top: 1px solid #DEDEDE;}
+
+.jsq_ta_fot table{width: 90%; margin: 0 auto; line-height: 40px; text-align: center; font-size: 15px;}
+.jsq_ta_fot_01{ width: 100%; padding-bottom: 30px;}
+.jsq_ta_fot_01 table{ width:98%; margin:10px auto;line-height: 35px; font-size: 15px;}

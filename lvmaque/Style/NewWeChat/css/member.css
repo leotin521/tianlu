@@ -1,0 +1,380 @@
+.mod-logo{text-align: center;padding: 2rem 0;}
+.form-login .am-texr-center{text-align: center;}
+.form-login label{text-align: right;}
+
+.input-width-btn{padding: 0 -1rem;}
+.verify-input{width: 59%;float: left;}
+.get-verify-btn{width: 40%;float: left;padding-left: 1rem;}
+/*顶部数据，用户中心通用*/
+.mod-baner-data{width: 100%;background-color: #FC4949;color: #fff;padding: 1rem -0px;}
+.am-nav > li.am-active > a, .am-nav > li.am-active > a:hover, .am-nav > li.am-active > a:focus{ color:#333333; background:#ffffff; cursor:default;}
+
+.cap-nav{margin-left: -1px;}
+.cap-nav .cap-unit:first-child{border-right: 1px solid #ddd;}
+.cap-unit{padding: 1rem 0;width: 50%;float: left;background-color: #fff;}
+.cap-unit-img{ float:left;margin-left: 5%; }
+.cap-unit img{vertical-align: middle;}
+.cap-unit  .figcaption {display: inline-block; }
+.cap-unit  .figcaption a{padding-left: .5em;color: #333333;font-size: 2rem;}
+
+/*按钮2枚*/
+.oper-unit {margin: 2rem 0;}
+.oper-unit-btn{ padding-left:1.5rem; padding-right:1.5rem;}
+.member-item li{padding: 0 1.6rem;}
+.member-item li .con{float: right;color: #666;line-height: 2.9rem;}
+.member-item li .field{line-height: 3rem;color: #333;}
+
+
+/**************************/
+
+/*站内信样式*/
+.letterbg{ background-color:#FFF;}
+.letterbg li{ text-align:center; border-left:none; border: 1px solid #c9c9c9; border-left:none; border-bottom:none;}
+
+
+.am-nav-tabs > li.am-active > a, .am-nav-tabs > li.am-active > a:hover, .am-nav-tabs > li.am-active > a:focus {color:#fa4343; background-color: #ffffff; 
+border-bottom-color: transparent; border-bottom:none; cursor: default; display:block;color: #fff;background:#fa4343;font-weight: bold;font-size: 1.6rem; }
+
+
+@media only screen and (min-width: 641px)
+[class*="am-u-"] {
+    /* padding-left: 1.5rem; */
+    /* padding-right: 1.5rem; */
+}
+
+.am-nav-tabs > li > a {margin-right: 0px;text-align: center; line-height: 1.6; border: 1px solid transparent; border-radius: 0 0 0 0;}
+
+/*消息标题*/
+.am-icon-chevron-right{ float:right; color:#c9c9c9; margin-top:10px;}
+.mod-letter-title span{ float:right; margin-right:10px;}
+.mod-letter-title .am-icon-circle{ float:left;}
+.mod-letter-nr{ padding-top:5px; padding-left:5px; font-size: 1.4rem;}
+
+.mod-letter-one{ border-top: solid 1px #c9c8c8; }
+.mod-letter-title{ padding-left:5px; font-size: 1.6rem;padding-top:8px;}
+.mod-letter-one .mod-letter-title{ background:url(../images/redicon.jpg) left bottom   no-repeat;}
+/* .mod-letter{ padding-left:20px; padding-top:12px; padding-bottom:6px;} */
+.am-tabs-bd .am-tab-panel { position: absolute; top: 0; z-index: 99; float: left; width: 100%;visibility: hidden; -webkit-transition: -webkit-transform 0.3s; transition: transform 0.3s; -webkit-transform: translateX(-100%);  -ms-transform: translateX(-100%); transform: translateX(-100%);}
+
+/*站内详情页*/
+.am-panel-default > .am-panel-hd {color: #ffffff; background-color: #fa4343; border-color: #dddddd;}
+.am-panel {
+    margin-bottom: 20px;
+	margin-right:20px;
+    background-color: #ffffff;
+    border: 1px solid rgba(153, 153, 153, 0.7);
+    border-radius: 0;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow:0 3px 10px #d5d3d3;
+}
+
+/*交易记录页面*/
+.mod-transaction-one{}
+.mod-transaction{ clear:both; height:60px;background-color:#ffffff;  border-bottom: solid 1px #f1eeee;}
+.mod-transaction .mod-transaction-left{ float:left; padding-left:15px;padding-top: 5px;}
+.mod-transaction .mod-transaction-lefticon{ float:left;}
+.mod-transaction .mod-transaction-link{ float:left; width:auto; height:56px; padding-left:10px; padding-top:4px;line-height: 1.5}
+.mod-transaction .mod-transaction-link >a{ font-size:1.6rem;  color:#4d4d4d;}
+.mod-transaction .mod-transaction-link >span{ font-size:1.4rem;  color:#4d4d4d;padding-top:3px;}
+.mod-transaction .mod-transaction-right{ float:right; height:60px;  padding-right:15px; padding-top:5px; color:#fa4343; font-size:1.8rem;font-weight:bold;padding-top:20px;}
+
+.mod-transaction .mod-transaction-lefticon2{ padding-top:6px; float:left;}
+.mod-transaction .mod-transaction-right2{ float:right; height:60px;  padding-right:15px; padding-top:5px; color:#fa4343; font-size:2.6rem; padding-top:20px;}
+.mod-transaction .mod-transaction-link2{ float:left; width:auto; height:84px; padding-left:10px; padding-top:6px;}
+.mod-transaction .mod-transaction-link2 >a{ font-size:2.2rem;  color:#fa4343;}
+
+/*资产详情页面*/
+.mod-asset{ background-color:#ffffff; margin-top:20px;}
+.mod-asset li{ list-style:none; padding-left:18px; clear:both; border-top:solid 1px #f1eeee; padding-top:10px;}
+.mod-asset li h1{ font-weight:normal;}
+.mod-asset li span{font-size:2.4rem;  color:#02e838; float:right; padding-right:38px;}
+.mod-asset li p{ font-size:2.0rem; padding-left:20px;}
+
+
+/*奖励管理-优惠券页面*/
+.mod-reward{ background-color:#ffffff; margin-top:10px;}
+.mod-reward li{ padding:8px 16px 8px 16px; border-bottom:solid 2px #f1eeee;}
+.mod-reward li:hover{ background-color:#f1eeee;}
+.mod-reward li a{  margin-left:30px;}
+.mod-reward li i{ float:right; line-height:50px;}
+
+/*奖励管理-我的红包页面*/
+.mod-myred{ margin-top:16px; background-color:#fff;}
+.mod-myred .mod-myred-top{ padding:10px;  border-top:solid 1px #CCC; border-bottom:solid 1px #CCC; background:#ffffff;}
+.mod-myred .mod-myred-top label{padding-top:.8rem}
+.mod-myred-top .am-g .am-u-sm-5 input{margin-left:0;margin-right:5%}
+.mod-myred-top li{ text-align:center;}
+.mod-myred .mod-myred-top .mod-myred-button{ float:right; margin-right:20px;}
+.mod-myrednr{ background:#ffffff; margin-top:10px;}
+.mod-myrednr li{ text-align:center; border-left:none; border: 1px solid #c9c9c9; border-left:none; border-bottom:none;}
+.mod-myred-li { border-bottom:#DDD solid 1px; padding-bottom:10px;padding-left:0}
+.mod-myred-li-one{ border-top:none;}
+.mod-myred-li li{ text-align:left; border:none;color:#666666; margin-top:6px; font-size:1.6rem}
+.mod-myred-li li span{ color:#333333; }
+.mod-myred-fenxiang{ text-align:center;}
+
+.mod-bonus{background:#fff}
+.mod-bonus .am-tabs-bd{border:none}
+.mod-bonus .am-tabs-nav li a{border:none}
+.mod-bonus .am-container{margin:0 1rem;width:auto}
+.mod-tab-btn-group li{padding:0}
+.mod-tab-btn-group li:first-child a{border-top-left-radius:10px;border-bottom-left-radius:10px;}
+.mod-tab-btn-group li:first-child a,.mod-tab-btn-group li:first-child a:hover,.mod-tab-btn-group li:first-child a:focus{border-top-left-radius:10px;border-bottom-left-radius:10px;}
+.mod-tab-btn-group li:last-child a{border-top-right-radius:10px;border-bottom-right-radius:10px;}
+.mod-tab-btn-group li:last-child a,.mod-tab-btn-group li:last-child a:hover,.mod-tab-btn-group li:last-child a:focus{border-top-right-radius:10px;border-bottom-right-radius:10px;}
+
+/*奖励管理-我的红包-投资积分页面*/
+.mod-myred-convert{ background-color:#fc4949; color:#FFFFFF;}
+.mod-myred-convert .mod-myred-convert-keyong{ text-align:center; padding-top:20px;font-size:1.6rem;}
+.mod-myred-convert .mod-myred-convert-jifen{text-align:center; font-size:6rem; }
+.mod-myred-convert .mod-myred-convert-tongji { padding-top:15px; padding-bottom:15px;}
+.mod-myred-convert .mod-myred-convert-tongji li{ height:auto;font-size:1.6rem;padding:0 1rem}
+.mod-myred-convert .mod-myred-convert-tongji li a{color:#fff}
+.mod-myred-convert .mod-myred-convert-tongji li span{ font-size:4rem;}
+.convert-liebiao{ background-color:#FFF; margin-top:6px;}
+.convert-liebiao li{ text-align:center; border-left:none; border: 1px solid #c9c9c9; border-left:none; border-bottom:none;}
+.convert-liebiaonr{ padding-bottom:10px;}
+.convert-liebiaonr .convert-liebiaonrimg{ float:left;}
+.convert-liebiaonr .convert-liebiaonrtxt{ float:left; margin-left:6px; padding-top:10px;}
+.convert-liebiaonr .convert-liebiaonrtxt .txtone{ font-size:1.8rem;}
+.convert-liebiaonr .convert-liebiaonrtxt li{ border:0; text-align:left;}
+.convert-liebiaonr  span{ float:left;margin-left: 10px; line-height: 90px;}
+.mod-convert-guize{ text-align:left; padding-left:20px;}
+.mod-convert-duihuan a{ color:#ffffff;}
+
+/*奖励管理-我的红包-积分记录页面*/
+.mod-record{background-color:#FFF; margin-top:6px;}
+.mod-record .am-container{margin:0 1rem;width:auto}
+
+.mod-record .am-tab-panel{padding:10px 0}
+.mod-record .am-tabs-bd{border:none;border-top:1px solid #cdcdcd;margin-top:1rem;}
+.mod-record-item{border-bottom:1px solid #cdcdcd;padding-bottom:1rem;margin-bottom:1rem}
+.mod-recordleft{ float:left;margin:0 1rem}
+.boxes .box {height: 80px;width:90px;color: #eee; line-height:80px;text-align: center; transition: all .2s ease; cursor:default;}
+.boxes .box .box-inner-tit{line-height:30px;margin-top:-35px;}
+.box-1 {background-color: #fd4f4f;}
+.mod-recordright{overflow:hidden;padding:0 1rem 0 0;margin:0}
+.mod-recordright li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/*奖励管理-邀请奖励页面*/
+.mod-reward-yaoqing{ background-color:#f0f0f0;}
+.mod-reward-yaoqing-guize{ padding-top:28px;text-align:center}
+.mod-reward-yaoqing-guizenr { clear:both; height:122px;display:inline-block;}
+.mod-reward-yaoqing-guizenr li{ float:left; margin-right:1rem;}
+.mod-reward-yaoqing-guizenr .guizetxt{ font-size:1.6rem;text-align:left}
+.mod-reward-yaoqing-anniu{padding:15px 40px 0 40px;}
+.mod-reward-yaoqing-jilu{ background:#ffffff; margin-top:40px; text-align:center;}
+.mod-reward-yaoqing-jilu .jiluli{ padding-top:10px; padding-bottom:10px;  border-top: solid 1px #b4b4b4;}
+.mod-reward-yaoqing-jilu .jiluone{ border:none; }
+
+/*奖励管理-优惠券页面*/
+.mod-reward-youhuiquan{ background-color:#fc4949;padding:15px 0 20px 0;}
+.mod-reward-youhuiquan li{ text-align:center; color:#eee; font-size:1.5rem;}
+.mod-yhqleft{ float:left; margin-left:10px;}
+.mod-yhqleft2{ float:left;}
+.mod-yhqlibiao{ padding-left:0rem;}
+.boxes .box2 {height: 95px; color: #eee;  text-align: center; transition: all .2s ease; cursor:default; padding-top:5px;}
+.box-1 {background-color: #fd4f4f;}
+
+.mod-yhqright{ float:left; margin-left:15px; }
+.mod-yhqright li{padding-top:3px;}
+.mod-yhqspan {float:right;margin-right: 30px;}
+.mod-yhqlb{ padding-left:8px; margin-top:6px; border-left:dashed 1px #b1afaf;}
+
+.mod-myyhq{ padding-left:2px;}
+.mod-myyhq .mod-myyhqimg{ float:left;}
+.mod-myyhq .mod-myyhqtxt{ float:left; margin-left:6px;}
+.mod-myyhq .mod-myyhqtxt .txtone{ font-size:2.5rem;}
+.mod-myyhq .mod-myyhqtxt li{ border:0; text-align:left;}
+.mod-myyhq  span{ float:left;margin-left: 10px; line-height: 90px;}
+.mod-yhqlb2{padding-left:8px; margin-top:6px; border-left:dashed 1px #b1afaf; background:url(../images/member/yhqyy.png) center right no-repeat;}
+
+
+/*奖励管理-详细信息页面*/
+.mod-reward-xiangxi{background-color:#fc4949;padding:15px 0 20px 0;}
+.mod-reward-xiangxi li{ text-align:center; color:#eee; font-size:1.8rem;}
+.mod-reward-xiangxinr { margin-top:20px;}
+.mod-reward-xiangxinr li{ padding-top:15px;}
+
+/*投资管理-回款项目*/
+.mod-invest-nr{background:#fff;padding-bottom:1.5rem}
+.mod-invest{ background-color:#fc4949; color:#FFFFFF;}
+.mod-invest .mod-invest-keyong{ text-align:center; padding-top:35px; font-size:2rem;}
+.mod-invest .mod-invest-jifen{text-align:center; font-size:8rem; }
+.mod-invest .mod-invest-tongji { padding-top:30px; padding-bottom:20px;}
+
+.mod-invest .mod-invest-tongji ul{ padding: 0 1rem;}
+.mod-invest .mod-invest-tongji li{ height:auto; font-size:1.6rem;}
+.mod-invest .mod-invest-tongji li span{ font-size:4rem;}
+.mod-invest-nr{ /* padding-top:15px;  */ }
+.mod-invest-nrtj{padding-bottom:15px; border-bottom:solid 1px #e6e5e5;padding-top:15px;}
+.mod-invest-nrtj li { text-align:center;}
+.mod-invest-nrtj li span{color:#b1afaf;}
+.investline{ border-left:solid 1px #e6e5e5; border-right:solid 1px #e6e5e5;}
+.mod-invest-riqi{padding-bottom:15px; border-bottom:solid 1px #e6e5e5;}
+.mod-invest-riqi ul{padding: 0 1rem;}
+.mod-invest-riqi li { padding-top:6px;}
+.mod-invest-jilu {padding-bottom:15px;}
+.mod-invest-jilu .am-icon-chevron-right{margin-top:1.4rem}
+.mod-invest-jilu ul{padding:0}
+.mod-invest-jilu li{ padding:5px 10px; border-bottom:solid 1px #e6e5e5;}
+.mod-invest-jilu li a{ margin-left:10px;}
+.mod-invest-shuhui{ padding:0 1rem;}
+.mod-investtxt{ text-align:left;}
+.mod-invest-tishi{ text-align:center; padding-top:12px;}
+
+/*投资管理-可转让债券*/
+.mod-invest-zrxx{ border-bottom:solid 1px #ddd; padding:0 10px 10px 10px;}
+.mod-invest-zrxx2{ border-bottom:none; /* padding:0 10px 20px 10px; */}
+.mod-invest-zr{ background:#ffffff;}
+.mod-weizhi{ margin-top:0px;}
+.mod-invest-zrtitle{ padding:10px 20px 10px 0px;}
+.zrnrone{ color:#666; font-size: 1.4rem;}
+.zrnronet{ text-align:left;}
+.zrnrtwo{ color:#666; padding-top:5px;}
+.zrnronec{ text-align:center;}
+.mod-invest-zrnr{ text-align:center;}
+.mod-invest-zrnr .danbao{text-indent:1rem;margin-top:.5rem;color:#888}
+.mod-invest-zrone{}
+
+/*投资管理页面*/
+.mod-investment{ background-color:#ffffff; margin-top:10px;}
+.mod-investment ul{ padding-left:0rem;}
+.mod-investment li{ text-align:left; padding-top:8px; padding-left:10px; padding-bottom:8px;  border-bottom: 1px solid #ccc;}
+.mod-investment li:hover{ background-color:#f1eeee;}
+.mod-investment li{font-size:1.6rem; color: #666;}
+.mod-investment li a{  margin-left:30px;}
+.mod-investment li i{ float:right; margin-top:20px; margin-right:20px; /* background:url(../images/member/rewardrow.png) no-repeat; width:48px; height:30px; */}
+.mod-investment-tt{ margin-left:15px;font-size: 1.6rem;}
+.ll ul {width:100%;	font-size:1.6rem;display:none;line-height:2.5em; font-size:1.8rem;margin:0;z-index: 999;position: absolute;background: #fff;} 
+/*投资管理-收益记录页面*/
+.mod-invest-shouyijilu{ background-color:#ffffff;}
+.mod-invest-shouyijilu .am-container{margin:0 1rem;width:auto;}
+
+.mod-invest-shouyijilu .am-tabs-bd{border:none;border-top: 1px solid #cdcdcd;margin-top:1rem}
+.mod-invest-shouyijilu .am-tabs-bd .am-tab-panel{padding:10px 0 15px;}
+.invest-syjilu{ background-color:#FFF; padding-top:1rem;}
+
+.invest-syjilu li{ text-align:center; }
+.shouyijilu-line{border-bottom: 1px solid #c9c9c9;}
+.shouyijilu-li li{padding:16px 0px 12px 0px;}
+.mod-invest-shouyijiluline{ border-right:solid 1px #cccccc;}
+
+/*投资管理-灵活宝回款结清页面*/
+.invest-lhbbg{ background-color:#fa4343;}
+.invest-lhbjt{ clear:both; float:none; color:#eee; margin-left:10px;}
+.invest-xiangmutxt li{ text-align:center;}
+.invest-xiangmutxt .invest-xiangmuline{ border-right:solid 1px #c9c9c9;}
+.invest-xiangmutop { border-bottom:solid 1px #c9c9c9; padding-bottom:15px;}
+
+/*投资管理-产品类型-投资方式-还款方式页面*/
+.mod-invest-manage{ background-color:#ffffff; border-top: solid 1px #cccccc; margin-top:1px;}
+.mod-invest-managetop { border-bottom:solid 1px #cccccc;}
+.mod-invest-managetop .am-icon-check{float:right}
+
+.mod-invest-managetop li{ text-align:left;}
+.mod-invest-managetop li a.selected{color:red}
+.mod-invest-managetop .ll ul li{text-align:left;border-bottom:1px solid #ccc;text-indent:1rem}
+.mod-invest-managetop .ll ul li a{display:block;}
+.mod-invest-managetop .ll ul li a.selected{color:#FA4343}
+.mod-invest-managetop .ll ul li a.selected img{float:right;margin-top:1.6rem}
+.mod-invest-manageli{}
+.manageicon{ color:#999999; margin-left:5px;}
+.mod-invest-managelist li a:hover{ background:url(../images/member/managebg.png) right 5% center no-repeat;}
+.mod-invest-managetop .am-nav li{margin-top:0}
+.mod-managelist2{ border-left:solid 1px #cccccc;border-right:solid 1px #cccccc;}
+.mod-managebz{ text-align:left; padding-left:20px;}
+
+/*投资管理-还款详情页面*/
+.mod-managehkxq{ background:#ffffff;}
+.mod-managehkxq li {list-style: none;padding-left: 18px;clear: both;border-top: solid 1px #cccccc;padding-top: 10px; padding-bottom: 15px;}
+.mod-managehkxq li span{font-size:2.4rem;  color:#02e838; float:right; padding-right:38px;}
+.mod-managehkxq li p{ font-size:2.0rem; padding-left:20px;}
+.mod-manage-hkdetail{ margin-top:15px;  background:#ffffff;}
+.mod-manage-hkdetail li{ text-align:center; padding:10px; border-top:solid 1px #cccccc;}
+.mod-manage-hkdetailone li{ border:none;}
+
+/*投资管理-立即转让页面*/
+.mod-manage-lijizr{background:#fff}
+.mod-manage-lijizr .am-form-group input{visibility:hidden;width:10rem ;float:none;display:inline;}
+
+.mod-manage-lijizr .mod-manage-btn {padding:1rem 0}
+.mod-manage-lijizr .am-form-group input[type=submit]{visibility:visible;width:100%;}
+.mod-manage-lijizr .am-form-group input[type=button]{visibility:visible;width:100%;}
+
+.mod-manage-lijizr .am-u-sm-8.am-text-right{padding-right:1rem}
+.mod-managelabel{clear:both; padding-left:20px; text-align:left;}
+.mod-manage-btn{ background:#fff; padding-top:20px;}
+.mod-manage-lijizr2 {padding-right:1rem}
+.mod-manage-lijizr .am-form-group .zheranglv-input{visibility:visible;verticle-align:center;margin-top:-3px;margin-bottom:3px;}
+.mod-manage-lijizr .am-form-group .zr-passward-input{visibility:visible;verticle-align:center;margin-top:-3px;margin-bottom:3px;}
+
+.mod-manage-lijizr2 .input-duration-start{width:3rem !important;margin-left:0 !important}
+.mod-manage-lijizr2 .input-duration-end{width:3rem !important;margin-left:0 !important}
+/*投资管理-自动投标*/
+/*.mod-manage-toubiao{
+	position: absolute;
+    right: 41%;
+    top: -47px;
+    display: block;
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    color: #ffffff;}*/
+.mod-manage-toubiaonr{ margin-top:8px; padding-top:20px; background:#ffffff;}
+.toubiaonricon{ color:#fa4343;}
+.mod-manage-toubiaonr li { padding:15px 0 15px 0;}
+.mod-manage-toubiaonr li span{ color:#afafaf; }
+.mod-reward li{ font-size:1.8rem;}
+
+.mod-manage-toubiaonr .am-form-group{border-bottom:1px solid #ccc;padding-bottom:5px}
+.am-form-group.mod-manage-btn{border-bottom:none;}
+
+/*账户信息页面-手机绑定*/
+.mod-info-bdshouji{margin-top:15px; padding-top:15px;}
+.mod-info-bdshoujitxt{ text-align:left; padding-top:20px;}
+.mod-info-shiming{ margin-top:20px; }
+
+.mod-info-shiming li{ padding:0px 10px 5px 10px; margin-top:5px; }
+
+.mod-info-shiming  li .con {float: right;color: #666;line-height: 2.9rem;}
+.mod-info-shimingsc li{ text-align:center;}
+.mod-infon-megbg { background-color:#f1eeee; }
+.mod-infon-megbg2{ background-color:#ffffff; padding:180px 0px 180px 0px;  }
+.mod-infon-megbg2 a{ color:#9c9c9c;}
+.mod-infon-tijiao{ text-align:center; margin-top:20px;}
+
+.mod-info-xgmimats{ color:#ff0000;}
+
+/*账号信息页面-银行卡信息页面*/
+.mod-info-blank{ margin-top:15px; background:#ffffff;}
+.mod-info-blank  li {padding:0px 10px 0px 10px;}
+.mod-info-blank  li .con {float: right;color: #666;line-height: 2.9rem;}
+.am-icon-chevron-right{ margin-top:0px;}
+.mod-blank-img{ float:left; padding-right:25px;margin-top: -5px;}
+.mod-info-blankyzm{ color:#ff0000;text-align:center; padding-top:8px; cursor:pointer;}
+
+
+/*账号信息页面-账号资料*/
+.mod-info-usermeg a{ cursor:pointer;}
+.mod-info-usermeg li{ background:#ffffff; padding:0px 8px 5px 10px; margin-top:2px; }
+
+.mod-info-usermeg li .con{float: right;color: #666;line-height: 2.2rem;font-size:1.4rem; }
+.mod-info-usermeg li .con i.am-icon-chevron-right{margin-left:.5rem}
+
+.mod-info-iconbg{ position:absolute; right:1.0rem; color:#666666;  top: 50%; display: block; margin-top: -0.5em; line-height: 1; z-index: 2;}
+.am-list .mod-info-listline{ border:none; background:#ffffff;}
+.am-list .mod-info-listline2{ border:none; background:#f1eeee;}
+
+/*账号信息页面-企业资料上传*/
+.mod-info-megup{ margin-top:15px; padding:15px 0px 15px 0px; }
+.mod-info-megup li{ text-align:center;} 
+.mod-usermeg-a a{ display: block; padding: 1rem -0px; margin-top:1rem;}
+.mod-usermeg-a a:hover{ background-color:#eee;}
+.mod-info-megup ul{background:#ffffff; margin-top:3px;margin-top:3px;}
+
+
+/* 提现页面 */
+.form-withdraw img.verify-img{max-width:8rem;height:36px;width:auto;margin-left:1rem}
+.mod-manage-lijizr2 input.am-fl{float:left !important;margin-left:0}

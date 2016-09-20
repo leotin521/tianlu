@@ -1,0 +1,23 @@
+<php>if(empty($list)){</php>
+<td style="text-align:center; line-height:50px; border-bottom:none;">当月暂无还款明细</td>
+<php>}else{</php>
+<foreach name="list" item="vo">
+<tr>
+<td class="tal pdl-20" width="200">
+<span>
+<a href="{$vo.borrow_id|getTInvestUrl=###}" title="{$vo.borrow_name}" target="_blank">{$vo.borrow_name|cnsubstr=###,15}</a>
+</span>
+</td>
+<td width="68" style="padding-right:12px; text-align:right;">收益</td>
+<td class="tar ffa" width="113" style="padding-right:27px;">{$vo['capital']+$vo['interest']} 元</td>
+<td width="95 ffa" style="padding-right:0px;"> <if condition="$vo.deadline gt 0 ">{$vo.deadline|date='Y-m-d',###}<else />-</if></td>
+<td class="ffa" width="115"><if condition="$vo.repayment_time gt 0 ">{$vo.repayment_time|date='Y-m-d',###}<else />-</if></td>
+
+<php>if(in_array($vo['status'],array('1','2','3','4','5'))){</php>
+<td class="color-fbf" width="95">已支付</td>
+<php>}else{</php>
+<td class="" width="95">未支付</td>
+<php>}</php>
+</tr>
+</foreach>
+<php>}</php>

@@ -1,0 +1,137 @@
+	</div>
+<include file="Public:_header_common" />
+<title>{$glo.index_title}</title>
+<meta name="keywords" content="{$glo.web_keywords}" />
+<meta name="description" content="{$glo.web_descript}" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/H/css/home.css" />
+<script type="text/javascript" src="__ROOT__/Style/H/js/common.js" language="javascript"></script>
+<script type="text/javascript">
+var Transfer_invest_url = "__APP__/tinvest";
+</script>
+<script type="text/javascript" src="__ROOT__/Style/Common/js/area.js"></script>
+<include file="Public:_header_main" />
+	<div class="list_box clearfix" style="height:407px;">
+		<ul class="list_boxUl allbgcolor">
+		<volist name="navigate" id="vo">
+            <li><a href="{$vo.type_url}" <if condition="$vo['id'] eq '51' ">class="list_cur"</if> >{$vo.type_name}</a></li>
+        </volist>
+		</ul>
+        <ul class="ul_scre">
+            <li style="text-align:left; width:82px;">标的状态&nbsp;:&nbsp;</li>
+            <php>foreach($searchMap['borrow_status'] as $key=>$v){</php>
+            <php>if($key==$searchUrl['borrow_status']['cur']){</php>
+            <li><a class="list_active allbgcolor">{$v}</a></li>
+            <php>}else{</php>
+            <li><a href="__URL__/index.html?type=search&{$searchUrl.borrow_status.url}&borrow_status={$key}">{$v}</a></li>
+            <php>}</php>
+            <php>}</php>
+        </ul>
+		<ul class="ul_scre">
+			<li style="text-align:left; width:82px;">年化利率&nbsp;:&nbsp;</li>
+			  <php>foreach($searchMap['interest_rate'] as $key=>$v){</php>
+	          <php>if($key==$searchUrl['interest_rate']['cur']){</php>
+	          <li><a class="list_active allbgcolor">{$v}</a></li>
+	          <php>}else{</php>
+	          <li><a href="__URL__/index.html?type=search&{$searchUrl.interest_rate.url}&interest_rate={$key}">{$v}</a></li>
+	          <php>}</php>
+	          <php>}</php>
+		</ul>
+		<ul class="ul_scre">
+			<li style="text-align:left; width:82px;">借款金额&nbsp;:&nbsp;</li>
+			  <php>foreach($searchMap['borrow_money'] as $key=>$v){</php>
+	          <php>if($key==$searchUrl['borrow_money']['cur']){</php>
+	          <li><a class="list_active allbgcolor">{$v}</a></li>
+	          <php>}else{</php>
+	          <li><a href="__URL__/index.html?type=search&{$searchUrl.borrow_money.url}&borrow_money={$key}">{$v}</a></li>
+	          <php>}</php>
+	          <php>}</php>
+		</ul>
+		<ul class="ul_scre">
+			<li style="text-align:left; width:82px;">还款期限&nbsp;:&nbsp;</li>
+			  <php>foreach($searchMap['borrow_duration'] as $key=>$v){</php>
+	          <php>if($key==$searchUrl['borrow_duration']['cur']){</php>
+	          <li><a class="list_active allbgcolor">{$v}</a></li>
+	          <php>}else{</php>
+	          <li><a href="__URL__/index.html?type=search&{$searchUrl.borrow_duration.url}&borrow_duration={$key}">{$v}</a></li>
+	          <php>}</php>
+	          <php>}</php>
+		</ul>
+		<ul class="ul_scre">
+			<li style="text-align:left; width:82px;">投资进度&nbsp;:&nbsp;</li>
+			<php>foreach($searchMap['progress'] as $key=>$v){</php>
+          	<php>if($key==$searchUrl['progress']['cur']){</php>
+          	<li><a class="list_active allbgcolor">{$v}</a></li>
+          	<php>}else{</php>
+          	<li><a href="__URL__/index.html?type=search&{$searchUrl.progress.url}&progress={$key}">{$v}</a></li>
+         	<php>}</php>
+          	<php>}</php>
+		</ul>
+	</div>
+	<div class="index_sca">
+		<h2 class="allbgcolor">投资列表</h2>
+                
+		<foreach name="data.tBorrow_items" item="vb" key="key">
+		<div class="index_strSon <if condition="$vb['is_xinshou'] eq 1">xinshou_bg</if>">
+             <if condition="$vb['online_time'] gt time()+3600 and $vb['online_time'] lt time()+10800">
+             	 <h3 title="{$vb.borrow_name}"><span style="display:inline-block;position:relative;top:-2px">{:getIco($vb)}</span>{$vb.borrow_name|cnsubstr=###,20}</h3>
+             <else/>
+                 <h3><a  href="{$vb.id|getInvestUrl=6}" title="{$vb.borrow_name}"><span style="display:inline-block;position:relative;top:-2px">{:getIco($vb)}</span>{$vb.borrow_name|cnsubstr=###,20}</a></h3>
+             </if>
+			<div class="index_strSonB">
+				<div class="index_strSonBL">
+				<if condition="$vb['online_time'] gt time()+3600 and $vb['online_time'] lt time()+10800">
+		          <a class="smbhs_invest_leib_0">
+		            <if condition="$vb['b_img'] eq ''"><img  src="__ROOT__/Style/H/images/new/default.jpg" />
+		              <else/>
+		              <img  src="__ROOT__/{$vb.b_img}"  complete="complete"/></if>
+		            </a> 
+		        <else/>
+		           <a class="smbhs_invest_leib_0" href="{$vb.id|getInvestUrl=6}">
+		            <if condition="$vb['b_img'] eq ''"><img  src="__ROOT__/Style/H/images/new/default.jpg" />
+		              <else/>
+		              <img  src="__ROOT__/{$vb.b_img}"  complete="complete"/></if>
+		            </a>      
+		        </if>
+			</div>
+				<div class="index_strSonBR">
+					<div class="index_strSonBRL">
+						<h4>{$vb.borrow_interest_rate}%</h4>
+						<p>年化利率</p>
+						<p><!-- class="ui-progressbar-mid ui-progressbar-mid-0" -->
+						<span style="background: url('__ROOT__/Style/H/images/progressbar_mid.png') no-repeat;display: block;height: 50px;line-height: 51px;text-align: center;width: 51px; font-size:14px;margin-left:15px; background-position:-<php>echo 	
+bcmul(intval($vb['progress']),51);</php>px 0"><em>{$vb.progress|intval}%</em></span>
+						</p>
+					</div>
+					<div class="index_strSonBRR">
+						<h4>{$vb.borrow_duration}{$vb['time_type']}</h4>
+						<p>期限</p>
+						<p><em>{$vb.borrow_money|getMoneyFormt=###}元</em></p>
+						<p>融资金额</p>
+					</div>
+					<div class="index_strSonBRB">
+						<if condition="$vb['has_borrow'] lt $vb['borrow_money'] and $vb['borrow_status'] eq 2">
+                            <a href="{$vb.id|getInvestUrl=6}"><img src="__ROOT__/Style/N/images/index_str00.png" alt="立即投标"></a>
+                        <elseif condition="$vb['borrow_status'] eq -1" />
+                                <a href="{$vb.id|getInvestUrl=6}"><img src="__ROOT__/Style/H/images/status/zhitou_yugao.png" alt="敬请期待"></a>
+						<else/>
+						    <a href="{$vb.id|getInvestUrl=6}"><img src="__ROOT__/Style/N/images/index_str01.png" alt="了解详情"></a>
+						</if>
+					</div>
+				</div>
+			</div>
+		</div>
+		<if condition="($key eq 0) OR ($key%2 eq 0) ">
+		<div class="index_strSonC"></div>
+		<else />
+		</if>
+		</foreach>
+        <div class="clear"></div>
+		</div>
+<if condition="empty($data['tBorrow_items'])">
+                    <div style="width:1000px;margin:0px auto;text-align: center;background-color: #fff;height: 100px;line-height: 50px;">   该搜索条件下没有符合条件的项目</div>
+               
+<else/>
+<div class="list1_page" style="clear:both;">{$data.page}</div>
+</if>
+		
+<include file="Public:_footer" />

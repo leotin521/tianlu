@@ -1,0 +1,137 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>详细信息</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+     <header>
+        <h1>详细信息</h1>
+        <a href="javascript:window.history.go(-1);" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+	<div class="mod-invest-shouyijilu">
+    	<div class="am-tabs invest-syjilu" data-am-tabs>
+          
+			<ul class="am-tabs-nav am-nav am-nav-tabs am-g mod-tab-btn-group am-container am-margin-bottom">
+				<li class="am-u-sm-6 am-active"><a class="am-btn am-btn-block" href="javascript: void(0)">收益记录</a></li>
+				<li class="am-u-sm-6"><a class="am-btn am-btn-block" href="javascript: void(0)">赎回记录</a></li>
+			</ul>
+            <div class="am-tabs-bd">
+                <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+					<table class="am-table">
+						<thead>
+							<tr>
+								<th>结息日期</th>
+								<th>计算金额</th>
+								<th>本金</th>
+								<th>状态</th>
+							</tr>
+                	
+						<thead>					
+						<tbody id="record_list"></tbody>
+						
+					</table>
+                    <div style="float:right; margin:8px" class="pagination">
+						<div id="recordpage" class="pagination"></div>
+					</div>
+                </div>
+                <div class="am-tab-panel am-fade" id="tab2">
+					<table class="am-table">
+						<thead>
+							<tr>
+								<th>赎回时间</th>
+								<th>赎回金额</th>
+								<th>状态</th>
+								<th>备注</th>
+							</tr>
+                	
+						<thead>					
+						<tbody id="log_list"></tbody>
+					</table>
+                   
+                    <div style="float:right; margin:8px" class="pagination">
+                        <div id="logpage" class="pagination"></div>
+                    </div>
+                </div>
+              
+            </div>
+            
+        </div>
+    </div>
+     <script type="text/javascript">
+         var batch = '{$on_bc}';
+         $(function(){
+             getRecord(1);
+             getLog(1);
+         })
+         function lognext()
+         {
+             var p = Number($(".plog").html());
+             getLog(p+1);
+         }
+         function logprev()
+         {
+             var p = Number($(".plog").html());
+             getLog(p-1);
+         }
+         function logpage(p)
+         {
+             getLog(p);
+         }
+         function getLog(p)
+         {
+             $.get("{:U('investadm/getLog2')}",{batch:batch,type:2,p:p }, function(data){
+                 var obj=eval(data)
+                 //alert(obj[1]);
+                 $("#log_list").html(obj[1]);
+                 $("#logpage").html(obj[0]);
+             });
+         }
+
+
+
+         function recordnext()
+         {
+             var p = Number($(".precord").html());
+             getRecord(p+1);
+             //alert(p);
+         }
+
+         function recordprev()
+         {
+             var p = Number($(".precord").html());
+             getRecord(p-1);
+             //alert(p)
+         }
+
+
+
+         function recordpage(p)
+         {
+             getRecord(p);
+         }
+         function getRecord(p)
+         {
+
+             $.get("{:U('investadm/shouyijilus')}",{batch:batch,p:p}, function(data){
+                 //for(i in data){alert(data[i])}
+                 //alert(data[0]);
+                 $("#record_list").html(data[1]);
+                 $("#recordpage").html(data[0]);
+             },'json');
+         }
+     </script>
+</body>
+
+</html>

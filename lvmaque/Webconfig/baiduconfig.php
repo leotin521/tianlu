@@ -1,0 +1,2 @@
+<?php
+return array ( 'baidu' => array ( 'apk_apiKey' => '', 'apk_secretKey' => '', 'ios_apiKey' => '', 'ios_secretKey' => '', 'apkVersion' => '1.0', 'apkPath' => 'http://newbz.wangjinkeji.com/style/lmq3.apk', 'applePath' => 'http://www.baidu.com', 'ewmapkPath' => '/UF/Uploads/Article/1446522400.png', 'appewmapkPath' => '/UF/Uploads/Article/1446467503.jpg', 'zhanshiqPath' => '/UF/Uploads/Article/1446523321.png', 'zhanshihPath' => '/UF/Uploads/Article/1446522863.png', ), ); ?>

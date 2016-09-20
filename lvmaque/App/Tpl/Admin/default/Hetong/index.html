@@ -1,0 +1,63 @@
+<include file="Public:_header" />
+<script type="text/javascript" src="__ROOT__/Style/A/js/uploadPreview.js"></script>
+<style type="text/css">
+.alertDiv { margin: 0px auto; background-color: #FEFACF; border: 1px solid green; line-height: 25px; background-image: url(__ROOT__/Style/M/images/info/001_30.png); background-position: 20px 4px; background-repeat: no-repeat; }
+.alertDiv li { margin: 5px 0; list-style-type: decimal; color: #005B9F; padding: 0px; line-height: 20px; }
+.alertDiv ul { text-align: left; list-style-type: decimal; display: block; padding: 0px; margin: 0px 0px 0px 75px; }
+</style>
+<tagLib name="htmlA" />
+<div class="page_tit">合同居间方资料上传</div>
+<div class="page_tab"><span data="tab_1" class="active">合同居间方资料上传</span></div>
+<div class="form2">
+  <div class="alertDiv">
+    <ul>
+      <li>允许上传格式：bmp,gif,png,jpg，建议尺寸：100px*100px </li>
+      <li>该功能用于在借款合同内容中显示平台居间方的相关必要资料</li>
+    </ul>
+  </div>
+  <form action="__URL__/upload" method="post" enctype="multipart/form-data">
+    <div id="tab_1">
+      <dl class="lineD"  style="overflow:hidden">
+        <dt>居间方合同章上传：</dt>
+        <dd>
+          <input type="file" id="imgfile" name="picpath" class="input"/>
+        </dd>
+      </dl>
+      <dl class="lineD" style="height:110px;overflow:hidden">
+        <dt>居间方合同章缩略图（请上传背景透明的png图片）：</dt>
+        <dd><span style="float:left;margin-left:425px;">
+          <div style="text-align:left; clear:both; overflow:hidden; width:120px; height:100px">
+            <div id="imgDiv">
+              <if condition="$vo.hetong_img eq ''">无缩略图
+                <else/>
+                <img src="/{$vo.hetong_img}"  width="100px" height="100px"/></if>
+            </div>
+          </div>
+          </span>
+        </dd>
+      </dl>
+      <dl class="lineD">
+        <dt>居间方公司名称：</dt>
+        <dd>
+          <htmlA:input id="name" value="{$vo.name}" tip=""/>
+        </dd>
+      </dl>
+      <dl class="lineD">
+        <dt>居间方公司地址：</dt>
+        <dd>
+          <htmlA:input id="dizhi" value="{$vo.dizhi}" tip=""/>
+        </dd>
+      </dl>
+      <dl class="lineD">
+        <dt>居间方联系电话：</dt>
+        <dd>
+          <htmlA:input id="tel" value="{$vo.tel}" tip=""/>
+        </dd>
+      </dl>
+    </div>
+    <div class="page_btm">
+      <input type="submit" class="btn_b" value="确定" />
+      <input type="button" class="btn_b" value="返回"  onclick="javascript:history.back();"/>
+    </div>
+  </form>
+</div>

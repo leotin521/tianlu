@@ -1,0 +1,238 @@
+<include file="default:Public:_header_common" group="Member"/>
+<style type="text/css">
+</style><style id="poshytip-css-tip-yellow" type="text/css">
+div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}
+div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}
+div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellow td.tip-right{background-position:100% 0;}
+div.tip-yellow td.tip-bottom{background-position:100% 100%;}div.tip-yellow td.tip-left{background-position:0 100%;}div.tip-yellow div.tip-inner{background-position:-10px -10px;}
+div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}
+</style>
+<script type="text/javascript">
+    //初始化
+    $(document).ready(function(){
+        $(".fmt_money").each(function(){ fmtMoney($(this)); });
+        $(".pro_tips-1").tip({ words_per_line: 1e3 });
+    });
+</script> 
+</head>
+<body>
+<include file="default:Public:_header_main" group="Member"/>
+
+<div class="user-page">
+    <div class="user-main clearfix">
+        <include file="default:Public:_left" group="Member"/>
+
+        <div class="user-con">
+         <div class="user-box-1 user-integral"> 
+                <div class="user-box-title-1 clearfix">
+                    <h2><?php echo AgilityBehavior::$THE_SPIRIT;?></h2>                   
+                </div>
+                <div class="user-box-con clearfix">
+                    <div class="user-bounty-show clearfix">
+                        <dl class="user-account-balance">
+                            <dt><span>资产总额</span></dt>
+                            <dd>
+                                <span><strong>{:number_format($assets)}</strong>元</span>
+                            </dd>
+                        </dl>
+                        <dl class="user-current-month-earnings">
+                            <dt><span>累计收益</span></dt>
+                            <dd>
+                                <span><strong>{:number_format($interest)}</strong>元</span>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>最近收益</span></dt>
+                            <dd>
+                                <span class="y"><strong>{:number_format($recently)}</strong>元</span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="user-box-title-1 clearfix">
+                    <h2>我投的项目</h2>
+                </div>
+				
+				<script type="text/javascript">
+					function showTailink_lhb(type,obj){
+								$("#state_info_nav_lhb a").removeClass("lhbbk_bg");
+								$(obj).addClass("lhbbk_bg");
+								if(type=="lhb_hkxm"){	
+									$("#lhb_hkxm").show();
+									$("#lhb_jqxm").hide();
+									$("#lhb_shjl").hide();														
+								}else if(type=="lhb_jqxm"){
+									$("#lhb_hkxm").hide();
+									$("#lhb_jqxm").show();									
+									$("#lhb_shjl").hide();
+								}else{
+									$("#lhb_hkxm").hide();
+									$("#lhb_jqxm").hide();									
+									$("#lhb_shjl").show();
+								}
+							}
+				</script>
+				<style type="text/css">   
+					.Clr{clear:both;}
+					.lhb_class{width:765px;margin-left:30px;margin-right:20px;height:50px;line-height:50px;}
+					.lhb_class h2{float:left;width:65px;}
+					.lhb_tzfl{float: left;width: 500px;height: 40px;line-height: 40px;display: block;margin-top: 13px;}
+					#state_info_nav_lhb{list-style:none;}
+					#state_info_nav_lhb li{float:left;}
+					#state_info_nav_lhb li a{width:65px;height:25px;line-height:25px;margin-left:5px;margin-right:5px;display: block;text-align: center;}
+					.lhbbk_bg{width:65px;height:25px;line-height:25px;margin-left:5px;margin-right:5px;background:#e25353;color:#fff;}
+					.lhbbk_bg:hover{color:#fff;}
+					.lhb_allclass{width:765px;margin-left:30px;margin-right:20px;margin-bottom:20px;clear: both;}
+				</style>	
+                <div class="lhb_class">
+					<h2>投资分类：</h2>
+					<div class="lhb_tzfl">
+						<ul id="state_info_nav_lhb">							
+							<li><a  href="javascript:void(0)" class="lhbbk_bg" onClick="showTailink_lhb('lhb_hkxm',this);">回款项目</a></li>
+							<li><a  href="javascript:void(0)" onClick="showTailink_lhb('lhb_jqxm',this);">结清项目</a></li>
+							<li><a  href="javascript:void(0)" onClick="showTailink_lhb('lhb_shjl',this);">资金记录</a></li>							
+							<div class="Clr"></div>
+						</ul>
+					</div> 
+					<div class="Clr"></div>
+				</div>
+				<div class="lhb_allclass">
+					<div id="lhb_hkxm" style="display:block">
+						<table width="765" style="border:1px solid #efefef;">                     
+							<tr class="allbgcolor" height="40" style="color:#fff;">
+								<td width="119" style="text-align:center">年化收益</td>
+								<td width="130" style="text-align:center">还款日期</td>
+								<td width="129" style="text-align:center">投资本金</td>
+								<td width="129"  style="text-align:center">累计收益</td>
+								<td width="129" style="text-align:center;">已赎本息</td>	
+								<td width="129" style="text-align:center;">当前本息</td>	
+								<!--td width="110" style="text-align:center;">已复投金额</td-->						
+							</tr>
+                            <tbody>
+                            <if condition="!empty($myitem)">
+                                <volist name="myitem" id="vo1">
+                                    <tr bgcolor="#efefef" height="35">
+                                        <td width="620" colspan="5" style="padding-left:35px;">项目编号：{$vo1.batch_no}</td>
+                                        <td width="110" style="text-align:center">
+                                            <a href="__URL__/iteminfo?batch={$vo1.batch_no}">查看详情<img src="__ROOT__/Style/H/images/lhb_img.png" height="14" width="14" style="margin-left:5px;margin-top:-4px;" /></a>
+                                        </td>
+                                    </tr>
+                                    <tr height="35">
+                                        <td width="119" style="text-align:center">{$vo1.interest_rate}%</td>
+                                        <td width="130" style="text-align:center">{$vo1.deadline|date="Y-m-d", ###}</td>
+                                        <td width="129" style="text-align:center">{$vo1.capital|default='0.00'}元</td>
+                                        <td width="129"  style="text-align:center">{$vo1.interest|default='0.00'}元</td>
+                                        <td width="129" style="text-align:center;">{$vo1.out_money|default='0.00'}元</td>
+                                        <td width="129" style="text-align:center;">{$vo1.money|default='0.00'}元</td>
+                                        <!--td width="110" style="text-align:center;">1250.00元</td-->
+                                    </tr>
+                                </volist>
+                                <else/>
+                                <tr height="35"><td colspan="6" style="text-align:center">暂无项目记录</td></tr>
+                            </if>
+                            </tbody>
+
+						</table>	
+					</div>
+					<div id="lhb_jqxm" style="display:none; overflow: hidden;">
+						<table width="765" style="border:1px solid #efefef;">                     
+							<tr class="allbgcolor" height="40" style="color:#fff;">
+								<td width="109" style="text-align:center">项目编号</td>
+								<td width="110" style="text-align:center">年化收益率</td>
+								<td width="109" style="text-align:center">起息日期</td>
+								<td width="109"  style="text-align:center">结清日期</td>
+								<td width="109" style="text-align:center;">投资总额（元）</td>	
+								<td width="109" style="text-align:center;">收益总额（元）</td>	
+						
+							</tr> 
+
+                            <tbody id="end_item_list">
+                            
+                            </tbody>
+						</table>
+                        <div style="float:right; margin:8px" class="pagination">
+                            <div id="end_item_page" class="pagination"></div>
+                        </div>	
+                        
+					</div>
+					<div id="lhb_shjl" style="display:none; overflow: hidden;" >
+						<table width="765" style="border:1px solid #efefef;">                     
+							<tr class="allbgcolor" height="40" style="color:#fff;">
+								<td width="128.5" style="text-align:center">发生时间</td>
+                                <td width="127" style="text-align:center">项目编号</td>
+								<td width="127" style="text-align:center">赎回金额</td>
+								<td width="127" style="text-align:center">类型</td>
+								<td width="127" style="text-align:center;">状态</td>
+								<td width="129" style="text-align:center;">备注</td>							
+							</tr> 
+
+                            <tbody id="log_list">  </tbody>
+						</table>
+                        <div style="float:right; margin:8px" class="pagination">
+                            <div id="logpage" class="pagination"></div>
+                        </div>
+					</div>
+				
+				</div>
+    </div>
+    </div>
+</div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+ <script src="__ROOT__/Style/M/js/common.js"></script>
+<script type="text/javascript">
+
+ $(function(){
+     getLog(1);  
+     getEndItem(1);
+ })
+ function lognext()
+ {
+     var p = Number($(".plog").html()); 
+     getLog(p+1); 
+ }
+ function logprev()
+ {
+     var p = Number($(".plog").html());
+     getLog(p-1); 
+ }
+ function logpage(p)
+ {
+     getLog(p);
+ }
+ function getLog(p)
+ {
+    $.get("{:U('agility/user/getLog')}",{p:p }, function(data){
+         var obj=eval(data); 
+         $("#log_list").html(obj[1]); 
+         $("#logpage").html(obj[0]); 
+    });    
+ }
+ function itemnext()
+ {
+     var p = Number($(".pitem").html());
+     getEndItem(p+1); 
+ }
+ function itemprev()
+ {
+     var p = Number($(".pitem").html());
+     getEndItem(p-1); 
+ }
+ function itempage(p)
+ {
+     getEndItem(p);
+ }
+ function getEndItem(p)
+ {
+    $.get("{:U('agility/user/getEndItem')}",{p:p }, function(data){
+         var obj=eval(data); 
+         $("#end_item_list").html(obj[1]); 
+         $("#end_item_page").html(obj[0]); 
+         
+        
+    });    
+ }
+ </script> 
+
+</body>
+</html>

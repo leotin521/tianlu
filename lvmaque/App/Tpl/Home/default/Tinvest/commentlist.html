@@ -1,0 +1,47 @@
+
+
+<volist name="commentlist" id="vo">
+            <table width="880" border="0" cellspacing="0" cellpadding="0" style=" margin-top:15px; margin-bottom:15px;">
+              <tr>
+                <td width="113" align="left" valign="top"><div class="dv_l_4_1"><img  src="{$vo.uid|get_avatar=###}" /></div></td>
+                <td width="767" align="left" valign="top">
+                <table width="740" border="0" cellspacing="0" cellpadding="0" style="border-bottom:1px solid #CCC;">
+                  <tr>
+                    <td height="28" align="left" valign="top" style="color:#248DCC; font-weight:bolder; font-size:14px;">{$vo.uname}</td>
+                  </tr>
+                  <tr>
+                    <td height="28" align="left" valign="top" style="color:#333">{$vo.comment}</td>
+                  </tr>
+                  <tr>
+                    <td height="28" align="left" valign="top" style="color: #999;">发布日期：{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+                  </tr>
+                </table>
+                <if condition="$vo.deal_time gt 0"><table width="740" border="0" cellspacing="0" cellpadding="0" >
+  <tr>
+    <td height="15" colspan="2" align="center" valign="top">&nbsp;</td>
+    </tr>
+  <tr>
+    <td width="74" align="center" valign="top"><img src="/Style/H/images/touxiang.jpg" width="60" height="60" /></td>
+    <td width="666" align="left" valign="top"><table width="660" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="28" align="left" valign="top" style="color:#248DCC; font-weight:bolder; font-size:12px;">{$glo.web_name}客服</td>
+      </tr>
+      <tr>
+        <td height="28" align="left" valign="top">{$vo.deal_info}</td>
+      </tr>
+      <tr>
+        <td height="28" align="left" valign="top" style="color: #999;">发布日期：{$vo.deal_time|date="Y-m-d H:i:s",###}</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+                
+</if>
+                </td>
+              </tr>
+            </table>
+            <div style="width:880px; height:1px; border-bottom:1px solid #CCC;"></div>
+            </volist>
+
+<div class="page ajaxpagebar" data="scomment" style="margin-left:10px">{$commentpagebar}</div>
+<script type="text/javascript">bindpage()</script>

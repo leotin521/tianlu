@@ -1,0 +1,220 @@
+<include file="default:Public:_header_other"/>
+<style type="text/css">
+    .preMonth,.nextMonth,#curMonth {position: static;}
+    .user_box_right {
+        position: absolute;
+        font-size: 15px;
+        top: -2px;
+        right: 10px;
+        padding-right: 10px;
+        font-weight: 700;
+    }
+    .user-box-con-2 {padding: 15px 0 0px;}
+    .table-style-2 th {background-color: #e25353; color: #fff;}
+</style>
+<script type="text/javascript">
+	//检测是否能够还款
+	function chkPayAction(n){
+		if (confirm("对第"+n+"期进行还款？")===false){ return false; }
+		return true;
+	}
+	//移动统计时间窗口
+	function changeTime(n){
+		var y=$("#selectYear").val(),m=$("#selectMonth").val();
+		if (n==1){
+			m--;
+			if (1>m){ m=12; y--; var first=$("#selectYear > option:first").val(); if (first>y){ return false; } }
+		}
+		else if (n==2){
+			m++;
+			if (m>12){ m=1; y++; var last=$("#selectYear > option:last").val(); if (y>last){ return false; } }
+		}
+		$("#selectYear").val(y);
+		$("#selectMonth").val(m);
+		$("#selectMonth").trigger("change");
+		return false;
+	}
+	
+	//设置为当前月
+	function curTime(){ $("#selectYear").val("{$cur_year}"); $("#selectMonth").val("{$cur_month}"); $("#selectMonth").trigger("change"); }
+</script> 
+</head><body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"></div>
+    </div>
+    <div class="user-main clearfix">
+		<include file="default:Public:_left"/>
+        <div class="user-con user-deal-record">
+            <div class="user-box-1">
+                <div class="user-box-title-1 clearfix">
+                    <h2>还款计划</h2>
+                </div>
+                <div class="user-box-con-2" style="position: relative;">
+                    <div id="date" style="margin-bottom:20px;" class="clearfix">
+						<div class="select-date rel">
+							<div class="selectYear rel">
+								<select id="selectYear">
+								<volist name="year" id="yr">
+									<option value="{$yr}">{$yr}</option>
+								</volist>
+								</select>
+								<span class="selectXia"></span>
+							</div>
+							<span class="fl fs-ms mgr mgt-5 dark">年</span>
+							<div class="selectMonth rel">
+								<select id="selectMonth">
+								<volist name="month" id="mn">
+									<option value="{$mn}">{$mn}</option>
+								</volist>
+								</select>
+								<span class="selectXia"></span>
+							</div>
+							<span class="fl fs-ms mgr mgt-5 dark">月</span>
+							<span class="preMonth change_time" _month="1">上一月</span>
+							<span class="nextMonth change_time" _month="2">下一月</span>
+							<span id="curMonth" onclick="curTime();">当前月</span>
+                            <span class="user_box_right">本月还款总额：<strong class="ffA">0.00</strong> &nbsp;元</span>
+						</div>
+					</div>
+				</div>
+				<div id="flash_table"></div>
+				<div id="cal_list">
+				</div>
+				<div class="pager-content  table-style-footer-1">
+					<div class="pagination" style="display: none;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/H/js/globalfunc.js"></script>
+<script id="calList" type="text/x-dot-template">
+	<div class="user-box-con-2" style="position: relative;" id="repayList" data-sum="{{=it.topay}}">
+		<table class="table-style-2">
+			<thead>
+				<tr>
+					<th width="60" class="tal pdl-20">项目名称</th>
+					<th width="50" class="tac">项目类型</th>
+					<th width="40" class="tac">期数</th>
+					<th width="80" class="tal">还款金额</th>
+					<th width="80" class="tac">预计还款时间</th>
+					<th width="80" class="tac">实际还款时间</th>
+					<th width="50" class="tac">逾期罚金</th>
+					<th width="50" class="tac">催收费</th>
+					<th width="60" class="tac">支付状态</th>
+					<th width="30" class="tac">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{? it == 0}}
+				<tr>
+					<td colspan="10" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >登录状态已过期，请您重新 <a href="/member/common/login/" style="color:#3181d8">登录</a></td>
+				</tr>
+				{{?? it[0] == ""}}
+				<tr>
+					<td colspan="10" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >{{=it[1]}}</td>
+				</tr>
+				{{??}}
+				{{~it.list :value:index}}
+				<tr>
+					<td title="{{=value.borrow_name}}"><a target="_blank" href="{{=value.borrow_url}}">{{=(value.borrow_name.length > 3 ? value.borrow_name.substring(0,3)+"..." : value.borrow_name )}}</a></td>
+					<td>{{=it.borrow_type[value.borrow_type]}}</td>
+					<td>{{=value.total}}-{{=value.sort_order}}</td>
+					<td>{{=value.money}}</td>
+					<td>{{=(value.deadline > 0) ? String((new Date(Number(value.deadline)*1000)).Format("yyyy-MM-dd")) : "-"}}</td>
+					<td>{{=(value.need_pay != 1) ? String((new Date(Number(value.repayment_time)*1000)).Format("yyyy-MM-dd")) : "-"}}</td>
+					<td>{{=(value.expired_money_now > 0) ? value.expired_money_now : "-"}}</td>
+					<td>{{=(value.call_fee_now > 0) ? value.call_fee_now : "-"}}</td>
+					<td>{{? ((value.status == 14) && (value.need_pay != 1))}}{{? ((value.repayment_time < value.deadline))}}提前已还{{} else {}}已还款{{?}}{{} else {}}{{=it.list_status[value.status]}}{{?}}</td>
+					<td>{{? (value.status == 4 || value.status == 6 || value.status == 7 || value.status == 14)}}{{? (value.need_pay == 1)}}<span style="color:#3181d8; cursor:pointer;" class="do_pay" _bid="{{=value.bid}}" _sort="{{=value.sort_order}}">还款</span>{{} else {}}-{{?}}{{} else {}}-{{?}}</td>
+				</tr>
+				{{~}}
+				<tr>
+					<td colspan="10">
+						<div class="pager-content table-style-footer-1">
+							<div class="pagination" id="pageline" _cur="current">
+								{{for (var i = 1, p = Math.ceil(it.allpage / it.perpage); p >= i; i++){}}
+									{{? i == it.curpage}}<a class="current">{{ }else{ }}<a _page={{=i}} onclick="onTabClick($(this));">{{?}}{{=i}}</a>&nbsp;&nbsp;
+								{{}}}
+								<b class="flag_yeshu" style="font-weight:normal;">共{{=p}}页，{{=it.allpage}}条记录</b>
+							</div>
+						</div> 
+					</td>
+				</tr>
+				{{?}}
+			</tbody>
+		</table>
+		<div class="table-style-2" id="ajaxListClone" style="display:none"></div>
+	</div>
+</script>
+<script>
+	//还款计划
+	var calData={
+		txt_plus:"((txt>12)?'年':'月')+'记录'",
+		flash:"#flash_table",
+		transfer_type:"GET",
+		url:"/Member/borrows/calList/",
+		temp_id:"calList",
+		disp_id:"#cal_list",
+		param:{
+			perpage:10
+		},
+		tabs:{
+			page:{
+				obj:"#pageline a",
+				cur:"current"
+			}
+		},
+		attr:{
+			curpage:{
+				tab:"page",
+				key:"_page"
+			}
+		},
+		select:{
+			year:"#selectYear",
+			month:"#selectMonth"
+		},
+		click:{
+			ch_time:{
+				obj:".change_time",
+				check:{
+					func:"changeTime",
+					param:{
+						attr:{
+							month:"_month"
+						}
+					}
+				},
+			},
+			pay:{
+				url:"/Member/borrows/doPay/",
+				obj:".do_pay",
+				attr:{
+					bid:"_bid",
+					sort:"_sort"
+				},
+				check:{
+					func:"chkPayAction",
+					param:{
+						attr:{
+							sort:"_sort"
+						}
+					}
+				},
+				flash:"#flash_table"
+			}
+		}
+	};
+	zz.userAction.init(calData);
+	$("body").keydown(function(event){
+      if(event.keyCode==37){ changeTime(1); }
+      if(event.keyCode==39){ changeTime(2); }
+    });
+	curTime();
+</script>
+</body></html>

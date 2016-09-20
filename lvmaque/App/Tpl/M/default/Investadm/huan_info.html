@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="no-js">
+<!--投资管理-还款详情页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>还款详情</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>还款详情</h1>
+        <a href="javascript:;" onClick="window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    
+   	<div class="mod-managehkxq">
+    	<li>已支付本息(元)<span><font color="#fa4343">{$lixi.have_pay}</font></span></li>
+        <if condition="$lixi.fail_pay eq 0">
+            <li>未支付本息(元)<span>{$lixi.fail_pay}</span></li>
+        <else />
+            <li>未支付本息(元)<span>-{$lixi.fail_pay}</span></li>
+        </if>
+    </div>
+    
+    <div class="mod-manage-hkdetail">
+    	<ul class="am-avg-sm-3 mod-manage-hkdetailone">
+          <li>预计支付时间</li>
+          <li>预计支付金额</li>
+          <li>实际支付状态</li>
+        </ul>
+        <volist name="datas" id="vo">
+            <ul class="am-avg-sm-3">
+              <li>{$vo.deadline}</li>
+              <li>{$vo.yj_money}</li>
+              <li>{$vo.sj_type}</li>
+            </ul>
+        </volist>
+    </div>
+
+</body>
+
+</html>

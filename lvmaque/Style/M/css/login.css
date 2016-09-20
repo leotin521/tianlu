@@ -1,0 +1,23 @@
+.dv_l_1 { width: 960px; height: 100%; overflow: hidden; margin: 0 auto; }
+.dv_l_2 { width: 650px; height: 400px; float: left; margin-left: 20px; }
+.dv_l_3 { width: 280px; height: 400px; float: left; border-right: 1px solid #cccccc; }
+
+.dv_r_6 { width: 250px; overflow: hidden; line-height: 28px; text-align: left; font-size: 14px; font-family: 宋体; }
+
+/*.dv_l_4 { height: 30px; line-height: 30px; float: left; width: 535px; margin:0px; margin-top:20px; font-size: 12px; }
+.dv_l_4_1 { height: 30px; line-height: 30px; float: left; width: 100px; font-size: 14px; color: #000; font-family: 宋体; text-align: right; }
+.dv_r_4_3 { height: 30px; line-height: 30px; float: left; width: 225px; text-align: left; font-size: 12px; margin-left: 10px; font-family: 宋体; }
+.dv_r_4_3 img{vertical-align:middle}
+.dv_l_4_2 { height: 30px; line-height: 30px; float: left; width: 200px; text-align: left; font-size: 12px; color: #666; font-family: 宋体; }
+.dv_l_4_3 { height: 30px; line-height: 30px; float: left; width: 340px; text-align: left; }
+.in_r_1 { width: 190px; height: 22px; line-height: 22px; padding: 2px; font-size: 14px; border: 1px solid #C46F11; }
+.in_r_2 { width: 195px; height: 30px; line-height: 26px; font-size: 12px; }*/
+
+
+.reg_info { margin-top: 2px; font-size: 12px; background-color: #dae4ed; border: 1px solid #006699; height: 22px; line-height: 22px; }
+.reg_wrong { font-size: 12px;  border: 0px solid #ff0000; margin-top: 2px;
+              color: #ff0000; height: 22px; line-height: 22px; }
+/*.reg_wrong { font-size: 12px; background-color: #fff9dd; border: 1px solid #ff0000; margin-top: 2px;
+              color: #ff0000; height: 22px; line-height: 22px; }*/			  
+.reg_ok {   font-size: 12px; color: #339966; padding-left: 2px; }
+/* background-color :#e1eee6;  border :1px solid #339966;*/

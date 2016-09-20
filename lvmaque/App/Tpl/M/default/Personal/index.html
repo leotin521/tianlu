@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="no-js">
+<!--账户信息-个人资料页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>个人资料</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>个人资料</h1>
+        <a href="#" onclick="window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+   	   		<p class="mod-info-bdshoujitishi" style="text-align:center;font-size:1.6rem;">完善个人信息有助于加快您的借款速度</p>
+            <div class="mod-info-usermeg">
+            	 <ul class="am-list ">
+                	
+                	<li >
+                        <a href="__URL__/one">
+                            <div class="con">
+                                <if condition="$data_status eq 1">
+                                    已完善                                
+								</if>
+								<i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field" style="font-size:1.6rem;">
+                                个人资料
+                            </div>
+                           
+                        </a>
+                    </li>
+                  
+                    <li>
+                        <a href="javascript:void(0);" onclick="editindex();">
+                            <div class="con">
+								<if condition="$data_lianxi eq 1">
+									已完善
+								</if>
+                                <i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field" style="font-size:1.6rem;">
+                                联系方式
+                            </div>
+                          
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" onclick="qiye();">
+                            <div class="con">
+								 <if condition="$data_danwei eq 1">
+									已完善
+									
+								</if>
+                                <i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field" style="font-size:1.6rem;">
+                                单位资料
+                            </div>
+                           
+                        </a>
+                    </li>
+                     <li>
+                        <a href="javascript:void(0);" onclick="caiwu();">
+                            <div class="con">
+							 <if condition="$data_caiwu eq 1">
+                                  已完善
+                            </if>
+                                <i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field" style="font-size:1.6rem;">
+                                财务状况
+                            </div>
+                           
+                        </a>
+                    </li>
+                    <!--<li>
+                        <a href="info-ziliaoshangchuan.html">
+                            <div class="con">
+                                <if condition="$ziliao eq 1">
+                                已经完善
+								</if>
+								<i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field">
+                                资料上传
+                            </div>
+                            
+                        </a>
+                    </li>
+					-->
+                </ul>
+            </div>
+    <script>
+
+       function editindex(){
+            var data_status = {$data_status};
+            if(data_status != 1){
+                $().toastmessage('showErrorToast', '请先填写个人资料!');
+                return false;
+            }else{
+                setTimeout(window.location = "__URL__/editindex",2000);
+            }
+        }
+
+        function qiye(){
+            var data_status = {$data_status};
+            var data_lianxi = {$data_lianxi};
+            if(data_status != 1 || data_lianxi != 1){
+                $().toastmessage('showErrorToast', '请先填上一步资料!');
+                return false;
+            }else{
+                setTimeout(window.location = "__URL__/qiye",2000);
+            }
+        }
+
+        function caiwu(){
+            var data_status = {$data_status};
+            var data_lianxi = {$data_lianxi};
+            var data_danwei = {$data_danwei};
+            if(data_status != 1 || data_lianxi != 1 || data_danwei != 1){
+                $().toastmessage('showErrorToast', '请先填上一步资料!');
+                return false;
+            }else{
+                setTimeout(window.location = "__URL__/caiwu",2000);
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

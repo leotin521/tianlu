@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>我的优惠券</title>
+		<link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+	    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/email.css" rel="stylesheet" />
+	</head>
+	<body>
+	<div class="top_nav_h">
+		<div class="top_nav">
+			<div class="com_bgcolor">
+				<h1><a href="__APP__/m/user" class="comm_back"></a>我的优惠券</h1>
+			</div>
+		</div>
+	</div>
+	
+	<!-- email_content star -->
+
+
+	<div class="my_yhq clearfix">
+		
+		<!-- star -->
+        <volist name="exp" id="vo">
+            <div class="my_yhq_01 clearfix">
+                <div class="my_yhq_01_01 clearfix">
+                    <h2>{$vo.remark}</h2>
+                    <h3><b>{$vo.money}</b>元</h3>
+                    <p>有效时间<br />{$vo.expired_time|date="Y-m-d:H:i",###}</p>
+                </div>
+                <div class="my_yhq_01_02 clearfix">
+                    <p>优惠券</p>
+                </div>
+            </div>
+        </volist>
+		<!-- end -->
+		
+		
+	</div>
+		
+		
+
+
+		
+	<!-- email_content end -->
+
+
+	</body>
+</html>

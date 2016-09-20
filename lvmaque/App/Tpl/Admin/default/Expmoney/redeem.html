@@ -1,0 +1,106 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+
+<style type="text/css">
+.alertDiv { margin: 0px auto; background-color: #FEFACF; border: 1px solid green; line-height: 25px; background-image: url(__ROOT__/Style/M/images/info/001_30.png); background-position: 20px 4px; background-repeat: no-repeat; }
+.alertDiv li { margin: 5px 0; list-style-type: decimal; color: #005B9F; padding: 0px; line-height: 20px; }
+.alertDiv ul { text-align: left; list-style-type: decimal; display: block; padding: 0px; margin: 0px 0px 0px 75px; }
+</style>
+<div class="so_main">
+<div class="page_tit">积分兑换设置</div>
+<div class="page_tab">
+    <span data="tab_12" class="active">积分参数</span>
+</div>
+<div class="form2">
+<div class="alertDiv">
+    <ul>
+        <li>参数新增或者删除操作时，请记住点击下方的确认按钮来提交您的新数据！</li>
+        <li>所有参数的修改或者删除操作提交一次即可,修改后请清空数据缓存，以便新参数即时生效！</li>
+    </ul>
+</div>
+    <form method="post" action="__URL__/redeem" enctype="multipart/form-data">
+    
+    <!--积分参数开始-->
+<div id="tab_12"  >
+        <div class="Toolbar_inbox">
+            <div class="page right">{$pagebar}</div>
+            <htmlA:commonBtn type="jsfun" action="addone($j=12);" value="添加一个级别" />
+      </div>
+      <div class="list">
+      <table id="area_integration" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th style="width:30px;">
+            <input type="checkbox" class="checkbox_handle" onclick="checkAll(this)" value="0" >
+            <label for="checkbox"></label>
+        </th>
+        <th class="line_l">序号</th>
+        <th class="line_l">积分值</th>
+        <th class="line_l">兑换券参数</th>
+        <th class="line_l">0：抵现券，1：体验券</th>
+        <th class="line_l">有效期</th>
+        <th class="line_l">操作</th>
+      </tr>
+      
+      <?php $p=1; $j=12;?>
+       <volist id="vo" name="reddemconf">
+       
+       <tr overstyle='on' id="list_bbankname{$p}">
+        <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$key}"></td>
+        <td>{$p}</td>
+        <td><input type="text" style="width:100px" name="redeem[integral][]" value="{$vo.integral}" /></td>
+        <td>
+            兑换 <input type="text" style="width:60px" name="redeem[money][]" value="{$vo.money}" /> 元优惠券
+            ，满 <input type="text" style="width:100px" name="redeem[invest_money][]" value="{$vo.invest_money}" /> 元可用
+        </td>
+         <td><input type="text" style="width:50px" name="redeem[is_taste][]" value="{$vo.is_taste}" /></td>
+         <td><input type="text" style="width:50px" name="redeem[expired_time][]" value="{$vo.expired_time}"  />个月</td>
+        <td>
+            <a href="javascript:void(0);" onclick="delxp({$p});">删除</a>  
+        </td>
+      </tr>
+         <?php $p++; ?>
+      </volist>
+     
+      </table>
+</div>
+
+    </div>
+    <!--tab12-->
+<div class="page_btm"><input type="submit" class="btn_b" value="确定" />
+    </div>
+    </form>
+</div>
+
+
+</div>
+<script type="text/javascript">
+    var xssp=parseInt({$p})||0;
+function addone($j){
+
+    
+    switch($j){
+
+        case 12:
+        
+        htmladd = '<tr overstyle="on" id="list_bbankname'+xssp+'">';
+        htmladd += '<td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="'+xssp+'"></td>';
+        htmladd += '<td>'+xssp+'</td>';
+        htmladd += '<td><input type="text" style="width:100px" name="redeem[integral][]" value="" /></td>';
+        htmladd += '<td> 兑换 <input type="text" style="width:60px" name="redeem[money][]" value="" /> 元优惠券，满 <input type="text" style="width:100px" name="redeem[invest_money][]" value="" /> 元可用</td>';
+        htmladd += '<td><input type="text" style="width:50px" name="redeem[is_taste][]" value="0" /></td>';
+        htmladd += '<td><input type="text" style="width:50px" name="redeem[expired_time][]" value="3" readonly=""/>个月</td>';
+        
+        htmladd += '<td><a href="javascript:void(0);" onclick="delxp('+xssp+');">删除</a></td>';
+        htmladd += '</tr>';    
+        $(htmladd).appendTo("#area_integration");
+        xssp++;
+        break;
+    }
+        
+}
+
+function delxp(id){
+    if(confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_bbankname"+id).remove();
+}
+</script>
+<include file="Public:_footer" />

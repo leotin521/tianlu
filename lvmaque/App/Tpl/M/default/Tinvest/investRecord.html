@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>投资记录</title>
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+		<script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.js"></script>
+	</head>
+	<body class="bg-white">
+	    <header>
+        <h1>投资记录</h1>
+			<a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+		</header>
+
+		<table class="am-table am-table-striped">
+			<thead>
+			<tr>
+				<td width="32%" align="center"><b>投资人</b></td>
+				<td width="32%" align="center"><b>金额</b></td>
+				<td width="32%" align="center">时间</td>
+			</tr>
+			</thead>
+			<!-----循环 开始------->
+			<tbody id="investrecord">
+			<volist name="list" id="vb">
+				<tr>
+                    <td><?php echo hidecard($vb['user_name'],5)?></td>
+					<td>{$vb['investor_capital']}</td>
+					<td>{$vb.add_time|date="Y-m-d",###}</td>
+				</tr>
+			</volist>	
+			</tbody>
+			<!-----循环 开始------->
+		</table>
+	
+	
+	</body>
+</html>

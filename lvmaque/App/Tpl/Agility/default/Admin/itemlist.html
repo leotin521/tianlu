@@ -1,0 +1,61 @@
+<include file="default:Public:_header"  group="Admin"/>
+<tagLib name="htmlA" />
+<script type="text/javascript">
+    var delUrl = '__URL__/del';
+</script>
+
+<div class="so_main">
+  <div class="page_tit"><if condition="$status eq 1">募集中的<?php echo AgilityBehavior::$THE_SPIRIT;?><elseif condition="$status eq 2"/>还款中的<?php echo AgilityBehavior::$THE_SPIRIT;?><elseif condition="$status eq 4"/>已还款的<?php echo AgilityBehavior::$THE_SPIRIT;?></if></div>
+  <div class="Toolbar_inbox" style="height: 25px;">
+    <!-- <div class="page right">{$pagebar}</div> -->
+    
+  </div>
+  <div class="list">
+    <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th style="width:30px;"> <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+          <label for="checkbox"></label>
+        </th>
+        <th class="line_l">ID</th>
+        <th class="line_l">计划编号</th>
+        <th class="line_l">计划募集金额</th>
+        <th class="line_l">在投资金额</th>
+        <th class="line_l">已赎回金额</th>
+        <th class="line_l">计划期限</th>
+        <th class="line_l">封存期限</th>
+        <th class="line_l">发布计划时间</th> 
+        <th class="line_l">最终还款时间</th>
+        
+
+        <th class="line_l">操作</th>
+      </tr>
+      <volist id="vo" name="list">
+        <tr overstyle='on' id="list_{$vo.id}">
+          <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+          <td>{$vo.id}</td>
+          <td>{$vo.batch_no}</td>
+          <td>{$vo.funds}元</td>
+          <td>{$vo.invest_money|default=0}元</td> 
+          <td>{$vo.out_money|default=0}元</td> 
+          <td>{$vo.repayment_period}个月</td>
+          <td>{$vo.term}天</td>
+          <td>{$vo.add_time|mydate='Y-m-d H:i',###}</td>
+          <td>{$vo.deadline|mydate='Y-m-d H:i',###}</td>
+
+          <td><!--a href="{:U('addItem', array('id'=>$vo['id']))}">[编辑]</a>&nbsp; 
+            <!--if condition="$vo['raise_funds'] eq 0"><a href="javascript:void(0);" onclick="del({$vo['id']});">[删除]{$vo.invest_num}</a>&nbsp;</if --> 
+            <a href="{:U('holdsRecord', array('batchno'=>$vo['batch_no']))}">[持有记录]</a>
+            <a href="{:U('buyList', array('batchno'=>$vo['batch_no']))}">[投资记录]</a>
+            <a href="{:U('redemptionlist', array('batchno'=>$vo['batch_no']))}">[赎回记录]</a>
+            <if condition="$vo.status eq 2"><a href="{:U('repayment',array('batch_no'=>$vo['batch_no']))}" onclick="if(confirm('确认要还款吗？')) return true;else return false;">[还款]</a></if>
+            <if condition="$vo.status eq 1"><a href="{:U('enditem',array('batch_no'=>$vo['batch_no']))}" onclick="if(confirm('结束后进入还款(结束)状态，确认要执行吗？')) return true;else return false;">[结束]</a></if>
+          </td>
+        </tr>
+        </volist>
+    </table>
+  </div>
+  <div class="Toolbar_inbox" style="height: 25px;">
+    <div class="page right">{$pagebar}</div>
+  </div>
+</div>
+<include file="default:Public:_footer" group="Admin" />

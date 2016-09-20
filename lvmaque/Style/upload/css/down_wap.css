@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin:0;padding:0;}
+.down_wap{
+	width:100%;height:auto;
+	}
+.down_top{
+	width:100%;height:415px;background:url(../images/bj_top.jpg) no-repeat center 0 #1069ad; background-size:100%;float:left;
+	}
+.top_text{
+	width:100%;height:250px;background:url(../images/down_top.png) no-repeat center 0;float:left;
+	}
+.dw_button{
+	width:223px;height:130px;margin:0 auto;
+	}
+.down_top a{
+	width:223px;height:50px;float:left;margin-bottom:15px;text-decoration:none;
+	}
+.down_top a.iph{background:url(../images/iph_button1.png) no-repeat;}
+.down_top a.and{background:url(../images/and_button1.png) no-repeat;}
+.dw_foot{
+	width:100%;height:650px;float:left;background:url(../images/bj_f.jpg) no-repeat center 0 #2886c9;;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

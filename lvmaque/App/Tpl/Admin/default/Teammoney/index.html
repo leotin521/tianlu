@@ -1,0 +1,63 @@
+<include file="Public:_header" />
+<script type="text/javascript">
+	var delUrl = '__URL__/doDelete';
+</script>
+<script type="text/javascript" src="__ROOT__/Style/Common/js/area.js" language="javascript"></script>
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<tagLib name="htmlA" />
+<div class="so_main">
+  <div class="page_tit">{$position}</div>
+  <div class="Toolbar_inbox" style="overflow:hidden">
+    <!-- <div class="page right">{$pagebar}</div> -->
+	 <htmlA:commonBtn type="href" action="__URL__/export?{$query}" value="将当前条件下数据导出为Excel"/>
+    <span style="display:inline; float:left">
+    <form method="get" action="__URL__/index">
+      团队长用户名：
+      <input name="user_name" style="width:190px" id="title" type="text" >
+      
+      从<htmlA:timer id="start_time"  arg="{dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$search.start_time}"/>到<htmlA:timer id="end_time"  arg="{dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}" class="Wdate" value="{$search.end_time}"/>
+      <input type="submit" class="btn_b" value="搜索" />
+    </form>
+    </span> </div>
+  <div class="list">
+    <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th style="width:30px;">
+        </th>
+        <th class="line_l">ID</th>
+        
+        <th class="line_l">团队长账号</th>
+        <th class="line_l">团队长真实姓名</th>
+        <th class="line_l">是否禁用</th>
+        <th class="line_l">身份证号</th>
+        <th class="line_l">奖励提成</th>
+        <th class="line_l">添加时间</th>
+        <th class="line_l">操作</th>
+      </tr>
+      <php>$_REQUEST['p'] = isset($_REQUEST['p'])?$_REQUEST['p']:0; $cpage = (intval($_REQUEST['p'])<=1)?0:intval($_REQUEST['p']); $j=($cpage*C('ADMIN_PAGE_SIZE') + 1);</php>
+      <volist id="vo" name="admin_list">
+        <tr overstyle='on' id="list_{$vo.id}">
+          <td></td>
+          <td>{$vo.id}</td>
+          <!--<td>{$vo.parentuser_name}({$vo.parentreal_name})</td>-->
+          <td>{$vo.user_name}</td>
+          <td>{$vo.real_name}</td>
+          <td><if condition="$vo.is_ban eq 1"><font color="#FF0000" id="is_ban_{$vo['id']}">禁用</font>
+              <else/>
+              <font color="#009900" id="is_ban_{$vo['id']}">正常</font></if></td>
+          <td>{$vo.card}</td>
+          <td>{$vo.money|round=###,2}</td>
+          <td>{$vo.add_time|date="Y-m-d H:i:s",###}<span id="word_{$vo['id']}" style=" display:none;">{$vo.user_word}</span></td>
+          <td><a href="__URL__/brokerlist?id={$vo['id']}" >查看</a></td>
+        </tr>
+        <php>$j++;</php>
+      </volist>
+    </table>
+  </div>
+  <div class="Toolbar_inbox">
+    <div class="page right">{$pagebar}</div>
+	<htmlA:commonBtn  action="__URL__/index" value="返回列表"/> 
+    <span style="padding-left:50px; font-size:16px;">奖励合计：{$total|round=###,2}</span> </div>
+	<li>*团队长奖励的计算公式为：名下所有经纪人提成奖励的总和 × 团队长提成系数</li><!-- `mxl:weighted` -->
+</div>
+<include file="Public:_footer" />

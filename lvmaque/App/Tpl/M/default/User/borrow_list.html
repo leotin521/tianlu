@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>借款记录</title>
+		<link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+	    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/detail.css" rel="stylesheet" />
+	</head>
+	<body>
+	
+	<div class="top_nav_h">
+		<div class="top_nav">
+			<div class="com_bgcolor">
+				<h1><a href="__APP__/m/user" class="comm_back"></a>借款记录</h1>
+			</div>
+		</div>
+	</div>
+	
+	<div class="deposits_h clearfix">
+		
+		<!-----循环 开始------->
+        <volist name="list" id="vo">
+                    <div class="sb_list">
+                            <if condition="$vodes.status eq '2'">
+                                <elseif condition="$vodes.status eq '4'"/>
+                                <div class="sb_list_yw_img"><img src="__ROOT__/Style/NewWeChat/images/new/zq_has_done.png" /></div>
+                            </if>
+                            <div class="sb_list_01">
+                                    <if condition="$vo.borrow_status eq 0">
+                                        <img src="__ROOT__/Style/NewWeChat/images/new/borrow_type_0.png" alt=""/>
+                                    <elseif condition="$vo.borrow_status eq 1" />
+                                        <img src="__ROOT__/Style/NewWeChat/images/new/borrow_type_1.png" alt=""/>
+                                    <elseif condition="$vo.borrow_status eq 2" />
+                                        <img src="__ROOT__/Style/NewWeChat/images/new/borrow_type_2.png" alt=""/>
+                                    <elseif condition="$vo.borrow_status eq 3" />
+                                        <img src="__ROOT__/Style/NewWeChat/images/new/borrow_type_3.png" alt=""/>
+                                    <elseif condition="$vo.borrow_status eq 4" />
+                                        <img src="__ROOT__/Style/NewWeChat/images/new/borrow_type_4.png" alt=""/>
+                                    <elseif condition="$vo.borrow_status eq 5" />
+                                        <img src="__ROOT__/Style/NewWeChat/images/new/borrow_type_5.png" alt=""/>
+                                    <elseif condition="$vo.borrow_status eq 6" />
+                                        <img src="__ROOT__/Style/NewWeChat/images/new/borrow_type_6.png" alt=""/>
+                                    <elseif condition="$vo.borrow_status eq 7" />
+                                        <img src="__ROOT__/Style/NewWeChat/images/new/borrow_type_7.png" alt=""/>
+                                    </if>
+                            </div>
+                        <table>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="javascript:void(0);"><span style="margin-left:15px;font-size:14px;" class="org blod">{$vo.borrow_name}</span></a>
+                                    <img src="__ROOT__/Style/NewWeChat/images/new/pay_kind1.png" alt="" style="float: right;width:80px;height:30px;margin:0px auto auto auto;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>借款金额:<span class="org blod">{$vo.borrow_money}元</span></td>
+                                <td>年利率：<span class="org blod">{$vo.borrow_interest_rate}%</span></td>
+                            </tr>
+                            <tr>
+                                <td>已借金额:<span class="org blod">{$vo.has_borrow}元</span></td>
+                                <td>借款期限：<span class="org blod"><if condition="$vo.repayment_type eq 1">{$vo.borrow_duration}天<else />{$vo.borrow_duration}月</if></span></td>
+                            </tr>
+                        </table>
+                    </div>
+        </volist>
+		<!-----循环 结束------->
+		
+		
+		<a href="" class="deposits_h_01_jzgd font_16 clearfix" onclick="">点击加载更多</a>
+		
+	</div>
+	
+	
+	
+	
+	</body>
+</html>

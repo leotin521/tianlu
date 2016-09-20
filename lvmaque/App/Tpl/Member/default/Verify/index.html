@@ -1,0 +1,2197 @@
+<include file="default:Public:_header_common"/>
+<style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style>
+</head>
+<body>
+<include file="default:Public:_header_main"/>
+<style type="text/css">
+    .error{
+        display: inline-block;
+        color:#f00;
+    }
+</style>
+<script type="text/javascript" src="__ROOT__/Style/Js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+   function ajaxFileUpload(Value)
+           {
+	   		var arr = [ "gif", "GIF", "jpg", "JPG", "png", "PNG" ];	//预定义上传类型
+			var names = Value.split(".");
+			var name = names[names.length-1];	//获取上传文件类型
+			if( $.inArray( name, arr ) < 0 )	//判断上传类型
+			{
+				alert('上传类型必须为gif,jpg,png格式');
+				return false;
+			}
+              $.ajaxFileUpload
+                 (
+                   {
+                        url:'__URL__/ajaximg1', //你处理上传文件的服务端
+                        secureuri:false,
+                        fileElementId:'cardUpload1',//'img',
+                        dataType: 'json',
+                        success: function (data)
+                              {
+                        		if (data.status == '1'){
+                        			$("#img1").attr({"src":data.message,"class":"classimg1"});
+                                    $("#cardError1").text("");
+                        		}else {
+                        			alert(data.message);
+                        			return;
+                        		}
+                              }
+                           }
+                     )
+
+                   return false;
+             }
+   //反面
+   function ajaxFileUpload2(Value)
+           {
+	   		var arr = [ "gif", "GIF", "jpg", "JPG", "png", "PNG" ];	//预定义上传类型
+			var names = Value.split(".");
+			var name = names[names.length-1];	//获取上传文件类型
+			if( $.inArray( name, arr ) < 0 )	//判断上传类型
+			{
+				alert('上传类型必须为gif,jpg,png格式');
+				return false;
+			}
+              $.ajaxFileUpload
+                 (
+                   {
+                        url:'__URL__/ajaximg2', //你处理上传文件的服务端
+                        secureuri:false,
+                        fileElementId:'cardUpload2',//'img',
+                        dataType: 'json',
+                        success: function (data)
+                              {
+                        		if (data.status == '1'){
+                        			$("#img2").attr({"src":data.message,"class":"classimg2"});
+                                    $("#cardError2").text("");
+                        		}else {
+                        			alert(data.message);
+                        			return;
+                        		}
+                              }
+                           }
+                     )
+
+                   return false;
+             }
+ </script>
+<div class="user-page">
+    <div class="user-main clearfix">
+      <include file="default:Public:_left"/>
+
+    	<!--安全设置begin-->    
+        <div class="user-con user-safety-options">
+            <div class="user-box-1">
+            	<div class="user-box-title-1 clearfix">
+                	<h2>安全设置</h2>
+                </div>
+                <div class="user-box-con-1">
+                	<ul id="saftyPageList" class="user-safety-options-list clearfix" style="overflow:hidden">
+                    	<li class="user-safety-options-item clearfix">
+                        	<div class="user-safety-options-show clearfix">
+                                <span class="user-safety-options-name">
+                                    <i class="icon-check"></i>
+                                    <strong>用户名</strong>
+                                </span>
+                                <span class="user-safety-options-value">{:session('u_user_name')}</span>                                
+                            </div>
+                        </li>
+                        <li class="user-safety-options-item clearfix">
+                            <div class="user-safety-options-show clearfix">
+                            
+                            	<if condition="$vo.phone_status eq 3 ">
+                            	
+	                                <span class="user-safety-options-name"><i class="icon-tanhao"></i><strong>手机认证</strong></span>
+	                                <span class="user-safety-options-value">{$vo.user_phone|hidecard=###,2}&nbsp;<a id="phoneAnchor" name="phoneAnchor"> </a></span>          
+	                                <span id="phoneBtn3" class="user-safety-options-state" switchtext="收起">查看</span>
+	                            <elseif condition="$vo.phone_status eq 1"/>
+	                            	<span class="user-safety-options-name"><i class="icon-check"></i><strong>手机认证</strong></span>
+	                                <span class="user-safety-options-value">{$vo.user_phone|hidecard=###,2}&nbsp;<a id="phoneAnchor" name="phoneAnchor"> </a></span>          
+	                                <span id="phoneBtn2" class="user-safety-options-state" switchtext="取消修改">修改</span>
+                                <else />                    
+	                                <span class="user-safety-options-name"><i class="icon-tanhao"></i><strong>手机认证</strong></span>
+	                                <span class="user-safety-options-value user-safety-options-value-false">未认证&nbsp;<a id="phoneAnchor" name="phoneAnchor"> </a></span>
+	                                <span id="phoneBtn1" class="user-safety-options-state" switchtext="取消认证">认证</span>
+                                </if>
+                                                            </div>
+                            <div id="phoneWrapper" class="user-safety-options-edit" style="height: 384px; display: none;">
+                                <!--修改手机步骤-->
+                                <if condition="($vo.phone_status eq 1 ) AND ($is_manual eq 0 ) ">
+                                <!-- <if condition="$is_manual eq 1 ">
+                                <else />
+                                	<div class="form-style-1 clearfix">
+	                                    <div class="user-safety-options-succeed clearfix">
+	                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+	                                        <span class="user-safety-options-succeed-txt" id="switch">短信接口已关闭，请联系网站客服</span>
+	                                    </div>
+                                	</div>
+                                </if> -->
+                                <div id="phoneStatus1" class="options-step">
+                                    <div class="options-step-con clearfix">
+                                        <span class="options-step-current">
+                                            验证原手机号码
+                                            <strong>1</strong>
+                                        </span>
+                                        <span id="sp2">
+                                            验证新手机号码
+                                            <strong>2</strong>
+                                        </span>
+                                        <span id="sp3">
+                                            成功
+                                            <strong>3</strong>
+                                        </span>
+                                    </div>
+                                </div>
+                                <else />
+                                </if>
+                                <!--手机认证begin-->
+                                <div id="phoneCon1" class="form-style-1 clearfix" _step="2">
+                                <if condition="($vo.phone_status eq 1 ) AND ($is_manual eq 0 )">
+                                    <form novalidate="novalidate">
+                                    <ul class="form-style-1-field ">
+                                        <li class="form-style-1-item">
+                                            <label id="phoneNewText" class="form-style-1-label">原手机号码</label>
+                                            <span class="form-style-1-value"><input id="phoneNum" name="phone" type="text" class="input-text-style-1 form-style-1-value"></span>
+                                            <span class="form-style-1-other" style="width:auto"><input id="sendSmsBtnt" type="button" onClick="getvcode()" value="获取短信验证码" class="btn-style-1 sms-channel"></span>
+                                        </li>
+                                        <li id="mobile_message" class="form-style-1-item yuyin-channel" style="display:none;">
+                                            
+                                        </li>
+                                        <li class="form-style-1-item">
+                                            <label class="form-style-1-label">短信验证码</label>
+                                            <span class="form-style-1-value"><input name="sms_vcode1" id="sms_vcode1" type="text" class="input-text-style-1 form-style-1-value"></span>
+                                            <span id="phonesp" class="form-style-1-error"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                        <input id="phoneSubmitt" type="button" class="btn-style-3 allbgcolor" value="下一步" onClick="subnext()">
+                                        <if condition="$vo.safequestion_status eq 1 ">
+                                        <span  class="btn-style-2 mtop5 mleft30" onClick="javascript:change1();">通过密保重置</span>
+                                        <else /> 
+										</if>
+                                    </div>
+                                    <input class="js_vnum" type="hidden" value="1">
+                                    </form>
+                                <elseif condition="($vo.phone_status eq 1 ) AND ($is_manual eq 1 )"/> 
+                                <div class="form-style-1 clearfix">
+	                                    <div class="user-safety-options-succeed clearfix">
+	                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+	                                        <span class="user-safety-options-succeed-txt" id="switch">短信接口已关闭，请联系网站客服</span>
+	                                    </div>
+                                	</div>
+                                <else />
+                                    	<if condition="$is_manual eq '0'">   
+                                    <form novalidate="novalidate">
+                                        <ul class="form-style-1-field ">
+                                            <li class="form-style-1-item">
+                                            <label id="phoneNewText" class="form-style-1-label">手机号码</label>
+                                            <span class="form-style-1-value">
+                                                <input id="phoneNum2" class="input-text-style-1 form-style-1-value" type="text" name="phone">
+                                            </span>
+                                            <span class="form-style-1-other" style="width:auto">
+                                                <input id="sendSmsBtnt2" class="btn-style-1 sms-channel" type="button" onClick="subnewphone()" value="获取短信验证码">
+                                            </span>
+                                            </li>
+                                            <li id="mobile_message2" class="form-style-1-item yuyin-channel" style="display:none;">
+                                            </li>
+                                            <li class="form-style-1-item">
+                                            <label class="form-style-1-label">短信验证码</label>
+                                            <span class="form-style-1-value">
+                                                <input id="sms_vcode2" class="input-text-style-1 form-style-1-value" type="text" name="sms_vcode2"></span>
+                                            <span class="form-style-1-error"></span>
+                                            <span id="phoneerr" class="form-style-1-error"></span>
+                                            </li>
+                                            </ul>
+                                            <div class="form-style-1-submit">
+                                            <input id="phoneSubmitBtnnn" class="btn-style-3 allbgcolor" onClick="subsetphone()" type="button" value="下一步">
+                                            </div>
+                                            <input class="js_vnum" type="hidden" value="1">
+                                    </form>
+                                	<elseif condition="$vo.phone_status eq 3"/>
+                                		<div id="phoneCon_succ" class="form-style-1 clearfix">
+                                            <div class="user-safety-options-succeed clearfix">
+                                                <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                                <span class="user-safety-options-succeed-txt" id="switch">发送成功,等待管理员审核</span>
+                                            </div>
+                                        </div>
+                                    <else />                          
+                                    	<form novalidate="novalidate">
+                                	<ul class="form-style-1-field ">
+                                		<li class="form-style-1-item">
+                                		<label id="phoneNewText" class="form-style-1-label">手机号码</label>
+                                		<span class="form-style-1-value">
+                                			<input id="phoneNum3" class="input-text-style-1 form-style-1-value" type="text" name="phone">
+                                		</span>
+                                		<span id="phone3" class="form-style-1-error"></span>
+                                		</li>
+                                		</ul>
+                                		<div class="form-style-1-submit">
+                                		<input id="phoneSubmitBtnn" class="btn-style-3 allbgcolor" onClick="submobile()" type="button" value="下一步">
+                                		</div>
+                                		<input class="js_vnum" type="hidden" value="1">
+                                </form>
+                                    </if>   
+                                    
+                                    </if>
+                                </div>
+                       <!-- 验证新手机号码 -->
+                                <div id="phoneCon3" class="form-style-1 clearfix" style="display:none;">
+                                    <form novalidate="novalidate">
+                                    <ul class="form-style-1-field ">
+                                        <li class="form-style-1-item">
+                                            <label id="phoneNewText" class="form-style-1-label">新手机号码</label>
+                                            <span class="form-style-1-value"><input id="phoneNuma" name="phone" type="text" class="input-text-style-1 form-style-1-value"></span>
+                                            <span class="form-style-1-other" style="width:auto"><input id="sendSmsBtnta" type="button" onClick="getvcode1()" value="获取短信验证码" class="btn-style-1 sms-channel"></span>
+                                        </li>
+                                        <li id="mobile_messagea" class="form-style-1-item yuyin-channel" style="display:none;">
+                                            
+                                        </li>
+                                        <li class="form-style-1-item">
+                                            <label class="form-style-1-label">短信验证码</label>
+                                            <span class="form-style-1-value"><input name="sms_vcode1" id="sms_vcodea" type="text" class="input-text-style-1 form-style-1-value"></span>
+                                            <span id="phonespa" class="form-style-1-error"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                        <input id="phoneSubmitta" type="button" class="btn-style-3 allbgcolor" value="下一步" onClick="subsub()">
+                                    </div>
+                                    <input class="js_vnum" type="hidden" value="1" />
+                                    </form>
+                                </div>
+                     <!-- 验证新手机号码 -->              
+                                
+                                <div id="phoneCon2" class="form-style-1 clearfix" style="display: none;">
+                                    <form novalidate="novalidate">
+                                    <ul class="form-style-1-field ">
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">当前密保问题</label>
+                                            <span id="que_currentQues2" class="form-style-1-value">
+                                            	{$vo.question1}
+                                            </span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请输入答案</label>
+                                            <input type="text" id="que_answer" class="input-text-style-1 form-style-1-value" name="que_answer">
+                                            <label class="form-style-1-error" id="answersp"></label>
+                                        </li>                                        
+                                    </ul>
+                                    <div id="js_hid" class="form-style-1-submit">
+                                        <input id="que_SubmitBtnn" type="button" class="btn-style-3 allbgcolor" value="下一步" onClick="subans()">
+                                        <span class="btn-style-2 mtop5 mleft30" onClick="javascript:change2();">通过短信重置</span>
+                                    </div>
+                                    <input class="js_vnum" type="hidden" value="1">
+                                    </form>
+                                </div>
+                                
+                                <!--手机认证 end-->
+                                <div id="phoneCon_succe" class="form-style-1 clearfix" style="display: none;">
+                                    <div class="user-safety-options-succeed clearfix">
+                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                        <span class="user-safety-options-succeed-txt" id="switch">您的手机号已设置成功</span>
+                                    </div>
+                                </div>
+                                <!--手机认证状态提示end-->                                
+                                <div class="form-warm-prompt-1 clearfix">
+                                    <span class="form-warm-prompt-title">温馨提示：</span>
+                                    <p>1. &nbsp;&nbsp;请填写真实有效的手机号，手机号将作为验证用户身份的重要手段。</p>
+                                    <p>2. &nbsp;&nbsp;{$glo.web_name}会对用户的所有资料进行严格保密。</p>
+                                    <p>3. &nbsp;&nbsp;手机认证过程遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?>。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="user-safety-options-item clearfix">
+                        	<if condition="$vo.id_status eq 1 ">
+                                <div class="user-safety-options-show clearfix">
+                                    <span class="user-safety-options-name"><i class="icon-check"></i><strong>实名认证</strong>
+                                        <a id="identityAnchor" name="realAnchor"> </a></span>
+                                    <span class="user-safety-options-value"><span class="fl">{$vo.idcard|hidecard=###,1}</span><span class="fr"><a href="__ROOT__/aboutus/zfsm.html" target="_blank" style="color:#3181d8">《委托收付资金协议》</a></span><span class="fr"><a href="__ROOT__/ruleserver/index.html" target="_blank" style="color:#3181d8">《{$glo.web_name}服务协议》</a></span></span>
+                                    <span id="realbtn"  style="color: #3181d8;cursor: pointer;float: left;text-align: right;width: 60px;">修改</span> <!-- id="realnameBtn2" -->
+                                </div>
+                        	<else />
+                                <div class="user-safety-options-show clearfix">
+                                    <span class="user-safety-options-name"><i class="icon-tanhao"></i><strong>实名认证</strong>
+                                        <a id="identityAnchor" name="realAnchor"> </a></span>
+                                    <span class="user-safety-options-value user-safety-options-value-false"><span class="fl">未认证</span>
+                                        <span class="fr"><a href="" target="_blank" style="color:#3181d8">&nbsp;</a></span><span class="fr">
+                                            <a href="" target="_blank" style="color:#3181d8">&nbsp;</a></span></span>
+                                <span id="realbtn" style="color: #3181d8;cursor: pointer;float: left;text-align: right;width: 60px;">认证</span> <!-- id="realnameBtn2" -->
+                                 </div>
+                             </if>
+                            <div id="realWrapper" class="user-safety-options-edit" style="display:none;" >
+	                            <div id="realsuccess" class="user-safety-options-edit" style="display:none;" >
+	                             	<div id="successCon12" class="form-style-1 clearfix hiddenfix" style="height:305px">
+	                                    <div class="user-safety-options-succeed clearfix">
+	                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+	                                        <span class="user-safety-options-succeed-txt">发送成功,等待管理员审核</span>
+	                                    </div>
+	                                </div>
+	                             </div>
+                            	<!--实名认证接口认证begin-->
+                            	<if condition="$vo.id_status eq 1 ">
+                            	
+                            	<!--手机认证 end-->
+                                <div id="successCon" class="form-style-1 clearfix hiddenfix" style="height:305px">
+                                    <div class="user-safety-options-succeed clearfix">
+                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                        <span class="user-safety-options-succeed-txt">恭喜您认证成功</span>
+                                    </div>
+                                </div> 
+                                <elseif condition="$vo.id_status eq 3"/>
+                                <div id="successCon1" class="form-style-1 clearfix hiddenfix" style="height:305px">
+                                    <div class="user-safety-options-succeed clearfix">
+                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                        <span class="user-safety-options-succeed-txt">发送成功,等待管理员审核</span>
+                                    </div>
+                                </div>                              
+                                <!--实名认证上传认证end-->
+                            	<elseif condition="$id5_enable eq 1 "/>
+                                <div id="realApiCon" class="form-style-1 clearfix hiddenfix2" style="height:355px;">
+                                <form>
+                               		<ul class="form-style-1-field ">
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">用户名</label>
+                                            <span class="form-style-1-value">{:session('u_user_name')}</span>
+                                        </li>
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">真实姓名</label>
+                                            <span class="form-style-1-value"><input id="realname" name="realname" type="text" class="input-text-style-1 form-style-1-value"></span>
+                                            <span class="form-style-1-error"></span>
+
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">身份证号码</label>
+                                            <span class="form-style-1-value"><input id="card_id" name="card_id" type="text" class="input-text-style-1 form-style-1-value"></span>
+                                            <span class="form-style-1-error"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                    	<input id="realSubmitBtn1" type="button" class="btn-style-3 allbgcolor" value="提交实名认证">
+                                    	<span id="fs_err" style="margin-top:-12px;padding-left:12px;" class="form-style-1-error" for="mandateAgreement"></span>
+                                    </div>
+                                    </form>
+                                </div>
+                                <else />
+                                	<div id="realUploadCon" class="form-style-1 clearfix" style="height:800px;">
+                               		<ul class="form-style-1-field ">
+                                   		<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">用户名</label>
+                                            <span class="form-style-1-value">{:session('u_user_name')}</span>
+                                            <span class="form-style-1-error"></span>
+                                        </li>
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">真实姓名</label>
+                                            <span class="form-style-1-value"><input id="realname2" name="realname" type="text" class="input-text-style-1 form-style-1-value"></span>                                        
+                                            <span class="form-style-1-error"></span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">证件类型</label>
+                                            <span class="form-style-1-value" style=" width:187px">
+                                            <span class="select-style-1">
+                                                <select id="card_type" name="card_type">
+                                                    <foreach name="card_type" item="data" key="key">
+                                        			<option value="{$key}">{$data}</option>
+                                        			</foreach>
+                                                </select>
+                                            </span>
+                                            </span>
+                                            <span class="form-style-1-error" style="width:150px;"></span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">证件号码</label>
+                                            <span class="form-style-1-value">
+                                            <input id="card_id2" name="card_id" type="text" class="input-text-style-1" style="display:block;">
+                                            </span>
+                                            <span id="idcardError" class="form-style-1-error"></span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">上传正面证件照</label>
+                                            <span class="form-style-1-value"></span>
+                                            <span class="form-style-1-other"><a id="uploadBtn1" class="btn-style-1 btn_addPic"><em>上传图片</em><input id="cardUpload1" type="file" class="filePrew" name="file" onChange="return ajaxFileUpload(this.value);"></a></span>
+                                            <span id="cardError1" class="form-style-1-error"></span>
+                                        </li>
+                                        <li id="cardUploadImg1" class="form-style-1-item">
+                                        	<label class="form-style-1-label">&nbsp;</label>
+                                            <span class="form-style-1-value"><img id="img1" src="__ROOT__/Style/M/images/litimg.gif" width="278" height="150"></span>
+                                            <span class="form-style-1-error"></span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">上传背面证件照</label>
+                                            <span class="form-style-1-other"><a id="uploadBtn2" class="btn-style-1 btn_addPic"><em>上传图片</em><input id="cardUpload2" type="file" class="filePrew" name="files" onChange="return ajaxFileUpload2(this.value);"></a></span><span id="cardError2" class="form-style-1-error"></span>
+                                        </li>
+                                        <li id="cardUploadImg2" class="form-style-1-item">
+                                        	<label class="form-style-1-label">&nbsp;</label>
+                                            <span class="form-style-1-value"><img id="img2" src="__ROOT__/Style/M/images/litimg.gif" width="278" height="150"></span>
+                                            <span class="form-style-1-error"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                        <input type="hidden" name="card_pic1" id="card_pic1">
+                                        <input type="hidden" name="card_pic2" id="card_pic2">
+                                    	<input id="realSubmitBtn2" type="button" class="btn-style-3 allbgcolor" value="提交实名认证">
+                                    </div>
+                                </div>
+                                </if>
+                                <div id="successCon123" class="form-style-1 clearfix" style="height:305px;display:none;" >
+                                    <div class="user-safety-options-succeed clearfix">
+                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                        <span class="user-safety-options-succeed-txt">恭喜您认证成功</span>
+                                    </div>
+                                </div> 
+                                <div class="form-warm-prompt-1 clearfix">
+                                	<span class="form-warm-prompt-title">温馨提示：</span>
+                                    <p>1. &nbsp;&nbsp;未满18周岁，实名认证无法通过。</p>
+                                    <p>2. &nbsp;&nbsp;{$glo.web_name}会对用户的所有资料进行严格保密。</p>
+                                    <p>3. &nbsp;&nbsp;实名认证过程遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="user-safety-options-item user-safety-options-email clearfix">
+                        	<div class="user-safety-options-show clearfix">
+                        	
+                        	<if condition="$vo.email_status eq 1 ">
+                                <span class="user-safety-options-name"><i class="icon-check"></i><strong>邮箱验证</strong><a id="mailAnchor" name="emailAnchor"></a></span>
+                                <span class="user-safety-options-value">{$vo.user_email|hidecard=###,6}&nbsp;</span>
+                                <span id="emailBtn2" class="user-safety-options-state" switchtext="取消修改">修改</span>
+                        	
+                        	<else />
+                        	
+                                <span class="user-safety-options-name"><i class="icon-tanhao"></i><strong>邮箱验证</strong><a id="mailAnchor" name="emailAnchor"> </a></span>
+                        	<span class="user-safety-options-value user-safety-options-value-false">未验证</span>
+                        	<span id="emailBtn1" class="user-safety-options-state" switchtext="取消验证">验证</span>
+                                
+                                </if>
+                                
+                                                            </div>
+                            <div id="emailWrapper" class="user-safety-options-edit" style="height: 310px; display: none;">
+                            
+                          <!--修改认证邮箱begin-->
+                                <div id="emailCon2" class="user-safety-options-email-edit">
+                                	<!--填写修改的邮箱地址begin-->
+                                	<if condition="$vo.email_status eq 1 ">
+                                    <div id="emailCon21" class="form-style-1 clearfix">
+                                        <form novalidate="novalidate">
+                                        <ul class="form-style-1-field ">
+                                            <li class="form-style-1-item">
+                                                <label class="form-style-1-label">原邮箱地址</label>
+                                                <input name="oldemail" id="oldemail" type="text" class="input-text-style-1 form-style-1-value">
+                                            </li>
+                                            <li class="form-style-1-item">
+                                                <label class="form-style-1-label">新邮箱地址</label>
+                                                <input id="email" name="email" type="text" class="input-text-style-1 form-style-1-value">
+                                                <label class="form-style-1-error" id="emailsp"></label>
+                                            </li>
+                                        </ul>
+                                        <div class="form-style-1-submit" style="line-height:33px;">
+                                            <input type="button" class="btn-style-3 allbgcolor" onClick="send_email()" value="发送验证邮件">
+                                        </div>
+                                        </form>
+                                    </div>
+                                    <else />
+                                    <div id="emailCon11" class="form-style-1 clearfix">
+			                            <form novalidate="novalidate">
+				                            <ul class="form-style-1-field ">
+					                            <li class="form-style-1-item">
+					                            	<label class="form-style-1-label">请输入邮箱</label>
+					                            	<input class="input-text-style-1 form-style-1-value" id="email1" type="text" autocomplete="off" name="email1">
+					                            	<label class="form-style-1-error" id="newemail"></label>
+					                            </li>
+				                            </ul>
+				                            <div class="form-style-1-submit">
+				                            	<input class="btn-style-3 allbgcolor" type="button" value="发送验证邮件" onClick="new_email()">
+				                            </div>
+			                            </form>
+                           			 </div>
+                                    </if>
+                                    
+                                    <!--前往邮箱网站认证-->
+                                    <div id="emailCon22" class="form-style-1 clearfix" style="display: none;">
+                                        <div class="form-style-1-submit" style="line-height:33px;">
+                                            已向您的新邮箱发送一封验证邮件
+                                        </div>
+                                        <div class="form-style-1-submit" style="line-height:33px;">
+                                            <a target="_blank" class="btn-style-3 allbgcolor" onClick="golook()" >前往查看</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-warm-prompt-1 clearfix">
+                                	<span class="form-warm-prompt-title">温馨提示：</span>
+                                    <p>1. &nbsp;&nbsp;请填写真实有效的邮箱地址，您可通过邮箱进行找回密码等操作。</p>
+                                    <p>2. &nbsp;&nbsp;{$glo.web_name}会对用户的所有资料进行严格保密。</p>
+                                    <p>3. &nbsp;&nbsp;邮箱验证过程遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?></p>
+                                </div>                                
+                                <!--修改认证邮箱end-->
+                            </div>
+                        </li>
+                        <!--登陆密码修改begin-->
+                        <li class="user-safety-options-item clearfix">
+                        	<div class="user-safety-options-show clearfix">
+                                <span class="user-safety-options-name"><i class="icon-check"></i><strong>登录密码</strong><a id="pwdAnchor" name="pwdAnchor"> </a></span>
+                                <span class="user-safety-options-value">已设置</span>
+                                <span id="pwdBtn1" class="user-safety-options-state" switchtext="取消修改">修改</span>
+                            </div>
+                            <div id="pwdWrapper" class="user-safety-options-edit" style="height: 322px; display: none;">
+                                <div id="pwdCon1" class="form-style-1 clearfix">
+                                    <form novalidate="novalidate" action="" >
+                               		<ul class="form-style-1-field ">
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">原登录密码</label>
+                                            <input name="oldpassword" id="oldpassword" maxlength="20" type="password" class="input-text-style-1 form-style-1-value">
+                                            <label class="form-style-1-error" id="oldsp"></label>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">新登录密码</label>
+                                            <input id="pwdpas" name="newpassword" type="password" maxlength="20" class="input-text-style-1 form-style-1-value">
+                                            <label class="form-style-1-error" id="newsp1"></label>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">再次输入新登录密码</label>
+                                            <input name="newpassword1" id="newpassword1" maxlength="20" type="password" class="input-text-style-1 form-style-1-value">
+                                            <label class="form-style-1-error" id="newsp2"></label>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                    	<input id="pwdSubmit" type="button" class="btn-style-3 allbgcolor" onClick="subpwd()" value="修改登录密码">
+                                    </div>
+                                    </form>
+                                </div>
+                                <div id="pwdCon2" class="form-style-1 clearfix" style="display: none;">
+                                    <div class="user-safety-options-succeed clearfix">
+                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                        <span class="user-safety-options-succeed-txt">恭喜您成功修改密码</span>
+                                    </div>
+                                </div>
+                                <div class="form-warm-prompt-1 clearfix">
+                                	<span class="form-warm-prompt-title">温馨提示：</span>
+                                    <p>1. &nbsp;&nbsp;请牢记您设置的新密码，登录密码可通过密码找回功能找回。</p>
+                                    <p>2. &nbsp;&nbsp;邮箱验证过程遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?></p>
+                                </div>
+                            </div>
+                        </li>
+                        <!--登陆密码修改end-->
+                        <!--支付密码begin-->
+                        <li class="user-safety-options-item clearfix">
+                        	<div class="user-safety-options-show clearfix">
+                        		<if condition="$vo.pin_pass eq '' ">
+                        		<span class="user-safety-options-name"><i class="icon-tanhao"></i><strong>支付密码</strong><a id="passwordAnchor" name="payPwdAnchor"> </a></span>
+								<span class="user-safety-options-value user-safety-options-value-false">未设置</span>
+								<span id="payPwdBtn1" class="user-safety-options-state" switchtext="取消设置">设置</span>
+                        	<else />
+                                <span class="user-safety-options-name"><i class="icon-check"></i><strong>支付密码</strong><a id="passwordAnchor" name="payPwdAnchor"> </a></span>
+                                                                <span class="user-safety-options-value">已设置</span>
+                                <span id="payPwdBtn2" class="user-safety-options-state" switchtext="取消修改">修改</span>
+                              </if>                                  
+                            </div>
+                            <div id="payPwdWrapper" class="user-safety-options-edit" style="height: 383px; display: none;">
+                            <if condition="$vo.pin_pass eq '' ">
+                            <div id="payPwdCon1" class="form-style-1 clearfix" style="">
+								<form novalidate="novalidate">
+									<ul class="form-style-1-field ">
+										<li class="form-style-1-item">
+											<label class="form-style-1-label">设置支付密码</label>
+											<input id="pas1" class="input-text-style-1 form-style-1-value"  maxlength="20" type="password" name="newpassword">
+										</li>
+										<li class="form-style-1-item">
+											<label class="form-style-1-label">再次输入支付密码</label>
+											<input class="input-text-style-1 form-style-1-value" id="repwd" type="password" maxlength="20" name="newpassword1">
+											<label class="form-style-1-error" id="setpin"></label>
+										</li>
+									</ul>
+									<div class="form-style-1-submit">
+										<input id="ppSubmita" class="btn-style-3 allbgcolor" type="button" onClick="setsubpin()" value="设置支付密码">
+									</div>
+								</form>
+							</div>
+                            <else />
+                               <div id="payPwdCon2" class="form-style-1 clearfix" style="">
+                               		<form novalidate="novalidate" action="">
+                                    <ul class="form-style-1-field ">
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">原支付密码</label>
+                                            <input name="oldpinpwd" id="oldpinpwd" type="password" maxlength="20" class="input-text-style-1 form-style-1-value">
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">新支付密码</label>
+                                            <input id="pas" name="newpinpwd" type="password" maxlength="20" class="input-text-style-1 form-style-1-value">
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">确认支付密码</label>
+                                            <input name="newpinpwd1" id="pas2" type="password" maxlength="20" class="input-text-style-1 form-style-1-value">
+                                            <label class="form-style-1-error" id="oldpin"></label>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                    	<input id="ppSubmit2" type="button" onClick="subpinpwd()" class="btn-style-3 allbgcolor" value="修改支付密码"> 
+                                    	<if condition="$vo.phone_status eq 1 ">
+                                    	<a id="findPayPwdBtn" href="###" class="subBtn-style1">找回支付密码</a>
+                                    	<else />
+										</if>
+                                    </div>
+                                    </form>
+                                </div>
+                              </if>  
+                                
+                                <div id="payPwdCon3" class="form-style-1 clearfix" style="display: none;">
+                                
+                                <if condition="$is_manual eq 1 ">
+                                
+                                	<div class="form-style-1 clearfix">
+	                                    <div class="user-safety-options-succeed clearfix">
+	                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+	                                        <span class="user-safety-options-succeed-txt" id="switch">短信接口已关闭，请联系网站客服</span>
+	                                    </div>
+                                	</div>
+                                <else />	
+                               		<form novalidate="novalidate" action="">
+                                    <ul class="form-style-1-field">
+                                    	<li class="form-style-1-item" style="margin-top:0;text-align:center">
+                                        	我们会将验证码发送到您的{$vo.user_phone}手机上
+                                        </li>                                    
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">手机验证码</label>
+                                            <span class="form-style-1-value" style="width:auto"><input id="sms_vcode" name="sms_vcode" maxlength="6" type="text" class="input-text-style-1 form-style-1-value">
+                                            <input id="sendSmsBtnn" onClick="send_phone()" type="button" value="获取短信验证码" class="btn-style-1 sms-channel"></span>
+                                            <span class="form-style-1-error"></span>
+                                        </li>
+										<li id="stepError" class="form-style-1-item yuyin-channel" style="display:none;">
+											
+										</li>
+
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">新支付密码</label>
+                                            <span class="form-style-1-value"><input id="pas3" name="newpassword" type="password" maxlength="20" class="input-text-style-1 form-style-1-value"></span>
+                                            <span class="form-style-1-error"></span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">确认支付密码</label>
+                                            <span class="form-style-1-value"><input id="repas3" name="newpassword1" type="password" maxlength="20" class="input-text-style-1 form-style-1-value"></span>
+                                            <span class="form-style-1-error" id="oldpin2"></span>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                    	<input id="ppSubmitt" type="button" class="btn-style-3 allbgcolor" value="修改支付密码" onClick="subpinb()" >
+                                    </div>
+                                    </form>
+                                    </if>
+                                </div>                                
+                                <div id="payPwdCon4" class="form-style-1 clearfix" style="display: none;">
+                                    <div class="user-safety-options-succeed clearfix">
+                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                        <span class="user-safety-options-succeed-txt">恭喜您成功修改支付密码</span>
+                                    </div>
+                                </div>
+                                <div id="payPwdCon5" class="form-style-1 clearfix" style="display: none;">
+                                    <div class="user-safety-options-succeed clearfix">
+                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                        <span class="user-safety-options-succeed-txt">恭喜您成功设置支付密码</span>
+                                    </div>
+                                </div>
+                                <div class="form-warm-prompt-1 clearfix">
+                                	<span class="form-warm-prompt-title">温馨提示：</span>
+                                    <p>1. &nbsp;&nbsp;请牢记您设置的支付密码，支付密码将用于投资，提现等重要操作。</p>
+                                    <p>2. &nbsp;&nbsp;使用过程遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?></p>
+                                </div>
+                            </div>
+                        </li>
+                        <!--支付密码end-->
+                        <if condition="$vo.safequestion_status eq 1 ">
+                        
+                        <!--密码保护begin-->
+                        <li class="user-safety-options-item clearfix">                            
+                        	<div class="user-safety-options-show clearfix">
+                                <span class="user-safety-options-name"><i class="icon-check"></i><strong>密码保护</strong><a id="quesAnchor" name="quesAnchor"> </a></span>
+                                                                <span class="user-safety-options-value">已设置</span>
+                                <span id="questionBtn2" class="user-safety-options-state" switchtext="取消修改">修改</span>
+                                 
+                            </div>
+                            <div id="quesWrapper" class="user-safety-options-edit" style="display:none; height:355px;"> <!-- 272px -->
+                                <div id="questionCon1" class="form-style-1 clearfix" style="display:none">
+                                    <form>
+                               		<ul class="form-style-1-field ">
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请选择问题</label>
+                                            <span class="form-style-1-value" style="width:auto">
+                                                <span class="select-style-1">
+                                                    <select name="n1_question" id="n1_question" class="valid">
+                                                    <volist name="question" id="data">
+                                                    	<option value="{$data}">{$data}</option>
+                                                    	</volist>
+                                                   </select>
+                                                </span>
+                                            </span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请输入答案</label>
+                                            <input type="text" class="input-text-style-1 form-style-1-value" id="n1_answer" name="n1_answer">
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请选择问题</label>
+                                            <span class="form-style-1-value" style="width:auto">
+                                                <span class="select-style-1">
+                                                    <select name="n2_question" id="n2_question" class="valid">
+                                                    <volist name="question" id="data">
+                                                    	<option value="{$data}">{$data}</option>
+                                                    	</volist>
+                                                   </select>
+                                                </span>
+                                            </span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请输入答案</label>
+                                            <input type="text" class="input-text-style-1 form-style-1-value" id="n2_answer" name="n2_answer">
+                                            <label class="form-style-1-error" id="new_sp" for="new_sp"></label>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                    	<input type="button" class="btn-style-3 allbgcolor" value="设置" onClick="n2_set()">
+                                    </div>
+                                    </form>
+                                </div>
+                                <div id="questionCon2" class="form-style-1 clearfix" style="display:none">
+                               		<ul class="form-style-1-field ">
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">当前密保问题</label>
+                                            <span class="select-style-1">
+                                            <input name="ques1" type="text" class="input-text-style-1 form-style-1-value" disabled="disabled" value="{$vo.question1}">
+                                            </span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">当前密保问题</label>
+                                            <span class="select-style-1">
+                                            	<input name="ques2" type="text" class="input-text-style-1 form-style-1-value" disabled="disabled" value="{$vo.question2}">
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                    	<input id="resetBtn" type="button" class="btn-style-3 allbgcolor" value="重新设置密码保护">
+                                    </div>
+                                </div>
+                                <div id="questionCon3" class="form-style-1 clearfix" style="display:none">
+                                    <form  id="question_1">
+                               		<ul class="form-style-1-field ">
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">当前密保问题</label>
+                                            <span class="select-style-1">
+                                            {$vo.question1}
+                                            </span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请输入答案</label>
+                                            <input type="text" id="old_answer1" class="input-text-style-1 form-style-1-value" name="answer1">
+                                            <label class="form-style-1-error" id="old_sp1" for="old_sp"></label>
+                                        </li> 
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">当前密保问题</label>
+                                            <span class="select-style-1">
+                                            {$vo.question2}
+                                            </span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请输入答案</label>
+                                            <input type="text" id="old_answer2" class="input-text-style-1 form-style-1-value" name="answer2">
+                                            <label class="form-style-1-error" id="old_sp2" for="old_sp"></label>
+                                        </li>                                        
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                    	<input type="button" onClick="subanswer()" class="btn-style-3 allbgcolor" value="验证当前答案">
+                                    	<if condition="$vo.phone_status eq 1 ">
+                                        <span class="btn-style-2 mtop5 mleft30" onClick="javascript:qiehuan(2,'question_')">通过手机重置</span>
+                                        <else />
+										</if>                                   
+									</div>
+                                    </form>
+
+                                    <form  id="question_2"  style="display:none">
+                                    <ul class="form-style-1-field ">
+                                        <li class="form-style-1-item">
+                                            <label class="form-style-1-label">短信验证码</label>
+                                            <span class="form-style-1-value"><input id="sms_vcode_que" name="sms_vcode_que" type="text" class="input-text-style-1 form-style-1-value"></span>
+                                            <span class="form-style-1-other" style="width:auto"><input id="sendSmsBtn_que" type="button" onClick="safe_phone()" value="获取短信验证码" class="btn-style-1 sms-channel"></span>
+                                        </li>
+                                        <li id="safeErr" class="form-style-1-item yuyin-channel" style="display:none;">
+                                           
+                                        </li>
+                                    </ul>
+
+                                    <div class="form-style-1-submit">
+                                        <input id="phoneSubmitBtn_que" type="button" onClick="subsafe()" class="btn-style-3 allbgcolor" value="点击验证">
+                                        <span class="btn-style-2 mtop5 mleft30" onClick="javascript:qiehuan(1,'question_')">通过原密保重置</span>
+                                    </div>
+                                    </form>
+                                </div>
+                                <div id="questionCon6" class="form-style-1 clearfix" style="display:none">
+                                    <div class="user-safety-options-succeed clearfix">
+                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                        <span class="user-safety-options-succeed-txt">恭喜您成功设置密码保护</span>
+                                    </div>
+                                </div>
+                                <div class="form-warm-prompt-1 clearfix">
+                                	<span class="form-warm-prompt-title">温馨提示：</span>
+                                    <p>1. &nbsp;&nbsp;请牢记您设置的密码保护问题，密码问题将用于找回密码等重要操作。</p>
+                                    <p>2. &nbsp;&nbsp;使用过程遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?></p>
+                                </div>
+                            </div>
+                        </li>
+                        <!--密码保护end-->
+                        <else /> 
+                        <li class="user-safety-options-item clearfix">                            
+                        	<div class="user-safety-options-show clearfix">
+                                <span class="user-safety-options-name"><i class="icon-tanhao"></i><strong>密码保护</strong><a id="quesAnchor" name="quesAnchor"> </a></span>
+                                <span class="user-safety-options-value user-safety-options-value-false">未设置</span>
+                                <span id="questionBtn1" class="user-safety-options-state" switchtext="取消设置">设置</span>
+                                 
+                            </div>
+                           <div id="quesWrapper" class="user-safety-options-edit" style="display:none; height:355px;"> <!-- 272px -->
+                            <div id="questionCon1" class="form-style-1 clearfix">
+                                    <form>
+                               		<ul class="form-style-1-field ">
+                                    	<li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请选择问题</label>
+                                            <span class="form-style-1-value" style="width:auto">
+                                                <span class="select-style-1">
+                                                    <select name="n1_question" id="n1_question" class="valid">
+                                                    <volist name="question" id="data">
+                                                    	<option value="{$data}">{$data}</option>
+                                                    	</volist>
+                                                   </select>
+                                                </span>
+                                            </span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请输入答案</label>
+                                            <input type="text" class="input-text-style-1 form-style-1-value" id="n1_answer" name="n1_answer">
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请选择问题</label>
+                                            <span class="form-style-1-value" style="width:auto">
+                                                <span class="select-style-1">
+                                                    <select name="n2_question" id="n2_question" class="valid">
+                                                    <volist name="question" id="data">
+                                                    	<option value="{$data}">{$data}</option>
+                                                    	</volist>
+                                                   </select>
+                                                </span>
+                                            </span>
+                                        </li>
+                                        <li class="form-style-1-item">
+                                        	<label class="form-style-1-label">请输入答案</label>
+                                            <input type="text" class="input-text-style-1 form-style-1-value" id="n2_answer" name="n2_answer">
+                                            <label class="form-style-1-error" id="new_sp" for="new_sp"></label>
+                                        </li>
+                                    </ul>
+                                    <div class="form-style-1-submit">
+                                    	<input type="button" class="btn-style-3 allbgcolor" value="设置" onClick="n2_set()">
+                                    </div>
+                                    </form>
+                                </div>
+                                <div id="questionCon6" class="form-style-1 clearfix" style="display:none">
+                                    <div class="user-safety-options-succeed clearfix">
+                                        <span class="user-safety-options-succeed-true">&nbsp;</span>
+                                        <span class="user-safety-options-succeed-txt">恭喜您成功设置密码保护</span>
+                                    </div>
+                                </div>
+                                <div class="form-warm-prompt-1 clearfix">
+                                	<span class="form-warm-prompt-title">温馨提示：</span>
+                                    <p>1. &nbsp;&nbsp;请牢记您设置的密码保护问题，密码问题将用于找回密码等重要操作。</p>
+                                    <p>2. &nbsp;&nbsp;使用过程遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?></p>
+                                </div>
+                                </div>
+                                </li>
+						</if>
+						<!-- 紧急联系人 start -->
+						<li class="user-safety-options-item clearfix">	
+						<div class="user-safety-options-show clearfix">
+							<span class="user-safety-options-name">
+							<php>if(empty($vo['em_name'])){</php>
+							<i class="icon-tanhao"></i>
+							<php>}else{</php>
+							<i class="icon-check"></i>
+							<php>}</php>
+							<strong>紧急联系人</strong>
+							<a id="urgentcontactAnchor" name="urgentcontactAnchor"></a>
+							</span>
+							<php>if(empty($vo['em_name'])){</php>
+							<span class="user-safety-options-value user-safety-options-value-false">未设置</span>
+							<span id="urgentBtn" style="color: #3181d8;cursor: pointer;float: left;text-align: right;width: 60px;">设置</span>
+							<php>}else{</php>
+							<span class="user-safety-options-value">{$vo.em_name|hidecard=###,10}<span style="display:inline-block;width:100px;"></span>{$vo.em_phone|hidecard=###,2}</span>
+							<span id="urgentBtn" style="color: #3181d8;cursor: pointer;float: left;text-align: right;width: 60px;" >修改</span>
+							<php>}</php>
+						</div>
+						<div id="urgentWrapper" class="user-safety-options-edit" style="height: 350px; display:none;">
+							<form novalidate="novalidate">
+							<ul class="form-style-1-field">
+								<li class="form-style-1-item">
+									<label class="form-style-1-label" for="">姓名</label>
+									<input class="input-text-style-1 form-style-1-value" type="text" style="width:160px;" id="em_name" name="em_name">
+									<span id="urgent_name" class="form-style-1-error name-error"></span>
+								</li>
+								<li class="form-style-1-item">
+									<label class="form-style-1-label" for="">手机</label>
+									<input class="input-text-style-1 form-style-1-value" type="text" style="width:160px;" id="em_phone" name="em_phone">
+									<span id="urgent_phone" class="form-style-1-error phone-error"></span>
+								</li>
+								<li class="form-style-1-item">
+									<label class="form-style-1-label" for="">关系</label>
+									<select class="input-text-style-1 form-style-1-value valid" id="relation" name="relation" style="padding:0px 0px 0px 10px;width:180px;">
+                                    <foreach name="relation" item="rel" key="key">
+                                    	<option value="{$key}">{$rel}</option>
+                                    </foreach>
+                                    </select>
+									<span class="form-style-1-error relation-error"></span>
+								</li>
+								<li class="form-style-1-item urgent-paypass">
+									<label class="form-style-1-label" for="">支付密码</label>
+									<input class="input-text-style-1 form-style-1-value" maxlength="20" type="password" style="width:160px;" id="pinpassword" name="pinpassword">
+<!--									<a id="urgent-findPayPwdBtn" class="subBtn-style1" style="line-height:30px;margin-right:10px;" href="###">找回支付密码</a>-->
+									<span id="urgent_pwd" class="form-style-1-error pay-error"></span>
+								</li>
+							</ul>
+							<div class="form-style-1-submit">
+								<input id="urgentSubmitBtn" class="btn-style-3 allbgcolor" type="button" value="确定">
+								<span id="urgent_err" class="form-style-1-error pay-error" style="padding-left:10px;margin-top:-15px;"></span>
+							</div>
+							<div class="form-warm-prompt-1 clearfix">
+								<span class="form-warm-prompt-title">温馨提示：</span>
+								<p>当出现紧急情况，如果我们无法与您联系，我们将与您设置的紧急联系人联系。</p>
+							</div>
+							</form>
+							<div id="urgentSucceed" class="form-style-1 clearfix" style="display:none">
+								<div class="user-safety-options-succeed clearfix">
+									<span class="user-safety-options-succeed-true" style="position:relative;top:17px;"> </span>
+									<span class="user-safety-options-succeed-txt">恭喜您成功设置紧急联系人</span>
+								</div>
+							</div>
+						</div>
+						</li>
+						<!-- 紧急联系人 end -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    	<!--安全设置end-->
+    </div>
+</div>
+<div id="Edit_portrait" style="display:none;">
+    <div class="ps1-close">×</div>
+    <div class="ps1-con ps2-con cf">
+    	<div class="ps1-title">
+        	<h2>上传头像</h2>
+        </div>
+        <div>
+        	<div class="uploading-portrait-con clearfix">
+            	<input type="text" class="input-text-style-1">
+                <input type="button" class="btn-style-3 allbgcolor" value="选取文件">
+            </div>
+            <p class="uploading-portrait-txt">
+            	您可以上传JPG、GIF或PNG文件<br>
+                上传图片最大4M
+            </p>
+        </div>
+        <div class="clearfix uploading-portrait-btn">
+        	<input type="button" class="btn-style-1" value="保存">
+            <input type="button" class="btn-style-2" value="取消">
+        </div>
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+
+<script id="promptTmpl" type="text/x-dot-template">
+    <div class="ps1-close">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2>
+        </div>
+        <div class="state-prompt-txt-{{?it[3]}}{{?it[3]==1}}duigou{{??}}tanhao{{?}}{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2>
+                {{=it[2]}}
+            </div>
+        </div>
+    </div>
+</script>
+<script>
+	//获取url参数值
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]); return null;
+	}
+	
+</script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/safe.js"></script>
+<script>
+$(function(){
+    var safeData={
+        st: '1423537271',
+        questionUrl:'',//密保ajax接口
+        payPwdUrl: '',//支付密码ajax接口
+        findPayPwdUrl: '',//找回支付密码ajax接口
+        findPayPwdPhoneUrl: '',//找回支付密码手机验证码ajax接口
+        pwdUrl: '',//登录密码ajax接口
+        emailUrl: '',//邮箱验证ajax接口
+        emailUpdateUrl: '',//邮箱更新ajax接口
+        phoneUrl: '',//手机认证ajax接口
+        phoneChange: '',//修改手机ajax提交接口
+        getSmsVcode : '',//获取手机验证码接口
+        uploadUrl: '',//上传ajax接口
+        realnameApi: '',//实名认证ajax接口
+		loading : '',
+		userName : window.User.real_name,
+        user: {realStatus:'{$vo.id_status}',phoneStatus:'{$vo.phone_status}',emailStatus:'{$vo.email_status}',paypassword:'{$vo.pin_pass}',question:'{$vo.safequestion_status}',qn_score:'0'}
+    };
+    itz.safe.init(safeData); 
+});
+</script>
+
+<SCRIPT language=javascript>
+	function qiehuan(num,Oid){
+		//var Oid_id = Oid+num;
+		for(var id = 1;id<=2;id++)
+		{
+			if(id==num)
+			{
+				document.getElementById(Oid+id).style.display="block";
+				
+			}
+			else
+			{
+				document.getElementById(Oid+id).style.display="none";
+				
+			}
+		}
+	}
+</SCRIPT>
+<script type="text/javascript">
+var mbTest = /^(13|14|15|17|18)[0-9]{9}$/;
+var reg_email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+var timer = null;
+var leftsecond = 60; //倒计时
+var msg = "";
+	
+	//紧急联系人
+	$("#em_name").blur( function () { 
+		name = $("#em_name").val();
+		if(name==''){
+			$("#urgent_name").html("<font style='color: red;'>姓名不能为空</font>");
+			return false;
+		}else if(!(/^[\u4e00-\u9fa5]+$/.test(name))){
+			$("#urgent_name").html("<font style='color: red;'>姓名必须为中文</font>");
+			return false;
+		}else{
+			$("#urgent_name").html('');
+		}
+	} );
+	$("#em_phone").blur( function () { 
+		phone = $("#em_phone").val();
+		if(!mbTest.test(phone)){
+			$("#urgent_phone").html("<font style='color: red;'>请输入正确的手机号</font>");
+			return false;
+		}else{
+			$("#urgent_phone").html('');
+		}
+	} );
+	$("#pinpassword").blur( function () { 
+		pin_pass = $("#pinpassword").val();
+		if(pin_pass==''){
+			$("#urgent_pwd").html("<font style='color: red;'>请输入支付密码~</font>");
+			return false;
+		}else{
+			$("#urgent_pwd").html('');
+		}
+	} );
+	//submit
+	$("#urgentSubmitBtn").click( function () { 
+		name = $("#em_name").val();
+		if(name==''){
+			$("#urgent_name").html("<font style='color: red;'>姓名不能为空</font>");
+			return false;
+		}else if(!(/^[\u4e00-\u9fa5]+$/.test(name))){
+			$("#urgent_name").html("<font style='color: red;'>姓名必须为中文</font>");
+			return false;
+		}else{
+			$("#urgent_name").html('');
+		}
+		phone = $("#em_phone").val();
+		if(!mbTest.test(phone)){
+			$("#urgent_phone").html("<font style='color: red;'>请输入正确的手机号</font>");
+			return false;
+		}else{
+			$("#urgent_phone").html('');
+		}
+		pin_pass = $("#pinpassword").val();
+		if(pin_pass==''){
+			$("#urgent_pwd").html("<font style='color: red;'>请输入支付密码</font>");
+			return false;
+		}else{
+			$("#urgent_pwd").html('');
+		}
+		$.post("__URL__/emery/", { em_name: name, em_phone: phone, em_relation: $("#relation").val(), pin_pass: pin_pass },
+				  function(data){
+					if(data.status==1){
+						$(".form-style-1-field").attr("style","display:none");	
+						$(".form-style-1-submit").attr("style","display:none");	
+						$("#urgentSucceed").attr("style","display: block;");	
+						setTimeout("my_locat()",1000);
+					}else{
+						$("#urgent_err").html("<font style='color: red;'>"+data.message+"</font>");
+						return false;
+					}
+				  },'json');
+		});
+	//修改登录密码
+	$("#oldpassword").blur( function () { 
+		$("#oldsp").html('');
+	} );
+	$("#pwdpas").blur( function () { 
+		$("#newsp1").html('');
+	} );
+	$("#newpassword1").blur( function () { 
+		$("#newsp2").html('');
+	} );
+	function subpwd(){
+		$(".form-style-1-error").text('');
+		var oldpwd = $("#oldpassword").val();
+		var newspwd1 = $("#pwdpas").val();
+		var newspwd2 = $("#newpassword1").val();
+
+		if (oldpwd == '') {
+			$("#oldsp").html('请输入原登录密码~');
+			return;
+		}else{
+			$("#oldsp").html('');
+		}
+		if (oldpwd.length <6||oldpwd.length>16) {
+			$("#oldsp").html('密码请控制在6-16位以内');
+			return;
+		}
+		if (newspwd1 == '') {
+			$("#newsp1").html('请输入新登录密码');
+			return;
+		}
+		if (newspwd1.length <6||newspwd1.length>16) {
+			$("#newsp1").html('密码请控制在6-16位以内');
+			return;
+		}
+		if (oldpwd == newspwd1) {
+			$("#newsp1").html('新密码不能和原密码一样');
+			return;
+		}
+		if (newspwd2 != newspwd1) {
+			$("#newsp2").html('请和上一次输入的密码保持一致');
+			return;
+		}
+		$.ajax({
+			url: "__URL__/changepass/",
+			type: "post",
+			dataType: "json",
+			data: {"oldpwd":oldpwd,"newpwd1":newspwd1},
+			success: function(d) {
+				if (d.status == "2") {
+					$("#oldsp").html('原密码错误，请重新输入~');
+					return;
+				} else if (d.status == "1") {
+					$("#pwdCon1").attr("style","display:none");	
+					$("#pwdCon2").removeAttr("style");
+					setTimeout("my_locat()",1000);
+				} else {
+					$("#newsp1").html('新密码不能和原密码一样');
+					return false;
+				}
+			}
+		})
+	}
+	//设置支付密码
+	function setsubpin(){
+		//pas1,repwd,setpin
+		var pas1 = $("#pas1").val();
+		var pas2 = $("#repwd").val();
+		if (pas1 == '' || pas2 == '') {
+			$("#setpin").html('请输入支付密码');
+			return;
+		}
+		var pat = new RegExp("^.{6,16}$", "i");
+		if (!pat.test(pas1) ||!pat.test(pas2)) {
+			//格式正确
+			$("#setpin").html('密码请控制在6-16位以内');
+			return;
+		}
+		if (pas1 != pas2) {
+			$("#setpin").html('请和上一次输入的密码保持一致');
+			return;
+		}
+		$.ajax({
+			url: "__URL__/changepin/",
+			type: "post",
+			dataType: "json",
+			data: {"newpwd1":pas2},
+			success: function(d) {
+				if (d.status == "1") {
+					$("#payPwdCon1").attr("style","display:none");	
+					$("#payPwdCon5").removeAttr("style");
+                    setTimeout("my_locat()",1000);
+				} else {
+					$("#setpin").html(d.message);
+					return;
+				}
+			}
+		})
+		
+	}
+	function my_locat(){
+		window.location.href="__URL__";
+	}
+	//修改支付密码oldpinpwd,pas,pas2
+	function subpinpwd(){
+		var oldpwd = $("#oldpinpwd").val();
+		var newspwd1 = $("#pas").val();
+		var newspwd2 = $("#pas2").val();
+		if (oldpwd == '') {
+			$("#oldpin").html('请输入原支付密码~');
+			return;
+		}
+		if (newspwd1 == '') {
+			$("#oldpin").html('请输入新支付密码~');
+			return;
+		}
+		if (newspwd2 != newspwd1) {
+			$("#oldpin").html('两次输入的新密码不一致');
+			return;
+		}
+        var pat = new RegExp("^.{6,20}$", "i");
+		if (!pat.test(newspwd1) || !pat.test(newspwd2) ) {
+			//格式正确
+			$("#oldpin").html('密码请控制在6-16位以内');
+			return;
+		}
+		$.ajax({
+			url: "__URL__/changepin/",
+			type: "post",
+			dataType: "json",
+			data: {"oldpwd":oldpwd,"newpwd1":newspwd1},
+			success: function(d) {
+				if (d.status == "1") {
+					$("#payPwdCon2").attr("style","display:none");
+					$("#payPwdCon4").removeAttr("style");
+                    setTimeout("my_locat()",1000);
+				} else {
+					$("#oldpin").html(d.message);
+					return;
+				}
+			}
+		})
+	}
+	//找回支付密码
+	function send_phone(){
+		$.ajax({
+			url: "__URL__/getpwdsendphone/",
+			type: "post",
+			dataType: "json",
+			data: {},
+			success: function(d) {
+				leftsecond = 60;
+				$("#stepError").removeAttr("style");	//显示
+				$("#stepError").attr("style","text-align:center;");	//居中
+				if (d.status == 1) {
+					msg = " √ 发送成功，如未收到";
+					clearInterval(timer);
+					timer = setInterval(setLeftTime, 1000, "1");
+					$("#sendSmsBtnn").removeAttr("onclick");	//发送时间内，不能再次发送
+				}else {
+					msg = " × 校验码发送失败,请重试";
+					$("#stepError").html(msg);
+				}
+			}
+		});
+	}
+	function setLeftTime() {
+    	var second = Math.floor(leftsecond);
+    	$("#stepError").eq(0).html("<font style='margin-left:-157px;color:red'>" + msg + second + "秒后可重发</font>");
+    	leftsecond--;
+    	if (leftsecond < 1) {
+    		$("#stepError").eq(0).html("<font style='margin-left:-157px;color:red'>现在可重新发送~</font>");
+    		clearInterval(timer);
+    		$("#sendSmsBtnn").attr("onclick","send_phone();");	//发送时间截止，添加发送事件
+    		/*try {
+    			$("#mobile").attr("disabled",false);	//恢复手机号输入
+    		} catch (E) { }*/
+    		return;
+    	}
+    }
+	//找回支付密码--修改支付密码
+	function subpinb(){
+		//sms_vcode,pas3,repas3,oldpin2
+		var Vcode = $("#sms_vcode").val();
+		var newpin1 = $("#pas3").val();
+		var newpin2 = $("#repas3").val();
+		
+		if (Vcode == '') {
+			$("#oldpin2").html('请输入手机验证码~');
+			return;
+		}
+		if (newpin1 == '') {
+			$("#oldpin2").html('请输入新支付密码~');
+			return;
+		}
+		if (newpin1 != newpin2) {
+			$("#oldpin2").html('两次输入的新密码不一致');
+			return;
+		}
+		$.ajax({
+			url: "__URL__/getchangepass/",
+			type: "post",
+			dataType: "json",
+			data: {"Vcode":Vcode,"newpin":newpin1},
+			success: function(d) {
+				if (d.status == "1") {
+					$("#payPwdCon3").attr("style","display:none");	
+					$("#payPwdCon4").removeAttr("style");
+				} else {
+					$("#oldpin2").html(d.message);
+					return;
+				}
+			}
+		});
+	}
+	
+	//验证原密保问题
+	function subanswer(){
+		//old_answer,old_question
+		var old_answer1 = $("#old_answer1").val();
+		var old_answer2 = $("#old_answer2").val();
+		if (old_answer1 == '') {
+			$("#old_sp2").html('需要输入答案');
+			return;
+		}
+		if (old_answer2 == '') {
+			$("#old_sp2").html('需要输入答案');
+			return;
+		}
+		$.ajax({
+			url: "__URL__/verifyquestion/",
+			type: "post",
+			dataType: "json",
+			data: {"old_answer1":old_answer1,"old_answer2":old_answer2},
+			success: function(d) {
+				if (d.status == "1") {
+					$("#questionCon3").attr("style","display:none");	
+					$("#questionCon1").removeAttr("style");
+				} else {
+					$("#old_sp2").html('问题答案不正确~');
+					return;
+				}
+			}
+		})
+	}
+	//设置新密保问题
+	function n2_set(){
+		var q1 = $("#n1_question").val();
+		var q2 = $("#n2_question").val();
+		var w1 = $("#n1_answer").val();
+		var w2 = $("#n2_answer").val();
+		if (q1 == q2) {
+			$("#new_sp").html('问题不能重复');
+			return;
+		}
+		if (w1 == '') {
+			$("#new_sp").html('第一个安全问题答案不能为空~');
+			return;
+		}
+		if (w2 == '') {
+			$("#new_sp").html('第二个安全问题答案不能为空~');
+			return;
+		}
+		$.ajax({
+			url: "__URL__/questionsave",
+			//url: "__URL__/setchangesafeact",
+			data: {"q1":q1,"q2":q2,"a1":w1,"a2":w2},
+			timeout: 5000,
+			cache: false,
+			type: "post",
+			dataType: "json",
+			success: function (d, s, r) {
+				if(d){
+					if (d.status == 1) {
+						$("#questionCon1").hide();
+						$("#questionCon6").show();
+						setTimeout("my_locat()", 1000);
+					} else {
+						$("#new_sp").html('密保问题设置失败，请重试~');
+						return;
+					}
+				}
+			}
+		});
+	}
+	//通过手机验证--修改密保问题
+	function safe_phone(){
+		$.ajax({
+			url: "__URL__/getpwdsendphone/",
+			type: "post",
+			dataType: "json",
+			data: {},
+			success: function(d) {
+				leftsecond = 60;
+				$("#safeErr").removeAttr("style");	//显示
+				$("#safeErr").attr("style","text-align:center;");	//居中
+				if (d.status == 1) {
+					msg = " √ 发送成功，如未收到";
+					clearInterval(timer);
+					timer = setInterval(setLeftTime1, 1000, "1");
+					$("#sendSmsBtn_que").removeAttr("onclick");	//发送时间内，不能再次发送
+				}else {
+					msg = " × 校验码发送失败,请重试";
+					$("#safeErr").html(msg);
+				}
+			}
+		});
+	}
+	function setLeftTime1() {
+    	var second = Math.floor(leftsecond);
+    	$("#safeErr").eq(0).html("<font style='margin-left:-157px;color:red'>" + msg + second + "秒后可重发</font>");
+    	leftsecond--;
+    	if (leftsecond < 1) {
+    		$("#safeErr").eq(0).html("<font style='margin-left:-157px;color:red'>现在可重新发送~</font>");
+    		clearInterval(timer);
+    		$("#sendSmsBtn_que").attr("onclick","safe_phone();");	//发送时间截止，添加发送事件
+    		/*try {
+    			$("#mobile").attr("disabled",false);	//恢复手机号输入
+    		} catch (E) { }*/
+    		return;
+    	}
+    }
+	//点击验证
+	function subsafe(){
+		var Vcode = $("#sms_vcode_que").val();
+		if (Vcode == '') {
+			$("#safeErr").html('请输入手机验证码');
+			return;
+		}
+		$.ajax({
+			url: "__URL__/safeverify/",
+			type: "post",
+			dataType: "json",
+			data: {"Vcode":Vcode},
+			success: function(d) {
+				if (d.status == "1") {
+					$("#questionCon3").attr("style","display:none");	
+					$("#questionCon1").removeAttr("style");
+				} else {
+					$("#safeErr").html(d.message);
+					return;
+				}
+			}
+		})
+	}
+	//邮箱验证--首次
+	function new_email(){
+		var email1 = $("#email1").val();
+		if (!reg_email.test(email1)){
+			$("#newemail").html('邮箱格式不正确');
+			return;
+		}else{
+			AsyncEmail(email1);
+		}
+	}
+	function AsyncEmail(email) {
+		$("#newemail").html('正在检测电子邮件地址……');
+		$.ajax({
+	            type: "post",
+	            async: false,
+				dataType: "json",
+	            url: "__URL__/ckemail/",
+	            data: {"Email":email},
+	            //timeout: 3000,
+	            success: function (d, s, r) {
+	              	if(d){
+						if(d.status==1){
+							send_email1(email);
+						}else{
+							$("#newemail").html('该邮箱已被注册~');
+							return;
+						}
+					}
+				}
+	        });
+		}
+	function send_email1(email){
+		$("#newemail").html('邮件发送中......');
+        $.ajax({
+            url: "__URL__/emailvsend/",
+			data: {"email":email},
+            timeout: 8000,
+			cache: false,
+			type: "post",
+			dataType: "json",
+            success: function (d, s, r) {
+					if(d.status==1){
+						$("#emailCon11").attr("style","display:none");	
+						$("#emailCon22").removeAttr("style");
+                        setTimeout("my_locat()",3000);
+					}else if(d.status==2){
+						$("#newemail").html(d.message);
+						return;
+					}else{
+						$("#newemail").html(d.message);
+						return;
+					}
+            }
+        });
+	}
+	//邮箱验证
+	function send_email(){
+		var oldemail = $("#oldemail").val();
+		var email = $("#email").val();
+		
+		if (oldemail == ''){
+			//$("#emailsp").html('请输入邮箱~');
+			return;
+		}
+		if (!reg_email.test(email)){
+			//$("#emailsp").html('邮箱格式不正确喔，亲~');
+			return;
+		}
+		if (oldemail == email){
+			//$("#emailsp").html('新邮箱和原邮箱不能一样喔~');
+			return;
+		}
+		$.ajax({
+			url: "__URL__/sendemail/",
+			type: "post",
+			dataType: "json",
+			data: {"oldemail":oldemail,"email":email},
+			success: function(d) {
+				if (d.status == "1") {
+					$("#emailCon21").attr("style","display:none");	
+					$("#emailCon22").removeAttr("style");
+					setTimeout("my_locat()",3000);
+				} else {
+					$("#emailsp").html(d.message);
+					return;
+				}
+			}
+		});
+	}
+	//前往查看
+	function golook(){
+		var email = $("#email1").val();
+		var wangy = /^([a-zA-Z0-9_-])+@(126)+(.[a-zA-Z0-9_-])+/;
+		var wangy1 = /^([a-zA-Z0-9_-])+@(163)+(.[a-zA-Z0-9_-])+/;
+		var qq = /^([a-zA-Z0-9_-])+@(qq)+(.[a-zA-Z0-9_-])+/;
+		if (wangy.test(email)){
+			window.open("http://mail.126.com/");
+			return;
+		}else if (wangy1.test(email)){
+			window.open("http://mail.163.com/");
+			return;
+		}else if (qq.test(email)){
+			window.open("http://mail.qq.com/");
+			return;
+		}else{
+			window.open("http://mail.sina.com.cn/");
+			return;
+		}
+	}
+	
+	
+	function safe_phone(){
+		$.ajax({
+			url: "__URL__/getpwdsendphone/",
+			type: "post",
+			dataType: "json",
+			data: {},
+			success: function(d) {
+				leftsecond = 60;
+				$("#safeErr").removeAttr("style");	//显示
+				$("#safeErr").attr("style","text-align:center;");	//居中
+				if (d.status == 1) {
+					msg = " √ 发送成功，如未收到";
+					clearInterval(timer);
+					timer = setInterval(setLeftTime1, 1000, "1");
+					$("#sendSmsBtn_que").removeAttr("onclick");	//发送时间内，不能再次发送
+				}else {
+					msg = " × 校验码发送失败,请重试";
+					$("#safeErr").html(msg);
+				}
+			}
+		});
+	}
+	function setLeftTime1() {
+    	var second = Math.floor(leftsecond);
+    	$("#safeErr").eq(0).html("<font style='margin-left:-157px;color:red'>" + msg + second + "秒后可重发</font>");
+    	leftsecond--;
+    	if (leftsecond < 1) {
+    		$("#safeErr").eq(0).html("<font style='margin-left:-157px;color:red'>现在可重新发送~</font>");
+    		clearInterval(timer);
+    		$("#sendSmsBtn_que").attr("onclick","safe_phone();");	//发送时间截止，添加发送事件
+    		/*try {
+    			$("#mobile").attr("disabled",false);	//恢复手机号输入
+    		} catch (E) { }*/
+    		return;
+    	}
+    }
+	/**
+	* 手机认证--获取验证码--首次
+	*/
+	function subnewphone(){
+			var phone = $("#phoneNum2").val();
+			if(phone == ''){
+	    		$('#phoneerr').html("请输入手机号~");
+				return;
+	    	}
+			if (mbTest.test(phone)) {
+	    		$('#phoneerr').html("短信发送中...");
+	    		$.ajax({
+	    			url: "__URL__/sendphone/",
+	    			type: "post",
+	    			dataType: "json",
+	    			data: {"cellphone":phone},
+	    			success: function(d) {
+	    				leftsecond = 60;
+	    				if (d.status == 1) {
+	    					msg = " √ 发送成功，如未收到";
+	    					clearInterval(timer);
+	    					timer = setInterval(setLeftTime4, 1000, "1");
+	    					$("#phoneNum2").attr("disabled",true);	//false	手机号禁止输入
+	    					$("#sendSmsBtnt2").removeAttr("onclick");	//发送时间内，不能再次发送
+	    				}else if(d.status == 2){
+	    					$("#phoneerr").html(' × 手机号已被注册！');
+	    					return;
+	    				}else if(d.status == 3){
+	    					$("#phoneerr").html(d.message);
+	    					return;
+	    				}else {
+	    					msg = " × 校验码发送失败,请重试";
+	    					$("#phoneerr").html(msg);
+	    					$("#phoneNum2").attr("disabled",false);
+	    				}
+	    			}
+	    		});
+	    	}else {
+	    		$('#phoneerr').html("<font color='red'> × 手机号码有误！</font>");
+	    		return;
+	    	}	
+		}
+		function setLeftTime4() {
+	    	var second = Math.floor(leftsecond);
+	    	$("#phoneerr").eq(0).html(msg + second + "秒后可重发");
+	    	leftsecond--;
+	    	if (leftsecond < 1) {
+	    		$("#phoneerr").eq(0).html("现在可重新发送！");
+	    		clearInterval(timer);
+	    		$("#sendSmsBtnt2").attr("onclick","subnewphone();");	//发送时间截止，添加发送事件
+	    		try {
+	    			$("#phoneNum2").attr("disabled",false);	//恢复手机号输入
+	    		} catch (E) { }
+	    		return;
+	    	}
+	    }
+	/**
+	* 手机认证--认证手机--首次
+	*/
+	function subsetphone(){
+		//phoneNum2,sms_vcode2,
+		var phone = $("#phoneNum2").val();
+		var code = $("#sms_vcode2").val();
+		if(phone == ''){
+    		$('#phoneerr').html("请输入手机号~");
+			return;
+    	}
+		if (!mbTest.test(phone)) {
+			$('#phoneerr').html("手机号格式不正确~");
+			return;
+		}
+		$.ajax({
+			url: "__URL__/validatephone",
+			type: "post",
+			dataType: "json",
+			data: {"code":code,"cellphone":phone},
+			success: function(d) {
+				if (d.status==1) {
+					$("#phoneCon1").attr("style","display:none");	
+					$("#phoneCon_succe").removeAttr("style"); 
+					setTimeout("my_locat()",1000);
+				}else {
+					$('#phoneerr').html(d.message);
+					return;
+				}
+			}
+		});
+	}
+	//后台手动验证
+	function submobile(){
+		var mobile = $("#phoneNum3").val();
+		if (mobile == "") {
+			$('#phone3').html("请输入手机号码");
+			return;
+		}
+		if (mbTest.test(mobile)) {
+			$('#phone3').html("手机验证审核提交中...");
+			$.ajax({
+				url: "__URL__/sendphone/",
+				type: "post",
+				dataType: "json",
+				data: {"cellphone":mobile},
+				success: function(d) {
+					if (d.status == 1) {
+						msg = "发送成功,等待管理员审核";
+						$("#phoneCon1").attr("style","display:none");
+						$('#switch').html(msg);
+						$("#phoneCon_succe").removeAttr("style");
+						setTimeout("my_locat()",1000);
+					}
+					else if (d.status == 2) {
+						$('#phone3').html("该手机号码已被其他用户使用");
+					}
+					else {
+						$('#phone3').html(d.message);
+					}
+				}
+			});
+		}
+		else {
+			$("#phone3").html("手机号码有误");
+		}
+	}
+	//手机认证--获取验证码
+	function getvcode(){
+		var phone = $("#phoneNum").val();
+		if(phone == ''){
+    		$('#mobile_message').html("<font color='red'>请输入手机号~</font>");
+			$("#mobile_message").removeAttr("style");
+			$("#mobile_message").attr("style","text-align:center;");	//居中
+			return;
+    	}
+		if (mbTest.test(phone)) {
+    		$("#mobile_message").removeAttr("style");
+    		$('#mobile_message').html("短信发送中...");
+    		$("#mobile_message").attr("style","text-align:center;");	//居中
+    		$.ajax({
+    			url: "__URL__/getmobliecode/",
+    			type: "post",
+    			dataType: "json",
+    			data: {"cellphone":phone},
+    			success: function(d) {
+    				leftsecond = 60;
+    				if (d.status == 1) {
+    					msg = " √ 发送成功，如未收到";
+    					clearInterval(timer);
+    					timer = setInterval(setLeftTime3, 1000, "1");
+    					$("#phoneNum").attr("disabled",true);	//false	手机号禁止输入
+    					$("#sendSmsBtnt").removeAttr("onclick");	//发送时间内，不能再次发送
+    				}else if(d.status == 2){
+    					$("#mobile_message").html(' × 手机号不一致！');
+    					return;
+    				}else {
+    					msg = " × 校验码发送失败,请重试";
+    					$("#mobile_message").html(msg);
+    					$("#phoneNum").attr("disabled",false);
+    				}
+    			}
+    		});
+    	}else {
+    		$('#mobile_message').html("<font color='red'> × 手机号码有误！</font>");
+    		$("#mobile_message").removeAttr("style");
+    		$("#mobile_message").attr("style","text-align:center;");	//居中
+    		return;
+    	}	
+	}
+	function setLeftTime3() {
+    	var second = Math.floor(leftsecond);
+    	$("#mobile_message").eq(0).html(msg + second + "秒后可重发");
+    	leftsecond--;
+    	if (leftsecond < 1) {
+    		$("#mobile_message").eq(0).html("现在可重新发送！");
+    		clearInterval(timer);
+    		$("#sendSmsBtnt").attr("onclick","getvcode();");	//发送时间截止，添加发送事件
+    		try {
+    			$("#phoneNum").attr("disabled",false);	//恢复手机号输入
+    		} catch (E) { }
+    		return;
+    	}
+    }
+	//手机认证--下一步
+	function subnext(){
+		var phone = $("#phoneNum").val();
+		var code = $("#sms_vcode1").val();
+		if(phone=='' || code==''){
+    		$('#phonesp').html(' × 验证内容不能为空！');
+			return;
+    	}
+    	if (!mbTest.test(phone)) {
+    		$('#phonesp').html(' × 手机号码有误！');
+    		return;
+    	}
+    	$.ajax({
+            type: "post",
+    		dataType: "json",
+            url: "__URL__/cksubnext/",
+            data: {"Mobile": phone, "Vcode": code},
+            success: function (d, s, r) {
+              	if(d){
+    				if(d.status==1){
+    					$("#phoneCon1").attr("style","display:none");	
+    					$("#phoneCon3").removeAttr("style");
+    					$("#sp2").attr("class","options-step-current");	//认证进度
+    				}else if(d.status == 2){
+    					$("#phonesp").html(d.message);
+    					return;
+    				}else{
+    					$('#phonesp').html(d.message);
+    					return;
+    				}
+    			}
+    		}
+        });
+	}
+	//切换
+	function change1(){
+
+		$("#phoneCon1").attr("style","display:none");	
+		$("#phoneCon2").removeAttr("style");
+	}
+	function change2(){
+		$("#phoneCon2").attr("style","display:none");	
+		$("#phoneCon1").removeAttr("style");
+	}
+	//
+	//手机认证--获取验证码
+	function getvcode1(){
+		var phone = $("#phoneNuma").val();
+		if(phone == ''){
+    		$('#mobile_messagea').html("<font color='red'>请输入手机号~</font>");
+			$("#mobile_messagea").removeAttr("style");
+			$("#mobile_messagea").attr("style","text-align:center;");	//居中
+			return;
+    	}
+		if (mbTest.test(phone)) {
+    		$("#mobile_messagea").removeAttr("style");
+    		$('#mobile_messagea').html("短信发送中...");
+    		$("#mobile_messagea").attr("style","text-align:center;");	//居中
+    		$.ajax({
+    			url: "__URL__/getmobliecode1/",
+    			type: "post",
+    			dataType: "json",
+    			data: {"cellphone":phone},
+    			success: function(d) {
+    				leftsecond = 60;
+    				if (d.status == 1) {
+    					msg = " √ 发送成功，如未收到";
+    					clearInterval(timer);
+    					timer = setInterval(setLeftTime2, 1000, "1");
+    					$("#phoneNuma").attr("disabled",true);	
+    					$("#sendSmsBtnta").removeAttr("onclick");	
+    				}else if(d.status == 2){
+    					$("#mobile_messagea").html(d.message);
+    					return;
+    				}else {
+    					msg = " × 校验码发送失败,请重试";
+    					$("#mobile_messagea").html(msg);
+    					$("#phoneNuma").attr("disabled",false);
+    				}
+    			}
+    		});
+    	}else {
+    		$('#mobile_messagea').html("<font color='red'> × 手机号码有误！</font>");
+    		$("#mobile_messagea").removeAttr("style");
+    		$("#mobile_messagea").attr("style","text-align:center;");	//居中
+    		return;
+    	}	
+	}
+	function setLeftTime2() {
+    	var second = Math.floor(leftsecond);
+    	$("#mobile_messagea").eq(0).html(msg + second + "秒后可重发");
+    	leftsecond--;
+    	if (leftsecond < 1) {
+    		$("#mobile_messagea").eq(0).html("现在可重新发送！");
+    		clearInterval(timer);
+    		$("#sendSmsBtnta").attr("onclick","getvcode1();");	//发送时间截止，添加发送事件
+    		try {
+    			$("#phoneNuma").attr("disabled",false);	//恢复手机号输入
+    		} catch (E) { }
+    		return;
+    	}
+    }
+	//手机认证--修改提交
+	function subsub(){
+		var phone = $("#phoneNuma").val();
+		var code = $("#sms_vcodea").val();
+		if(phone=='' || code==''){
+    		$('#phonespa').html(' × 验证内容不能为空！');
+			return;
+    	}
+    	if (!mbTest.test(phone)) {
+    		$('#phonespa').html(' × 手机号码有误！');
+    		return;
+    	}
+    	$.ajax({
+            type: "post",
+    		dataType: "json",
+            url: "__URL__/subphone/",
+            data: {"Mobile": phone, "Vcode": code},
+            success: function (d, s, r) {
+              	if(d){
+    				if(d.status==1){
+    					$("#phoneCon3").attr("style","display:none");	
+    					$("#phoneCon_succe").removeAttr("style");
+    					$("#sp3").attr("class","options-step-current");	//认证进度
+    					setTimeout("my_locat()",1000);
+    				}else if(d.status == 2){
+    					$("#phonespa").html(d.message);
+    					return;
+    				}else{
+    					$('#phonespa').html(d.message);
+    					return;
+    				}
+    			}
+    		}
+        });
+	}
+	//手机认证--通过密保问题
+	function subans(){
+		var answer = $("#que_answer").val();
+		if (answer == ''){
+			$('#answersp').html('请输入答案~');
+			return;
+		}
+		$.ajax({
+            type: "post",
+    		dataType: "json",
+            url: "__URL__/subans/",
+            data: {"Answer": answer},
+            success: function (d, s, r) {
+              	if(d){
+    				if(d.status==1){
+    					$("#phoneCon1").attr("style","display:none");	
+    					$("#js_hid").attr("style","display:none");	
+    					$("#phoneCon3").removeAttr("style");
+    					$("#sp2").attr("class","options-step-current");	//认证进度
+    				}else{
+    					$('#answersp').html('答案不对');
+    					return;
+    				}
+    			}
+    		}
+        });
+	}
+var flag=true;
+	function xg(){
+        if (flag){
+            var str = $("#urgentBtn").text();
+			$("#urgentBtn").text("取消"+str);
+//			$("#urgentBtn").attr("onclick","xg();");
+			$("#urgentWrapper").slideDown();
+//            var indexLi = $(this).parents('li').index();
+//            alert(indexLi);
+            $('.user-safety-options-item').each( function() {
+                if($(this).index() != 7 ) {
+                	tex = $(this).find('.safe-off').text();
+                	if(tex=='取消修改'||tex=='取消验证'||tex=='取消认证'||tex=='取消设置'){
+                		tes = tex.split("取消");
+                		$(this).find('.safe-off').attr("switchtext", tex).text(tes[1]);
+                	}
+                    $(this).find('.user-safety-options-show').next().slideUp().end().find('.user-safety-options-state').removeClass("safe-off");
+                }
+            })
+            // 修改实名认证
+            var str = $("#realbtn").text().split("取消");
+            $("#realbtn").text(str[1]);
+//            $("#realbtn").attr("onclick","zk();");
+         flag=false;
+		}else{
+            var str = $("#urgentBtn").text().split("取消");
+			$("#urgentBtn").text(str[1]);
+//			$("#urgentBtn").attr("onclick","xg();");
+			$("#urgentWrapper").slideUp();
+            flag=true;
+		}
+	}
+var dd=true;
+	function zk(){
+        if (dd){
+            var str = $("#realbtn").text();
+			$("#realbtn").text("取消"+str);
+//			$("#realbtn").attr("onclick","zk();");
+//            $('#realWrapper').slideDown();
+            $('#realWrapper').css({'display':'block'})
+            $('#realUploadCon').css({'display':'block','height':'0'}).animate({'height':'800px'});
+            $('.hiddenfix').css({'display':'block','height':'0'}).animate({'height':'305px'});
+            $('.hiddenfix2').css({'display':'block','height':'0'}).animate({'height':'355px'});
+            $('.user-safety-options-item').each(function(){
+                if($(this).index() != 2 ){
+                    tex = $(this).find('.safe-off').text();
+                	if(tex=='取消修改'||tex=='取消验证'||tex=='取消认证'||tex=='取消设置'){
+                		tes = tex.split("取消");
+                		$(this).find('.safe-off').attr("switchtext", tex).text(tes[1]);
+                	}
+                    $(this).find('.user-safety-options-show').next().slideUp().end().find('.user-safety-options-state').removeClass("safe-off");
+                }
+            })
+            //更改紧急联系人
+            var str = $("#urgentBtn").text().split("取消");
+            $("#urgentBtn").text(str[1]);
+//            $("#urgentBtn").attr("onclick","xg();");
+            $("#urgentWrapper").slideUp();
+          dd=false;
+		}else{
+            var str = $("#realbtn").text().split("取消");
+			$("#realbtn").text(str[1]);
+//			$("#realbtn").attr("onclick","zk();");
+			$("#realWrapper").slideUp();
+//            $('#realUploadCon').slideUp();
+			/*$('#realWrapper').slideUp().find("form").each( function() {
+                $(this).reset();
+            });*/
+            dd=true;
+		}
+	}
+
+//    $( function() {
+//        $('.user-safety-options-state').click( function() {
+            $('#realWrapper').slideUp();
+            // 实名认证
+            var real = $("#realbtn").text().split("取消");
+			$("#realbtn").text(real[1]);
+            $("#realbtn").click(function(){
+                zk();
+            });
+            // 紧急联系人
+            var str = $("#urgentBtn").text().split("取消");
+            $("#urgentBtn").text(str[1]);
+            $("#urgentBtn").click(function(){
+                xg()
+            });
+            $("#urgentWrapper").slideUp();
+//        })
+//    })
+
+	//上传认证
+	$("#realSubmitBtn2").click(function() {
+		var realname = $("#realname2").val();
+		var card_id = $("#card_id2").val();
+		//document.getElementById("cardUpload1").value
+		var cardUpload1 = $("#img1").attr("class");
+		var cardUpload2 = $("#img2").attr("class");
+		if (realname == ''){
+            var msg = '姓名不能为空~';
+            $('#realname2').parent().parent().find('.form-style-1-error').html(msg);
+			return false;
+		}else {
+            var msg = '';
+            $('#realname2').parent().parent().find('.form-style-1-error').html(msg);
+        }
+        if(!(/^[\u4e00-\u9fa5]+$/.test(realname))){
+            var msg = '请输入真实姓名~';
+            $('#realname2').parent().parent().find('.form-style-1-error').html(msg);
+            return false;
+        }
+		if (card_id == ''){
+            var msg = '请输入身份证号码~';
+            $('#card_id2').parent().parent().find('.form-style-1-error').html(msg);
+			return false;
+		}
+        var regId = /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/;
+        if( !regId.test(card_id) ) {
+            var msg = '请输入正确的身份证号码~';
+            $('#card_id2').parent().parent().find('.form-style-1-error').html(msg);
+            return false;
+        } else {
+            var msg = '';
+            $('#card_id2').parent().parent().find('.form-style-1-error').html(msg);
+        }
+        if(cardUpload1=='' || cardUpload1==undefined){
+        	var msg = '正面证件不能为空~';
+        	$("#cardError1").html(msg);
+        	return false;
+        }else{
+        	$("#cardError1").html('');
+        }
+        if(cardUpload2=='' || cardUpload2==undefined){
+        	var msg = '背面证件不能为空~';
+        	$("#cardError2").html(msg);
+        	return false;
+        }else{
+        	$("#cardError2").html('');
+        }
+		$.post("__URL__/up_saveid/",{ realname: realname, idcard: card_id, card_type: $("#card_type").val() },
+				function(data) {
+					if (data.status==1) {
+						$("#realApiCon").attr("style","height:355px; display:none;");	//隐藏
+						$("#realUploadCon").attr("style","display:none");	//隐藏
+						$("#realWrapper").attr("style","display:none");	//隐藏
+						$("#successCon12").attr("style","height:305px;display:block;");
+						
+						$("#realWrapper").attr("style","display:block");
+						$("#realsuccess").attr("style","display:block");
+						setTimeout("my_locat()",1000);
+					}else{
+						$("#idcardError").html(data.message);
+						return false;
+					}
+				},'json');
+	});
+
+    $('#realname2,#card_id2').blur(function() {
+        $('#realSubmitBtn2').trigger('click');
+    })
+	
+	//接口认证
+	$("#realSubmitBtn1").click(function() {
+		var realname = $("#realname").val();
+		var card_id = $("#card_id").val();
+		if (realname == ''){
+			$("#fs_err").html('请输入真实姓名~'); 
+			return false;
+		}
+        if(!(/^[\u4e00-\u9fa5]+$/.test(realname))){
+            $("#fs_err").html('请输入真实姓名~');
+            return false;
+        }
+		if (card_id == ''){
+			$("#fs_err").html('请输入身份证号码~'); 
+			return false;
+		}
+        var regId = /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/;
+        if( !regId.test(card_id) ) {
+            $("#fs_err").html('请输入正确的身份证号码~');
+            return false;
+        }
+		$.post("__URL__/saveid",{ real_name: realname, idcard: card_id },
+				function(data) {
+					if (data.status==1) {
+						$("#realApiCon").attr("style","display:none");
+						
+						$("#successCon123").attr("style","height:305px;");
+						$("#realWrapper").attr("style","display:block;");
+						setTimeout("my_locat()",1000);
+					}else{
+						$("#fs_err").html(data.message);
+						return false;
+					}
+				},'json');
+	});
+
+</script>
+
+<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-draggable clearPop pop-style-1" tabindex="-1" role="dialog" aria-describedby="Drawings_prompt" aria-labelledby="ui-id-1" style="height: auto; width: 460px; top: -855px; left: 562px; display: none;">
+	<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+		<span id="ui-id-1" class="ui-dialog-title">&nbsp;</span>
+		<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close">
+			<span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>
+			<span class="ui-button-text">close</span>
+		</button>
+	</div>
+	<div id="Drawings_prompt" style="width: auto; min-height: 150px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+ 		<div class="ps1-close">×</div> 
+ 		<div class="ps1-con ps2-con cf"> 
+ 			<div class="ps1-title"> <h2>实名认证提示</h2> </div> 
+ 			<div class="state-prompt-txt-tanhao clearfix"> 
+ 				<div class="state-prompt-style"> <h2>修改实名认证需要联系客服</h2> 您可以联系 <a href="" target="_blank">【在线客服】</a><br>或拨打：<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?>，联系客服修改 </div>
+ 			</div> 
+ 		</div>
+ 	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+/* 背景色  */
+.allbgcolor{background: #e25353;}
+.allbgcolor:hover{background: #e25353;}
+/* a.hover */
+/* foot start */
+.foot{width:100%;padding-bottom: 20px;background:#5a5a5a;margin-top:35px;}
+.foot .foot_main{width:1000px;height:215px;margin:0 auto;color:#FFF;}
+.foot .foot_main .foot_style_float{float:left;}
+.foot .foot_main .footStyleMG{margin:35px 60px 0 20px;}
+.foot .foot_main .footStyleWH{width:74px;height:145px;border:0px solid blue;}
+.foot .foot_main .footStyleMG li{margin-top:10px;font-size: 14px;}
+.foot .foot_main .footStyleMG .foot_con_cen{text-align:center;}
+.foot .foot_main .footStyleMG .relation{width:134px;height:34px;}
+.foot .foot_main .footStyleMG .relation .relation_img{width:34px;height:34px;background:url('../../N/images/icon.png');}/* 相对路径 */
+.foot .foot_main .footStyleMG .relation .call{background-position:-7px -2px;}
+.foot .foot_main .footStyleMG .relation .qq{background-position:-6px -41px;}
+.foot .foot_main .footStyleMG .relation .relationText{width:96px;height:34px;margin:-3px 2px;font-size: 14px;}
+.foot .foot_main .footStyleWH .foot_con_cen a{text-decoration:none;color:#FFF;font-size: 14px;}
+.foot .foot_main .footStyleWH .foot_con_cen a:hover{color:#e25353;}
+.foot .foot_main .footStyleWH .foot_con_cen a {color: #fff;font-size: 14px;text-decoration: none;}
+.foot .foot_main .aboutUs{ margin-left:0px;}
+/* end foot */
+
+/****** toast背景颜色 勿删  *******/
+.toast-danger {
+    color:#fff;
+    text-shadow:0 -1px 0 rgba(0,0,0,0.25);
+    background-color:#da4f49;
+    *background-color:#bd362f;
+    background-image:-moz-linear-gradient(top,#ee5f5b,#bd362f);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#ee5f5b),to(#bd362f));
+    background-image:-webkit-linear-gradient(top,#ee5f5b,#bd362f);
+    background-image:-o-linear-gradient(top,#ee5f5b,#bd362f);
+    background-image:linear-gradient(to bottom,#ee5f5b,#bd362f);
+    background-repeat:repeat-x;
+    border-color:#bd362f #bd362f #802420;
+    border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b',endColorstr='#ffbd362f',GradientType=0);
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)
+}
+/*wrap导航*/
+.d_wrap{width: 100%; height: 80px; border-bottom: 1px solid #d5d5d5;}
+.d_wrapM{width: 1000px; height: 80px; line-height: 80px;   margin: auto; }
+.d_wrapM a.d-logo{ float: left; display: block; position: relative; top: 19px;}
+.d_wrapM ul{float: right;}
+/*wrap结束*/
+.toast-success {
+    color:#fff;
+    text-shadow:0 -1px 0 rgba(0,0,0,0.25);
+    background-color:#5bb75b;
+    *background-color:#51a351;
+    background-image:-moz-linear-gradient(top,#62c462,#51a351);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#62c462),to(#51a351));
+    background-image:-webkit-linear-gradient(top,#62c462,#51a351);
+    background-image:-o-linear-gradient(top,#62c462,#51a351);
+    background-image:linear-gradient(to bottom,#62c462,#51a351);
+    background-repeat:repeat-x;
+    border-color:#51a351 #51a351 #387038;
+    border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462',endColorstr='#ff51a351',GradientType=0);
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)
+}
+.toast-warning {
+    color:#fff;
+    text-shadow:0 -1px 0 rgba(0,0,0,0.25);
+    background-color:#faa732;
+    *background-color:#f89406;
+    background-image:-moz-linear-gradient(top,#fbb450,#f89406);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#fbb450),to(#f89406));
+    background-image:-webkit-linear-gradient(top,#fbb450,#f89406);
+    background-image:-o-linear-gradient(top,#fbb450,#f89406);
+    background-image:linear-gradient(to bottom,#fbb450,#f89406);
+    background-repeat:repeat-x;
+    border-color:#f89406 #f89406 #ad6704;
+    border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450',endColorstr='#fff89406',GradientType=0);
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)
+}
+.toast-primary {
+    color:#fff;
+    text-shadow:0 -1px 0 rgba(0,0,0,0.25);
+    background-color:#006dcc;
+    *background-color:#04c;
+    background-image:-moz-linear-gradient(top,#08c,#04c);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#08c),to(#04c));
+    background-image:-webkit-linear-gradient(top,#08c,#04c);
+    background-image:-o-linear-gradient(top,#08c,#04c);
+    background-image:linear-gradient(to bottom,#08c,#04c);
+    background-repeat:repeat-x;
+    border-color:#04c #04c #002a80;
+    border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0044cc',GradientType=0);
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)
+}
+.toast-normal {
+    color:#fff;
+    text-shadow:0 -1px 0 rgba(0,0,0,0.25);
+    background-color:#363636;
+    *background-color:#222;
+    background-image:-moz-linear-gradient(top,#444,#222);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#444),to(#222));
+    background-image:-webkit-linear-gradient(top,#444,#222);
+    background-image:-o-linear-gradient(top,#444,#222);
+    background-image:linear-gradient(to bottom,#444,#222);
+    background-repeat:repeat-x;
+    border-color:#222 #222 #000;
+    border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff444444',endColorstr='#ff222222',GradientType=0);
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)
+}
+/*头部样式*/

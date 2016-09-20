@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="format-detection" content="email=no" />
+    <title>{$art.title}</title>
+    <link type="text/css" href="__APP__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="__APP__/Style/NewWeChat/css/article.css" rel="stylesheet" />
+</head>
+<body>
+
+
+<div class="top_nav_h">
+    <div class="top_nav">
+        <div class="com_bgcolor">
+            <h1><a href="__APP__/m/set" class="comm_back"></a>新闻</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="notice_cont clearfix">
+    <div class="notice_cont_01 clearfix">
+        <php>foreach($noticeList['list'] as $kx => $vn){</php>
+        <li><a style="font-size: 15px;" href="{:getMinvestUrl($vn['id'],5)}" title="{$vn.title}" >{$vn.title|cnsubstr=###,18}</a></li>
+        <php>};$noticeList=NULL;</php>
+    </div>
+    <!--<a class="notice_cont_02 font_16 clearfix" href="">点击加载更多</a>-->
+</div>
+
+
+</body>
+</html>

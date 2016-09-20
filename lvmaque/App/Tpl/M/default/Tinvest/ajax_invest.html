@@ -1,0 +1,214 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>散标详情页</title>
+    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/invest.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+
+</head>
+
+<body>
+<!-- 散标、定投宝、理财通用 -->
+<header>
+    <h1>立即投标</h1>
+	<a href="{:getMinvestUrl($id,3)}" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+</header>
+<div class="page-loan">
+    <div class="loan-info">
+        <div class="am-g">
+            <div class="am-u-sm-6">
+                <div class="field">账户余额</div>
+                <div class="data"><span class="num num-md">{$listmoney}</span>元</div>
+            </div>
+            <div class="am-u-sm-6">
+                <div class="field">可投金额</div>
+                <div class="data"><span class="num num-md">{$hasmoney}</span>元</div>
+            </div>
+        </div>
+        <div class="am-g">
+            <div class="am-u-sm-6">
+                <div class="field">起投金额</div>
+                <div class="data"><span class="num num-md">{$list.borrow_min}</span>元</div>
+            </div>
+            <div class="am-u-sm-6">
+                <div class="field">限投金额</div>
+                <div class="data"><span class="num num-md">{$binfo.borrow_max|default="无限制"}</span>元</div>
+            </div>
+        </div>
+    </div>
+    <div class="am-container">
+        <div class="mod-pay">
+            <div class="hd">
+                <div class="total">可减：<span class="num c-red" id="num_red"></span>元</div>
+                <div class="tit">优惠券：</div>
+            </div>
+            <form class="am-form  am-form-horizontal">
+
+                <input type="hidden" name="T_borrow_id" id="T_borrow_id" value="{$vo.id}" />
+                <input type="hidden" name="T_time_unit" id="T_time_unit" value="{$vo.time_unit}" />
+                <input type="hidden" name="per_transfer" id="per_transfer" value="{$vo.per_transfer}" />
+
+                <div class="coupons-list">
+
+                    <volist name="expand_expired_list" id="vo" key="k">
+                        <div class="am-checkbox" id="ams">
+                            <label>
+                                <p><input type="radio" id="coup_yhq" name="coupon" value="{$vo.id}" onclick="tests();"><label>{$vo.coupon_type}{$vo.money}元</label><label>满{$vo.invest_money}元抵{$vo.money}元</label><label>{$vo.expired_time|date='Y-m-d',###}到期</label></p>
+                            </label>
+                        </div>
+                    </volist>
+					<a href="javascript:void(0);" onclick="quxiao();">取消使用</a>
+                </div>
+                <div class="am-form-group">
+                    <label for="" class="am-u-sm-3 am-form-label am-text-left">投资金额：</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" id="transfer_invest_num">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="" class="am-u-sm-3 am-form-label am-text-left">支付密码：</label>
+                    <div class="am-u-sm-9">
+                        <input type="password" id="pin_pass">
+                    </div>
+                </div>
+
+                <input class="am-btn am-radius am-btn-danger am-btn-block btn-buy" type="button" id="invest_money" value="立即投标" />
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $("input[type='radio']").removeAttr('checked');//清空当前优惠券选中状态
+    $("#num_red").html("0");
+	function quxiao(){
+        $("input[type=radio]:checked").removeAttr("checked");
+        $("#num_red").html("0");
+    }
+	
+
+    function NumberCheck(t){ //匹配数字
+        var num = t.value;
+        var re=/^\d*$/;
+        if(!re.test(num)){
+            isNaN(parseInt(num))?t.value=0:t.value=parseInt(num);
+        }
+    }
+    function tests(){
+        var yhq_id = $("input[name=coupon]:checked").val();
+
+        $.ajax({
+            cache: false,
+            url: "__URL__/yhq_id",
+            type:"post",
+            async: false,
+            datatype:"json",
+            timeout: 5000,
+            data:{'yhq_id':yhq_id},
+            success:function(d){
+                var data = eval('('+d+')');
+                if(data.status == 1){
+                    $("#num_red").html(data.message);
+                }else{
+                    $("#num_red").html(data.message);
+                }
+            }
+        });
+    }
+
+
+    var t = 5;
+    function settimesf5(){
+        t -=1;
+        if(t == 0){
+            $("#loading").show();
+            window.location.href="__URL__/index";
+        }
+        setTimeout("settimesf5()", 500 )
+    }
+
+    $(function(){
+        $("#invest_money").click(function(){
+            var money = $("#transfer_invest_num").val();   //投资金额
+            var coupon = $("input[name=coupon]:checked").val();    //优惠券id
+            var pin_pass = $("#pin_pass").val();
+            var T_borrow_id = $("#T_borrow_id").val();
+            var hasmoney = {$hasmoney};
+            var mymoney = {$listmoney};
+            var borrow_min = {$list.borrow_min}
+
+
+        if(money%borrow_min != 0){
+            $().toastmessage('showWarningToast', "投资金额为起投金额的整数倍!");
+            return false;
+        }
+
+        if(money > hasmoney){
+            $().toastmessage('showWarningToast', "投资金额超过最大可投金额!");
+            return false;
+        }else if(money < borrow_min){
+            $().toastmessage('showWarningToast', "投资金额小于最低投资额!");
+            return false;
+        }else if(money == ""){
+            $().toastmessage('showWarningToast', "投资金额不允许为空!");
+            return false;
+        }else if(parseFloat(mymoney) < money){
+            $().toastmessage('showWarningToast', "账户余额不足!");
+            return false;
+        }else if(pin_pass == ""){
+            $().toastmessage('showWarningToast', "请填写支付密码!");
+            return false;
+        }
+
+        $.ajax({
+            cache: false,
+            url: "__URL__/investmoney",
+            type:"post",
+            async: false,
+            datatype:"json",
+            timeout: 5000,
+            data:{'invest_money':money,'coupon':coupon,'pin_pass':pin_pass,'T_borrow_id':T_borrow_id},
+            beforeSend: function () {
+                // 禁用按钮防止重复提交
+                //setTimeout(function(){
+                $("#loading").show();
+                //},500)
+            },
+            success:function(d){
+                var data = eval('('+d+')');
+                if(data.status == 0){
+                    $().toastmessage('showWarningToast',data.message);
+                    return false;
+                }else if(data.status == 2){
+
+                    $().toastmessage('showWarningToast',data.message);
+                    window.location.href="__APP__/m/common/logins/";
+                }else{
+                    $().toastmessage('showSuccessToast', data.message);
+                    settimesf5();
+
+                }
+            },
+            complete: function(){
+                $("#loading").hide();
+            }
+        })
+    })
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<script>
+    window.User = {
+        "user_id": "{$windowuser.id}",
+        "user_name": "{$windowuser.user_name}",
+        "qn_score": "0",
+        "real_name": "{$windowuser.real_name}",
+        "real_status": "{$windowuser.id_status|default=0}",
+        "email_status": "{$windowuser.email_status|default=0}",
+        "phone_status": "{$windowuser.phone_status|default=0}",
+        //"con_id5_switch": "0",
+        "payPwd_status": "{$windowuser.payPwd_status|default=0}",
+        "question_status": "{$windowuser.safequestion_status|default=0}",
+        "todayIncome": "0.36"
+    };
+</script>
+<!--头部开始-->
+<if condition="$UID gt '0'">
+    <include file="default:Common:afterlogin" group="Member"/>
+    <else/>
+    <include file="default:Common:beforelogin" group="Member"/>
+</if>	
+<script type="text/javascript" src="/Style/Js/utils.js"></script>
+<script type="text/javascript">
+    function  erji(a, b, c, d) {
+        $(a).children(b).each(function (){
+            var a1 = $(this).children(c),
+                    b2 = $(this).children(d),
+                    index = $(this).index();
+            if (a1.html())
+                $(this).hover(function () {
+                    a1.show();
+
+                    index == 0 && $(this).css({'background-position': '0px -59px'});
+                    index == 1 && $(this).css({'background-position': '0px -121px'});
+                    b2.css({
+                        'color': '#cfcfcf'
+                    });
+                }, function () {
+                    a1.hide();
+                    index == 0 && $(this).css({'background-position': '0px -28px'});
+                    index == 1 && $(this).css({'background-position': '0px -90px'});
+                    b2.css({
+                        'color': '#b1b1b1'
+                    });
+                });
+        });
+    }
+    erji('#erji', 'li', 'div', 'h1');
+</script>
+<style>
+    /*首页css*/
+    .index_top{width: 100%; height: 34px; background: #4a4e51;}
+    .index_topM{width: 1000px; margin: auto;}
+    .index_topM ul{float: left;}
+    .index_topM ul li{float: left; line-height: 34px; font-size: 12px; color: #cccccc; margin-right: 20px;}
+    .index_topM ul li a{color: #cccccc;}
+    .index_topM ul li img{margin-right: 3px;position: relative;top: 10px; vertical-align:top;}
+    .index_topM ul.index_ulR{float: right; line-height:34px;}
+    .index_topM ul.index_ulR a{color: #cccccc;}
+    .index_topM ul.index_ulR li{float: left; margin-right: 0px; margin-left: 20px;}
+    /*top结束*/
+
+
+</style>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/H/css/home.css" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/Common/css/common.css" />
+<div class="d_wrap">
+    <div class="d_wrapM clearfix" style="line-height: 0px;">
+        <a href="__ROOT__/" class="d-logo">{:get_ad(1)}</a>
+        <ul class="navigation-list" id="dw_ul">
+            <php>$typelist = getTypeList(array('type_id'=>0,'limit'=>9)); foreach($typelist as $vtype=> $va){ </php>
+            <li class="navigation-item ">
+                <a href="{$va.turl}" class="navigation-item-name">{$va.type_name}
+                    <php>$sontypelist = getTypeList(array('type_id'=>$va['id'],'limit'=>8,'notself'=>true)); if($sontypelist != null){</php>
+                    <php>}</php>
+                </a>
+                <div class="navigation-list-two-con" id="dw_ul2">
+                    <div class="navigation-list-two">
+                        <php>$sontypelist = getTypeList(array('type_id'=>$va['id'],'limit'=>8,'notself'=>true)); if($sontypelist != null){</php>
+                        <span class="loanImg nav-sanjiao"></span>
+                        <php>}</php>
+                        <ul class="navigation-two-list" id="erji_nav">
+                            <php>$sontypelist = getTypeList(array('type_id'=>$va['id'],'limit'=>8,'notself'=>true)); foreach($sontypelist as $sonvtype){</php>
+                            <li><a href="{$sonvtype.turl}"  >{$sonvtype.type_name}</a></li>
+                            <php>}</php>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <php>}</php>
+        </ul>
+    </div>
+</div>
+
+

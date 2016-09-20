@@ -1,0 +1,320 @@
+<include file="default:Public:_header_common"/>
+<!--<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>-->
+<style type="text/css">
+.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}
+.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}
+.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}
+.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}
+.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}
+</style>
+<style id="poshytip-css-tip-yellow" type="text/css">
+div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}
+div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}
+div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellow td.tip-right{background-position:100% 0;}div.tip-yellow td.tip-bottom{background-position:100% 100%;}
+div.tip-yellow td.tip-left{background-position:0 100%;}div.tip-yellow div.tip-inner{background-position:-10px -10px;}div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}
+
+</style></head>
+<body>
+<include file="default:Public:_header_main"/>
+
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"></div>
+    </div>
+    <div class="user-main clearfix">
+              <include file="default:Public:_left"/>
+
+        <!--交易记录begin-->
+        <div class="user-con user-deal-record">
+            <div class="user-box-1">
+                <div class="user-box-title-1 clearfix">
+                    <h2>借款总表</h2>
+                </div>
+                <div class="user-box-con-2">
+                    <div class="classify-selected-1-a">
+                            <dl class="classify-selected-1 clearfix">
+                                <dt>还款方式:</dt>
+                                <dd>                                
+                                	<span class="select-style-1hk">
+									<select id="education" name="education">
+										<option value="">全部</option>
+										<volist name="education" id="data">
+										<option value="{$data}">{$data}</option>
+										</volist>
+									</select>
+                                   </span>								
+                                </dd>
+                            </dl>
+                        </div>
+					<div class="classify-selected-1-time">
+						<dl class="classify-selected-1 clearfix">
+							<dt>到期时间:</dt>
+							<dd>
+								<php>if($searchUrl['from_time']['cur']=='null'){</php>
+								<input id="beginDate" class="input-text-style-1" readonly="" value="" type="text">
+								<php>}else{</php>
+								<input id="beginDate" class="input-text-style-1" readonly="" value="{$searchUrl.from_time.cur}" type="text">
+								<php>}</php>
+								<span>-</span>
+								<php>if($searchUrl['to_time']['cur']=='null'){</php>
+								<input id="endDate" class="input-text-style-1" readonly="" value="" type="text">
+								<php>}else{</php>
+								<input id="endDate" class="input-text-style-1" readonly="" value="{$searchUrl.to_time.cur}" type="text">
+								<php>}</php>
+							</dd>
+						</dl>
+					</div>
+					
+
+                </div>
+
+<style type="text/css">
+/****借款总表*****/
+.hk_status{width: 760px;height: 50px;padding-left: 26px;font-family: Arial;padding-right: 20px;}
+.hk_status h2{display:block;float:left;width:65px;height: 50px;line-height: 50px;font-size: 13px;}
+.hk_sxx{float: left;width: 500px;height: 50px;line-height: 50px;display: block;margin-top: 13px;}
+#state_info_nav_hk{list-style:none;}
+#state_info_nav_hk li{float:left;}
+#state_info_nav_hk li a{width:65px;height:25px;line-height:25px;margin-left:5px;margin-right:5px;display: block;text-align: center;}
+.hkbk_bg{width:65px;height:25px;line-height:25px;margin-left:5px;margin-right:5px;background:#e25453;color:#fff;}
+.hkbk_bg:hover{color:#fff;}
+.Clr{clear:both;}
+.hk_content{margin-left:20px;margin-right:20px;clear: both;}
+#yhq_xqlbshow{position:absolute;left:36%;top:31%;z-index:999;}
+#yhq_xqlbshow table {border:1px solid #e0e0e0;width:678px;background:#fff;}
+#yhq_xqlbshow table tr td{width:113px;text-align:center;height:40px;line-height:40px;}
+</style>
+<script type="text/javascript">
+	function showTailink_hk(type,obj){
+				$("#state_info_nav_hk a").removeClass("hkbk_bg");
+				$(obj).addClass("hkbk_bg");
+				if(type=="hk_fbz"){	
+					$("#hk_fbz").show();
+					$("#hk_chz").hide();
+					$("#hk_yyq").hide();
+					$("#hk_ysb").hide();
+					$("#hk_yhq").hide();					
+				}else if(type=="hk_chz"){
+					$("#hk_fbz").hide();
+					$("#hk_chz").show();
+					$("#hk_yyq").hide();
+					$("#hk_ysb").hide();
+					$("#hk_yhq").hide();
+				}else if(type=="hk_yyq"){
+					$("#hk_fbz").hide();
+					$("#hk_chz").hide();
+					$("#hk_yyq").show();
+					$("#hk_ysb").hide();
+					$("#hk_yhq").hide();
+				}else if(type=="hk_ysb"){
+					$("#hk_fbz").hide();
+					$("#hk_chz").hide();
+					$("#hk_yyq").hide();
+					$("#hk_ysb").show();
+					$("#hk_yhq").hide();
+				}else{
+					$("#hk_fbz").hide();
+					$("#hk_chz").hide();
+					$("#hk_yyq").hide();
+					$("#hk_ysb").hide();
+					$("#hk_yhq").show();
+				}
+			}
+</script>						
+						
+				<div class="hk_status">
+					<h2>还款状态：</h2>
+					<div class="hk_sxx">
+						<ul id="state_info_nav_hk">							
+							<li><a  href="javascript:void(0)" class="hkbk_bg" onClick="showTailink_hk('hk_fbz',this);">发标中</a></li>
+							<li><a  href="javascript:void(0)" onClick="showTailink_hk('hk_chz',this);">偿还中</a></li>
+							<li><a  href="javascript:void(0)" onClick="showTailink_hk('hk_yyq',this);">已逾期</a></li>
+							<li><a  href="javascript:void(0)" onClick="showTailink_hk('hk_ysb',this);">已失败</a></li>
+							<li><a  href="javascript:void(0)" onClick="showTailink_hk('hk_yhq',this);">已还清</a></li>
+							<div class="Clr"></div>
+						</ul>
+					</div> 
+					<div class="Clr"></div>                          
+				</div>
+				<div class="hk_content">
+					<div id="hk_fbz" style="display:block">
+						<table width="765" style="border:1px solid #efefef;">                     
+							<tr bgcolor="#e25453" height="40" style="color:#fff;">
+								<td width="143" style="text-align:center">还款方式</td>
+								<td width="163" style="text-align:center">借款金额</td>
+								<td width="163" style="text-align:center">进款进度</td>
+								<td width="163"  style="text-align:center">借款时间</td>
+								<td width="133" style="text-align:center;">操作</td>							
+							</tr> 
+							<tr bgcolor="#efefef" height="35">
+								<td width="720" colspan="5" style="padding-left:45px;">项目名称：资金周转项目扩大借款</td>												
+							</tr> 
+							<tr height="35">
+								<td width="143" style="text-align:center">按天到期还款</td>
+								<td width="163" style="text-align:center">1000元</td>
+								<td width="163" style="text-align:center">90%</td>
+								<td width="163"  style="text-align:center">2015-03-19 16:22</td>
+								<td width="133" style="text-align:center;">--</td>							
+							</tr> 
+						</table>
+					</div>
+					<div id="hk_chz" style="display:none">
+						<table width="765" style="border:1px solid #efefef;">                     
+							<tr bgcolor="#e25453" height="40" style="color:#fff;">
+								<td width="128.5" style="text-align:center">还款方式</td>
+								<td width="127" style="text-align:center">借款金额</td>
+								<td width="127" style="text-align:center">已还金额</td>
+								<td width="127" style="text-align:center">年化率</td>
+								<td width="127" style="text-align:center;">还款期限</td>
+								<td width="129" style="text-align:center;">即将还款期限</td>							
+							</tr> 
+							<tr bgcolor="#efefef" height="35">
+								<td width="596" colspan="5" style="padding-left:40px;">项目名称：资金周转项目扩大借款</td>
+								<td width="129" style="text-align:center">
+									<a>马上还款<img src="__ROOT__/Style/H/images/mshk_img.png" height="16" width="16" style="margin-left:5px;margin-top:-4px;" /></a>
+								</td>												
+							</tr> 
+							<tr height="35">
+								<td width="128" style="text-align:center">按天到期还款</td>
+								<td width="127" style="text-align:center">1000元</td>
+								<td width="127" style="text-align:center">1000元</td>
+								<td width="127" style="text-align:center">12.00%</td>
+								<td width="127" style="text-align:center;">6个月</td>
+								<td width="129" style="text-align:center;">2015-03-19</td>							
+							</tr> 
+						</table>
+					</div>
+					<div id="hk_yyq" style="display:none">
+						<table width="765" style="border:1px solid #efefef;">                     
+							<tr bgcolor="#e25453" height="40" style="color:#fff;">
+								<td width="85" style="text-align:center">待还本金</td>
+								<td width="85" style="text-align:center">待还利息</td>
+								<td width="85" style="text-align:center">待付罚息</td>
+								<td width="85"  style="text-align:center">待付崔收费</td>
+								<td width="85" style="text-align:center;">待付总金额</td>
+								<td width="85" style="text-align:center;">应还日期</td>
+								<td width="85" style="text-align:center;">当前/总期</td>
+								<td width="85" style="text-indent:23px;">逾期天数</td>
+							</tr> 
+							<tr bgcolor="#efefef" height="35">
+								<td width="660" colspan="7" style="padding-left:20px;">项目名称：资金周转项目扩大借款</td>
+								<td width="85" style="text-align:center">
+									<a>马上还款<img src="__ROOT__/Style/H/images/mshk_img.png" height="16" width="16" style="margin-left:5px;margin-top:-4px;" /></a>
+								</td>												
+							</tr> 
+							<tr height="35">
+								<td width="85" style="text-align:center">2000.00元</td>
+								<td width="85" style="text-align:center">1000.00元</td>
+								<td width="85" style="text-align:center">1000.00元</td>
+								<td width="85" style="text-align:center">152.00元</td>
+								<td width="85" style="text-align:center;">1520.00元</td>
+								<td width="85" style="text-align:center;">2015-01-25</td>
+								<td width="85" style="text-align:center;">1/1</td>
+								<td width="85" style="text-indent:23px;">60</td>
+							</tr> 
+						</table>
+					</div>
+					<div id="hk_ysb" style="display:none"> 
+						<table width="765" style="border:1px solid #efefef;">                     
+							<tr bgcolor="#e25453" height="40" style="color:#fff;">
+								<td width="143" style="text-align:center">还款方式</td>
+								<td width="163" style="text-align:center">借款金额</td>
+								<td width="163" style="text-align:center">借款时间</td>
+								<td width="163"  style="text-align:center">标的状态</td>
+								<td width="133" style="text-align:center;">备注</td>							
+							</tr> 
+							<tr bgcolor="#efefef" height="35">
+								<td width="720" colspan="5" style="padding-left:45px;">项目名称：资金周转项目扩大借款</td>												
+							</tr> 
+							<tr height="35">
+								<td width="143" style="text-align:center">按天到期还款</td>
+								<td width="163" style="text-align:center">1000元</td>
+								<td width="163" style="text-align:center">2015-03-19 16:22</td>
+								<td width="163"  style="text-align:center">失败</td>
+								<td width="133" style="text-align:center;">--</td>							
+							</tr> 
+						</table>
+					</div>
+					<div id="hk_yhq" style="display:none">
+						<table width="765" style="border:1px solid #efefef;">                     
+							<tr bgcolor="#e25453" height="40" style="color:#fff;">
+								<td width="143" style="text-align:center">还款方式</td>
+								<td width="163" style="text-align:center">借款金额</td>
+								<td width="163" style="text-align:center">借款期限</td>
+								<td width="163"  style="text-align:center">借款时间</td>
+								<td width="133" style="text-align:center;">已还本息</td>							
+							</tr> 
+							<tr bgcolor="#efefef" height="35">
+								<td width="592" colspan="4" style="padding-left:40px;">项目名称：资金周转项目扩大借款</td>
+								<td width="133" style="text-align:center">
+									<a  href="javascript:void(0)" id="yhq_xqlb" >马上还款<img src="__ROOT__/Style/H/images/mshk_img.png" height="16" width="16" style="margin-left:5px;margin-top:-4px;" /></a>
+								</td>													
+							</tr> 
+							<tr height="35">
+								<td width="143" style="text-align:center">按天到期还款</td>
+								<td width="163" style="text-align:center">1000元</td>
+								<td width="163" style="text-align:center">19个月</td>
+								<td width="163"  style="text-align:center">2015-01-25</td>
+								<td width="133" style="text-align:center;">1520.00元</td>							
+							</tr> 
+						</table>
+						<div id="yhq_xqlbshow" style="display:none">
+							<table width="678" border="1">
+								<tr bgcolor="#ededed">
+									<td>计划还款日期</td>
+									<td>计划还款本金</td>
+									<td>计划还款利息</td>
+									<td>实还本息</td>
+									<td>需还本息</td>
+									<td>还款状态</td>
+								</tr>
+								<tr>
+									<td>2015-01-25</td>
+									<td>100000.00</td>
+									<td>944401.11</td>
+									<td>10000956.22</td>
+									<td>0</td>
+									<td>逾期还款</td>
+								</tr>
+							</table>						
+						</div>
+						<script language="javascript">
+								$(function(){
+							$("#yhq_xqlb").bind('mouseenter',function(){
+								$('#yhq_xqlbshow').show();
+							})
+							$("#yhq_xqlb").bind('mouseleave',function(){        
+								$('#yhq_xqlbshow').hide();
+							});
+						});		
+						</script>
+					</div>
+				</div>
+				<div class="pager-content table-style-footer-1">
+					<div class="pagination">{$pagebar}</div>
+				</div>
+            </div>
+        </div>
+        <!--交易记录end-->
+    </div>
+</div>
+
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/trade.js"></script>
+<script>
+$(function(){
+    var tradeData = {tipAjaxUrl:'###'};
+
+    itz.trade.init(tradeData);
+
+});
+function clean(){
+	$("#beginDate").val('');
+	$("#endDate").val('');
+}
+</script>
+
+
+</body></html>

@@ -1,0 +1,542 @@
+<include file="Public:_header" />
+<link href="__ROOT__/Style/M/css/tab1.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<tagLib name="htmlA" />
+<style type="text/css">
+.text2{border:0 none; height:25px; line-height:25px}
+</style>
+<div class="so_main">
+
+<div class="page_tit">查看会员资料</div>
+<div class="page_tab"><span data="tab_8" class="active">审核</span>
+<if condition="$status eq 1 ">
+	<span data="tab_6">企业资料</span>
+<elseif condition="$status eq 2"/>
+	<span data="tab_1">个人资料</span><span data="tab_2">联系方式</span><span data="tab_3">单位资料</span><span data="tab_4">财务状况</span>
+</if>
+</div>
+<div class="form2">
+	<form method="post" action="__URL__/doEditCredit" onsubmit="return subcheck();" enctype="multipart/form-data">
+	<input type="hidden" name="id" value="{$id}"/>
+	<input type="hidden" name="uid" value="{$vo.uid}"/>
+	<div id="tab_8">
+		<dl class="lineD"><dt>申请类型：</dt><dd>{$aType[$vo['apply_type']]}</dd></dl>
+		<dl class="lineD"><dt>申请金额：</dt><dd>{$vo.apply_money|Fmoney=###}</dd></dl>
+		<dl class="lineD"><dt>申请说明：</dt><dd>{$vo.apply_info}</dd></dl>
+		<dl class="lineD"><dt>授权额度：</dt><dd><htmlA:input id="credit_money" value="" tip="*"/></dd></dl>
+		<dl class="lineD"><dt>审核结果：</dt><dd><htmlA:radio default="1|审核通过,2|审核未通过" id="apply_status" tip="*"/></dd></dl>
+		<dl class="lineD"><dt>处理说明：</dt><dd><htmlA:text id="deal_info" value="{$vo.deal_info}" tip="*"/></dd></dl>
+		<div class="page_btm">
+		  <input type="submit" class="btn_b" value="确定" />
+		</div>
+	</div>
+	</form>
+	
+	<div id="tab_1" style="display:none">
+<table cellspacing="0" cellpadding="0" id="formTb" style="width: 100%;margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+	<tbody><tr class="trBg">
+		<td class="tdTitle">
+			真实姓名：
+		</td>
+		<td class="tdContent">
+			{$vx.real_name|default="未填写"}
+		</td>
+		<td id="dv_realname" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			身份证号：
+		</td>
+		<td class="tdContent">
+			{$vx.idcard|default="未填写"}
+		</td>
+		<td id="dv_idcard" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			出生日期：
+		</td>
+		<td class="tdContent">
+			{$vx.idcard|hidecard=###,8}
+		</td>
+		<td id="Td3" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			手机号码：
+		</td>
+		<td class="tdContent">
+			{$vx.user_phone|default="未填写"}
+		</td>
+		<td id="dv_mobile" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			性别：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.sex|default="未填写"}
+			<!-- <htmlA:radio id="sex" default="男|男,女|女" value="key|vx.sex" /> -->
+		</td>
+		<td id="dv_gender" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			婚姻状况：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.marry|default="未填写"}
+			<!-- <htmlA:radio id="marry" default="未婚|未婚,已婚|已婚" value="key|vx.marry" /> -->
+		</td>
+		<td id="dv_marrage" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			最高学历：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.education|default="未填写"}
+			<!-- <htmlA:radio id="education" default="高中或以下|高中或以下,大专|大专,本科|本科,研究生或以上|研究生或以上" value="key|vx.education" /> -->
+		</td>
+		<td id="dv_degree" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			籍贯地址：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.origin_place|default="未填写"}
+		</td>
+		<td id="dv_id" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			居住地址：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.address|default="未填写"}
+		</td>
+		<td id="dv_id" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			职业：
+		</td>
+		<td style="height: 100px;" class="tdContent">
+			{$vx.profession|default="未填写"}
+		</td>
+		<td id="dv_id" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			月收入：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.income|default="未填写"}
+		</td>
+		<td id="dv_income" class="tdTip">
+		</td>
+	</tr>
+	</tbody></table>
+	</div>
+	<div id="tab_2" style="display:none">
+<table cellspacing="0" cellpadding="0" id="formTb" style="width: 100%;margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+		<tbody>
+		<tr class="trBg">
+			<td class="tdTitle">
+				第一联系人：
+			</td>
+			<td class="tdContent">
+				{$vx.contact1|default="未填写"}
+			</td>
+			<td id="dv_firstname" class="tdTip">
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				关系：
+			</td>
+			<td class="tdContent">
+				{$vx.contact1_re|default="未填写"}
+				<!-- <htmlA:radio id="contact1_re" default="家庭成员|家庭成员,朋友|朋友,商业伙伴|商业伙伴" value="key|vx.contact1_re" /> -->
+			</td>
+			<td id="dv_firstrelation" class="tdTip">
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				手机号码：
+			</td>
+			<td class="tdContent">
+				{$vx.contact1_tel|default="未填写"}
+			</td>
+			<td id="dv_firstmobile" class="tdTip">
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				第二联系人：
+			</td>
+			<td class="tdContent">
+				{$vx.contact2|default="未填写"}
+			</td>
+			<td id="dv_secondname" class="tdTip">
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				关系：
+			</td>
+			<td class="tdContent">
+				{$vx.contact2_re|default="未填写"}
+				<!-- <htmlA:radio id="contact2_re" default="家庭成员|家庭成员,朋友|朋友,商业伙伴|商业伙伴" value="key|vx.contact2_re" /> -->
+			</td>
+			<td id="dv_secondrelation" class="tdTip">
+			</td>
+		</tr>
+		<tr style=" border-bottom:1px solid #dedede;">
+			<td class="tdTitle">
+				手机号码：
+			</td>
+			<td class="tdContent">
+				{$vx.contact2_tel|default="未填写"}
+			</td>
+			<td id="dv_secondmobile" class="tdTip">
+			</td>
+		</tr>
+		</tbody>
+		</table>	
+	</div><!--tab2-->
+	
+	<div id="tab_3" style="display:none">
+<table cellspacing="0" cellpadding="0" id="formTb" style="width:100%; margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+		<tbody><tr class="trBg">
+			<td class="tdTitle">
+				单位名称：
+			</td>
+			<td class="tdContent">
+				{$vx.department_name|default="未填写"}
+			</td>
+			<td id="dv_company" class="tdTip">
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				电话：
+			</td>
+			<td class="tdContent">
+				{$vx.department_tel|default="未填写"}
+			</td>
+			<td id="dv_companytel" class="tdTip">
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				地址：
+			</td>
+			<td class="tdContent">
+				{$vx.department_address|default="未填写"}
+			</td>
+			<td id="dv_companyaddress" class="tdTip">
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				工作年限：
+			</td>
+			<td class="tdContent">
+				{$vx.department_year|default="未填写"}
+				<!-- <htmlA:radio id="department_year" default="1年以下|1年以下,1-3年|1-3年,3-5年|3-5年,5-10年|5-10年,10年以上|10年以上" value="key|vx.department_year" /> -->
+			</td>
+			<td id="dv_workyear" class="tdTip">
+			</td>
+		</tr>
+		<tr class="trBg">
+			<td class="tdTitle">
+				证明人：
+			</td>
+			<td class="tdContent">
+				{$vx.voucher_name|default="未填写"}
+			</td>
+			<td id="dv_references" class="tdTip">
+			</td>
+		</tr>
+		<tr style=" border-bottom:1px solid #dedede;">
+			<td class="tdTitle">
+				证明人手机：
+			</td>
+			<td class="tdContent">
+				{$vx.voucher_tel|default="未填写"}
+			</td>
+			<td id="dv_referencestel" class="tdTip">
+			</td>
+		</tr></tbody></table>
+	</div><!--tab3-->
+	
+	<div id="tab_4" style="display:none">
+<table cellspacing="0" cellpadding="0" id="formTb" style="width:100%;margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+	<tbody><tr class="trBg">
+		<td class="tdTitle">
+			月均收入：
+		</td>
+		<td class="tdContent">
+				{$vx.fin_monthin|default="未填写"}
+		</td>
+		<td id="dv_monthin" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			收入构成描述：
+		</td>
+		<td style="height: 100px;" class="tdContent">
+			{$vx.fin_incomedes|default="未填写"}
+		</td>
+		<td id="dv_incomedes" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			月均支出：
+		</td>
+		<td class="tdContent">
+				{$vx.fin_monthout|default="未填写"}
+		</td>
+		<td id="dv_monthout" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			支出构成描述：
+		</td>
+		<td style="height: 100px;" class="tdContent">
+			{$vx.fin_outdes|default="未填写"}
+		</td>
+		<td id="dv_outdes" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			住房条件：
+		</td>
+		<td class="tdContent">
+			{$vx.fin_house|default="未填写"}
+			<!-- <htmlA:radio id="fin_house" default="有商品房|有商品房,有其他（非商品房）|有其他（非商品房）,无房|无房" value="key|vx.fin_house" /> -->
+		</td>
+		<td id="dv_house" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			房产价值：
+		</td>
+		<td class="tdContent">
+				{$vx.fin_housevalue|default="未填写"}
+		</td>
+		<td id="dv_housevalue" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			是否购车：
+		</td>
+		<td class="tdContent">
+			{$vx.fin_car|default="未填写"}
+			<!-- <htmlA:radio id="fin_car" default="已购车|已购车,未购车|未购车" value="key|vx.fin_car" /> -->
+		</td>
+		<td id="dv_car" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			车辆价值：
+		</td>
+		<td class="tdContent">
+				{$vx.fin_carvalue|default="未填写"}
+		</td>
+		<td id="dv_carvalue" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			参股企业名称：
+		</td>
+		<td class="tdContent">
+				{$vx.fin_stockcompany|default="未填写"}
+		</td>
+		<td id="dv_StockCompany" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			参股企业出资额：
+		</td>
+		<td class="tdContent">
+				{$vx.fin_stockcompanyvalue|default="未填写"}
+		</td>
+		<td id="dv_StockCompanyValue" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			其他资产描述：
+		</td>
+		<td style="height: 100px;" class="tdContent">
+			{$vx.fin_otheremark|default="未填写"}
+		</td>
+		<td id="dv_otheremark" class="tdTip">
+		</td>
+	</tr></tbody></table>
+	</div><!--tab4-->
+	<div id="tab_6" style="display:none">
+<table cellspacing="0" cellpadding="0" id="formTb" style="width: 100%;margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+	<tbody><tr class="trBg">
+		<td class="tdTitle">
+			企业名称：
+		</td>
+		<td class="tdContent">
+			{$vx.business_name|default="未填写"}
+		</td>
+		<td id="dv_realname" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			注册号：
+		</td>
+		<td class="tdContent">
+			{$vx.bianhao|default="未填写"}
+		</td>
+		<td id="dv_idcard" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			法人代表：
+		</td>
+		<td class="tdContent">
+			{$vx.legal_person|default="未填写"}
+		</td>
+		<td id="Td3" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			身份证号：
+		</td>
+		<td class="tdContent">
+			{$vx.idcard|default="未填写"}
+		</td>
+		<td id="dv_mobile" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			注册资金：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.registered_capital|default="未填写"}&nbsp;&nbsp;元
+		</td>
+		<td id="dv_gender" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			所在地：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.city|default="未填写"}
+		</td>
+		<td id="dv_degree" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			借款金额：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.bid_money|default="未填写"}&nbsp;&nbsp;万元
+		</td>
+		<td id="dv_degree" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			周期：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.bid_duration|default="未填写"}&nbsp;&nbsp;月
+		</td>
+		<td id="dv_marrage" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			借款用途：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.use_type|default="未填写"}
+		</td>
+		<td id="dv_degree" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			还款来源：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.repay_source|default="未填写"}
+		</td>
+		<td id="dv_degree" class="tdTip">
+		</td>
+	</tr>
+	</tbody></table>
+	</div><!--tab6-->
+</div>
+
+</div>
+<script type="text/javascript">
+//获取会员用户名
+function downfile(url){
+	window.open("/"+url);
+}
+getusername();
+function getusername(){
+	var uid = $("#borrow_uid").val();
+	$(".userinfo").html("加载中...");
+
+	var datas = {'uid':uid};
+	$.post("__URL__/getusername", datas, uidResponse,'json');
+}
+
+function uidResponse(res){
+	$(".userinfo").html(res.uname);
+}
+
+function addone(){
+	var htmladd = '<dl class="lineD"><dt>资料名称：</dt>';
+		htmladd+= '<dd><input type="text" name="updata_name[]" value="" />&nbsp;&nbsp;更新时间:<input type="text" name="updata_time[]" onclick="WdatePicker();" class="Wdate" /></dd>';
+		htmladd+= '</dl>';
+	$(htmladd).appendTo("#tab_3");
+}
+function subcheck(){
+	var credit_money = $('#credit_money').val();
+	var apply_status = $('input[name=apply_status]:checked').val();
+	if(apply_status=='1' && credit_money==''){
+		ui.error('请填写审核额度!');
+		return false;
+	}
+	return true;
+}
+</script>
+<include file="Public:_footer" />

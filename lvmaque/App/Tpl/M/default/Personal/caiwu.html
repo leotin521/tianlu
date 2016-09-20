@@ -1,0 +1,248 @@
+<html class="js cssanimations"><!--账户信息-财务状况页面--><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>财务状况</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>财务状况</h1>
+        <a href="__URL__/index" class="btn btn-goback"><i class="am-icon-chevron-left" style="padding-top:1.5rem;"></i></a>
+    </header>
+			<form action="" class="am-form am-form-horizontal form-apply">
+            <div class="mod-info-shiming">
+            	 <ul class="am-list mod-infon-megbg ">
+                	
+                	<li class="mod-info-listline">
+                	<div class="am-form-group">
+                        <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">月均收入：</label>
+                        <div class="am-u-sm-9" style="margin-top:12px;">
+                            <input type="text" id="fin_monthin" value="{$vo.fin_monthin}" class="am-radius" placeholder="">
+                        </div>
+                    </div>
+            		</li>
+          
+                    <li class="mod-info-listline">
+                        <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">收入构成描述：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                               <div class="am-form-group">
+                                   <input type="text" id="fin_incomedes" value="{$vo.fin_incomedes}" class="am-radius" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mod-info-listline">
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">月均支出：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="fin_monthout" value="{$vo.fin_monthout}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mod-info-listline">
+                        <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">支出构成描述：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                               <div class="am-form-group">
+                                   <input type="text" id="fin_outdes" value="{$vo.fin_outdes}" class="am-radius" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="mod-info-listline">
+                        <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">住房条件：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                               <div class="am-form-group ">
+                                   <select id="fin_house" style="height:3.8rem;" class="am-radius">
+                                       <if condition="$vo.fin_house eq ''">
+                                           <option value="">请选择</option>
+                                       <else />
+                                           <option value="{$vo.fin_house}">{$vo.fin_house}</option>
+                                       </if>
+                                       <volist name="datas" id="data">
+                                           <option value="{$data}">{$data}</option>
+                                       </volist>
+                                   </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                     <li class="mod-info-listline">
+                    	 <div class="am-form-group" >
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">房产价值：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="fin_housevalue" value="{$vo.fin_housevalue}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="mod-info-listline">
+                        <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">是否构车：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                               <div class="am-form-group ">
+                                   <select fin_car class="am-radius" style="height:3.8rem;" id="fin_car">
+                                       <if condition="$vo.fin_car eq ''">
+                                           <option value="">请选择</option>
+                                           <else />
+                                           <option value="{$vo.fin_car}">{$vo.fin_car}</option>
+                                       </if>
+                                       <volist name="gouche" id="data">
+                                           <option value="{$data}">{$data}</option>
+                                       </volist>
+                                   </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                     <li class="mod-info-listline">
+                    	 <div class="am-form-group" >
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">车辆价值：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="fin_carvalue" value="{$vo.fin_carvalue}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                     <li class="mod-info-listline">
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">参股企业名称：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="fin_stockcompany" value="{$vo.fin_stockcompany}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                     <li>
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">参股企业出资额：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="fin_stockcompanyvalue" value="{$vo.fin_stockcompanyvalue}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="mod-info-listline">
+                        <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">其他财产描述：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                               <div class="am-form-group">
+                                   <input type="text" id="fin_otheremark" value="{$vo.fin_otheremark}" class="am-radius" />
+                                   <input type="hidden" id="tid" value="2"/>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                     <div class="am-u-sm-6 am-u-sm-centered mod-infon-tijiao" style="width:100%;">
+                         <input type="button" class="am-btn am-btn-block  am-radius am-btn-danger" onclick="submits();" value="提交"/ style="width:90%;margin:0 auto;">
+                     </div>
+                </ul>
+            </div>
+            </form>
+
+    <script type="text/javascript">
+
+    function submits(){	//保存
+        //alert(1);
+        var fin_monthin = $("#fin_monthin").val();//月收入
+        var fin_incomedes = $("#fin_incomedes").val();//收入构成
+        var fin_monthout = $("#fin_monthout").val();//月均支出
+        var fin_outdes = $("#fin_outdes").val();//支出构成描述
+        var fin_house = $("#fin_house").val();//住房条件
+        var fin_housevalue = $("#fin_housevalue").val();//房产价值
+        var fin_car = $("#fin_car").val();//是否构车
+        var fin_carvalue = $("#fin_carvalue").val();//车辆价值
+        var fin_stockcompany = $("#fin_stockcompany").val();//参股企业名称  (选填项)
+        var fin_stockcompanyvalue = $("#fin_stockcompanyvalue").val();//参股企业出资额 (选填项)
+        var fin_otheremark = $("#fin_otheremark").val();//其他财产描述
+
+//        alert(fin_monthin);
+//        alert(fin_incomedes);
+//        alert(fin_monthout);
+//        alert(fin_outdes);
+//        alert(fin_house);
+//        alert(fin_housevalue);
+//        alert(fin_car);
+//        alert(fin_carvalue);
+//        alert(fin_stockcompany);
+//        alert(fin_stockcompanyvalue);
+//        alert(fin_otheremark);
+//        return false;
+        if(fin_monthin == ''){
+            $().toastmessage('showErrorToast', '月收入不允许为空!');
+            return false;
+        }else if(fin_incomedes == ''){
+            $().toastmessage('showErrorToast', '收入构成不允许为空!');
+            return false;
+        }else if(fin_monthout == ''){
+            $().toastmessage('showErrorToast', '月均支出不允许为空!');
+            return false;
+        }else if(fin_outdes == ''){
+            $().toastmessage('showErrorToast', '支出构成描述不允许为空!');
+            return false;
+        }else if(fin_house == ''){
+            $().toastmessage('showErrorToast', '住房条件不允许为空!');
+            return false;
+        }else if(fin_housevalue == ''){
+            $().toastmessage('showErrorToast', '房产价值不允许为空!');
+            return false;
+        }else if(fin_car == ''){
+            $().toastmessage('showErrorToast', '是否构车不允许为空!');
+            return false;
+        }else if(fin_car == '已购车' && fin_carvalue == ''){
+            $().toastmessage('showErrorToast', '车辆价值不允许为空!');
+            return false;
+        }else if(fin_otheremark == ''){
+            $().toastmessage('showErrorToast', '其他财产描述不允许为空!');
+            return false;
+        }
+
+        //return false;
+        p = makevar(['fin_monthin','fin_incomedes','fin_monthout','fin_outdes','fin_house','fin_housevalue','fin_car','fin_carvalue','fin_stockcompany','fin_stockcompanyvalue','fin_otheremark','tid']);
+        $.ajax({
+            url: "__URL__/editfinancial/",
+            data: p,
+            timeout: 5000,
+            cache: false,
+            type: "post",
+            dataType: "json",
+            success: function (d, s, r) {
+                if(d){
+                    if(d.status==1){
+                        $().toastmessage('showSuccessToast', d.message);
+                        setTimeout(window.location = "__URL__/index",2000);
+                    }else{
+                        $().toastmessage('showErrorToast', d.message);
+                        return false;
+                    }
+                }
+            }
+        });
+    }
+
+    function makevar(v){	//获取内容值
+        var d={};
+        for(i=0;i<v.length;i++){
+            var id = v[i];
+            d[id] = $("#"+id).val();
+            if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+        }
+        return d;
+    }
+    </script>
+    </body>
+</html>

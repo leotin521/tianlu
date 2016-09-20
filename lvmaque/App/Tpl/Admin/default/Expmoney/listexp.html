@@ -1,0 +1,89 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<script type="text/javascript">
+	var delUrl = '__URL__/doDel';
+	var addUrl = '__URL__/add';
+	var editUrl = '__URL__/edit';
+	var editTitle = '处理充值';
+	var isSearchHidden = 1;
+	var searchName = "搜索";
+</script>
+<div class="so_main">
+  <div class="page_tit">优惠券列表</div>
+<!--搜索-->
+  <include file="search" />
+<!--搜索-->
+
+  <div class="Toolbar_inbox">
+
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索/筛选会员" style="search_action" />  
+	
+  </div>
+  
+  <div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th style="width:30px;">
+        <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+        <label for="checkbox"></label>
+    </th>
+    <th class="line_l">ID</th>
+    <th class="line_l">会员名</th>
+    <th class="line_l">类别</th>
+    <th class="line_l">优惠券(元)</th>
+    <th class="line_l">满额可用(元)</th>
+    <th class="line_l">说明</th>
+    <th class="line_l">创建时间</th>
+    <th class="line_l">过期/使用时间</th>
+    <th class="line_l">状态</th>
+
+  </tr>
+  <volist id="vo" name="list">
+      <tr overstyle='on' id="list_{$vo.id}">
+        <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+        <td>{$vo.id}</td>
+        <td><htmlA:user id="vo.uid" uname="vo.user_name" /></td>
+        <td>{$exp_type[$vo['type']]}</td>
+        <td>{$vo.money}</td>
+        <td>{$vo.invest_money}</td>
+        <td>{$vo.remark}</td>
+        <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+        <td>
+            <if condition="$vo.status eq 1">
+            {$vo.expired_time|date="Y-m-d H:i:s",###}
+            <elseif condition="$vo.status eq 4"/>
+            {$vo.use_time|date="Y-m-d H:i:s",###}
+            </if>
+        </td>
+        <td>
+            <if condition="($vo.status eq 1) and ($vo.expired_time gt time())">
+            <font color="#8ec52b">未使用</font>
+            <elseif condition="($vo.status eq 1) and ($vo.expired_time lt time()) "/>
+            <font color="#ff0000">已过期</font>
+            <elseif condition="$vo.status eq 4"/>
+            <font>标号：{$vo.borrow_id}</font>
+            </if>
+        </td>
+
+      </tr>
+  </volist>
+  </table>
+
+  </div>
+  
+  <div class="Toolbar_inbox">
+  	<div class="page right">{$pages}</div>
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索/筛选会员" style="search_action" />
+  </div>
+</div>
+
+<script type="text/javascript">
+
+ function rewards_rules(){
+    ui.box.load("__URL__/addexp", {title:"手动奖励优惠券"});
+}
+
+</script>
+
+<include file="Public:_footer" />

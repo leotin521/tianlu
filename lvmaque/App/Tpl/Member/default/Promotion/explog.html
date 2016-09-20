@@ -1,0 +1,128 @@
+<include file="default:Public:_header_common" />
+<style type="text/css">
+    .sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1
+    { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color:
+    #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color:
+    #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position:
+    absolute;left: 0px;top: 2px;z-index: 1;}
+</style>
+</head>
+<body>
+    <include file="default:Public:_header_main" />
+    <div class="user-page">
+        <div class="user-banner">
+            <div class="user-abstract">
+            </div>
+        </div>
+        <div class="user-main clearfix">
+            <include file="default:Public:_left" />
+<div class="user-con">
+            <div class="user-box-1 user-bounty">
+                <div class="user-box-title-1 clearfix">
+                    <h2>优惠券奖励记录</h2>
+                    <div class="user-box-title-more">
+                       <a href="/member/promotion/coupon"> 
+                           <span class="icon-style-1"></span> <strong>返回我的优惠券</strong>
+                       </a>
+                    </div>
+                </div>
+                <div class="user-box-con-1">
+                    <div id="pagerContainer" class="rel">
+                        <table class="table-style-2 table-style-4">
+                          <tbody><tr>
+                            <th width="114">时间</th>
+                            <th width="110">类型</th>
+                            <th width="138">获得详情</th>
+                            <th width="84" style="text-align:right;">奖励金额</th>
+                            <th width="172" style="text-align:right; padding-right:18px;">状态</th>
+                          </tr>
+                          
+                          <volist name="list" id="vo">
+                          <tr>
+                            <td class="user-deal-record-time">{$vo.add_time|date="Y-m-d",###}<br><span>{$vo.add_time|date="H:i:s",###}</span></td>
+                            <td>{$exp_type[$vo['type']]}</td>
+                            <td>{$vo.remark}</td>
+                            <td class="user-deal-record-money">{$vo.money}</td>
+                            <td style="text-align:right; padding-right:18px;">
+                            <php>$time = time();</php>
+                            <if condition="$vo.status eq 1 and $vo.expired_time gt $time">
+                                <font color="#8ec52b">未使用</font>
+                            <elseif condition="$vo.status eq 4"/>
+                                <font>已使用</font>
+                            <else/>
+                                <font color="#ff0000">已过期</font>
+                            </if>
+                            </td>   
+                          </tr>
+                          </volist>
+                          
+                        </tbody>
+                    </table>
+                    
+                    <div class="pager-content table-style-footer">
+                        <!--b>共16条</b>&nbsp;
+                      <span><a class="current">1</a></span>
+                      <span><a class="flag_pg" href="https://www.itouzi.com/newuser/main/message?status=unread&amp;page=2" _dom_name="2">2</a></span>
+                      <span>&nbsp;<a href="https://www.itouzi.com/newuser/main/message?status=unread&amp;page=2" class="table-style-footer-next" _dom_name="next">&gt;</a></span-->
+                      {$pages}
+                  </div>
+                  
+                    </div>
+                    <div id="pagination1" class="table-style-footer" style="display:none"></div>
+                </div>
+            </div>
+        </div>
+        
+        
+</div>
+        <include file="default:Public:_footer" />
+        <script id="promptTmpl" type="text/x-dot-template">
+            < div class = "ps1-close" > × < /div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2 > </div>
+        <div class="state-prompt-txt-{{?it[3]}}duigou{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2 > {
+                { = it[2]
+                }
+            }您可以 < a href = "/newuser/main/coupon"target = "_blank"class = "state-a-line" > [返回我的优惠券] < /a>
+            </div > </div>
+    </div > 
+        </script>
+        <script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+        <script src="/Style/M/js/common.js?v=2015020628"></script>
+        <script src="/Style/M/js/coupon.js?v=2015020628"></script>
+        <script>
+            var order = '8',
+            status = '1',
+            borrow_type = 'all',
+            paramsUrl;
+            paramsUrl = '&order=' + (order ? order: '7') + '&status=' + (status ? status: '') + '&borrow_type=' + (borrow_type ? borrow_type: 'all');
+
+            $(function() {
+                var couponData = {
+                    pager: {
+                        pageInfo: {
+                            "pn": 1,
+                            "rn": 10
+                        },
+                        tmpl: 'coupon_list',
+                        tmpl_param: true
+                    },
+                    paramsUrl: paramsUrl,
+                    ajaxHostUrl: '/member/promotion/coupon',
+                    loadImgPath: 'loading1.gif',
+                    ajaxChangeUseTypeUrl: '/newuser/ajax/ChangeCouponUseType'
+                };
+
+                itz.coupon.init(couponData);
+
+            });
+        </script>
+        
+       
+        
+</body>
+
+</html>

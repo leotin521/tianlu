@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>账户信息</title>
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+		<link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+	    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/email.css" rel="stylesheet" />
+        <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+        <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+		<script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+        <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+	</head>
+	<body style="background:#F1EEEE;">
+
+	<header>
+        <h1>账户信息</h1>
+        <a href="__APP__/m/user" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+	
+	<!-- email_content star -->
+
+		<div class="merbers_content clearfix">
+
+			<div class="merbers_content_01 clearfix" style="margin-top:7%;">
+                <div class="merbers_content_01_02 clearfix">
+                    <!--<a href="__APP__/m/Personal/index" class="merbers_content_a merbers_content_aim">-->
+                    <if condition="$qiyeandgeren eq 1">
+                        <a href="javascript:void(0);" class="merbers_content_a merbers_content_aim btn-user-identify">
+                            <b class="fl">资料信息</b>
+                            <span class="fr">{$useri['user_name']}</span>
+                        </a>
+                    <elseif condition="$user_type eq 2" />
+                        <a href="__APP__/m/personal" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">资料信息</b>
+                            <span class="fr">{$useri['user_name']}</span>
+                        </a>
+                    <elseif condition="$user_type eq 1" />
+                        <a href="__APP__/m/personal/qiyeziliao" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">资料信息</b>
+                            <span class="fr">{$useri['user_name']}</span>
+                        </a>
+                    </if>
+                </div>
+
+				<div class="merbers_content_01_02 clearfix">
+				    <if condition="$mi.id_status eq 0">
+                        <a href="__APP__/m/user/idcard" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">实名认证</b>
+                            <span class="fr">未验证</span>
+                        </a>
+                    <elseif condition="$mi.id_status eq 3" />
+                        <a href="javascript:void(0);" onclick="dengdai();" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">实名认证</b>
+                            <span class="fr">等待审核</span>
+                        </a>
+                    <elseif condition="$mi.id_status eq 1" />
+                        <a href="javascript:void(0);" onclick="dengdai1();" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">实名认证</b>
+                            <span class="fr">{$idc}</span>
+                        </a>
+                    </if>
+				</div>
+
+				<div class="merbers_content_01_02 clearfix">
+                    <if condition="$mi.phone_status eq 0">
+
+                        <a href="__APP__/m/user/uphone" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">手机号码</b>
+                            <span class="fr">未验证</span>
+                        </a>
+                    <else />
+
+                        <a href="javascript:void(0);" onclick="oks();" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">手机号码</b>
+                            <span class="fr">{$mi.user_phone}</span>
+                        </a>
+                    </if>
+				</div>
+				
+				<div class="merbers_content_01_02 clearfix">
+				    <if condition="$mi.email_status eq 0">
+                        <a href="__URL__/email" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">电子邮箱</b>
+                            <span class="fr">未验证</span>
+                        </a>
+                    <else />
+                        <a href="javascript:void(0);" onclick="okemail();" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">电子邮箱</b>
+                            <span class="fr">{$mi.user_email}</span>
+                        </a>
+                    </if>
+				</div>
+				
+				<div class="merbers_content_01_02 clearfix">
+                    <if condition="$mi.bank_id eq ''">
+                        <a href="__URL__/bank_index" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">银行卡</b>
+                            <span class="fr">未验证</span>
+                        </a>
+                    <else />
+                        <a href="__URL__/bank_index" class="merbers_content_a merbers_content_aim">
+                            <b class="fl">银行卡</b>
+                            <span class="fr">已绑定</span>
+                        </a>
+                    </if>
+				</div>
+
+			</div>
+
+		</div>
+		
+		
+
+		
+		<div class="merbers_content clearfix">
+
+			<div class="merbers_content_01 clearfix"  style="margin-top:3%;">				
+				
+				<div class="merbers_content_01_02 clearfix">
+					<a href="__URL__/newpass" class="merbers_content_a merbers_content_aim">
+						<b class="fl">修改登录密码</b>
+						<span class="fr">修改密码</span>
+					</a>
+				</div>
+				
+				
+				<div class="merbers_content_01_02 clearfix">
+					<a href="__URL__/pin_pass" class="merbers_content_a merbers_content_aim">
+						<b class="fl">修改交易密码</b>
+						<if condition="$mi.pin_pass eq ''">
+						    <span class="fr">未设置</span>
+						<else />
+                            <span class="fr">去修改</span>
+                        </if>
+					</a>
+				</div>
+				
+				
+				<!-- <div class="merbers_content_01_02 clearfix">
+                    <a href="__URL__/apply" class="merbers_content_a merbers_content_aim">
+                        <b class="fl">额度申请</b>
+                    </a>
+                </div> -->
+
+			</div>
+
+		</div>
+
+
+
+<!--弹框-->
+    <div class="am-modal mod-confirm " id="tankuang" tabindex="-1" id="modal-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">借款类型
+                    <a href="javascript: void(0)" class="btn btn-cancel" data-am-modal-close>取消</a>
+            </div>
+            <div class="am-modal-bd ">
+                <div class="am-g am-padding-top">
+                    <div class="am-u-sm-6">
+                        
+                            <a class="am-btn" href="__APP__/m/personal">
+                               
+                                    个人借款
+                                
+                            </a>
+                        
+                    </div>
+                    <div class="am-u-sm-6">
+                        
+                            <a class="am-btn" href="__APP__/m/personal/qiyeziliao">
+                                
+                                    企业借款
+                                
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--弹框-->
+
+    <script type="text/javascript">
+		 $(function() {
+            var $modal = $('#tankuang');
+            $('.btn-user-identify').on('click', function(e) {
+                e.preventDefault();
+                var $target = $(e.target);
+                if (($target).hasClass('js-modal-open')) {
+                    $modal.modal();
+                } else if (($target).hasClass('js-modal-close')) {
+                    $modal.modal('close');
+                } else {
+                    $modal.modal('toggle');
+                }
+            });
+        });
+
+        function oks(){
+            $().toastmessage('showSuccessToast', "您已经认证过手机了~");
+            return false;
+        }
+
+        function dengdai(){
+            $().toastmessage('showSuccessToast', "您已经提交过，等待审核中!");
+            return false;
+        }
+        function dengdai1(){
+            $().toastmessage('showSuccessToast', "您已经通过实名认证通过~");
+            return false;
+        }
+
+        function okemail(){
+            $().toastmessage('showSuccessToast', "您已通过邮箱验证~");
+            return false;
+        }
+
+        function tiaozhuan(){
+               $('#tankuang').show();
+        }
+
+        function quxiao(){
+            $('#tankuang').hide();
+        }
+    </script>
+	</body>
+</html>
+

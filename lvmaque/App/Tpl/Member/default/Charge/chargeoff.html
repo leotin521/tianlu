@@ -1,0 +1,321 @@
+<link href="__ROOT__/Style/Swfupload/swfupload.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" src="__ROOT__/Style/M/js/amounttochinese.js" language="javascript"></script>
+<script type="text/javascript">
+$(function() {
+	//$("#btnSendMsg").click(sendSMS);
+	$("#money_off").bind("keyup", function() {
+		$this = $(this);
+		$this.val($this.val().toString().replace(/[^(\d|\.)]+/, ""));
+	});
+	$("#money_off").focus(function() {
+		$("#d_money_2").css("display", "none");
+	});
+});
+var suretx = function(d,h,v){
+	if(d===true){
+			$.ajax({
+				url: "__URL__/actwithdraw",
+				type: "post",
+				dataType: "json",
+				data: {"pwd":$("#txtPassword").val(),"amount":$("#money_off").val()},
+				success: function(d) {
+					if (d.status == 2) {
+						layer.msg(d.message, {icon: 2});
+						return false;
+					}else if(d.status==1) {
+						layer.msg(d.message, {icon: 1});
+					} else {
+						layer.msg("支付密码错误！", {icon: 2});
+						return false;
+					}
+				}
+			});
+	}
+}
+var arrWrong = "<img  src='__ROOT__/Style/M/images/zhuce2.gif'/>&nbsp";
+function SetError(val, cont) {
+		$("#d_money_2").css("display", "block");
+		$("#d_money_2").html(val + cont);
+		$("#d_money_2").attr("class", "reg_wrong");
+}
+
+function drawMoney() {
+	if (testAmount()) {
+		if ($("#txtPassword").val().length < 1) {
+			layer.msg("请输入支付密码后再点击确认提现！", {icon: 0});
+			return false;
+		}
+		if (parseFloat($("#money_off").val()) <= parseFloat($("td.tdContent span").html()) && $("#txtPassword").eq(0).val().length > 0 && parseFloat($("#money_off").val()) > 0) {
+			$.ajax({
+				url: "__URL__/validate",
+				type: "post",
+				dataType: "json",
+				data: {"pwd":$("#txtPassword").val(),"amount":$("#money_off").val()},
+				success: function(d) {
+					if (d.status == 2) {
+						layer.msg(d.message, {icon: 2});
+						return false;
+					}
+					else if(d.status==1) {
+						$.jBox.confirm(d.message, "提现确认", suretx, { buttons: { '确认提现': true, '暂不提现': false} });
+					} else {
+						layer.msg("支付密码错误！", {icon: 2});
+						return false;
+					}
+				}
+			});
+		} 
+	}
+}
+
+function testAmount() {
+	
+	var testreuslt = true;
+
+	if (testreuslt) {
+		showChineseAmount();
+		
+	}
+	return testreuslt;
+}
+
+function showChineseAmount() {
+	var regamount = /^(([1-9]{1}[0-9]{0,})|([0-9]{1,}\.[0-9]{1,2}))$/;
+	var reg = new RegExp(regamount);
+	if (reg.test($("#money_off").val())) {
+		var amstr = $("#money_off").val();
+		var leng = amstr.toString().split('.').length;
+		if (leng == 1) {
+			$("#money_off").val($("#money_off").val() + ".00");
+		}
+		$("#d_money_2").html(Arabia_to_Chinese($("#money_off").val()));
+		$("#d_money_2").css("display", "");
+		$("#d_money_2").css("color", "red");
+		$("#d_money_2").removeClass("reg_wrong");
+		
+	}
+	else {
+		$("#d_money_2").html("");
+	}
+}
+</script>
+
+
+<style type="text/css">
+body { margin: 0; _height: 100%; }
+.tdTitle { text-align: right; padding-left: 10px; font-size: 12px; height: 40; line-height: 40px; vertical-align: middle; width: 160px; font-weight: bold; background-color: #F9F9F9; border: #E9E8E7 solid 1px; }
+.tdContent { text-align: left; padding-left: 10px; font-size: 12px; height: 40; line-height: 40px; vertical-align: middle; border: #E9E8E7 solid 1px; }
+.tdContent_pingzheng { text-align: left; padding-left: 10px; font-size: 12px;vertical-align: middle; border: #E9E8E7 solid 1px; }
+.alertDiv_pin { margin: 0px auto; background-color: #FEFACF; border: 1px solid green; line-height: 25px; }
+.alertDiv_pin li { margin: 5px 0; list-style-type: decimal; color: #005B9F; padding: 0px; line-height: 20px; list-style-type:circle }
+.alertDiv_pin ul { text-align: left; list-style-type: decimal; display: block; padding: 0px; margin: 0px 0px 0px 75px; }
+.font666 { color: #666; }
+.dv_header_8 { background-image: url(); }
+.dv_account_0 { margin-top: 8px; }
+.albCt{height:200px; width:233px;}
+</style>
+<div style="width: 760px;" class="alertDiv_pin">
+	<ul style="display: block;">
+	<li>请准确填写您的充值金额和帐单流水号</li>
+	</ul>
+</div>
+<div style="width: 100%; overflow:hidden; margin-top: 5px;">
+<form action="__APP__/Pay/offline" method="post" name="offlinePay" id="offlinePay">
+	<table style="width: 760px; float: left; margin: 0px 20px;
+		padding: 0px; border-collapse: collapse; text-align: left;" id="formTb" cellpadding="0" cellspacing="0">
+		<tbody>
+        <volist  name="bank" id="vo">
+        <tr>
+            <td class="tdTitle"><input type="radio" name="bank" id="bank" value="{$i}" <if condition="$i eq 1">checked="checked"</if> /> {$vo.bank}</td>
+            <td class="tdContent">
+                开户名：{$vo.payee}
+                账户号：{$vo.account}
+                开户地址：{$vo.address}
+            </td>
+        </tr>
+        </volist>
+        
+        
+        <tr>
+			<td class="tdTitle">
+				充值金额：
+			</td>
+			<td class="tdContent">
+            <div style="float: left; line-height: 21px;">
+                <input id="money_off" name="money_off" class="text2" type="text" onblur="testAmount();" />
+                </div>
+                <div id="d_money_2" style="width: 250px; height: 20px; line-height: 20px; margin-left: 10px; float: left;"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="tdTitle">
+				账单流水号：
+			</td>
+			<td class="tdContent">
+				<input id="tran_id" name="tran_id" class="text2" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				充值方式：
+			</td>
+			<td class="tdContent">
+				<input id="off_way" name="off_way" class="text2" type="text" />(如网银转帐，柜台汇款,汇款人等)
+			</td>
+		</tr>
+        <tr>
+            <td class="tdTitle">打款凭证：</td>
+            <td class="tdContent_pingzheng">
+                <div style="display: inline; border: solid 1px #7FAAFF; background-color: #C5D9FF; padding: 2px;">
+                    <span id="spanButtonPlaceholder"></span>
+                </div>
+                
+                <dt>图片预览：</dt>
+                <dd>
+                    <table cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 20px 0">
+                        <tr id="handfield">
+                              <td class="bline" style="background:url(images/albviewbg.gif) #fff 0 20px no-repeat;">
+                                <div id="divFileProgressContainer" style="height:75px;"></div>
+                                <div id="thumbnails"></div>
+                              </td>
+                        </tr>
+                    </table>
+                </dd>
+            </td>
+        </tr>
+		 <tr>
+            <td class="tdTitle">线下充值备注：</td>
+			 <td class="tdContent">{$info}</td>
+		</tr>
+	</tbody>
+    </table>
+</form>
+</div>
+  
+<div style="text-align: center; width: 740px; height: 30px; margin: 10px;">
+	<img id="btn_set" class="img_button" onclick="ckoffline()" src="__ROOT__/Style/M/images/button/btnsubupdate.jpg" />
+</div>
+
+<script type="text/javascript">
+
+function ckoffline(){
+	var money = parseInt($("#money_off").val());
+	var tran_id = $("#tran_id").val();
+	if(!(money>0)){
+		layer.msg("充值金额必须大于0！", {icon: 0});
+		return false;
+	}
+	if(tran_id==""){
+		layer.msg("账单流水号不能为空！", {icon: 0});
+		return false;
+	}
+	$("#offlinePay").submit();
+}
+</script>
+
+
+<!-- 上传-->
+
+
+<script type="text/javascript" src="__ROOT__/Style/Swfupload/handlers2.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/Swfupload/swfupload.js"></script>
+<script type="text/javascript">
+    var IS_AD = true;
+    $(document).ready(function() {
+        //swf上传图片
+        swfu = new SWFUpload(
+        {
+            // Backend Settings
+            upload_url: "__URL__/uploadImg",
+            post_params: {"<php> echo session_name();</php>" : "<php> echo session_id();</php>", "dopost" : ""},
+
+            // File Upload Settings
+            file_size_limit : "2 MB",    // 2MB
+            file_types : "*.jpg; *.gif; *.png",
+            file_types_description : "选择 JPEG/GIF/PNG 格式图片",
+            file_upload_limit : "2",
+
+            file_queue_error_handler : fileQueueError,
+            file_dialog_complete_handler : fileDialogComplete,
+            upload_progress_handler : uploadProgress,
+            upload_error_handler : uploadError,
+            upload_success_handler : uploadSuccess,
+            upload_complete_handler : uploadComplete,
+
+            button_image_url : "__ROOT__/Style/Swfupload/images/SmallSpyGlassWithTransperancy_17x18.png",
+            button_placeholder_id : "spanButtonPlaceholder",
+            button_width: 250,
+            button_height: 18,
+            button_text : '<span class="button">选择本地图片 <span class="buttonSmall">(单图最大为 2 MB，支持多选)</span></span>',
+            button_text_style : '.button { font-family: "宋体", sans-serif; font-size: 12px; } .buttonSmall { font-size: 10pt; }',
+            button_text_top_padding: 0,
+            button_text_left_padding: 18,
+            button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+            button_cursor: SWFUpload.CURSOR.HAND,
+            
+            // Flash Settings
+            flash_url : "__ROOT__/Style/Swfupload/swfupload.swf",
+
+            custom_settings : {
+                upload_target : "divFileProgressContainer"
+            },
+            
+            // Debug Settings
+            debug: false
+        });
+        //swf上传图片
+    });
+
+    var albImg = 0;
+    function addImage(src, pid,imgurl){
+        var newImgDiv = document.createElement("div");
+        var delstr = '';
+        var iptwidth = 180;
+        albImg++;
+        if(pid != 0) {
+            albImg = 'ok' + pid;
+            delstr = '<a href="javascript:;" onclick="delPic('+pid+')">[删除]</a>';
+        } else {
+            albImg = 'err' + albImg;
+        }
+        newImgDiv.className = 'albCt';
+        newImgDiv.id = 'albCt'+albImg;
+        document.getElementById("thumbnails").appendChild(newImgDiv);
+
+        if(typeof swf_justimg != 'undefined' && swf_justimg == true){
+            newImgDiv.innerHTML = '<img src="'+src+'"/>';
+            newImgDiv.innerHTML += '<input type="hidden" name="swfimglist[]" value="'+src+'" />';
+        }else{
+            newImgDiv.innerHTML = '<img src="'+src+'" width="120" height="120" />'+delstr;
+            
+            if(typeof arctype != 'undefined' && arctype ==  'article' )
+            { 
+                iptwidth = 100;
+                if(pid != 0) {
+                    newImgDiv.innerHTML = '<img src="'+src+'" width="120" onClick="addtoEdit('+pid+')"/>'+delstr;
+                }
+            }
+            newImgDiv.innerHTML += '<input type="hidden" name="swfimglist[]" value="'+src+'" />';      
+        }
+    }
+
+    //swf上传后删除图片start
+    function delPic(id){
+        var imgpath = $("#albCtok"+id).find("input[type='hidden']").eq(0).val();
+        var datas = {'picpath':imgpath,'oid':id};
+        $.post("__URL__/uploadimg?delpic", datas, picdelResponse,'json');
+    }
+
+    function picdelResponse(res){
+        var imgdiv = $("#albCtok"+res.data);
+            imgdiv.remove();
+            ui.success(res.info);
+            ui.box.close();
+    }
+    //swf上传后删除图片end
+</script>
+
+
+
+

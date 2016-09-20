@@ -1,0 +1,200 @@
+<include file="Public:_header" />
+<style type="text/css">
+.alertDiv { margin: 0px auto; background-color: #FEFACF; border: 1px solid green; line-height: 25px; background-image: url(__ROOT__/Style/M/images/info/001_30.png); background-position: 20px 4px; background-repeat: no-repeat; }
+.alertDiv li { margin: 5px 0; list-style-type: decimal; color: #005B9F; padding: 0px; line-height: 20px; }
+.alertDiv ul { text-align: left; list-style-type: decimal; display: block; padding: 0px; margin: 0px 0px 0px 75px; }
+</style>
+<tagLib name="htmlA" />
+<div class="so_main">
+  <div class="page_tit">通知信息接口管理</div>
+  <div class="page_tab"><span data="tab_3"  class="active">移动客户端参数</span></div>
+  <div class="form2">
+    <form method="post" action="__URL__/app_canshu_save" >
+      
+      <!--tab2-->
+	 <script type="text/javascript" src="__ROOT__/Style/Js/jquery.js"></script>
+     <script type="text/javascript" src="__ROOT__/Style/Js/ajaxfileupload.js"></script>
+      <div id="tab_3">
+        <dl class="lineD">
+          <dt>百度安卓云消息推送API_KEY：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][apk_apiKey]" value="{$baidu_config.apk_apiKey}" tip=""/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>百度安卓云消息推送secretKey：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][apk_secretKey]" value="{$baidu_config.apk_secretKey}" tip=""/>
+          </dd>
+        </dl>
+		<dl class="lineD">
+          <dt>百度苹果云消息推送API_KEY：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][ios_apiKey]" value="{$baidu_config.ios_apiKey}" tip=""/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>百度苹果云消息推送secretKey：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][ios_secretKey]" value="{$baidu_config.ios_secretKey}" tip=""/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>手机客户端最新版本：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][apkVersion]" value="{$baidu_config.apkVersion}" tip=""/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>安卓客户端最新版本下载路径：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][apkPath]" value="{$baidu_config.apkPath}" tip=""/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>苹果客户端最新版本下载路径：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][applePath]" value="{$baidu_config.applePath}" tip=""/>
+          </dd>
+        </dl>
+		<dl class="lineD">
+          <dt>安卓版二维码上传：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][ewmapkPath]"  class="androidm"  value="{$baidu_config.ewmapkPath}" addstr='readonly="true"' tip=""/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>安卓版二维码上传：</dt>
+          <dd>
+            <input type="file" name="ewmandroid" id="uploadFile1" />
+            &nbsp;&nbsp;
+            <input type="button" class="btn_b" value="上传" onclick="upfile1()" />
+            &nbsp;&nbsp;<font color='red'>*上传160*160px的二维码</font></dd>
+        </dl>
+		<dl class="lineD">
+          <dt>苹果版二维码上传：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][appewmapkPath]" class="applem" value="{$baidu_config.appewmapkPath}" addstr='readonly="true"' tip=""/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>苹果版二维码上传：</dt>
+          <dd>
+            <input type="file" name="ewmapple"  id="uploadFile2" />
+            &nbsp;&nbsp;
+            <input type="button" id="upload2" class="btn_b" value="上传"  onclick="upfile2()" />
+            &nbsp;&nbsp;<font color='red'>*上传160*160px的二维码</font></dd>
+        </dl>
+		<dl class="lineD">
+          <dt>下载页展示图片（前）：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][zhanshiqPath]" class="zsq" value="{$baidu_config.zhanshiqPath}" addstr='readonly="true"' tip=""/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>下载页展示图片（前）：</dt>
+          <dd>
+            <input type="file" name="zhanshiq"  id="uploadFile3" />
+            &nbsp;&nbsp;
+            <input type="button" id="upload3" class="btn_b" value="上传"  onclick="upfile3()" />
+            &nbsp;&nbsp;<font color='red'>*上传200*360px的二维码</font></dd>
+        </dl>
+		<dl class="lineD">
+          <dt>下载页展示图片（后）：</dt>
+          <dd>
+            <htmlA:input id="msg[baidu][zhanshihPath]" class="zsh" value="{$baidu_config.zhanshihPath}" addstr='readonly="true"' tip=""/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>下载页展示图片（后）：</dt>
+          <dd>
+            <input type="file" name="zhanshiq"  id="uploadFile4" />
+            &nbsp;&nbsp;
+            <input type="button" id="upload4" class="btn_b" value="上传"  onclick="upfile4()" />
+            &nbsp;&nbsp;<font color='red'>*上传171*304px的二维码</font></dd>
+        </dl>
+      </div>
+      <!--tab1-->
+      <div class="page_btm">
+        <input type="submit" class="btn_b" value="确定" />
+        <span style="color:#CCCCCC">(所有方式修改提交一次即可)</span> </div>
+    </form>
+  </div>
+  <script language=javascript type="text/javascript" >
+
+<!----------实现文件上传事件start---------->
+function upfile1()
+{      
+	$.ajaxFileUpload({
+		url:'__URL__/app_canshu_save?yx=1',
+		secureuri:false,
+		fileElementId:'uploadFile1',
+		dataType: 'json',
+		success: function (data, status)
+		{    
+			if(data.status==1){ 
+			 alert('上传成功');  
+			  $(".androidm").val(data.message);
+			}else  alert('上传失败');
+			
+		}
+	})
+}
+
+function upfile2()
+{  
+	$.ajaxFileUpload({
+		url:'__URL__/app_canshu_save?yx=1',
+		secureuri:false,
+		fileElementId:'uploadFile2',
+		dataType: 'json',
+		success: function (data, status)
+		{    
+			if(data.status==1){ 
+			alert('上传成功');
+					$(".applem").val(data.message);
+			}else  alert('上传失败');
+			
+		}
+	})
+}
+
+function upfile3()
+{  
+	$.ajaxFileUpload({
+		url:'__URL__/app_canshu_save?yx=1',
+		secureuri:false,
+		fileElementId:'uploadFile3',
+		dataType: 'json',
+		success: function (data, status)
+		{    
+			if(data.status==1){ 
+			alert('上传成功');
+					$(".zsq").val(data.message);
+			}else  alert('上传失败');
+			
+		}
+	})
+}
+
+function upfile4()
+{  
+	$.ajaxFileUpload({
+		url:'__URL__/app_canshu_save?yx=1',
+		secureuri:false,
+		fileElementId:'uploadFile4',
+		dataType: 'json',
+		success: function (data, status)
+		{    
+			if(data.status==1){ 
+			alert('上传成功');
+					$(".zsh").val(data.message);
+			}else  alert('上传失败');
+			
+		}
+	})
+}
+<!--------图片上传功能end--------------->	
+</script>
+</div>
+<include file="Public:_footer" />

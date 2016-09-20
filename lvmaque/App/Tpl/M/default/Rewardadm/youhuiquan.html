@@ -1,0 +1,180 @@
+<!doctype html>
+<html class="no-js">
+<!--奖励管理-优惠券页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>优惠券</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+</head>
+
+<body>
+<header>
+    <h1>优惠券</h1>
+    <a href="__URL__/index" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+</header>
+
+<div class="mod-reward-youhuiquan">
+    <ul class="am-avg-sm-2">
+        <li>未使用优惠券<br/><font size="+3">{$vo.n_num}</font>张</li>
+        <li>已过期优惠券<br/><font size="+3">{$vo.ex_money}</font>元</li>
+    </ul>
+    <ul class="am-avg-sm-2">
+        <li>未使用优惠券总额<br/><font size="+3">{$vo.n_money}</font>元</li>
+        <li>已使用优惠券总额<br/><font size="+3">{$vo.y_money}</font>元</li>
+    </ul>
+</div>
+
+<div class="am-tabs mod-record">
+    <ul class="am-tabs-nav am-nav am-nav-tabs am-g mod-tab-btn-group am-container am-margin-bottom">
+        <li class="am-u-sm-6 am-active"><a class="am-btn am-btn-block" href="javascript: void(0)">我的优惠券</a></li>
+        <li class="am-u-sm-6"><a class="am-btn am-btn-block" href="__URL__/jiangli">奖励记录</a></li>
+    </ul>
+    <div class="am-tabs-bd">
+        <!-- 优惠券列表  -->
+        <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+            <volist name="data" id="vo">
+
+                <div class="am-g mod-record-item">
+                    <a href="javascript:void(0);" title="">
+                        <div class="mod-recordleft boxes"><li class="box box-1"><span class="num num-um">{$vo.money}</span><div class="box-inner-tit">{$vo.coupon_type}</div></li></div>
+                        <ul class="mod-recordright">
+                            <li>每满{$vo.invest_money}元抵{$vo.money}元</li>
+                            <li>仅限于投资，债券转让不可以使用</li>
+                            <li>过期时间：{$vo.funds}</li>
+                            <li>来源：{$vo.exp_type}</li>
+                        </ul>
+                    </a>
+                </div>
+
+
+            </volist>
+            <span>{$page}</span>
+            <!--<div class="loaddiv">-->
+                <!--<img src="images/loading.gif" />-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<a href="javascript:void(0);" id="btn_Page" class="alink">查看更多>>></a>-->
+            <!--</div>-->
+        </div>
+        <!-- 奖励记录列表 -->
+        <!--<div class="am-tab-panel am-fade am-in" id="tab2">-->
+
+
+            <!--<volist name="data2" id="vo">-->
+
+
+                <!--<div class="am-g mod-record-item">-->
+                    <!--<a href="__URL__/jingliinfo?id={$vo.id}" title="">-->
+                        <!--<div class="mod-recordleft boxes"><li class="box box-1"><span class="num num-um">{$vo.money}</span><div class="box-inner-tit">奖励金额</div></li></div>-->
+                        <!--<ul class="mod-recordright">-->
+                            <!--<li class="txtone"><i class="am-icon-chevron-right"></i>类型：{$vo.exp_type}</li>-->
+                            <!--<li>时间：{$vo.add_time}</li>-->
+                            <!--<li>详情：<if condition="$vo.status eq 0">未使用<elseif condition="$vo.status eq 1" />已使用<else />已过期</if></li>-->
+                        <!--</ul>-->
+                    <!--</a>-->
+                <!--</div>-->
+
+            <!--</volist>-->
+
+        <!--</div>-->
+
+
+
+
+    </div>
+
+</div>
+
+</div>
+
+<script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+<script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+<script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+<script>
+    /*endlesspage.js*/
+    var gPageSize = {$totalPage};
+    var i = 1; //设置当前页数，全局变量
+    $(function () {
+        //根据页数读取数据
+        function getData(pagenumber) {
+            i++; //页码自动增加，保证下次调用时为新的一页。
+            $.get("__URL__/youhuijuan", { pagesize: gPageSize, pagenumber: pagenumber }, function (data) {
+                if (data.length > 0) {
+                    var jsonObj = JSON.parse(data);
+                    insertDiv(jsonObj);
+                }
+            });
+            $.ajax({
+                type: "get",
+                url: "__URL__/youhuijuan",
+                data: { pagesize: gPageSize, pagenumber: pagenumber },
+                dataType: "json",
+                success: function (data) {
+                    $(".loaddiv").hide();
+                    if (data.length > 0) {
+                        var jsonObj = JSON.parse(data);
+                        insertDiv(jsonObj);
+                    }
+                },
+                beforeSend: function () {
+                    $(".loaddiv").show();
+                },
+                error: function () {
+                    $(".loaddiv").hide();
+                }
+            });
+        }
+        //初始化加载第一页数据
+        getData({$nowPage});
+
+        //生成数据html,append到div中
+        function insertDiv(json) {
+            var $mainDiv = $("#tab1");
+            var html = '';
+            for (var i = 0; i < json.length; i++) {
+                html += '<div class="item">';
+                html += ' <div class="title">' + json[i].rowId + '   ' + json[i].D_Name + '</div>';
+                html += ' <div class="content">' + json[i].D_Name + '   ' + json[i].D_Password + '</div>';
+                html += '</div>';
+            }
+            $mainDiv.append(html);
+        }
+
+        //==============核心代码=============
+        var winH = $(window).height(); //页面可视区域高度
+
+        var scrollHandler = function () {
+            var pageH = $(document.body).height();
+            var scrollT = $(window).scrollTop(); //滚动条top
+            var aa = (pageH - winH - scrollT) / winH;
+            if (aa < 0.02) {//0.02是个参数
+                if (i % 10 === 0) {//每10页做一次停顿！
+                    getData(i);
+                    $(window).unbind('scroll');
+                    $("#btn_Page").show();
+                } else {
+                    getData(i);
+                    $("#btn_Page").hide();
+                }
+            }
+        }
+        //定义鼠标滚动事件
+        $(window).scroll(scrollHandler);
+        //==============核心代码=============
+
+        //继续加载按钮事件
+        $("#btn_Page").click(function () {
+            getData(i);
+            $(window).scroll(scrollHandler);
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<include file="Public:_header_common" />
+<title>{$vo.type_name}-{$glo.web_name}帮助中心</title>
+<meta name="keywords" content="{$vo.type_keyword}" />
+<meta name="keywords" content="{$vo.type_info}" />
+<include file="Public:_header_main" />
+<!--中部开始-->
+<!--<div class="main h50 ft16 line3-5e">&nbsp;首页 > {$vo.type_name}</div>--> 
+<div class="cms_page"> <!--{:get_ad(5)}-->
+  <div class="cms_frame cf"> <include file="left" />
+    <div class="cms_content">
+      <div class="cms-title-1">
+        <h2>{$vo.type_name}</h2>
+      </div>
+      <div class="cms-details">
+        <div class="article-list-wrap mgt">
+          <div class="article-list mgt">
+            <ul>
+              <volist name="list" id="vl">
+                <li class="changecolor"> <span class="item-title"><a href="{$vl.arturl}" title="{$vl.title}"  >{$vl.title|cnsubstr=###,28}</a></span> <span class="release-time">{$vl.art_time|date="Y.m.d",###}</span> </li>
+              </volist>
+            </ul>
+          </div>
+          <div class="clear h15"></div>
+          <div class="list_bottom">
+            <div class="list_bottom_right">
+              <ul>
+                {$pagebar}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+</div>
+<include file="Public:_footer" />
+<script language="javascript">
+	$(function() {
+		$(".changecolor").bind("mouseover", function(){
+			$(this).css("background", "#f8f8f8");
+			$(this).css("color", "#007EB9");
+		})
+
+		$(".changecolor").bind("mouseout", function(){
+			$(this).css("background", "#fff");
+			$(this).css("color", "#737272");
+		})
+	});
+
+</script>

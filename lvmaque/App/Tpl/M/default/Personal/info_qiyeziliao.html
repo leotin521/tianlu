@@ -1,0 +1,228 @@
+<!doctype html>
+<html class="no-js">
+<!--账户信息-企业资料页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>企业资料</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>企业资料</h1>
+        <a href="javascript:;" onClick="window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+			<form action="" method="post" id="signupForm" name="form" class="am-form am-form-horizontal form-apply">
+            <div class="mod-info-shiming">
+            	 <ul class="am-list mod-infon-megbg ">
+                	
+                	<li class="mod-info-listline">
+                	<div class="am-form-group">
+                        <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">企业名称：</label>
+                        <div class="am-u-sm-9" style="margin-top:12px;">
+                            <input type="text" id="business_name" value="{$vo.business_name}" class="am-radius" placeholder="">
+                        </div>
+                    </div>
+            		</li>
+          
+                    <li class="mod-info-listline">
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">注册号：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="bianhao" value="{$vo.bianhao}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mod-info-listline">
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">法人代表：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="legal_person" value="{$vo.legal_person}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                    
+                  
+                     <li class="mod-info-listline">
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">身份证号：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="idcard" value="{$vo.idcard.idcard}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mod-info-listline">
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">注册资金：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="registered_capital" value="{$vo.registered_capital}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                     <li class="mod-info-listline">
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">所在地址：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <input type="text" id="city" value="{$vo.city}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                    
+                     <li class="mod-info-listline">
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">进款金额：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <span class="mod-info-iconbg am-icon-cny ">万元</span><input type="text" id="bid_money" value="{$vo.bid_money}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mod-info-listline">
+                    	 <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">周期：</label>
+                            <div class="am-u-sm-9" style="margin-top:12px;">
+                                <span class="mod-info-iconbg  am-icon-clock-o ">月</span><input type="text" id="bid_duration" value="{$vo.bid_duration}" class="am-radius" placeholder="">
+                            </div>
+                        </div>
+                    </li>
+                   <li>
+                	<div class="am-form-group">
+                        <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">借款用途：</label>
+                        <div class="am-u-sm-9" style="margin-top:12px;">
+                            <input type="text" id="use_type" value="{$vo.use_type}" class="am-radius" placeholder="">
+                        </div>
+                    </div>
+            		</li>
+					<li class="mod-info-listline">
+                	<div class="am-form-group">
+                        <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">还款来源：</label>
+                        <div class="am-u-sm-9" style="margin-top:12px;">
+                            <input type="text" id="repay_source" value="{$vo.repay_source}" class="am-radius" placeholder="">
+                        </div>
+                    </div>
+            		</li>
+                     <div class="am-container am-margin-top">
+                         <input type="button" class="am-btn am-btn-block am-btn-xl am-radius am-btn-danger" onclick="submits();" value="保存"/>
+                     </div>
+                </ul>
+            </div>
+            </form>
+
+    <script>
+
+
+        function submits(){	//保存
+
+            var business_name = $("#business_name").val();//企业名称
+            var bianhao = $("#bianhao").val();//注册号
+            var legal_person = $("#legal_person").val();//法人代表
+            var idcard = $("#idcard").val();//身份证号
+            var registered_capital = $("#registered_capital").val();//注册资金
+            var city = $("#city").val();//所在地址
+            var bid_money = $("#bid_money").val();//进款金额
+            var bid_duration = $("#bid_duration").val();//周期
+            var use_type = $("#use_type").val();//借款用途
+            var repay_source = $("#repay_source").val();//还款来源
+
+//        alert(fin_monthin);
+//        alert(fin_incomedes);
+//        alert(fin_monthout);
+//        alert(fin_outdes);
+//        alert(fin_house);
+//        alert(fin_housevalue);
+//        alert(fin_car);
+//        alert(fin_carvalue);
+//        alert(fin_stockcompany);
+//        alert(fin_stockcompanyvalue);
+//        alert(fin_otheremark);
+//        return false;
+//            if(fin_monthin == ''){
+//                $().toastmessage('showErrorToast', '月收入不允许为空!');
+//                return false;
+//            }else if(fin_incomedes == ''){
+//                $().toastmessage('showErrorToast', '收入构成不允许为空!');
+//                return false;
+//            }else if(fin_monthout == ''){
+//                $().toastmessage('showErrorToast', '月均支出不允许为空!');
+//                return false;
+//            }else if(fin_outdes == ''){
+//                $().toastmessage('showErrorToast', '支出构成描述不允许为空!');
+//                return false;
+//            }else if(fin_house == ''){
+//                $().toastmessage('showErrorToast', '住房条件不允许为空!');
+//                return false;
+//            }else if(fin_housevalue == ''){
+//                $().toastmessage('showErrorToast', '房产价值不允许为空!');
+//                return false;
+//            }else if(fin_car == ''){
+//                $().toastmessage('showErrorToast', '是否构车不允许为空!');
+//                return false;
+//            }else if(fin_car == '已购车' && fin_carvalue == ''){
+//                $().toastmessage('showErrorToast', '车辆价值不允许为空!');
+//                return false;
+//            }else if(fin_otheremark == ''){
+//                $().toastmessage('showErrorToast', '其他财产描述不允许为空!');
+//                return false;
+//            }
+
+            var business_name = $("#business_name").val();//企业名称
+            var bianhao = $("#bianhao").val();//注册号
+            var legal_person = $("#legal_person").val();//法人代表
+            var idcard = $("#idcard").val();//身份证号
+            var registered_capital = $("#registered_capital").val();//注册资金
+            var city = $("#city").val();//所在地址
+            var bid_money = $("#bid_money").val();//进款金额
+            var bid_duration = $("#bid_duration").val();//周期
+            var use_type = $("#use_type").val();//借款用途
+            var repay_source = $("#repay_source").val();//还款来源
+
+            //return false;
+            p = makevar(['business_name','bianhao','legal_person','idcard','registered_capital','city','bid_money','bid_duration','use_type','repay_source']);
+            $.ajax({
+                url: "__URL__/info_qiyeziliaoadd_and_save/",
+                data: p,
+                timeout: 5000,
+                cache: false,
+                type: "post",
+                dataType: "json",
+                success: function (d, s, r) {
+                    if(d){
+                        if(d.status==1){
+                            $().toastmessage('showSuccessToast', d.message);
+                            return false;
+                        }else{
+                            $().toastmessage('showErrorToast', d.message);
+                            return false;
+                        }
+                    }
+                }
+            });
+        }
+
+
+
+
+
+        function makevar(v){	//获取内容值
+            var d={};
+            for(i=0;i<v.length;i++){
+                var id = v[i];
+                d[id] = $("#"+id).val();
+                if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+            }
+            return d;
+        }
+    </script>
+</body>
+
+</html>

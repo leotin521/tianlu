@@ -1,0 +1,164 @@
+<include file="default:Public:_header_common"/>
+
+<link href="/Style/H/css/Mbmber.css" rel="stylesheet" type="text/css">
+<script language=javascript type="text/javascript" src="__ROOT__/Style/Common/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+
+<style type="text/css">
+.user-box-title-1 h2 {
+    border-bottom: 0px solid gray;
+}
+.hover {
+    display: inline-block;
+    margin-left: 20px;
+    overflow: hidden;
+    width: 100px;
+    float: left;
+}
+</style>
+</head>
+<body>
+<include file="default:Public:_header_main"/>
+<php> if (isset($default)) {</php>
+<input type='hidden' id='ckid' value='{$default}'/>
+<script>
+  window.onload=function(){
+    var ckid = $("#ckid").val();
+    check(ckid);                                                        
+  }
+</script>
+<?php }?>
+<div class="user-page user-msg-page">
+    <div class="user-main clearfix">
+
+        <include file="default:Public:_left"/>
+        
+        <!--站内消息begin-->    
+        <div class="user-con" id="content">
+            <div class="user-box-1" style="overflow: hidden;padding-bottom: 20px;min-height: 500px;">
+                <input type="hidden" id="tid" name="tid" value="{$apply_type}" />
+            	<ul class="J_menu menu ajaxdata" style="margin-bottom: 5px;">
+                <div class="user-box-title-1 clearfix">
+                    <?php if($apply_type == MembersModel::MEMBERS_IS_TRANSFER_PERSONAL
+                    || $is_transfer == MembersModel::MEMBERS_IS_TRANSFER_PERSONAL
+                    ){ ?>
+                    <?php if($apply_type > 0){ ?>
+					<li class="hover"><a href="javascript:;" ><h2>个人资料</h2></a></li>
+                    <li class="hover"><a href="javascript:;" ><h2>联系方式</h2></a></li>
+                    <li class="hover"><a href="javascript:;" ><h2>单位资料</h2></a></li>
+                    <li class="hover"><a href="javascript:;" ><h2>财务状况</h2></a></li>
+                    <?php }else{ ?>
+						<li class="hover"><a href="#" onClick="check(6)" ><h2>个人资料</h2></a></li>
+                    	<li class="hover"><a href="#" onClick="check(1)" ><h2>联系方式</h2></a></li>
+                        <li class="hover"><a href="#" onClick="check(2)" ><h2>单位资料</h2></a></li>
+                        <li class="hover"><a href="#" onClick="check(3)" ><h2>财务状况</h2></a></li>
+                    <?php }?>
+                        <?php if($is_transfer == MembersModel::MEMBERS_IS_TRANSFER_PERSONAL){ ?>
+                            <li class="hover"><a href="#" onClick="check(4)" ><h2>资料上传</h2></a></li>
+                        <?php } ?>
+                    <?php }elseif ($apply_type == MembersModel::MEMBERS_IS_TRANSFER_BUSINESS || $is_transfer == MembersModel::MEMBERS_IS_TRANSFER_BUSINESS){ ?>
+                        <li class="hover"><a href="#" onClick="check(5)" ><h2>企业资料</h2></a></li>
+                        <?php if($is_transfer == MembersModel::MEMBERS_IS_TRANSFER_BUSINESS){ ?>
+                            <li class="hover"><a href="#" onClick="check(4)" ><h2>资料上传</h2></a></li>
+                        <?php } ?>
+                    <?php } ?>
+				</div>
+				</ul>
+				<div id="cont">
+					<center style="font-size: 14px;color: green;">数据加载中...</center>
+				</div>
+            </div>
+        </div>
+      <!--站内消息end-->
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script>
+function check(d){
+	var d=parseInt(d);
+    $('.hover').find('h2').css('border-bottom','2px solid #e0e0e0');
+	switch (d)
+    {
+    	case 1:	//联系方式
+      		$.ajax({
+        	url:"__URL__/editcontact/",
+        	//dataType:'json',
+        	success: function (data) {
+            	$("#cont").html(data);
+                $('.hover:eq(1)').find('h2').css('border-bottom','2px solid gray');
+         	}
+      	});
+      	break;
+    	case 2:	//单位资料
+      		$.ajax({
+        	url:"__URL__/editdepartment/",
+        	//dataType:'json',
+        	success: function (data) {
+            	$("#cont").html(data);
+                $('.hover:eq(2)').find('h2').css('border-bottom','2px solid gray');
+         	}
+      	});
+      	break;
+    	case 3:	//财务状况
+    		var tid = $('#tid').val();
+      		$.ajax({
+        	url:"__URL__/editfinancial/",
+        	data: {'tid': tid},
+        	//dataType:'json',
+        	success: function (data) {
+            	$("#cont").html(data);
+                $('.hover:eq(3)').find('h2').css('border-bottom','2px solid gray');
+         	}
+      	});
+      	break;
+    	case 4:	//资料上传
+      		$.ajax({
+        	url:"__URL__/editdata/",
+        	//dataType:'json',
+        	success: function (data) {
+            	$("#cont").html(data);
+                <?php if($is_transfer == MembersModel::MEMBERS_IS_TRANSFER_BUSINESS ) { ?>
+                    var index = 1;
+                <?php } else { ?>
+                    var index = 4;
+                <?php }?>
+                $('.hover:eq('+index+')').find('h2').css('border-bottom','2px solid gray');
+         	}
+      	});
+      	break;
+		case 6:	//个人资料
+      		$.ajax({
+        	url:"__URL__/people/",
+        	//dataType:'json',
+        	success: function (data) {
+            	$("#cont").html(data);
+                $('.hover:eq(0)').find('h2').css('border-bottom','2px solid gray');
+         	}
+      	});
+      	break;
+        case 5:	//企业资料
+            $.ajax({
+                url:"__URL__/business/",
+                //dataType:'json',
+                success: function (data) {
+                    $("#cont").html(data);
+                    $('.hover:eq(0)').find('h2').css('border-bottom','2px solid gray');
+                }
+            });
+            break;
+    }
+}
+    $( function() {
+        if($('#tid').val() == 0 ) {
+
+        }
+    })
+
+</script>
+<if condition="$s eq 1">
+    <script type="text/javascript">
+        alert("您的申请资料已经提交，请等待审核");
+        window.location.href="__ROOT__/member/index/index";
+    </script>
+</if>

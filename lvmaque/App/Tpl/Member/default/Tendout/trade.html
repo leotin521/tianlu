@@ -1,0 +1,141 @@
+<include file="default:Public:_header_common"/>
+<!--<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>-->
+<style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style><style id="poshytip-css-tip-yellow" type="text/css">div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellow td.tip-right{background-position:100% 0;}div.tip-yellow td.tip-bottom{background-position:100% 100%;}div.tip-yellow td.tip-left{background-position:0 100%;}div.tip-yellow div.tip-inner{background-position:-10px -10px;}div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}</style></head>
+<body>
+<include file="default:Public:_header_main"/>
+
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"></div>
+    </div>
+    <div class="user-main clearfix">
+              <include file="default:Public:_left"/>
+
+        <!--交易记录begin-->
+        <div class="user-con user-deal-record">
+            <div class="user-box-1">
+                <div class="user-box-title-1 clearfix">
+                    <h2>交易记录</h2>
+                </div>
+                <div class="user-box-con-2">
+                    <div class="classify-selected-1-a">
+                            <dl class="classify-selected-1 clearfix">
+                                <dt>交易日期</dt>
+                                <dd>
+                                	<php>foreach($searchMap['time'] as $key=>$v){</php>
+							        <php>if($key==$searchUrl['time']['cur']){</php>
+							        <a class="selected">{$v}</a>
+							        <php>}else{</php>
+							        <a href="__URL__/trade.html?type_list=search&{$searchUrl.time.url}&time={$key}" onclick="clean()">{$v}</a>
+							        <php>}</php>
+							        <php>}</php>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="classify-selected-1-time">
+                            <dl class="classify-selected-1 clearfix">
+                                <dt>选择日期</dt>
+                                <dd>
+                                	<php>if($searchUrl['from_time']['cur']=='null'){</php>
+                                    <input id="beginDate" class="input-text-style-1" readonly="" value="" type="text">
+                                    <php>}else{</php>
+                                    <input id="beginDate" class="input-text-style-1" readonly="" value="{$searchUrl.from_time.cur}" type="text">
+                                    <php>}</php>
+                                    <span>-</span>
+                                    <php>if($searchUrl['to_time']['cur']=='null'){</php>
+                                    <input id="endDate" class="input-text-style-1" readonly="" value="" type="text">
+                                    <php>}else{</php>
+                                    <input id="endDate" class="input-text-style-1" readonly="" value="{$searchUrl.to_time.cur}" type="text">
+                                    <php>}</php>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="classify-selected-1-a" style="width:600px; _width:600px;">
+                            <dl class="classify-selected-1 clearfix">
+                                <dt>交易类型</dt>
+                                <dd style="width:500px; _width:500px;">
+                                	<php>foreach($searchMap['type'] as $key=>$v){</php>
+							        <php>if($key==$searchUrl['type']['cur']){</php>
+							        <a class="selected">{$v}</a>
+							        <php>}else{</php>
+							        <a href="__URL__/trade.html?type_list=search&{$searchUrl.type.url}&type={$key}">{$v}</a>
+							        <php>}</php>
+							        <php>}</php>
+                                </dd>
+                            </dl>
+                        </div>
+                    <table class="table-style-2">
+                      <tbody><tr class="">
+                        <th width="132">时间</th>
+                        <th width="126">交易类型</th>
+                        <th width="210" style="text-indent:23px;">交易详情</th>
+                        <th width="80" style="text-align:right">金额</th>
+						<th width="160" style="text-align:right; padding-right:18px;">余额</th>
+                      </tr>
+                      <if condition="!empty($list)">
+                        <volist name="list" id="vo">
+                            <tr>
+                                <td class="user-deal-record-time">{$vo.add_time|date="Y-m-d",###}<br><span>{$vo.add_time|date="H:i:s",###}</span></td>
+                                <td>{$vo.type|cnsubstr=###,8}</td>
+                                <td>
+                                    <span class="icon-xiala" _transid="{$vo.target_uname}" _type="{$vo.type}" _cid="{$vo.id}"></span><span title="{$vo.info}">{$vo.info|cnsubstr=###,12}</span>
+                                </td>
+                                <if condition='$vo.affect_money gt 0 '>
+                                	<php>if(in_array($vo['typenum'],array('49','28','15','62'))){</php>
+                                		<td class="user-deal-record-money" style="color:#666">{$vo.affect_money}</td>
+                                	<php> }else{</php>
+                                		<td class="user-deal-record-money"><strong>+{$vo.affect_money}</strong></td>
+                                	<php> }</php>
+								<elseif condition='$vo.affect_money lt 0'/>
+									<php>if(in_array($vo['typenum'],array('49','28','15','62'))){</php>
+                                		<td class="user-deal-record-money" style="color:#666">{$vo.affect_money}</td>
+                                	<php> }else{</php>
+                                		<td class="user-deal-record-money">{$vo.affect_money}</td>
+                                	<php> }</php>
+								<else />
+									<td class="user-deal-record-money" style="color:#666">{$vo.affect_money}</td>
+                                </if>
+                                <td style="text-align:right; padding-right:18px;">{$vo['account_money']+$vo['back_money']}</td>
+                            </tr>
+                          </volist>  
+                        <else/>
+                        <table style="width: 765px;text-align: center;line-height: 30px;">                            
+                            <tr>
+                                <td rowspan="5" >暂无交易记录</td>
+                            </tr> 
+                        </table>
+                          
+                    </if>
+                                      
+                    </tbody></table>
+                    <div class="pager-content table-style-footer-1">
+                        <div class="pagination">{$pagebar}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--交易记录end-->
+    </div>
+</div>
+
+<include file="default:Public:_footer" group="Home"/>
+
+
+<script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/trade.js"></script>
+<script>
+$(function(){
+    var tradeData = {tipAjaxUrl:'###'};
+
+    itz.trade.init(tradeData);
+
+});
+function clean(){
+	$("#beginDate").val('');
+	$("#endDate").val('');
+}
+</script>
+
+
+</body></html>

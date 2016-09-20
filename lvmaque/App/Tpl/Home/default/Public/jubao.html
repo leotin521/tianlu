@@ -1,0 +1,71 @@
+<STYLE> 
+*{padding-bottom:0px;margin:0px;padding-left:0px;padding-right:0px;padding-top:0px}.nav{width:620px;display:block;float:left;height:300px}.yetitle{width:100%;background:url(__ROOT__/Style/H/images/line.jpg) repeat-x 0px 37px;height:45px}.yuet{margin:15px auto auto 5px;display:block;float:left;font-size:12px;font-weight:bold}.buttonc{margin:10px 0px;display:block;float:right}.close{border-right-width:0px;width:22px;background:url(__ROOT__/Style/H/images/1_03.gif);BORDER-TOP-WIDTH:0px;border-bottom-width:0px;height:19px;border-left-width:0px}.tip{text-align:center;margin-top:50px;width:100%;font-family:Arial;font-size:16px}.buttontwo{text-align:center;margin-top:40px;width:100%}.buttony{border-right-width:0px;width:109px;background:url(__ROOT__/Style/H/images/bow_btn.jpg);BORDER-TOP-WIDTH:0px;border-bottom-width:0px;height:27px;color:#fff;font-size:14px;border-left-width:0px;cursor:pointer;font-weight:bold}.leftitle{width:100px;display:block;float:left}.leftitle SPAN{text-align:right;width:100%;display:block;height:30px}.rightnavv{text-align:left;padding-left:10px;display:block;float:left}.rightnavv SPAN{width:100%;display:block;height:30px}.textarea{border-bottom:#ccc 1px solid;border-left:#ccc 1px solid;width:350px;height:100px;border-top:#ccc 1px solid;border-right:#ccc 1px solid}*{font-size:12px}.tip{line-height:200%;margin:20px 0px;font-size:14px}.nav{margin-left:20px} 
+</STYLE>
+ 
+<DIV style="overflow:hidden;">
+<DIV id="jubaoform">
+<DIV class="nav" style="height:auto">
+<DIV class="tip" style="margin:10px 0px">
+{$glo.web_name}提醒您：请客观地反映您所遇到的真实情况，以共同维护一个诚信和公平的借贷环境。 
+</DIV>
+<DIV class="tip2">
+<DIV class="leftitle">
+<SPAN>被举报用户：</SPAN> <SPAN>你的邮件地址：</SPAN> <SPAN style="HEIGHT: 120px">举报原因：</SPAN> <SPAN>附加信息：</SPAN> 
+</DIV>
+<DIV class="rightnavv">
+<input type="hidden" id="uemail" value="{$u.uemail}" />
+<input type="hidden" id="b_uname" value="{$u.uname}" />
+<input type="hidden" id="b_uid" value="{$u.id}" />
+<SPAN id="spanToUser">{$u.uname}</SPAN> <SPAN>{$u.uemail}</SPAN> 
+<SPAN><LABEL><INPUT id="radio" type="radio" name="radio" value="此用户在其他网站有借款" /> 此用户在其他网站有借款</LABEL>：（请提供链接，用户名等）</SPAN> 
+<SPAN><LABEL><INPUT id="radio2" type="radio" name="radio" value="此用户冒用他人身份" /> 此用户冒用他人身份</LABEL>：如照片，列表内容，身份信息，网站等</SPAN> 
+<SPAN><INPUT id="radio3" type="radio" name="radio" value="怀疑此人有虚假信息" /> <LABEL>怀疑此人有虚假信息</LABEL>：（请提供理由，链接等)</SPAN> 
+<SPAN><LABEL><INPUT id="radio4" type="radio" name="radio" value="其他/此用户发表了不当语言或图片" /> 其他/此用户发表了不当语言或图片</LABEL>：（请说明或提供链接）</SPAN> 
+<SPAN style="HEIGHT: 100px"><TEXTAREA id="txtReportContent" class="textarea" name="textfield" type="text"></TEXTAREA> </SPAN>
+</DIV>
+<DIV style="CLEAR: both">
+</DIV>
+</DIV>
+<DIV class="buttontwo">
+<INPUT id="submit" class="buttony" type="button" name="only" jQuery1342963898011="2" value="确定" />&nbsp;&nbsp;&nbsp;&nbsp;<BR /><SPAN style="LINE-HEIGHT: 280%" id="spanErr"></SPAN>&nbsp;&nbsp;&nbsp;&nbsp;
+</DIV>
+</DIV>
+<SCRIPT language="javascript" type="text/javascript"> 
+ 
+                $(document).ready(function() {
+                    $("#submit").click(function() {
+                        var contents = $("#txtReportContent").val();
+                        var touser = $("#spanToUser").html();
+                        var b_uid = $("#b_uid").val();
+                        var uemail = $("#uemail").val();
+                        var showMsgSp = $("#spanErr");
+                        showMsgSp.css("display", "none");
+                        if ($("input[type='radio']:checked").length < 1) {
+                            showMsgSp.css("display", "");
+                            showMsgSp.html("您好，请选择项！");
+                            return;
+                        }
+                        if (contents.length < 1) {
+                            showMsgSp.css("display", "");
+                            showMsgSp.html("您好，请填写内容！");
+                            return;
+                        }
+						layer.msg("提交中...",{icon:6});
+                        var checkedValue = $.trim($("input:checked").parent().text());
+                        $.post("__URL__/jubao", {thecontent: contents, checkedvalue: checkedValue,b_uid:b_uid,uemail:uemail, theuser: touser,t: new Date() },
+                            function(d) {
+                                if (d==1) {
+									layer.msg("您好，举报信息已发送成功！",{icon:1});
+                                }
+                                else {
+									layer.msg("提交失败，请重试！",{icon:2});
+									return false;
+                                }
+                            }
+                        );
+                    });
+                });
+            
+</SCRIPT>
+</DIV>
+</DIV>

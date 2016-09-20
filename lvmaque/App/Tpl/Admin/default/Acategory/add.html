@@ -1,0 +1,162 @@
+<include file="Public:js_ueditor" />
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">添加文章分类</div>
+<div class="page_tab"><span data="tab_1" class="active">基本设置</span><span data="tab_2">高级设置</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/doAdd" enctype="multipart/form-data" onsubmit="return subcheck();">
+	<div id="tab_1">
+	
+	<dl class="lineD"><dt>分类名称：</dt><dd><htmlA:input id="type_name" value="" tip="*"/></dd></dl>
+	<dl class="lineD"><dt>分类小图标：</dt><dd><htmlA:file id="file" name="file"/></dd></dl>
+	<!-- <input type="file" name="file" id="file" /> -->
+	<dl class="lineD"><dt>上级分类：</dt><dd><htmlA:select id="parent_id" vt='id|type_name' datakey='type_list' default="顶级分类" tip="顶级分类则无父分类"/></dd></dl>
+	<dl class="lineD"><dt>分类唯一标志：</dt><dd><htmlA:input id="type_nid" tip="*分类链接的网址标识"/></dd></dl>
+	<dl class="lineD"><dt>分类属性：</dt><dd><htmlA:radio id="type_set"  default="0|单页,1|列表页" /></dd></dl>
+	<dl class="lineD"><dt>分类排序：</dt><dd><htmlA:input id="sort_order" tip="数字越大越靠前" addstr='onblur="NumberCheck(this);"'/></dd></dl>
+<!--
+	<dl class="lineD"><dt>分类简介：</dt><dd><htmlA:text id="type_info" value="{$vo.type_info}" tip="SEO元素"/></dd></dl>
+-->	
+	<dl class="lineD"><dt>是否隐藏：</dt><dd><htmlA:radio id="is_hiden" default="0|否,1|是" tip='隐藏的分类名称不会自动调用,指定ID才会调用'/></dd></dl>
+	<!--<dl class="lineD"><dt>跳转路径：</dt><dd><htmlA:input id="type_url" tip='仅在分类属性为跳转时有效'/></dd></dl>-->
+	</div><!--tab1-->
+	
+	<div id="tab_2" style="display:none">
+		<dl class="lineD"><dt>分类内容：</dt>
+		  <dd>
+			<textarea name="type_content" id="type_content" type="text/plain" style="width:780px;height:360px;"></textarea>
+		  </dd>
+		</dl>
+	</div><!--tab2-->
+	<div class="page_btm">
+      <input type="hidden" name="model" id="model" value="{$model}" />
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+</div>
+
+</div>
+<script type="text/javascript">
+$("input[name='type_nid']").bind("click", function(event){
+	if($(this).val()=="other"){
+		$("#other_nid").css("display","");
+	}else{
+		$("#other_nid").css("display","none");
+	}
+})
+
+
+	//实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用ue就能拿到相关的实例
+    var ue = UE.getEditor('type_content');
+
+
+    function isFocus(e){
+        alert(ue.isFocus());
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function setblur(e){
+        ue.blur();
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        ue.execCommand('insertHtml', value)
+    }
+    function createEditor() {
+        enableBtn();
+        ue;
+    }
+    function getAllHtml() {
+        alert(ue.getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(ue.getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(ue.getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        ue.setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        ue.setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        ue.setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = ue.selection.getRange();
+        range.select();
+        var txt = ue.selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(ue.getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(ue.hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        ue.focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        ue.destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+
+    function getLocalData () {
+        alert(ue.execCommand( "getlocaldata" ));
+    }
+
+    function clearLocalData () {
+        ue.execCommand( "clearlocaldata" );
+        alert("已清空草稿箱")
+    }
+</script>
+<include file="Public:_footer" />

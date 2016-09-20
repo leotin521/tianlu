@@ -1,0 +1,91 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>投资列表页</title>
+    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/invest.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.circliful.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script>
+        $(function(){
+            // 顶部点击展示下拉事件
+            $("header h1").on("click",function(){
+                $(this).find("i").toggleClass("am-icon-caret-up");
+                $("nav a.am-menu-toggle").trigger("click");
+            })
+        })
+    </script>
+</head>
+
+<body>
+<header>
+    <h1>散标 <i class="am-menu-toggle-icon am-icon-caret-down "></i> </h1>
+</header>
+
+<include file="Pub:header_main_invest" />
+
+<div class="am-container bg-white">
+    <div data-am-widget="list_news" class="am-list-news">
+        <div class="am-list-news-bd">
+            <ul class="am-list">
+                <!--标列表循环开始-->
+                <volist name="list.list" id="vo">
+                    <li class="am-g invest-item">
+                        <a href="{:getMinvestUrl($vo['id'],1)}" style="padding:5px;font-weight:400;">
+                            <div class="tit">{$vo.borrow_name|cnsubstr=###,10}</div>
+                            <div class="fields am-cf">
+                                <div class=" rate">
+                                    <div class="field " style="font-size:14px;padding-top:5px;";>年化利率</div>
+                                    <div class="data"><span class="num error" style="font-size:15px";>{$vo.borrow_interest_rate}%</span></div>
+                                </div>
+                                <div class=" duration">
+                                    <div class="field"><span class="c-blue">限</span>{$vo.borrow_duration}<if condition="$vo.repayment_type eq 1">天<else />个月</if></div>
+                                    <div class="data">
+                                        金额<span class="num">{$vo.borrow_money|getMoneyFormts=###}</span>元
+                                    </div>
+                                </div>
+                                <div class="progress">
+                                    <!-- 调用数据时，只需要把data-text 和 data-percent 替换为投资进度值即可 -->
+                                    <div class=" am-prgoress-circle progress-layout" data-dimension="90" data-text="{$vo.progress|intval}%" data-width="4" data-fontsize="22" data-percent="{$vo.progress|intval}" data-fgcolor="#FA4343" data-bgcolor="#eee"></div>
+                                </div>
+                                <if condition="$vo.progress eq 100.00">
+                                    <div class="tag tag-disabled"><div class="rotate45">售罄</div></div>
+
+                                </if>
+                            </div>
+                        </a>
+                    </li>
+                </volist>
+                <!--标列表循环结束-->
+                <span style="margin-left:18%;">{$page}</span>
+            </ul>
+        </div>
+        <!--更多在底部-->
+    </div>
+</div>
+<div class="block-90"></div>
+
+<include file="Pub:invest" />
+
+<script>
+    $(function(){
+        // 进度使用 circliful插件，请确保引入插件后执行下面代码
+        $('.am-prgoress-circle').circliful();
+
+    })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<include file="Public:_header" />
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<tagLib name="htmlA" />
+<div class="so_main">
+	<div class="page_tit">投资明细：{$user_name}</div>
+	<div class="Toolbar_inbox" style="overflow:hidden">
+		<div class="page right">{$pagebar}</div>
+		<span style="display:inline; float:left; height:35px; overflow:hidden"></span>
+		<span style="display:inline; float:left">
+			<form method="get" action="__URL__/listinvestor">
+				从<htmlA:timer id="start_time"  arg="{dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true}"  class="Wdate" value="{$search.start_time}" />
+				到<htmlA:timer id="end_time"  arg="{dateFmt:'yyyy-MM-dd',alwaysUseStartDate:true}" class="Wdate" value="{$search.end_time}" />
+				<input type="submit" class="btn_b" value="搜索" />
+				<input type="hidden" name="uid" value="{$user_id}" />
+				<input type="hidden" name="broker" value="{$broker}" />
+				<input type="hidden" name="uname" value="{$user_name}" />
+			</form>
+		</span>
+		<htmlA:commonBtn type="href" action="__URL__/listInvestor?{$query}" value="将当前条件下数据导出为Excel" />
+	</div>
+	<div class="list">
+		<table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<th style="width:30px;"></th>
+				<th class="line_l">ID</th>
+				<!-- `mxl:weighted` -->
+				<th class="line_l">项目名称</th>
+				<th class="line_l">投资期限</th>
+				<th class="line_l">还款方式</th>
+				<th class="line_l">投标方式</th>
+				<!-- `mxl:weighted` -->
+				<th class="line_l">投标金额</th>
+				<th class="line_l">加权金额*</th><!-- `mxl:weighted` -->
+				<th class="line_l">日期</th>
+				<th class="line_l">类型</th>
+				<th class="line_l">状态</th>
+			</tr>
+			<volist id="vo" name="invlist">
+			<tr overstyle='on' id="list_{$vo.id}">
+				<td></td>
+				<td>{$vo.id}</td>
+				<!-- `mxl:weighted` -->
+				<td><a href="{$vo.id|getInvestUrl=###}" title="{$vo.borrow_name}" target="_blank">{$vo.borrow_name|cnsubstr=###,15}</a></td>
+				<td>{$vo.borrow_duration}<eq name="vo['repayment_type']" value="1">天<else />个月</eq></td>
+				<td>{$repayment_type[$vo['repayment_type']]}</td>
+				<td><eq name="vo['is_auto']" value="1">自动投<else />手动</eq></td>
+				<!-- `mxl:weighted` -->
+				<td>{$vo.investor_capital}</td>
+				<td>{$vo.weighted}</td><!-- `mxl:weighted` -->
+				<td>{$vo.add_time|date="Y-m-d",###}</td>
+				<td>{$vo.type}</td>
+				<td>{$vo.status}</td>
+			</tr>
+			</volist>
+		</table>
+	</div>
+	<div class="Toolbar_inbox">
+	<div class="page right">{$pagebar}</div>
+		<htmlA:commonBtn  action="__URL__/investorlist?id={$broker}" value="返回列表"/> <span style="padding-left:50px; font-size:16px;">加权金额合计：{$total}元</span><!-- `mxl:weighted` -->
+	</div>
+	<li>*天标与月标加权金额的计算公式分别为：【天标：投资金额 × 投资的天数 / 365天】【月标：投资金额 × 投资的月数 / 12个月】</li><!-- `mxl:weighted` -->
+</div>
+<include file="Public:_footer" />

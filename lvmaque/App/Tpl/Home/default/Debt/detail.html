@@ -1,0 +1,419 @@
+<include file="Public:_header_common" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>{$vo.borrow_name}-我要投资-{$glo.web_name}</title>
+<meta name="keywords" content="{$glo.web_keywords}" />
+<meta name="description" content="{$glo.web_descript}" />
+<link rel="stylesheet" href="__ROOT__/Style/H/css/reset.css" />
+<style type="text/css">
+    .banner{width:1000px;height:300px;margin:30px auto 0px auto;background:#FFF;}
+    .banner .bannerTitle{width:970px;height:50px;background:#e25353;color:#FFF;padding-left:30px;font-size:20px;line-height:50px;}
+    .banner .bannerCont{width:915px;height:130px;margin:20px auto;position:relative;}
+    .banner .bannerCont .bannerList{width:810px;height:130px;margin:0 auto;overflow:hidden;}
+    .banner .bannerCont .bannerList .bannerImg{width:158px;height:130px;float:left;margin:0 2px;}
+    .banner .bannerCont .bannerButtonList{width:30px;height:60px;cursor:pointer;position:absolute;top:33px;background:url('images/icon.png') no-repeat;}
+    .banner .bannerCont .bannerBtLast{background-position:1px -186px;left:0;}
+    .banner .bannerCont .bannerBtNext{background-position:-37px -186px;right:0;}
+    .banner .bannerText{width:915px;height:47px;display:block;margin-top:15px;line-height:25px;}
+    .style_line_through {text-decoration:line-through}
+    .loan .loan_rec table tr td,th {text-align: center;line-height: 48px;}
+    .fina .f_main_r .r_main .bal .jx_payment_disabled {
+        background-color: #d1d1d1;
+        border: none;
+    }
+    .fina .f_main_r .r_main .bal .jx_payment_disabled:hover {
+        background-color: #d1d1d1;
+        border: none;
+    }
+    .f_con_text img {
+        position: relative;
+    }
+    .jx_error {
+        background: url(/Style/H/images/jx_icon_error.png) no-repeat left center;
+    }
+    .jx_notice {
+        width: 100%;
+        height: 33px;
+        line-height: 33px;
+        color: #C13939;
+        text-indent: 24px;
+    }
+    .jx_success{ background:url(/Style/H/images/jx_icon_success.png) no-repeat left center; color:#56AC0B;}
+    .pwdInput {border: 1px solid #dedede;}
+    .againBtn {display:block; width: 100px;height:25px; color:#FFF; line-height: 25px;background-color: #F00;}
+    .ad_con_text_no {width: 115px;}
+    .ad_con_text_no img{padding-left: 25px;}
+    .fina .t_con_text {width: 211px;}
+    .t_con_mgn,.fina .t_con_text_nbor {width: 211px;}
+    .t_con_mgn a {color: #e25353;}
+    .t_con_mgn a:hover {color: #e25353;text-decoration: underline;}
+</style>
+<include file="Public:_header_main" />
+
+
+<div id="fina" class="fina" data="{$current_url}">
+    <div class="f_con_t" style="background:#FFF;">
+        <p class="f_con_text" style="color:#656565;" title="{$borrow_info.borrow_name}">{:getIco($borrow_info)}{$borrow_info.borrow_name|cnsubstr=###,30}</p>
+        <div class="userCon">
+            <div class="userIcon fIcon"></div>
+            <span id="userName" class="userName">{$sell_name}</span>
+        </div>
+          <style type="text/css">
+             #J_conutTan4{display:none;position: absolute;width: 180px;margin-left: 805px;border: 1px solid #ccc;background: #fff;padding-top: 10px;}
+             #J_conutTan4 table{width: 100%;font-size: 12px;}
+             #J_conutTan4 table tr td{font-size: 12px;text-align:right;line-height: 25px;padding: 0px;border: 0px;}
+             #J_conutTan4 table tr td input{border: 1px solid #ccc;margin-right: 5px;width: 80px;}  
+            </style>  
+                <a href="__ROOT__/tools/id/1.html" id="J_contJisuanqi3">
+                    <span class="f_con_img fIcon" style="background-position:-31px -149px;"></span>
+                </a>
+                
+                <div id="J_conutTan4">
+                    <table>
+                        <tr>
+                            <td width="70" >投资金额：</td>
+                            <td width="100"><input type="text" id="qcMoney" onkeyup="quickCount()"  placeholder="输入金额" /></td>
+                        </tr>
+                        <tr>
+                            <td>利息：</td>
+                            <td style="text-align:left"><span id="interest">0.00</span>元&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>奖金：</td>
+                            <td style="text-align:left"><span id="reward_money">0.00</span>元&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>总收益：</td>
+                            <td style="text-align:left"><span id="total_interest">0.00</span>元&nbsp;</td>
+                        </tr>
+                    </table>
+                    <script type="text/javascript">
+                            function quickCount(){
+                                var borrow_id     = {$borrow_info.borrow_id};
+                                var qcMoney = $("#qcMoney").val()
+                                    $.ajax({
+                                            url: "__APP__/tool/quickCountRate",
+                                            type: "GET",
+                                            dataType: "json",
+                                            data: {"borrow_id":borrow_id,"money":qcMoney},
+                                            success: function(d) {
+                                                $("#interest").html(d.interest);
+                                                $("#reward_money").html(d.reward_money);
+                                                $("#total_interest").html(d.total_interest);
+                                            }
+                                     });
+                            }
+                    </script>
+                </div>
+                  <script type="text/javascript">
+                    var oconutTan4=document.getElementById('J_conutTan4');
+                    var ocontJisuanqi3=document.getElementById('J_contJisuanqi3');
+                    var timer=null;
+
+                    ocontJisuanqi3.onmouseover=function(){
+                        clearTimeout(timer);
+                        oconutTan4.style.display='block';
+                    }
+                    ocontJisuanqi3.onmouseout=function(){
+                        timer=setTimeout(function(){
+                         oconutTan4.style.display='none';
+                        },300);                   
+                    }
+                    oconutTan4.onmouseover=function(){
+                        clearTimeout(timer);
+                        oconutTan4.style.display='block';
+                    }
+                    oconutTan4.onmouseout=function(){
+                        timer=setTimeout(function(){
+                         oconutTan4.style.display='none';
+                        },300);                   
+                    }
+                  </script>
+
+    </div>
+    <!-- f_main_l start -->
+    <div class="f_main_l">
+        <div class="t_con">
+            <div class="t_con_div">
+                <ul>
+                    <li class="t_con_text" style="margin-left:5px;">
+                        <p class="t_con_mgn">转让金额</p>
+                        <p class="t_con_mgn" style="color:#e25353;"><span style="font-size:20px;font-weight: bold;">{$debt.money}</span>元</p>
+                    </li>
+                    <li class="t_con_text" style="width: 250px;">
+                        <p class="t_con_mgn t_con_pad">现年化收益率：{$debt.interest_rate}%</p>
+                        <p class="t_con_mgn t_con_pad style_line_through">原年化收益率：{$borrow_info.borrow_interest_rate}%</p>
+                        <p class="t_con_mgn t_con_pad">剩余期限：{$borrow_info.remain_duration|default=0}天</p>
+                    </li>
+                    <li class="t_con_text t_con_text_nbor" style="margin-left:5px;">
+                        <p class="t_con_mgn">剩余可投</p>
+                        <p class="t_con_mgn" style="color:#e25353;"><span style="font-size:20px;">{$debt.need|default=0.00}</span>元</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="b_con">
+            <ul style="margin-top:40px;">
+                <li class="t_con_text t_con_text_nbor" style="margin-left:5px;">
+                    <p class="t_con_mgn">还款方式：{$borrow_info.repayment_type_name}</p>
+                    <p class="t_con_mgn">截止时间：{$debt.debt_et}</p>
+                </li>
+                <li class="t_con_text t_con_text_nbor">
+                    <p class="t_con_mgn">原项目金额：{$borrow_info.borrow_money|getMoneyFormt=###}元 </p>
+                    <p class="t_con_mgn"><a href="{$borrow_info.borrow_id|getInvestUrl=$borrow_info['borrow_type']}">查看原项目</a></p>
+                </li>
+                <li class="t_con_text" style="border: none;">
+                    <span style="background: url('__ROOT__/Style/H/images/progressbar_detail.png') repeat;display: block;font-size: 16px;height: 74px;line-height: 75px;float: left;text-align: center;width: 75px; margin-left:13px; background-position:-<php>echo
+bcmul(intval($debt['progress']),75.00);</php>px 0"><em>{$debt.progress|intval}%</em></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end f_main_l -->
+    <!-- f_main_r start -->
+    <div class="f_main_r">
+        <div class="r_main">
+            <span class="mybal">我的可用余额：</span>
+            <div class="bal">
+                <span id="" class="bal_c"><p style="font-size:20px;font-weight:bold;float:left;">
+				<if condition="session('u_id') ==''">
+                    <a style="color:#e25353;font-size:16px;font-weight: 400;cursor: pointer" href='{$unlogin_home}'>[登陆]</a><span style="color:#656565;font-size:16px;">可查看</span>
+                    <else/>
+                    {$vminfo.account|getMoneyFormt=###}元
+                </if></p></span>
+                <a href="__ROOT__/member/charge/index" class="rec">充值</a>
+                <span class="put">投放金额：<span style="font-size:12px;">(非全部认购,起投<span id="startMoney">10</span>元)</span></span>
+                <p class="jx_notice" id="jx_notice"><i style="position: relative; left: -24px;">非全部认购，金额为10的倍数</i></p>
+                <input type="text" id="enter_value" class="tzInput"  maxlength="9" max="{$vo.borrow_max|default=20000000}"/>
+                <if condition="$debt['status'] eq 4">
+                    <div class="tzButton jx_payment_disabled">已完成</div>
+                    <elseif condition="$debt['status'] eq 3"/>
+                    <div class="tzButton jx_payment_disabled">已撤销</div>
+                    <elseif condition="$debt['status'] eq 2"/>
+                    <input type="button" id="jx_payment" class="tzButton" onclick="invest({$debt.id})" value="立即投资"/>
+                    <else/>
+                    <div class="tzButton jx_payment_disabled">等待审核</div>
+                </if>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="banner">
+    <div class="bannerTitle allbgcolor">转让描述</div>
+    <div class="bannerCont">
+				<span class="bannerText">
+（1）在转让申请日，该借款债权必须是正常还款中状态方；当前为逾期状态债权不能申请转让；转让次数没有限制，允许多次转让。<br/>
+（2）对于转让人：目前只能对某一项目全部转让；对于承接人：债权转让项目可以部分承接。 <br/>
+（3）如债权转让没有被完全承接，则剩余部分会返回转让人的账户，可以再次操作转让。 <br/>
+（4）申请赎回次数限制：无次数限制，自挂牌之日后的{$debt_duration}天之内（挂牌当天不计），无人认购该项目，挂牌自动取消，可以再次操作重新挂牌。 <br/>
+（5）对已投资项目可以进行折价转让，不支持进行溢价转让。 折让率以转让金额为计算基础，在“0%-7.5%”之间由转让人进行选择，递增单位0.1%。<br/>
+（6）{$glo.web_name}平台收取转让价格的{$debt_fee}%做为转让手续费。 <br/>
+（7）购买的债权时需要支付转让人的当期利息，转让人的当期利息从购买时间或者上一次应该还款时间算起的天数，按天计息给转让人。到下次还款的时候，还款的利息会按购买金额的多少支付给购买人。
+                </span>
+    </div>
+</div>
+<div class="loan">
+<p class="loan_title award allbgcolor" style="margin-top:40px;margin-bottom:10px;">投资记录</p>
+<div class="loan_rec">
+    <table width="100%"  style="border-collapse:collapse;text-align:center;">
+        <thead>
+        <tr>
+            <th width="200px" height="48px">投标人</th>
+            <th width="200px" height="48px">当前利率</th>
+            <th width="200px" height="48px">投标时间</th>
+            <th width="200px" height="48px">购买金额</th>
+            <th width="200px" height="48px" style="border-right:none;">购买方式</th>
+            <if condition="$is_mobile eq 1">
+                <th width="200px" height="48px" style="border-right:none; border-left:solid 1px #ccc;">投资来源</th>
+            </if>
+        </tr>
+        </thead>
+        <tbody id="investrecord">
+            <if condition="!empty($invest_record)">
+                <volist name="invest_record" id="vb">
+                    <tr>
+                        <td>{$vb.investor_uname}</td>
+                        <td>{$debt.interest_rate}%</td>
+                        <td>{$vb.add_time|date='Y-m-d H:i:s',###}</td>
+                        <td>￥{$vb.investor_capital}元</td>
+                        <td>手动</td>
+                        <if condition="$vb.source eq 0 AND $is_mobile eq 1">
+                        	<td>网站</td>
+                        </if>
+                        <if condition="$vb.source eq 1 AND $is_mobile eq 1">
+                        	<td>微信</td>
+                        </if>
+                        <if condition="$vb.source eq 2 AND $is_mobile eq 1">
+                        	<td>APP</td>
+                        </if>
+                    </tr>
+                </volist>
+            <else/>
+                <tr>
+                    <td  colspan=5 class="txtC">暂没有投资记录</td>
+                </tr>
+            </if>
+        </tbody>
+    </table>
+     <div class="loan_rec_bt">
+            <div class="l_bt_div">
+                {$page}
+            </div>
+        </div>
+</div>
+</div>
+
+<script type="text/javascript">
+   var  Transfer_invest_url="__APP__/debt"
+    function invest(id){
+        var status = "{$_SESSION['u_id']}";
+        if(status=="") {
+            window.location.href = "__APP__/login?redirectUrl=<php>echo urlencode('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);</php>";
+            return false;
+        }
+        var flag = validate_enter(),
+                num = $('#enter_value').val();
+        if(!_validate_enter_flag || !flag){
+            return;
+        }
+        $.ajax({
+            url: "__URL__/ajax_invest",
+            type: "get",
+            dataType: "json",
+            data: {"id":id,"num":num},
+            success: function(d) {
+                if (d.status == 1) {
+                    $('#tcc').remove();
+                    $('.ajax-invest').remove();
+                    $("body").append(d.content);
+                    $('#investForm').slideDown(200);
+                    $('#tcc').css({"height": $(document).height()+"px"})
+                }else{
+					layer.msg(d.message,{icon:2});
+					return false;
+                }
+            }
+        })
+    }
+   // 按钮样式
+   $('#pin').live('keydown', function() {
+       var needMoney = $('#needMoney').attr('data-value');
+       if( needMoney > 0 ) {
+		   layer.msg("请先充值",{icon:0});
+           return false;
+       }
+   })
+    var investmoney = 0;
+    var borrowidMS = 0;
+    var borrow_min = 0;
+    var borrow_max = 0;
+    function PostData() {
+        var pin = $("#pin").val(),					// 支付密码
+                money = $("#enter_value").val(),		// 输入投资金额
+                borrow_id = $('#borrow_id').val()		// 投标编号
+        if(!pin){
+			layer.msg("请输入支付密码",{icon:0});
+            return false;
+        }
+
+        var flag = validate_enter();
+        if(!flag){
+            return false;
+        }
+        var needMoney = $('#needMoney').attr('data-value');
+        if( needMoney > 0 ) return false;
+        var invest_id = $('#invest_id').val();
+        $.ajax({
+            url: "__URL__/investcheck",
+            type: "post",
+            dataType: "json",
+            data: {"money":money,'invest_id':invest_id,"pin":pin},
+            success: function(d) {
+                if (d.status == 1) {
+                    var url = $('#fina').attr('data');
+                    window.location.href = url;
+                }else{
+					layer.msg(d.message,{icon:2});
+					return false;
+                }
+            }
+        })
+
+    }
+
+    // 充值
+    function ischarge(d){
+        if(d===true) location.href='/member/charge#fragment-1';
+    }
+
+    // 是否验证成功 默认不允许投钱
+    $('#enter_value').on('focus', function (){
+        var notice = document.getElementById('jx_notice');
+        notice.innerHTML = '';
+        notice.className = 'jx_notice';
+    });
+
+    var _validate_enter_flag = false;
+
+    function validate_enter()
+    {
+        var need_max = {$debt.need};
+    var getId = function (ele){ return document.getElementById(ele);},
+            allow_max = need_max,
+    allow_min = parseInt($('#startMoney').html()),
+    notice = getId('jx_notice'),
+            owner = getId('enter_value'),
+            payment = getId('jx_payment');
+    if(!owner)
+    {
+        return null; // 在金额输入框为禁用状态
+    }
+    else
+    {
+        value = owner.value;
+    }
+    if(isNaN(value))
+    { // 不是数字
+        notice.innerHTML = '投资金额不正确，默认最小投资金额！';
+        notice.className = 'jx_notice jx_error';
+//			payment.className = 'jx_payment';
+        owner.value = allow_min;
+        _validate_enter_flag = false;
+    }
+    else
+    {
+        var max = Math.min(need_max, allow_max),
+                int = parseFloat(value); //投资金额
+        if(int%allow_min != 0 && int != max)
+        {
+            notice.innerHTML = '投资金额为起投金额的整数倍！'
+            notice.className = 'jx_notice jx_error';
+            owner.value = allow_min;
+            _validate_enter_flag = false;
+        }
+        else
+        {
+            if(int > max){
+                notice.innerHTML = '投资金额不正确，大于最多投标金额！'
+                notice.className = 'jx_notice jx_error';
+                owner.value = max;
+                _validate_enter_flag = false;
+            }else if(int < allow_min && int != max){
+                notice.innerHTML = '投资金额不正确，默认最小投资金额！'
+                notice.className = 'jx_notice jx_error';
+                owner.value = allow_min;
+                _validate_enter_flag = false;
+            }else{
+                _validate_enter_flag = true;
+                notice.className = 'jx_notice jx_success';
+                notice.innerHTML = '输入正确！';
+                payment.className = 'tzButton jx_payment';
+            }
+        }
+    }
+
+    return _validate_enter_flag;
+ }
+</script>
+<include file="Public:_footer" />
+

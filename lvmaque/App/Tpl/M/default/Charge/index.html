@@ -1,0 +1,199 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>我要充值</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<script>
+    var  bank_num = "{$banks.bank_num}";
+</script>
+<body class="page-bg-white">
+<header>
+    <h1>我要充值</h1>
+    <a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+</header>
+
+<div class="mod-manage-toubiaonr">
+    <div class="loading" id="loading"></div>
+    <form class="am-form am-form-horizontal">
+        <div class="am-form-group">
+            <label  class="am-u-sm-6 am-text-left am-form-label mod-managelabel">金额：</label>
+            <div class="am-u-sm-6 am-text-right mod-manage-lijizr2 ">
+                <input class="pay_t am-radius" id="account_money" name="account_money" required="required" type="text" placeholder="请输入充值金额" autofocus="autofocus" onblur="NumberCheck(this)"/>
+            </div>
+        </div>
+
+        <div class="am-form-group" id="Channeltype" style="display:none">
+            <label  class="am-u-sm-6 am-text-left am-form-label mod-managelabel">银行预留手机号：</label>
+            <div class="am-u-sm-6 am-text-right mod-manage-lijizr2 ">
+                <input class="pay_t am-radius" id="payphone" name="payphone" required="required" type="text" placeholder="请输入银行预留手机号" autofocus="autofocus"/>
+            </div>
+        </div>
+        <if condition="$banks == ''">
+            <div class="am-form-group mod-manage-btn" id="Channeltype" style="display:none">
+                <div class="am-container">
+                    <input type="button" class="am-btn am-btn-block  am-radius am-btn-danger am-btn-xl" onclick="baofoobank();" value="请先绑定银行卡"/>
+                </div>
+                <p style="font-size:12px;color:red;text-align:center;">选择宝付充值请先绑定银行卡,绑定后不可以更改</p>
+            </div>
+            <else/>
+            <div class="mod-info-blank" id="Channeltype" style="display:none">
+                <ul class="am-list">
+                    <li><!---__URL__/edit_bank?id={$vo.id}--->
+                        <a href="javascript:;">
+                            <div class="con" style="margin-top:3%;">
+                                <i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field" style="font-size:1.6rem;">
+                                <span class="mod-blank-img"><img src="__ROOT__/Style/NewWeChat/images/bank/{$banks.bank_id}.png" alt="" style="width:50px;height:50px;" border="0" /></span>{$banks.bankname}<br/><font style="color:#5a5959;line-height:30px;">尾号{$banks.bank_num|hidecard=###,3}</font>                            </div>
+                            <div class="clear:both"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </if>
+
+            <div class="am-form-group">
+                <label  class="am-u-sm-6 am-text-left am-form-label mod-managelabel">充值通道：</label>
+                <div class="am-u-sm-6 mod-manage-lijizr2" style="font-size:12px; text-align:left;">
+                    融宝充值:<input class="pay_t am-radius" id="Channel"  name="Channel" type="radio" value="reapal" checked="checked"/><br />
+                    宝付充值:<input class="pay_t am-radius" id="Channel"  name="Channel" type="radio" value="baofoo"/><br />
+
+                    微信支付:<input class="pay_t am-radius" id="Channel"  name="Channel" type="radio" value="wetch"/><br />
+                </div>
+            </div>
+
+            <div class="am-form-group mod-manage-btn">
+                <div class="am-container">
+                    <input type="button" class="am-btn am-btn-block  am-radius am-btn-danger am-btn-xl" onclick="chargemoney();" value="确认充值"/>
+                </div>
+            </div>
+
+            <!--<div class="am-form-group mod-manage-btn">-->
+                <!--<div class="am-container">-->
+                    <!--<input type="button" class="am-btn am-btn-block  am-radius am-btn-danger am-btn-xl" onclick="callpay();" value="微信支付" style="background: green;border-color:green;"/>-->
+                <!--</div>-->
+            <!--</div>-->
+
+    </form>
+    <div id="rct"></div>
+</div>
+<script>
+    $(function(){
+        $("input[id='Channel']").each(function(){
+            $(this).click(function(){
+                var Channel = $("input:radio:checked").val();
+                if(Channel == "baofoo"){
+                    $("div[id='Channeltype']").show();
+                }else{
+                    $("div[id='Channeltype']").hide();
+                }
+            })
+        })
+
+    })
+</script>
+<script>
+    function NumberCheck(t){ //匹配数字
+        var num = t.value;
+        var re=/^\d*$/;
+        if(!re.test(num)){
+            isNaN(parseInt(num))?t.value='':t.value=parseInt(num);
+        }
+    }
+
+    var t = 5;
+    function settimesf5(){
+        t -=1;
+        if(t == 0){
+            layer.msg("正在返回");
+            window.location.href="__APP__/m/user/";
+        }
+        setTimeout("settimesf5()", 1000 );
+    }
+
+    function baofoobank(){
+        window.location.href="__APP__/m/user/bank_index?bank_type=baofoo";
+    }
+
+    function chargemoney(){
+
+        var account_money = $("#account_money").val();
+        var payphone = $("#payphone").val();
+        var Channel = $("input:radio:checked").val();
+
+        var pat = /^1[3|4|5|7|8][0-9]\d{4,8}$/;//验证手机号码
+        if(account_money == ""){
+            layer.msg("充值金额不能为空");
+            return false;
+        }
+
+        if(Channel == 'baofoo'){
+            if (!pat.test(payphone)) {
+                $().toastmessage('showErrorToast', '请输入正确手机号码!');
+                return false;
+            }
+
+            if(bank_num == ""){
+                $().toastmessage('showErrorToast', '请先去绑定一张银行卡!');
+                return false;
+            }
+        }
+        if(Channel == 'wetch'){
+                $.ajax({
+                    url:"__APP__/m/Pay/wetch_app",
+                    type:"post",
+                    data:{"account_money":account_money},
+                    datatype:"json",
+                    timeout:"4000",
+                    beforeSend: function () {
+                        layer.msg("验证支付环境...");
+                    },
+                    success: function(d){
+                        if(d.status == 1){
+                            window.location.href="__APP__/m/Wetchpay";
+                        }else{
+                            layer.msg("X 环境不支持!");
+                        }
+                    }
+                });
+
+            return false;
+        }
+
+        $.ajax({
+            url:"__APP__/m/Pay/paymoneytype",
+            type:"post",
+            data:{"amoney": account_money,"pay_channel": Channel,"payphone": payphone},
+            datatype:"json",
+            timeout:"3000",
+            success: function(d){
+                var t = eval('('+d+')');
+                if(t.status == 0){
+                    layer.msg(t.message);
+                }else{
+                    $("#rct").html(t.str);
+                }
+            }
+        });
+    }
+</script>
+<script>
+    //微信支付
+
+</script>
+</body>
+</html>

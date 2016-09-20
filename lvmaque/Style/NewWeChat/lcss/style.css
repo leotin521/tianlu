@@ -1,0 +1,204 @@
+@charset "utf-8";
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,input,button,textarea,p,th,td{margin: 0;padding: 0; font-family: "微软雅黑";}
+a{ text-decoration: none; color: #5a5a5a;}
+li{list-style: none;}
+
+.clr{ clear: both;}
+.clearfix { *zoom:1;}
+.clearfix:after{clear: both;content: "";display: block;height: 0;visibility: hidden;}
+.font_16{ font-size: 16px;}
+.font_14{font-size: 14px;}
+.font_15{font-size: 15px;}
+.font_13{font-size: 13px;}
+.font_12{font-size: 12px;}
+.com_color{ color: #C4972D;}
+.com_bgcolor{  background-color: #C4972D;}
+.white_Col{color: #fff;}
+.fl{float: left;}
+.fr{float:right;}
+.org{color: #FF8348;}
+.blod{ font-weight: 700;}
+/*top*/
+.top_nav{top:0;position:fixed; _position:absolute;z-index:9999; top:0px;left: 0;  width: 100%; height: 45px; line-height: 45px; margin: 0 auto;    
+        _top:expression(eval(document.compatMode &&     
+        document.compatMode=='CSS1Compat') ?     
+        documentElement.scrollTop     
+        +(documentElement.clientHeight-this.clientHeight) - 0    
+        : document.body.scrollTop     
+        +(document.body.clientHeight-this.clientHeight) - 0); width:100%; }
+
+
+.top_nav_tm{background: #000;filter:alpha(opacity=40);  
+      -moz-opacity:0.4;  
+      -khtml-opacity: 0.4;  
+      opacity: 0.4;}
+.top_nav h1{ color:#fff;text-align: center; font-size: 18px; font-weight: 700;}
+
+/*top end*/
+.main_visual{height:170px;overflow:hidden;position:relative;}
+.main_image{height:100%;overflow:hidden;position:relative;}
+.main_image ul{width:9999px;height:100%;overflow:hidden;position:absolute;top:0;left:0; margin: 0;padding: 0;}
+.main_image li{float:left;width:100%;height:100%;}
+.main_image li span{display:block;width:100%;height:100%; overflow: hidden;}
+.main_image li a{display:block;width:100%;height:100%}
+.main_image li .img_1 img{ height: 100%; width: 100%;}
+.main_image li .img_2 img{ height: 100%; width: 100%;}
+.main_image li .img_3 img{ height: 100%; width: 100%;}
+.main_image li .img_4 img{ height: 100%; width: 100%;}
+.main_image li .img_5 img{ height: 100%; width: 100%;}
+
+div.flicking_con{position:absolute;top:130px;left:50%;z-index:999;width:300px;height:21px;margin:0 0 0 -50px;}
+div.flicking_con a{float:left;width:21px;height:21px;margin:0;padding:0;background:url('../img/btn_main_img.png') 0 0 no-repeat;display:block;text-indent:-1000px}
+div.flicking_con a.on{background-position:0 -21px}
+#btn_prev,#btn_next{z-index:11111;position:absolute;display:block;width:73px!important;height:74px!important;top:40%;display:none;}
+#btn_prev{background:url(../img/hover_left.png) no-repeat left top;left:2%;}
+#btn_next{background:url(../img/hover_right.png) no-repeat right top;right:2%;}
+
+
+/*content star*/
+.line{ height: 1px; width: 100%; border-bottom: 1px solid #dedede; padding-top: 10px;}
+.content{ width: 95%; margin: 0px auto 10px; height: auto;}
+.content .lc_fl_01{width: 99%; padding: 0px 0px 35px; margin: 0px auto 10px; height: auto; background: url(../img/new/b_tz_tuijian.png) no-repeat top right;}
+.content .lc_fl_01 h2{text-align: center; font-size: 16px; height: 40px; line-height: 40px;}
+.content .lc_fl_01 .jd_tj{ width: 82%; margin-top: 18px; height: 12px; background-color: #ccc; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;}
+
+.content .lc_fl_01 .jd_tj .jd_tj_01{ width: 60%; height: 100%;background-color: #B53354; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;}
+
+.lc_fl_02{ height: auto; width: 100%;}
+.lc_fl_02 .lc_fl_02_0{ padding: 5px 0px;}
+.lc_fl_02_tb{display: block; clear: both; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color: #fff; background-color: #B53354;}
+.lc_fl_02 .lc_fl_02_ywc{display: block; clear: both; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color: #fff; background-color: #aaa;}
+
+.lc_fl_02 table{width: 99%; margin: 10px auto;line-height: 20px; font-size: 14px; text-align: left;}
+/*content end*/
+
+
+/***footer star**/
+.footer_nav_content{height: 85px;}
+#footer_nav{bottom:0;position:fixed; _position:absolute;z-index:9999; bottom:0px;left: 0;      
+        _top:expression(eval(document.compatMode &&     
+        document.compatMode=='CSS1Compat') ?     
+        documentElement.scrollTop     
+        +(documentElement.clientHeight-this.clientHeight) - 0    
+        : document.body.scrollTop     
+        +(document.body.clientHeight-this.clientHeight) - 0); width:100%; z-index:1;} 
+.footer_nav{ height: auto;  width: 100%; text-align: center; background-color: #fff;}
+
+
+.footer_nav .bg_footer{ position:relative;height: 85px; width: 100%;background: url(../img/new/b_paixu_back1.png) no-repeat center top;}
+.footer_nav .bg_footer a{display: block; width: 20%; height: 100%; float: left;text-align: center;}
+
+.footer_nav .bg_fo{ background: url(../img/new/b_paixu_back1.png) no-repeat center top; height: 25px;}
+
+.footer_nav .bg_footer #fot_paihang01{width: 100%;}
+
+
+
+.footer_nav .footer_lc{ display: block; height: 35px; background: url(../img/new/b_page_1_1.png) no-repeat center; margin-top: 30px;}
+.footer_nav .footer_jk{ display: block; height: 35px; background: url(../img/new/b_page_2_1.png) no-repeat center; margin-top: 30px;}
+.footer_nav .footer_ho{ display: block; height: 54px;  background: url(../img/new/b_page_3_2.png) no-repeat center top; margin-top: 10px; font-size: 13px;}
+.footer_nav .footer_zh{ display: block; height: 35px; background: url(../img/new/b_page_4_1.png) no-repeat center; margin-top: 30px;}
+.footer_nav .footer_se{ display: block; height: 35px; background: url(../img/new/b_page_5_1.png) no-repeat center; margin-top: 30px;}
+
+/***footer end**/
+/******************************首页 end**********************************/
+.touzi_fl{width: 100%; height: 45px; line-height: 45px; background-color: #fff; margin-top: 45px;}
+
+.touzi_fl  ul li{ cursor: pointer; height: 100%; width: 20%; float: left; text-align: center; font-weight: 700;}
+
+#dw_listshow01{width: 95%; margin:0 auto; padding: 45px 0px;}
+
+#dw_listshow01 .sb_list{position: relative; background: #fff; padding: 10px 0; border:1px solid #DEDEDE; border-radius: 8px;-webkit-border-radius: 8px; -moz-border-radius: 5px; margin: 10px auto;}
+#dw_listshow01 .sb_list table{width:95%; margin: 0 auto; margin-top: 10px; font-size: 16px; line-height: 35px;}
+#dw_listshow01 .sb_list_yw_img{position: absolute; right: 50px; top: 15px;}
+
+#dw_listshow01 .sb_list a{ display: block; padding: 0px 10px; font-weight: 700; height: 35px; line-height: 35px; border-bottom: 1px dashed #DEDEDE;  font-size: 14px;}
+
+#dw_listshow01 .sb_list .jd_list_sb{width: 75px; height: 75px; line-height: 45px; margin: 0 auto; text-align: center; }
+
+#dw_paihang01 .col_xdd{color: #B53354; border-bottom: 2px solid #B53354;}
+
+/**我要借款**/
+.form_con{ width: 100%; height: auto; margin: 45px auto 10px;}
+.form_con .form_con_01{ height: 30px; line-height: 30px; margin: 10px auto; padding: 10px 20px; border-bottom: 1px solid #DEDEDE;border-top: 1px solid #DEDEDE; background-color: #fff;}
+.form_con .form_con_02{ line-height: 30px; margin:10px auto 0px;padding: 10px 20px; border-bottom: 1px solid #DEDEDE;border-top: 1px solid #DEDEDE; background-color: #fff;}
+.form_con .form_con_02 .form_con_01_a{display: block; height: 100%;width: 100%;}
+.form_con .form_con_02 .form_con_01_a b{ display: block; clear: both; height: 30px; line-height: 30px; width: 100%;}
+.form_con .form_con_02 .form_con_01_a .content_text{width:95%; margin:10px auto; padding: 5px; font-size: 13px; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;border:1px solid #DEDEDE;}
+
+.form_con .form_con_01 .form_con_01_a{display: block; height: 100%;width: 100%;}
+.form_con .form_con_01 .form_con_01_a img{margin: 4px 0px;}
+.form_con .form_con_01 .form_con_01_a b{width: 80px;}
+.form_con .form_con_01 .form_con_01_fl{background: url(../img/new/d_black_right.png) no-repeat center right;}
+.form_con .form_con_01 .form_con_01_selse{ border: none; display: block; font-size: 14px; text-align: right;margin-right: 20px;padding-right: 10px; float: right; height: 30px;}
+.form_con .form_con_01 .borrowname{ float: left; height: 30px; line-height: 30px; width: 65%; padding: 0px 5px; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;border:1px solid #DEDEDE;}
+.form_con .form_con_01 .borrowpasw{float: left; height: 30px; line-height: 30px; width: 65%; padding: 0px 5px; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;border:1px solid #DEDEDE;}
+.form_con .form_con_01 .borrownmoney{ float: left; height: 30px; line-height: 30px; width: 55%; padding: 0px 5px; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;border:1px solid #DEDEDE;}
+.form_con .form_con_01 .borrowret{ float: left; height: 30px; line-height: 30px; width: 55%; padding: 0px 5px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border:1px solid #DEDEDE;
+}
+.form_con .form_con_03{border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;border:1px solid #DEDEDE; color: #fff;text-align: center;font-size: 16px; margin: 10px auto 20px;width: 60%; height: 45px; line-height: 45px;}
+.comm_back{position:absolute; display: block; width: 35px; height: 45px; float: left; background: url(../img/new/b_to_left_2.png) no-repeat center;}
+
+.top_nav_h{height: 45px;}
+
+/*********立即投资   表单************/
+.ljtb_content{
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto 15px;
+    background: #fff;
+    border-radius: 8px;-webkit-border-radius: 8px; -moz-border-radius: 8px;
+}
+
+.ljtb_content p{
+    display: block;
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px solid #DEDEDE;
+    font-size: 14px;
+}
+
+
+.ljtb_content_01{ height: 80px; width: 95%; margin: 10px auto;}
+
+.ljtb_content_01 b{ display: block; height: 40px; line-height: 40px; font-size: 14px;}
+.ljtb_content_01 input{ height: 40px; line-height: 40px; border: none; background: #fff; width: 100%; text-indent: 0.5em;}
+.ljtb_content_02{
+    display: block;
+    height: 40px; line-height: 40px;
+    text-align: center;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    width: 95%;
+    background: #B53354;
+    margin: 30px auto 10px;
+    border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;
+}
+
+.comm_home{ width: 35px; height: 45px; float: right; background: url(../img/home.png) no-repeat center; margin-right: 9px;}
+
+
+
+body{ font-size: 12px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

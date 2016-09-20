@@ -1,0 +1,121 @@
+<include file="Public:_header" />
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<tagLib name="htmlA" />
+<script type="text/javascript">
+	var delUrl = '__URL__/doDel';
+	var addUrl = '__URL__/add';
+	var editUrl = '__URL__/edit';
+	var editTitle = '修改会员类型';
+	var isSearchHidden = 1;
+	var searchName = "搜索/筛选会员";
+</script>
+<div class="so_main">
+  <div class="page_tit">会员列表</div>
+<!--搜索/筛选会员-->
+  <include file="search" />
+<!--搜索/筛选会员-->
+
+  <div class="Toolbar_inbox">
+  	<!-- <div class="page right">{$pagebar}</div> -->
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索/筛选会员" style="search_action" />
+    <in name="ainfo['me']" value="other,leader"><htmlA:commonBtn type="href" action="__URL__/export?{$query}" value="将当前条件下数据导出为Excel"/></in><!-- 增加身份限制，不允许经纪人操作`mxl:team20150116` -->
+  <!--  <htmlA:commonBtn type="jsfun" action="del();" value="删除会员(谨慎操作)" />-->
+  </div>
+  
+  <div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th style="width:30px;">
+        <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+        <label for="checkbox"></label>
+    </th>
+    <th class="line_l">ID</th>
+    <th class="line_l">团队长账号</th>
+    <th class="line_l">经纪人账号</th>
+    <th class="line_l">投资人</th>
+    <th class="line_l">真实姓名</th>
+	<th class="line_l">推荐人</th><!-- 增加此项，以免误删除前台推荐人`mxl:team20150117` -->
+    <th class="line_l">身份证号</th>
+    <th class="line_l">手机号码</th>
+    <th class="line_l">邮箱地址</th>
+	
+    
+    <th class="line_l">注册时间</th>
+    <th class="line_l">关联时间</th>
+    <in name="ainfo['me']" value="other,leader"><th class="line_l">操作</th></in><!-- 增加身份限制，不允许经纪人操作`mxl:team20150116` -->
+  </tr>
+  <volist id="vo" name="list">
+      <tr overstyle='on' id="list_{$vo.id}">
+        <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+        <td>{$vo.id}</td>
+        <td>{$vo.team_name}</td>
+        <td>{$vo.broker_name}</td>
+        <td><htmlA:user id="vo.id" uname="vo.user_name" /></td>
+        <td>{$vo.real_name|default="&nbsp;"}</td>
+		<td><if condition="$vo['recommend_id'] gt 0 and $vo['recommend_type'] eq 0">{$vo['recommend_name']}</if></td><!-- 增加此项，以免误删除前台推荐人`mxl:team20150117` -->
+        <td>{$vo.idcard}</td>
+        <td>{$vo.user_phone}</td>
+        <td>{$vo.user_email}</td>
+		
+        
+        <td>{$vo.reg_time|date="Y-m-d H:i",###}</td>
+        <td><gt name="vo['recommend_id']" value="0">{$vo.guanlian_time|date="Y-m-d H:i:s",###}</gt></td><!-- 增加是否关联的判断，无关联不显示关联时间`mxl:team20150116` -->
+        <in name="ainfo['me']" value="other,leader"><td>
+            <if condition="$vo['recommend_id'] gt 0 and $vo['recommend_type'] eq 1"><a href="javascript:void(0);" onclick="relieve({$vo['id']});">解除关联</a>
+			<else/><a href="javascript:void(0);" onclick="reset({$vo['id']},{$vo['recommend_id']});">重置关联</a></if><!-- 增加参数`mxl:team20150117` -->
+        </td></in><!-- 增加身份限制，不允许经纪人操作`mxl:team20150116` -->
+      </tr>
+  </volist>
+  </table>
+
+  </div>
+  
+  <div class="Toolbar_inbox">
+  	<div class="page right">{$pagebar}</div>
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索/筛选会员" style="search_action" />
+    <!--<htmlA:commonBtn type="jsfun" action="del();" value="删除会员(谨慎操作)" />-->
+  </div>
+</div>
+<script type="text/javascript">
+function showurl(url,Title){
+	ui.box.load(url, {title:Title});
+}
+function reset(id,rid){<!-- 增加参数rid`mxl:team20150117` -->
+	if (rid>0){ if (confirm("此项操作将覆盖前台推荐会员信息，是否继续？")==false){ return; } }<!-- `mxl:team20150117` -->
+	
+	$.jBox("get:__URL__/ajax_reset?id="+id, {
+		title: "重置关联",
+		width: "auto",
+		buttons: {'关闭': true }
+	});
+    }
+function relieve(id){
+	
+	var aid = id;
+	
+  
+	if(confirm('确定要解除关系吗?')){
+	  $.ajax({
+		url: "/Admin/Investor/relieve",
+		data: {"aid":aid},
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==1)	 {
+					alert(d.message);
+					window.location.href="/Admin/Investor/index";
+					
+				}else{
+				    alert(d.message);
+					window.location.href="/Admin/Investor/index";
+				}
+			}
+		}
+	  });
+	}
+  }
+</script>
+
+<include file="Public:_footer" />

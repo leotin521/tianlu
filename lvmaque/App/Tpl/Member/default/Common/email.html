@@ -1,0 +1,189 @@
+<include file="Public:_header_common" />
+<title>会员注册</title>
+<link href="__ROOT__/Style/M/css/register.css" rel="stylesheet" type="text/css">
+<include file="Public:_header_main" />
+<script type="text/javascript">
+var cnform={e:false,v:false,s:false};
+function ckf(){
+	if(cnform.e==true){
+		var jc = $("#J_Code").val();
+		if(jc.length!=4){
+			alert("请输入验证码");
+			return false;
+		}
+		else return true;
+	}else{
+		alert("请按要求填完再提交");
+		return false;
+	}
+}
+
+function submitreg(obj){
+		obj.value="提交中...";
+		$(obj).attr('disabled','disabled');
+		var cd = $("#code").val();
+        $.ajax({
+            url: "__URL__/reg/",
+            data: {'code':cd},
+            timeout: 10000,
+            cache: true,
+            type: "POST",
+            dataType: "html",
+            success: function (d, s, r) {
+				if(d==1){
+					window.location.href="__URL__/regsuccess/";
+				}
+				else{
+					obj.value="提交";
+					$(obj).attr('disabled','');
+					alert("对不起，验证码错误，请确认后提交");
+				}
+            }
+        });
+}
+function rshowtip(id,tip,obj){
+		if(obj.value !="" ){return;}
+		if(tip==1){
+			cnform.e=false;
+			$("#"+id).removeClass('hide').addClass('show msg-tips').css('visibility','visible').find('.msg-cnt').html('请填入常用邮箱，邮箱将作为登陆帐号');
+		}else{
+			cnform.v=false;
+			if(cnform.s) $("#"+id).removeClass('hide').addClass('show msg-tips').css('visibility','visible').find('.msg-cnt').html('请输入邮件内包含的验证码');
+			else $("#"+id).removeClass('hide').addClass('show msg-tips').css('visibility','visible').find('.msg-cnt').html('请先填入邮箱，并获取验证码');
+		}
+		
+}
+function rhidetip(id,tip,obj){
+	if(tip==1){
+		if(obj.value !="" ){
+			var emailreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+			if(!emailreg.test(obj.value)){
+				cnform.e=false;
+				$("#"+id).removeClass('hide msg-tips msg-ok').addClass('show msg-error').css('visibility','visible').find('.msg-cnt').html('邮箱输入不正确');
+			}else{
+				ckemail(obj.value,id);
+			}
+			return;
+		}else{
+			cnform.e=false;
+			$("#"+id).removeClass('hide msg-tips msg-ok').addClass('show msg-error').css('visibility','visible').find('.msg-cnt').html('邮箱不能为空');
+		}
+	}else{
+			if(obj.value !="" && cnform.s==false){
+				cnform.v=false;
+				$("#"+id).removeClass('hide').addClass('show msg-tips').css('visibility','visible').find('.msg-cnt').html('请先填入邮箱，并获取验证码');
+			}else if(obj.value ==""){
+				cnform.v=false;
+				$("#"+id).removeClass('hide msg-tips msg-ok').addClass('show msg-error').css('visibility','visible').find('.msg-cnt').html('验证码不能为空');
+			}else{
+				$("#"+id).removeClass('show msg-tips msg-ok msg-error').addClass('hide').css('visibility','hidden').find('.msg-cnt').empty();
+			}
+	}
+}
+function ckemail(v,id){
+		var bu = '<input type="button" class="sendemail" onclick="sendemail(\'J_PhoneTip\',this);" value="发送验证码" />';
+        $.ajax({
+            url: "__URL__/ajaxckemail/",
+            data: {'email':v},
+            timeout: 10000,
+            cache: true,
+            type: "POST",
+            dataType: "html",
+            success: function (d, s, r) {
+				if(d==1){
+					cnform.e=false;
+					$("#"+id).removeClass('hide msg-tips msg-error').addClass('show msg-ok').css('visibility','visible').find('.msg-cnt').html(bu);
+				}
+				else{
+					cnform.e=false;
+					$("#"+id).removeClass('hide msg-tips msg-ok').addClass('show msg-error').css('visibility','visible').find('.msg-cnt').html('此邮箱已经被别人使用,请确认邮箱帐号填写正确.');
+				}
+            }
+        });
+}
+function sendemail(id,obj){
+		obj.value="发送中...";
+		$(obj).attr('disabled','disabled');
+		var em = $("#J_email").val();
+		var bu = '<input type="button" class="sendemail" onclick="sendemail(\'J_PhoneTip\',this);" value="发送失败，重发邮件" />';
+        $.ajax({
+            url: "__URL__/sendemail/",
+            data: {'email':em},
+            timeout: 10000,
+            cache: true,
+            type: "POST",
+            dataType: "html",
+            success: function (d, s, r) {
+				if(d==1){
+					cnform.e=true;
+					cnform.s=true;
+					$("#"+id).removeClass('hide msg-tips msg-error').addClass('show msg-ok').css('visibility','visible').find('.msg-cnt').html('邮件发送成功，请登陆邮箱查看验证码，然后填入下面的文本框中，然后提交，完成注册');
+				}
+				else{
+					cnform.e=false;
+					$("#"+id).removeClass('hide msg-tips msg-ok').addClass('show msg-error').css('visibility','visible').find('.msg-cnt').html(bu);
+				}
+            }
+        });
+}
+</script>
+	<!--中部开始-->
+	<div id="container">
+		<div id="content">
+			<!-- 页面content内容开始 -->
+			<div class="steps step-2">
+				<ol>
+					<li>填写账户信息</li>
+					<li>输入校验码</li>
+					<li>注册成功</li>
+				</ol>
+			</div>
+			
+			
+			<div class="reg clearfix">
+				<div class="form">
+					<div class="form-list">
+							<div class="kv-item">
+								<span class="kv-label">您的邮箱：</span>
+								<div class="phone-input-box">
+									<input style="padding-left:5px" class="J-Mobile i-text" id="J_email" type="text" value="" name="email" onclick="rshowtip('J_PhoneTip',1,this);" onblur="rhidetip('J_PhoneTip',1,this)">
+								</div>
+								
+								<div class="msg-weak msg-inline hide" id="J_PhoneTip">
+									<i></i>
+									<div class="msg-cnt"></div>
+								</div>
+							</div>
+
+							<div class="kv-item">
+								<span class="kv-label">验证码：</span>
+								<div class="phone-input-box">
+									<input style="padding-left:5px" class="J-Mobile i-text" id="code" type="text" value="" name="code" onclick="rshowtip('JCode',2,this);" onblur="rhidetip('JCode',2,this)">
+								</div>
+								
+								<div class="msg-weak msg-inline hide" id="JCode">
+									<i></i>
+									<div class="msg-cnt"></div>
+								</div>
+							</div>
+
+							<div class="kv-item form-meta">
+								<button class="btn-b" type="submit" onclick="submitreg(this);" tabindex="6">提 交</button>
+								
+							</div>
+					</div>
+				</div>
+				<div class="quick-reg">
+					<em class="quick-tit">手机快速注册</em>
+					<div class="quick-detail">
+						中国大陆手机用户，编辑短信“<em>TB</em>”发送到：<br />
+						<em class="phone-num">1069099988</em>
+					</div>
+				</div>
+			</div>
+			<div class="ue-suggest">
+				<img width="18" height="18" alt="注册改进建议" src="../../img04.taobaocdn.com/tps/i4/T1Pt0FXmJcXXXXXXXX-18-18.png">
+				<a target="_blank" href="http://ur.taobao.com/survey/view.htm?id=588">"淘宝注册"改进建议</a>
+			</div>
+	</div>
+<include file="Public:_footer" />

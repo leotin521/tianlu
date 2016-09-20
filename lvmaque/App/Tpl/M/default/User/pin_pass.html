@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>修改交易密码</title>
+        <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+       <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+       <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/email.css" rel="stylesheet" />
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+        <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+        <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+	</head>
+	<body style="background:#F1EEEE;">
+	<header>
+        <h1>修改交易密码</h1>
+        <a href="javascript:window.history.go(-1);" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+
+     <form action="" class="am-form am-form-horizontal form-apply">
+            <div class="mod-info-usermeg">
+                 <ul class="am-list " style="margin-top:8%">
+                    <li class="mod-info-listline">
+                         <div class="am-form-group">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">旧密码</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <input class="now_password am-radius" onblur="newpass();" id="now_password" name="now_password" required="required" type="password" placeholder="如果没有设置，则为当前登陆密码" autofocus="autofocus" style="padding:2%;" />
+
+
+                             </div>
+                         </div>
+                     </li>
+                       <li class="mod-info-listline">
+                         <div class="am-form-group">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">新密码</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <input class="new_password am-radius" id="new_password" name="new_password" required="required" type="password" placeholder="请输入新密码" style="padding:2%;" />
+
+
+                             </div>
+
+
+                              
+                         </div>
+                     </li>
+                     <li class="mod-info-listline">
+                         <div class="am-form-group">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">重复密码</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <input class="new_password am-radius" id="news_password" name="new_password" required="required" type="password" placeholder="请重复输入新密码" style="padding:2%;"/>
+
+                             </div>
+                         </div>
+                     </li>
+                </ul>
+                
+            </div>
+			<div class="am-container">
+                 <button class="am-btn am-btn-block am-btn-xl am-btn-danger am-radius" id="addBankSubmit" onclick="sub()">完成</button>
+			</div>
+            </form>
+
+		
+			
+			
+
+
+	
+
+		
+	<!-- email_content end -->
+
+    <script type="text/javascript">
+        var t = 5;
+        var mbTest = /^(13|14|15|18)[0-9]{9}$/;
+        function settimesf5(){
+            t -=1;
+            if(t == 0){
+                $("#loading").show();
+                window.location.href="__APP__/m/user";
+            }
+            setTimeout("settimesf5()", 500 )
+        }
+
+        function sub(){
+            var now_password = $("#now_password").val();    //原始密码
+            var new_password = $("#new_password").val();    //新密码
+            var news_password = $("#news_password").val();  //确认新密码
+
+            if(new_password.length < 6){
+                $().toastmessage('showErrorToast', '新支付密码位数必须大于6位数');
+                return false;
+            }else if(news_password != new_password){
+                $().toastmessage('showErrorToast', '两次支付密码输入不相同');
+                return false;
+            }
+
+            $.ajax({
+                cache: false,
+                url: "__URL__/pin_pass_save",
+                type:"post",
+                async: false,
+                datatype:"json",
+                timeout: 2000,
+                data:{"now_password":now_password,"new_password":new_password,"news_password":news_password,},
+                success:function(d){
+                    var data = eval('('+d+')');
+                    //alert(data);
+                    if(data.status == 1){
+                        $("#now_password").attr("value","");
+                        $("#new_password").attr("value","");
+                        $("#news_password").attr("value","");
+                        $().toastmessage('showSuccessToast', data.message);
+                        settimesf5();
+                    }else if(data.status == 0){
+                        $().toastmessage('showErrorToast', data.message);
+                        return false;
+                    }
+                }
+            })
+
+        }
+
+    </script>
+	</body>
+</html>

@@ -1,0 +1,202 @@
+<include file="default:Public:_header_common"/>
+<style type="text/css">
+.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}
+.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}
+.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}
+.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}
+.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}
+</style></head>
+<body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"></div>
+    </div>
+    <div class="user-main clearfix">
+    <include file="default:Public:_left"/>
+
+        <!--我的奖励金begin-->
+        <div class="user-con">
+            <div class="user-box-1 user-integral">
+                <div class="user-box-title-1 clearfix">
+                    <h2>投资积分</h2>
+                   
+                </div>
+                <div class="user-box-con clearfix">
+                    <div class="user-bounty-show clearfix">
+                        <dl class="user-account-balance">
+                            <dt><span>累计获取投资积分</span></dt>
+                            <dd>
+                                <span><strong>{$integral_info.integral}</strong></span>
+                            </dd>
+                        </dl>
+                        <dl class="user-current-month-earnings">
+                            <dt><span>可用投资积分</span></dt>
+                            <dd>
+                                <span><strong>{$integral_info['active_integral']}</strong></span>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>已用投资积分</span></dt>
+                            <dd>
+                                <span class="y"><strong><if condition="$integral_info.integral neq $integral_info.active_integral ">{$integral_info['integral']-$integral_info['active_integral']}<else />0</if></strong></span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="user-box-title-1 clearfix">
+                    <h2>投资积分记录</h2>
+                </div>
+                <div class="user-box-con-1">
+                    <div id="pagerContainer" class="rel">
+                        <table class="table-style-2 table-style-4">
+                          <tbody><tr class="">
+                            <th width="165">时间</th>
+                            <th width="166">类型</th>
+                            <th width="215">详情</th>
+                            <th width="90" style="text-align:right; padding-right:18px;">积分</th>
+                          </tr>
+                          <volist name="list" id="vo">
+                          <tr>
+                            <td class="user-deal-record-time">{$vo.add_time|date="Y-m-d",###}<br><span>{$vo.add_time|date="H:i:s",###}</span></td>
+                            <td><if condition="$vo.affect_integral gt 0">获取<else/>使用</if></td>
+                            <td>{$vo.info}</td>
+                            <td class="user-deal-record-money" style="text-align:right; padding-right:18px;">                            
+                            <if condition="$vo.affect_integral gt 0">
+                            <strong>+{$vo.affect_integral}</strong>
+                            <else/>
+                            {$vo.affect_integral}
+                            </if>
+                            
+                            </td>
+                          </tr>
+                          </volist>
+                        
+                        </tbody></table>
+                        </div>
+                    <div class="table-style-footer" style="display:block;">{$page}</div>
+                </div>
+                <div class="user-box-title-1 clearfix">
+                    <h2>积分兑换<a name="creditAnchor" id="creditAnchor">&nbsp;</a></h2>
+                </div> 
+                
+                <div class="user-box-con-1">
+                    <h3 style="color: #e25353;"><img src="__ROOT__/Style/M/images/yiwen.png" style="padding-right: 3px;margin-top: 2px;"><strong>抵现券和体验券的区别？</strong></h3>
+                    <h3 style="color: #999;">1. 抵现券投资后，抵现金额和利息都可以提现。<br>2. 体验券投资后，获得的利息可以提现，体验金额不可以提现。</h3>
+                    <ul id="exchangeList" class="user-integral-list clearfix">
+                        <volist name="reddemconf" id="vo">
+                        <li class="user-integral-item">
+                            <div class="daijinquan">
+                              	<div class="jifen_head">
+									<h2>
+										<em>&yen;{$vo.money}</em>
+										<if condition="$vo['is_taste'] eq '0'">
+										<span>抵现券</span>
+										<else/>
+										<span>体验券</span>
+										</if>
+									</h2>
+								</div> 
+								<!-- <div class="jifen_cont">
+									<h2>投资每满{$vo.invest_money}元可以抵{$vo.money}元
+                                        ,有效期{$vo.expired_time}个月
+                                    </h2>
+									
+								</div>     --> 
+                            </div>
+                            <div class="user-integral-item-con exchageDiv clearfix">
+                            	<if condition="$vo['is_taste'] eq '0'">
+                                <span class="user-integral-item-name" style="display:none;">{$vo.money}元抵现券</span>
+                                <else/>
+                                <span class="user-integral-item-name" style="display:none;">{$vo.money}元体验券</span>
+                                </if>
+                                <span class="user-integral-item-txt">需要：<strong>{$vo.integral}</strong> 积分</span>
+                                <if condition="$integral_info['active_integral'] gt $vo['integral']">
+                                <span class="user-integral-item-btn">
+                                    <input type="button" class="btn-style-1" value="兑换" _goodid="{$key}" _owncredit="{$integral_info['active_integral']}" _needcredit="{$vo.integral}" >
+                                </span>
+                                <else/>
+                                <span class="user-integral-item-btn">
+                                    <input type="button" class="btn-style-2" value="积分不足~" _goodid="{$key}" _owncredit="{$integral_info['active_integral']}" _needcredit="{$vo.integral}" disabled="disabled" >
+                                </span>
+                                </if>
+                            </div>
+                        </li>
+                        </volist>    
+                    </ul>
+                    <dl class="user-integral-list-txt clearfix">
+                        <dt><img src="__ROOT__/Style/M/images/yiwen.png" style="padding-right: 3px;margin-top: 2px;">如何快速赚取投资积分?</dt>
+                        <dd>
+                            <ul>
+                                <li>1. 每1000元借出1天加{$invest_integral}个投资积分。</li>
+                                <li>2. 投标积分计算公式为：投资金额*天数*{$invest_integral}/1000=投资积分。</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--我的奖励金end-->
+<include file="default:Public:_footer" group="Home"/>
+
+<div id="Integral_prompt" style="display:none">
+    <div id="closeBtn" class="ps1-close promptBtns">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>积分兑换</h2>
+        </div>
+        <div class="form-style-1 clearfix">
+            <form id="exchangeForm" onSubmit="return false">
+            <ul class="form-style-1-field ">
+                <li class="form-style-1-item">
+                    <label class="form-style-1-label">兑换礼品：</label>
+                    <span class="form-style-1-value" id="Integral_promp_tname"></span>
+                </li>
+                <li class="form-style-1-item">
+                    <label class="form-style-1-label">兑换数量：</label>
+                    <span class="form-style-1-value"><input id="spinner" name="amount" readonly="" type="text" class="input-text-style-1" style="width:120px;" value="1"></span>
+                </li>
+                <li class="form-style-1-item">
+                    <label class="form-style-1-label">需要消耗：</label>
+                    <span id="creditText" class="form-style-1-value">积分</span>
+                </li>
+            </ul>
+            <div class="form-style-1-submit">
+                <input id="submitBtn" type="submit" class="btn-style-3 allbgcolor promptBtns" value="兑换">
+                <input id="cancelBtn" type="reset" class="btn-style-4 promptBtns" value="取消">
+                <input id="goodid" name="goodid" type="hidden">
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script id="promptTmpl" type="text/x-dot-template">
+    <div class="ps1-close">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2>
+        </div>
+        <div class="state-prompt-txt-{{?it[3]}}duigou{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2>
+                {{=it[2]}}
+                
+            </div>
+        </div>
+    </div>
+</script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/credit.js"></script> 
+<script>
+$(function(){
+    var creditData={pager:{pageInfo:{"pn":1,"rn":10,"tn":1,"nn":1,"arrNavi":["1"]},tmpl:'creditLog'},ajaxHostUrl:'/member/credit/ajaxCredit',loadImgPath:'__ROOT__/Style/M/images/loading1.gif',CreditExchangeAjaxUrl:'/member/credit/ajaxCredit'};
+
+    itz.credit.init(creditData);
+    
+});
+</script>
+</body></html>

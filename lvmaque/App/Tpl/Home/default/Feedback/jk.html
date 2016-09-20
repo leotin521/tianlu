@@ -1,0 +1,128 @@
+<include file="Public:_header_common" />
+<title>{$glo.web_name}-邮件反馈</title>
+<style type="text/css">
+body { margin: 0; _height: 100%; }
+.frames { width: 980px; border: solid 1px #dedede; margin: 0 auto; text-align: left; padding-bottom: 10px; overflow: hidden; }
+.frames p { font-size: 16px; color: #bb0600; font-weight: bold; padding: 0px; margin: 0px; margin-top: 14px; margin-left: 10px; }
+.feedbar { background: url(__ROOT__/Style/H/images/feedbar.jpg); width: 458px; height: 9px; margin-top: 10px; }
+.feed_note { width: 564px; line-height: 25px; color: #666666; padding-left: 5px; margin-top: 10px; }
+span.colrad { color: #b4050c; }
+ul.feedlist { margin: 0px; padding: 0px; list-style: none; overflow: hidden; line-height: 23px; width: 564px; margin-top: 8px; }
+ul.feedlist li { float: left; text-align: right; padding-left: 5px; }
+ul.feedlist li .inttext { border: solid 1px #acadb2; height: 20px; width: 193px; }
+ul.feedlist li .inttext1 { border: solid 1px #acadb2; height: 25px; width: 262px; }
+ul.feedlist li .tear { width: 400px; height: 130px; border: solid 1px #acadb2; }
+.sendBtn { background: url(__ROOT__/Style/H/images/deng.jpg); width: 211px; height: 30px; border: 0px; }
+.sendBtn1 { background: url(__ROOT__/Style/H/images/repeat.jpg); width: 82px; height: 28px; border: 0px; }
+.dv_r_6 li{line-height:30px;}
+</style>
+<include file="Public:_header_main" />
+<script type="text/javascript">
+        var newTitle = '{$glo.web_name}提醒您：';
+        $(function() {
+            $("#btn_send").click(
+            function() {
+				if(parseInt($("#money").val())>5000 ){
+				
+				}else{
+                    setErr("借款金额错误，最少借款大于 5000 才能通过此通道借款！");
+                    return false;
+				}
+                if ($("#sel_type").val() < 1) {
+                    setErr("请选择类别！");
+                    return false;
+                }
+                if ($("#txt_callName").val().length < 1) {
+                    setErr("请填写您的称呼！");
+                    return false;
+                }
+                if ($("#txt_emailAddress").val().length < 1) {
+                    setErr("请填写您的联系方式！");
+                    return false;
+                }
+                if ($("#txt_check").val().length < 1) {
+                    setErr("请填写验证码！");
+                    return false;
+                }
+                return true;
+            });
+        });
+
+        function setErr(msg) {
+            layer.msg(msg, {icon: 2}); 
+        } 
+    </script>
+<!--中部开始-->
+<div class="wrap2">
+<div class="frames">
+<form name="feedback" method="post" action="__URL__/save">
+        <div style="padding-left: 32px; padding-top: 20px; float: left; width: 600px;">
+            <div style="width: 400px; color: #005B9F; text-align: left; padding-bottom: 14px;
+                margin-left: 0px; font-size: 14px; font-family: 宋体; height: 20px; line-height: 20px;
+                font-weight: bold;">
+                快速借款通道</div>
+            <div class="feedbar">
+            </div>
+            <div class="feed_note">
+				急需钱，我帮您！{$glo.web_name}助您轻松获取无抵押贷款！门槛低，到账快！30秒就能完成网上预约， 赶快行动吧！
+            </div>
+            <div style="margin-top: 10px; overflow: hidden;">
+                <ul class="feedlist">
+                    <li style="width: 100px;"><span class="colrad">*</span>所需资金：</li>
+                    <li><input type="text" class="inttext" name="money" id="money" value="" /><input type="hidden" name="type" id="sel_type" value="7" />请填纯数字</li>
+                </ul>
+                <ul class="feedlist">
+                    <li style="width: 100px;"><span class="colrad">*</span>怎么称呼您：</li>
+                    <li>
+                        <input type="text" class="inttext" id="txt_callName" name="name">
+                    </li>
+                </ul>
+                <ul class="feedlist">
+                    <li style="width: 100px;"><span class="colrad">*</span>您的联系方式：</li>
+                    <li>
+                        <input type="text" class="inttext" id="txt_emailAddress" name="contact">
+                    </li>
+                </ul>
+                
+                <ul class="feedlist">
+                    <li style="width: 100px;">简单说明：</li>
+                    <li>
+                        <textarea maxlength="2000" class="tear" cols="1" rows="6" id="txt_content" name="msg"></textarea>
+                    </li>
+                </ul>
+                <ul class="feedlist">
+                    <li style="width: 100px;"><span class="colrad">*</span>验证码：</li>
+                    <li>
+                        <input type="text" style="width: 95px;" class="inttext" id="txt_check" name="txt_check">
+                    <img onclick="this.src=this.src+'?t='+Math.random()" id="imVcode" alt="点击换一个校验码" style=" width: auto; height:auto;border: 1px solid #ccc;" src="__APP__/member/Common/verify">
+                        <span>不区分大小写，看不清楚<a href="javascript:document.getElementById('imVcode').onclick();">换一张！</a></span>
+                    </li>
+                </ul>
+                <ul class="feedlist">
+                    <li style="width: 100px;">&nbsp;</li>
+                    <li>
+                        
+                        <input type="submit" class="sendBtn" id="btn_send" name="btn_send" value=" ">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 20px;" id="content2B1">
+        </div>
+        <div style="float: left; margin-left: 32px; width: 256px; height: 300px; padding-top: 20px;
+            text-align: left;">
+            <div id="content3B1">
+                
+            </div>
+            <div class="dv_r_6" id="Div2">
+                <ul style="padding-left: 16px; margin-left: 0px; margin-top: 0px;">
+				<volist name="list" id="vl">
+                    <li><a title="{$vl.title}" class="new_hover" href="{$vl.arturl}" target="_blank"><span>{$vl.title}</span></a></li>
+				</volist>
+                </ul>
+            </div>
+        </div>
+		</form>
+    </div>
+</div>
+<include file="Public:_footer" />

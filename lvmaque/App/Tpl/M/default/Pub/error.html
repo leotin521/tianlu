@@ -1,0 +1,19 @@
+<include file="Pub:header" /> 
+<script>
+function Jump(){
+    window.location.href = '{$jumpUrl}';
+}
+document.onload = setTimeout("Jump()" , 3* 1000);
+</script>
+<base target="_self" />
+<br>
+<div class="usereditepass" style="margin:0 auto;width:90%;">
+ <div >
+ <img src="__ROOT__//style/newmobile/images/wrong.png" /><font>{$error}</font> 
+ <p>系统将在 <span style="color:blue;font-weight:bold">3</span> 秒后自动跳转,如果不想等待,直接点击 <A HREF="{$jumpUrl}">这里</A> 跳转
+          或者 <a href="{:U('/M')}">返回首页</a></p>
+		  <br>
+ </div>
+</div>
+</body>
+</html>

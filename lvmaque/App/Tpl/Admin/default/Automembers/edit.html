@@ -1,0 +1,35 @@
+<tagLib name="htmlA" />
+<div class="so_main">
+
+    <div class="page_tit">修改</div>
+    <div class="form2">
+        <form method="post" action="__URL__/doEdit" onsubmit="return subcheck();">
+            <input type="hidden" name="id" value="{$autoInfo.id}" />
+            <div id="tab_1">
+                  <dl class="lineD"><dt>设置投标时间：</dt><dd><htmlA:timer id="invest_time" tip='投标时间' arg="{dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$autoInfo.invest_time|mydate='Y-m-d H:i:s',###}"/></dd></dl>
+            </div><!--tab1-->
+
+            <div class="page_btm">
+                <input type="submit" class="btn_b" value="确定" />
+            </div>
+        </form>
+    </div>
+
+</div>
+<script type="text/javascript">
+    var cansub = true;
+    function subcheck() {
+        if (!cansub) {
+            alert("请不要重复提交，如网速慢，请等待！");
+            return false;
+        }
+
+        if ($("#invest_time").val() == "") {
+            ui.error("投标时间不允许为空！");
+            return false;
+        }  else {
+            cansub = false;
+            return true;
+        }
+    }
+</script>

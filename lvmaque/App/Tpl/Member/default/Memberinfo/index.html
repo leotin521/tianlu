@@ -1,0 +1,494 @@
+<include file="default:Public:_header_common"/>
+            <style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style><style id="poshytip-css-tip-yellow" type="text/css">div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellow td.tip-right{background-position:100% 0;}div.tip-yellow td.tip-bottom{background-position:100% 100%;}div.tip-yellow td.tip-left{background-position:0 100%;}div.tip-yellow div.tip-inner{background-position:-10px -10px;}div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}</style></head>
+<body>
+<include file="default:Public:_header_main"/>
+
+<script type="text/javascript" src="__ROOT__/Style/Js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+   function img(target)
+           {
+	   		var arr = [ "gif", "GIF", "jpg", "JPG", "png", "PNG" ];	//预定义上传类型
+			var names = target.value.split(".");
+			var name = names[names.length-1];	//获取上传文件类型
+			if( $.inArray( name, arr ) < 0 )	//判断上传类型
+			{
+				layer.msg('文件类型不符合要求！（仅支持图片类型）', {icon: 0});
+				return false;
+			}
+			/*
+			//检测上传文件的大小         
+		    var isIE = /msie/i.test(navigator.userAgent) && !window.opera;  
+		    var fileSize = 0;           
+		    if (isIE && !target.files){       
+		        var filePath = target.value;       
+		        var fileSystem = new ActiveXObject("Scripting.FileSystemObject");          
+		        var file = fileSystem.GetFile (filePath);       
+		        fileSize = file.Size;      
+		    } else {      
+		        fileSize = target.files[0].size;       
+		    }     
+		    var size = fileSize / 1024*1024;   
+		    if(size>(1024*1024*2)){  
+		    	layer.msg('文件太大！（大小限制2M）', {icon: 0}); 
+		        return false;
+		    }  
+		    */
+              $.ajaxFileUpload
+                 (
+                   {
+                        url:'__URL__/ajaximg', //你处理上传文件的服务端
+                        secureuri:false,
+                        fileElementId:'PhotoUpload1',
+                        dataType: 'json',
+                        success: function (data)
+                              {
+                        		if (data.status == '1'){
+                        			$("#uploading-portrait-con-img").removeAttr("style");
+                        			$("#uploading-portrait-con-img").attr("style","top:51px;");
+                        			$("#uploading-portrait-con-img").attr("src",data.message);
+                        		}else {
+                        			layer.msg(data.message, {icon: 2});
+                        			return;
+                        		}
+                              }
+                           }
+                     )
+
+                   return false;
+             }
+  </script>
+
+<div class="user-page">
+    <div class="user-main clearfix">
+                                      <include file="default:Public:_left"/>
+
+    	<!--个人信息begin-->    
+        <div class="user-con">
+            <div class="user-box-1 user-information">
+            	<div class="user-box-title-1 clearfix">
+                	<h2>个人信息</h2>
+                    <div class="user-box-title-more">
+                    	<a id="editButton" href="javascript:void(0);" style="display:block; height:40px;">
+                        	<span class="icon-style-1 icon-user-edit"></span>
+                            <strong class="innerText">修改个人信息</strong>
+                        </a>
+                    </div>
+                </div>
+                <div class="user-box-con-1 user-information-abstract">
+                	<div class="user-portrait">
+                		<if condition="$vo.head_img neq '' ">
+                		<img src="__ROOT__{$vo.head_img|headimg=###,3}" width="120" height="120">
+                		<else />
+                		<img src="__ROOT__/Style/M/images/user_portrait.jpg" width="120" height="120">
+                		</if>
+                        <p style="display: none;">修改头像</p>
+                    </div>
+                	<table>
+                        <tbody><tr>
+                            <td class="user-info-label">用户名</td>
+                            <td class="user-info-value" width=395>{:session('u_user_name')}</td>
+                            <td class="user-info-state" title="用户注册时填写的用户名，不可更改"><span class="icon-check"></span><span>详情</span></td>
+                            <!--<td class="user-info-state" title="已验证情况下各字段提示文字"><span class="icon-check"></span><span>已认证</span></td>-->
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">真实姓名</td>
+                            <td class="user-info-value">
+                            	<if condition="$vo.id_status eq 1 ">{$vo.real_name|hidecard=###,7}<else /> 未认证</if>
+                            </td>
+                            <if condition="$vo.id_status eq 1 ">
+	                            <td class="user-info-state" title="您已认证个人实名信息，如需修改请联系客服人员，&lt;a href=&#39;### target=&#39;_blank&#39; class=&#39;hint-link&#39; &gt;在线客服&lt;/a&gt;"><span class="icon-check"></span><span>已认证</span>
+								</td>
+							<else />
+	                            <td class="user-info-state user-info-no-check" title="您未认证个人实名信息， &lt;a href=&#39;__ROOT__/member/verify?curMod=identity#identityAnchor&#39; class=&#39;hint-link&#39; &gt;实名认证&lt;/a&gt;">
+								<span class="icon-no-check"></span>
+								<span>未认证</span>
+								</td>
+							</if>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">身份证号码</td>
+                            <td class="user-info-value">{$vo.idcard|hidecard=###,1}</td>
+                            <if condition="$vo.id_status eq 1 ">
+                            <td class="user-info-state" title="您已绑定身份证，如需修改请联系客服人员，&lt;a href=&#39;### target=&#39;_blank&#39; class=&#39;hint-link&#39; &gt;在线客服&lt;/a&gt;"><span class="icon-check"></span><span>已绑定</span></td>
+                            <else />
+                            <td class="user-info-state user-info-no-check" title="您未绑定身份证，实名认证即可成功绑定身份证，&lt;a href=&#39;__ROOT__/member/verify?curMod=identity#identityAnchor&#39; class=&#39;hint-link&#39; &gt;实名认证&lt;/a&gt;">
+							<span class="icon-no-check"></span>
+							<span>未绑定</span>
+							</td>
+                            </if>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">手机号码</td>
+                            <td class="user-info-value"><if condition="$vo.phone_status eq 1 ">{$vo.user_phone|hidecard=###,2}<else /></if></td>
+                            <if condition="$vo.phone_status eq 1 ">
+                                <td class="user-info-state" title="您已绑定手机号，&lt;a href=&#39;__ROOT__/member/verify?curMod=phone#phoneAnchor&#39; class=&#39;hint-link&#39; &gt;点击修改&lt;/a&gt;"><span class="icon-check"></span><span>已绑定</span></td>
+                            <else />
+                                <td class="user-info-state user-info-no-check" title="您未绑定手机号，&lt;a href=&#39;__ROOT__/member/verify?curMod=phone#phoneAnchor&#39; class=&#39;hint-link&#39; &gt;点击绑定&lt;/a&gt;">
+                                <span class="icon-no-check"></span>
+                                <span>未绑定</span>
+                                </td>
+                            </if>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">邮箱地址</td>
+                            <td class="user-info-value"><if condition="$vo.email_status eq 1 ">{$vo.user_email|hidecard=###,6}<else /></if></td>
+                            <if condition="$vo.email_status eq 1 ">
+							                            <td class="user-info-state" title="您已绑定邮箱，&lt;a href=&#39;__ROOT__/member/verify?curMod=mail#mailAnchor&#39; class=&#39;hint-link&#39; &gt;点击修改&lt;/a&gt;"><span class="icon-check"></span><span>已绑定</span></td>
+							                            <else />
+							                            
+							                            <td class="user-info-state user-info-no-check" title="您未绑定邮箱，&lt;a href=&#39;__ROOT__/member/verify?curMod=mail#mailAnchor&#39; class=&#39;hint-link&#39; &gt;点击绑定&lt;/a&gt;">
+<span class="icon-no-check"></span>
+<span>未绑定</span>
+</td>
+</if>
+													</tr>
+					</tbody></table>
+                </div>
+                <div id="userInfo" class="user-box-con-1 user-information-detail user-information-detail-show">
+                	<table>
+                        <tbody>
+                        <if condition="$vo.id_status eq 1">
+                        <tr>
+                            <td class="user-info-label">出生日期</td>
+                            <td class="user-info-value">{$vo.idcard|hidecard=###,8}</td>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">性别</td>
+                            <td class="user-info-value">{$vo.sex}</td>
+                        </tr>
+                        </if>
+                        <tr>
+                            <td class="user-info-label">最高学历</td>
+                            <td id="high_edu" class="user-info-value">{$vo.education}</td>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">毕业院校</td>
+                            <td id="school" class="user-info-value">{$vo.school}</td>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">婚姻状态</td>
+                            <td id="merriage_status" class="user-info-value"><if condition="$vo.marry neq '' ">{$vo.marry}<else />未设置</if></td>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">居住地址</td>
+                            <td id="address" class="user-info-value">{$vo.province1}{$vo.city1}{$vo.address}</td>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">公司行业</td>
+                            <td id="business_type" class="user-info-value">{$vo.range}</td>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">公司规模</td>
+                            <td id="business_scale" class="user-info-value">{$vo.number}</td>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">职位</td>
+                            <td id="user_position" class="user-info-value">{$vo.position}</td>
+                        </tr>
+                        <tr>
+                            <td class="user-info-label">月收入</td>
+                            <td id="month_income" class="user-info-value">{$vo.income}</td>
+                        </tr>
+					</tbody></table>
+                </div>
+				<div id="userInfoEdit" class="user-information-edit" style="display:none">
+                    <form>
+					<div class="user-box-con-1 user-information-detail">
+						<table>
+							<tbody>
+							<if condition="$vo.id_status eq 1">
+							<tr>
+								<td class="user-info-label">出生日期((不可修改))</td>
+								<td class="user-info-value">                                 
+                                    <div id="birthday">
+                                        {$vo.idcard|hidecard=###,8}
+                                    </div>
+								</td>
+							</tr>
+							<tr>
+								<td class="user-info-label">性别(不可修改)</td>
+								<td class="user-info-value">
+									{$vo.sex}
+								</td>
+							</tr>
+							</if>
+							<tr>
+								<td class="user-info-label">最高学历</td>
+								<td class="user-info-value">
+                                	<span class="select-style-1">
+									<select id="education" name="education">
+										<option value="">请选择</option>
+										<volist name="education" id="data">
+											<if condition="$vo.education eq $data" >
+												<option value="{$vo.education}" selected>{$vo.education}</option>
+											<else />
+												<option value="{$data}">{$data}</option>
+											</if>
+										</volist>
+									</select>
+                                   </span>
+								</td>
+							</tr>
+							<tr>
+								<td class="user-info-label">毕业院校</td>
+								<td class="user-info-value">
+									<input id="school_" type="text" class="input-text-style-1" value="{$vo.school}">
+								</td>
+							</tr>
+							<tr>
+								<td class="user-info-label">婚姻状态</td>
+								<td class="user-info-value">
+									<input type="radio" id="weihun" value="未婚" name="merriage_status" <if condition="$vo.marry eq '未婚'">checked</if>>&nbsp;
+									<label for="weihun">未婚</label>&nbsp;&nbsp;
+									<input type="radio" id="yihun" value="已婚"  name="merriage_status" <if condition="$vo.marry eq '已婚'">checked</if>>&nbsp;
+									<label for="yihun">已婚</label> &nbsp;&nbsp;
+									<!-- <input type="radio" id="qita" value="保密" name="merriage_status" checked="true">&nbsp;
+									<label for="qita">保密</label> -->
+								</td>
+							</tr>
+							<tr>
+								 <td class="user-info-label">居住地址</td>
+								    <td class="user-info-value">
+								    <span class="select-style-1">
+								    <select name="province" id="province" onchange="sel('province','city')" style="width:88px">
+								    <option>请选择</option>
+								    <volist name="province" id="pro">
+								    	<if condition='$pro.id eq $province_id'>
+								    		<option value="{$pro.id}" selected>{$pro.name}</option>
+								    	<else />
+								    		<option value="{$pro.id}">{$pro.name}</option>
+								    	</if>
+								    </volist>
+								    </select>
+								    <select id="city" name="city" onchange="sel('city','')" style="width:88px">
+								    <option value="">请选择</option>
+								    <volist name="city_list1" id="ci">
+								    	<if condition='$ci.id eq $city_id'>
+								    		<option value="{$ci.id}" selected>{$ci.name}</option>
+								    	<else />
+								    		<option value="{$ci.id}">{$ci.name}</option>
+								    	</if>
+								    </volist>
+								    </select>
+								    </span>
+   								 		<td class="user-info-value">
+											<input type="text" id="address_" class="input-text-style-1" value="{$vo.address}">
+										</td>
+							    </td>
+							</tr>
+							<tr>
+								<td class="user-info-label">公司行业</td>
+								<td class="user-info-value">
+                                	<span class="select-style-1">
+									<select name="business_type" id="business_type_">
+										<option value="">请选择</option>
+										<volist name="business_type" id="data">
+											<if condition="$vo.range eq $data" >
+												<option value="{$vo.range}" selected>{$vo.range}</option>
+											<else />
+												<option value="{$data}">{$data}</option>
+											</if>	
+										</volist>
+									</select>
+                                    </span>
+								</td>
+							</tr>
+							<tr>
+								<td class="user-info-label">公司规模</td>
+								<td class="user-info-value">
+                                	<span class="select-style-1">
+									<select name="business_scale" id="officeScale">
+										<option value="">请选择</option>
+										<volist name="business_scale" id="data">
+											<if condition="$vo.number eq $data" >
+												<option value="{$vo.number}" selected>{$vo.number}</option>
+											<else />
+												<option value="{$data}">{$data}</option>
+											</if>
+										</volist>
+									</select>
+                                    </span>
+								</td>
+							</tr>
+							<tr>
+								<td class="user-info-label">职位</td>
+								<td class="user-info-value">
+									<input type="text" id="position" class="input-text-style-1" value="{$vo.profession}">
+								</td>
+							</tr>
+							<tr>
+								<td class="user-info-label">月收入</td>
+								<td class="user-info-value">
+                               		<span class="select-style-1">
+									<select name="month_income" id="salary">
+										<option value="">请选择</option>
+										<volist name="month_income" id="data">
+											<if condition="$vo.income eq $data" >
+												<option value="{$vo.income}" selected>{$vo.income}</option>
+											<else />	
+												<option value="{$data}">{$data}</option>
+											</if>
+										</volist>
+									</select>
+                                    </span>
+								</td>
+							</tr>
+							<tr>
+								<td class="user-info-label">&nbsp;</td>
+								<td class="user-info-value user-information-btn">
+									<input class="btn-style-3 allbgcolor" type="button" value="保存" onclick="check()">
+									<input class="btn-style-4" type="reset" value="取消">
+								</td>
+							</tr>
+						</tbody></table>
+					</div>
+                    </form>
+                    
+				</div>
+                <div class="form-warm-prompt-1 clearfix" style=" margin:0 auto; margin-top:20px;">
+                    <span class="form-warm-prompt-title">温馨提示：</span>
+                    <span class="form-warm-prompt-con">
+                        1. &nbsp;&nbsp;请您根据自身真实情况填写，{$glo.web_name}会对用户的所有资料进行严格保密。<br>
+                        2. &nbsp;&nbsp;使用过程遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?>。
+                    </span>
+                </div>
+            </div>
+        </div>
+    	<!--个人信息end-->
+    </div>
+</div>
+<div id="Edit_portrait" style="display:none;">
+    <div class="ps1-close">×</div>
+    <div class="ps1-con ps2-con cf">
+    	<div class="ps1-title">
+        	<h2>上传头像</h2>
+        </div>
+        <form method=post enctype="multipart/form-data">
+        <div>
+        	<div class="uploading-portrait-con clearfix">
+                <a id="uploadBtn1" class="btn-style-3 allbgcolor" style="padding:0px; border: 0;text-align: center;display: block;float: left;height: 30px;color: #fff;line-height: 30px;background: #da4848;font-size: 12px;cursor: pointer;width: 80px;">
+                    <em style="cursor: pointer;">上传头像</em>
+                    <input style="position: absolute;top: 84px;overflow: hidden;height: 30px;width: 80px; cursor: pointer;" id="PhotoUpload1" type="file" class="filePrew" name="file" onchange="img(this)">
+                </a>
+                <input type="hidden" name="avatar" value="">
+            </div>
+            <!-- <div class="uploading-portrait-con-error"></div> -->
+            <img id="uploading-portrait-con-img" src="" style="display:none;">
+            <p class="uploading-portrait-txt">
+            	您可以上传JPG、GIF或PNG文件<br>
+                上传图片最大2M
+            </p>
+        </div>
+        <div class="clearfix uploading-portrait-btn">
+        	<input id="up_head" class="btn-style-1" type="button" value="保存">
+            <input id="res" class="btn-style-2" type="reset" value="取消">
+        </div>
+        </form>
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script>
+	function check(){
+		var p = makevar(['education','school_','merriage_status','address_','province','city','business_type_','officeScale','position','salary']); 
+		$.ajax({
+			url: "__URL__/submemberinfo/",
+			data: p,
+			timeout: 5000,
+			cache: false,
+			type: "post",
+			dataType: "json",
+			success: function (d, s, r) {
+				if(d){
+					if(d.status==1) {
+						setTimeout('window.location.reload();',1000);
+					}
+					else {
+						alert(d.message);
+						return false;
+					}
+				}
+			}
+		});
+	}
+	function makevar(v){
+		var d={};
+		for(i=0;i<v.length;i++){
+			var id = v[i];
+			d[id] = $("#"+id).val();
+			if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+		}
+		return d;
+	}
+
+	$("#up_head").click(function(){
+		$.post("__URL__/upload",{ 1: 1 },
+				function(data) {
+					if (data.status==1) {
+						window.location.reload();
+					}else{
+						layer.msg(d.message, {icon: 2});
+						return false;
+					}
+				},'json');
+	});
+
+	$(".ps1-close").click( function () { 
+		$.post("__URL__/res",{ 1: 1 },function() {},'json');
+	});
+
+	$("#res").click(function(){
+		$.post("__URL__/res",{ 1: 1 },function() {},'json');
+	});
+</script>
+
+<script id="promptTmpl" type="text/x-dot-template">
+    <div class="ps1-close">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2>
+        </div>
+        <div class="state-prompt-txt-{{?it[3]}}duigou{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2>
+                {{=it[2]}}
+                您可以<a href="###" class="state-a-line">[返回我的账户]</a>
+            </div>
+        </div>
+    </div>
+</script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/userInfo.js"></script>
+<script>
+$(function(){
+    var userInfoData={
+            postUrl:'###',
+			uploadUrl: '###',//上传ajax接口
+			photoSrc : "__ROOT__/style/M/images/user_portrait.jpg",
+			photoSrcPost : "###",
+			loading : '###'
+		};
+
+    itz.userInfo.init(userInfoData);
+
+});
+</script>
+<script>
+function sel(aid,bid) {
+	var pid=$("#"+aid).val();
+	$.ajax({
+		url:"__URL__/sele",
+		type:"post",
+		data:{"pid":pid},
+		success:function(e){
+			var o=eval("("+e+")");
+			var str="<option value=''>请选择</option>";
+			for(var a in o){
+				str=str+"<option value='"+o[a].id+"'>"+o[a].name+"</option>";
+			}
+			$("#"+bid).html(str);
+		}
+	})
+}
+</script>
+
+<div class="tip-yellow"><div class="tip-inner tip-bg-image"></div><div class="tip-arrow tip-arrow-top tip-arrow-right tip-arrow-bottom tip-arrow-left"></div></div><div class="tip-yellow"><div class="tip-inner tip-bg-image"></div><div class="tip-arrow tip-arrow-top tip-arrow-right tip-arrow-bottom tip-arrow-left"></div></div><div class="tip-yellow"><div class="tip-inner tip-bg-image"></div><div class="tip-arrow tip-arrow-top tip-arrow-right tip-arrow-bottom tip-arrow-left"></div></div><div class="tip-yellow"><div class="tip-inner tip-bg-image"></div><div class="tip-arrow tip-arrow-top tip-arrow-right tip-arrow-bottom tip-arrow-left"></div></div><div class="tip-yellow"><div class="tip-inner tip-bg-image"></div><div class="tip-arrow tip-arrow-top tip-arrow-right tip-arrow-bottom tip-arrow-left"></div></div></body></html>

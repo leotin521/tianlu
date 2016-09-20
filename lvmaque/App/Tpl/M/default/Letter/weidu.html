@@ -1,0 +1,64 @@
+<!doctype html>
+<html class="no-js">
+<!--站内信详情页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>站内信详情页</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+<header>
+    <h1>站内信</h1>
+    <a href="__APP__/m/user/" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+</header>
+
+<div>
+    <ul class="am-tabs-nav am-nav am-nav-tabs am-g" style="width:95%;margin:10px auto;">
+        <li class="am-u-sm-4" style="border-right:1px solid #fa4343;"><a href="__APP__/m/letter/index">全部</a></li>
+        <li class="am-u-sm-4" style="border-right:1px solid #fa4343;"><a href="__APP__/m/letter/yidu">已读</a></li>
+        <li class="am-activ am-u-sm-4 am-g-collapse"><a href="__APP__/m/letter/weidu">未读</a></li>
+    </ul>
+
+    <volist name="weidu" id="vo">
+        <div class="am-tabs-bd">
+            <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                <div class="am-g mod-letter">
+                    <a href="javascript:void(0);" onclick="tanchu({$vo.id});" class="msg-btn">
+                        <div class="mod-letter-title"><strong>系统消息 <b id="weidu" style="font-size: 12px;color:red;">未读</b></strong><span class="am-icon-chevron-right"></span><span>{$vo.send_time|date="Y-m-d  H:i:s",###}</span></div>
+                        <div class="mod-letter-nr">{$vo.msg}</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </volist>
+</div>
+<script>
+    function tanchu(id){
+
+        $.ajax({
+            url:"__URL__/infos_edit",
+            type:"post",
+            data:{"id":id},
+            success:function(d){
+                var data = eval('('+d+')')
+                if(data.status == 1){
+                    alert(data.msg);
+                    location.reload();
+                }
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

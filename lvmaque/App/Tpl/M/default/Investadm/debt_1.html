@@ -1,0 +1,86 @@
+<!doctype html>
+<html class="no-js">
+<!--投资管理-转让债券页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>债券转让</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+	<script>
+		$(function(){
+			// 顶部点击展示下拉事件
+			$("header h1").on("click",function(){
+				$(this).find("i").toggleClass("am-icon-caret-up");
+				$("nav a.am-menu-toggle").trigger("click");
+			})
+		})
+	</script>
+</head>
+
+<body>
+     <header style=" margin-bottom:10px;">
+        <h1>可转让债券 <i class="am-menu-toggle-icon am-icon-caret-down "></i></h1>
+        <a href="__URL__/investadmlist" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header >
+    
+    <nav data-am-widget="menu" class="am-menu menu-customize am-menu-dropdown1 " data-am-menu-collapse  >
+        <a href="javascript: void(0)" class="am-menu-toggle mod-manage-toubiao">
+            <i class="am-menu-toggle-icon am-icon-caret-down "></i>
+        </a>
+        <ul class="am-menu-nav am-avg-sm-1 am-collapse">
+            <li class="menu-item num num-zt">
+                <a href="__URL__/debt_1" class="selected" > <img class="am-fr" src="__ROOT__/Style/NewWeChat/images/ok_min.png"  />可转让债券</a>
+            </li>
+            <li class="menu-item num num-zt">
+                <a href="__URL__/debt_3" class="" >转让中债券</a>
+            </li>
+            <li class="menu-item num num-zt">
+                <a href="__URL__/debt_4" class="" >已转让债券</a>
+            </li>
+            <li class="menu-item num num-zt">
+                <a href="__URL__/debt_5" class="" >已认购债券</a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <volist name="datas" id="vo" >
+        <a href="__URL__/debt_2?ids={$vo.id}" title="">
+        <div class="mod-invest-zr mod-invest-zrone">
+            <div class="mod-invest-zrxx">
+
+                <div class="mod-invest-zrtitle num num-lt">{$vo.borrow_name}<span class="am-icon-chevron-right mod-weizhi"></span></div>
+                <div class="mod-invest-zrnr">
+                    <ul class="am-g zrnrone ">
+                      <li class="am-u-sm-2 zrnronet">利率</li>
+                      <li class="am-u-sm-4 zrnronec">代收本金/利息</li>
+                      <li class="am-u-sm-3 zrnronec">投资时间</li>
+                      <li class="am-u-sm-3 zrnronec">到期时间</li>
+                    </ul>
+
+                    <ul class="am-g zrnrtwo num num-zt">
+                      <li class="am-u-sm-2 zrnronet">{$vo.interest_rate}%</li>
+                      <li class="am-u-sm-4 zrnronec"><font color="#fa4343">{$vo.investor_capital}</font></li>
+                      <li class="am-u-sm-3 zrnronec">{$vo.addtime}</li>
+                      <li class="am-u-sm-3 zrnronec">{$vo.deadline}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </a>
+    </volist>
+    <span style="margin:0 0 0 13%;">
+        {$page}
+    </span>
+
+</body>
+
+</html>

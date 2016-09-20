@@ -1,0 +1,284 @@
+<include file="Public:_header_common" />
+<title>{$vo.borrow_name}-我要投资-{$glo.web_name}</title>
+<meta name="keywords" content="{$glo.web_keywords}" />
+<meta name="description" content="{$glo.web_descript}" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/fancybox/jquery.fancybox-1.3.2.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/H/css/smbhs.css" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/H/css/home.css" />
+<script type="text/javascript" src="__ROOT__/Style/fancybox/jquery.fancybox-1.3.2.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/H/js/common.js" language="javascript"></script>
+<script type="text/javascript" src="/Style/H/js/dwlib.js"></script>
+<style type="text/css">
+.reward_bg{ background:url(/Style/H/images/new/jiang.jpg) top center no-repeat;width:100%;background-size:cover;height:2500px; }
+.reward_top{ width:1000px; height:900px; margin:0 auto;}
+    .floor_f1{background:url(/Style/H/images/new/yimadangxian.jpg) center center no-repeat;height:500px;}
+    .floor_f2{background:url(/Style/H/images/new/yichuidingyin.jpg) center center no-repeat;height:500px;}
+    .floor_f3{background:url(/Style/H/images/new/yimingjingren.jpg) center center no-repeat;height:500px;}
+    #yima{margin:0 auto;position:relative;top:20%;}
+    #yichui{margin:0 auto;position:relative;top:20%;}
+    #yiming{margin:0 auto;position:relative;top:20%;}
+.yimadangxian{ width:1000px;  margin:0 auto;}
+/*.yichuidingyin{ background: url(/Style/H/images/new/yichuidingyin.jpg) no-repeat center top; width:1000px;  margin:0 auto;}*/
+.reward_h1{ color:#624826; font-size:28px;}
+.reward_h2{ color:#624826; font-size:24px;}
+.reward_h3{ color:#FDC121; font-size:16px;}
+.reward_h4{ font-size:22px;height:55px;background:#fb8000;border-radius: 5px;}
+.reward_h4 a{color:#fff; }
+.jilu{ color:#fff; font-size:18px;}
+.jilulist{ color:#fff; font-size:12px;}
+.guize{ font-size:14px; color:#fff;position:relative;}
+.yimadangxian{position:relative;top:930px;*top:960px;_top:960px;}
+   .reward_hx_span{color:#ff9000; font-size:18px;}
+.reward_hx{color:#624826; font-size:18px;}
+.reward_hx_span{color:#ff9000; font-size:18px;}
+.reward_hxx{color:#624826; font-size:18px;}
+.reward_hxx1{color:#fff;font-weight: normal;font-size:18px;}
+    .foot{margin-top:0!important;}
+</style>
+</head>
+<body>
+<!--头部开始-->
+<div class="dv_header" style="width:100%;z-index:100000;position:fixed; top:0px;_position:absolute; _top:0px;_top:expression(eval(document.documentElement.scrollTop+ (parseInt(this.currentStyle.marginTop,10)||0)));">
+  <div class="Mini">
+    <if condition="$_SESSION['u_id'] gt '0'">
+        <include file="default:Common:afterlogin" group="Member"/>
+     <else/>
+         <include file="default:Common:beforelogin" group="Member"/>
+     </if>
+  </div>
+</div>
+<include file="Public:_header_main" />
+<div class="reward_bg">
+
+    <div class="yimadangxian">
+        <div class="floor_f1">
+       <table width="800" border="0" cellspacing="0" cellpadding="0" id="yima">
+      <tr>
+                        <td height="103" align="left" valign="bottom" class="guize">每个新项目上线，第一个投资成功的亲将赢得该奖项；奖金{$expconf[5]['num']*$expconf[5]['money']}元将在项目结束后以优惠券的形式发放到您的{$glo.web_name}账户中；所中奖金仅限于在本平台投资使用</td></tr>
+      <tr>
+        <td height="276" align="center" valign="top"><table width="850" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="400" height="225" align="center" valign="top">
+            <if condition="!empty($special_award[5])">
+                                        <table width="300" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;">
+              <tr>
+                <td height="90" align="center" valign="bottom" class="reward_hx">恭喜<span class="reward_hx_span"> [{$special_award[5]['user_name']}]</span></td>
+              </tr>
+              <tr>
+                                                <td height="40" align="center" valign="middle" class="reward_hxx">在<span class="reward_hx_span">[{$special_award[5]['borrow_name']}]</span>中赢得<span class="reward_hx_span">一马当先奖！</span></td>
+              </tr>
+              <tr>
+                <td height="35" align="center" valign="middle" class="reward_hxx">中奖时间:<span class="reward_hx_span">{$special_award[5]['add_time']|date="Y-m-d H:i:s",###}</span></td></tr>
+                <tr>
+                    <td height="35" align="center" valign="middle" class="reward_hxx">
+                 投资<span class="reward_hx_span">{$special_award[5]['invest_money']|getMoneyFormt=###}</span>元  中奖金额<span class="reward_hx_span">{$special_award[5]['money']}元</span></td>
+              </tr>
+              <tr>
+                <td height="50" align="center" valign="middle" class="reward_h4 reward_hxx1">已被抢走，下次手快点儿</td>
+              </tr>
+            </table>
+            <elseif condition="(empty($special_award[5])) and ($borrow_id gt 0) "/>
+            <table width="300" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="113" align="center" valign="bottom" class="reward_h1">快去抢头彩吧^_^</td>
+  </tr>
+              <tr>
+                <td height="95" align="center" valign="middle" class="reward_h1">目前还没人中奖呐！</td>
+              </tr>
+              <tr>
+                <td height="50" align="center" valign="middle" class="reward_h4"><a href="/fund/{$borrow_id}.html">赶快走起 抢头彩去</a></td>
+              </tr>
+            </table>
+            <else/>
+              <table width="300" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="113" align="center" valign="bottom" class="reward_h1">快去抢头彩吧^_^</td>
+  </tr>
+              <tr>
+                <td height="95" align="center" valign="middle" class="reward_h1"></td>
+              </tr>
+              <tr>
+                <td height="50" align="center" valign="middle" class="reward_h4"><a href="/fund/">赶快走起 抢头彩去</a></td>
+              </tr>
+            </table>
+            </if>
+            </td>
+            <td width="291" align="center" valign="middle"><table width="285" border="0" cellpadding="0" cellspacing="0" >
+              <tr>
+                <td height="48" align="center" valign="middle" class="jilu">历史中奖记录</td>
+              </tr>
+              <tr>
+                <td height="168" align="center" valign="top"><table width="285" border="0" cellspacing="0" cellpadding="0" class="jilulist">
+                <volist name="yima_history" id="vo">
+                  <tr>
+                        <td width="51" height="26" align="left" valign="middle">{$vo.user_name|cnsubstr=###,4}</td>
+                        <td width="91" align="left" valign="middle">投资{$vo.investor_capital|getMoneyFormt=###}元</td>
+                        <td width="71" align="left" valign="middle">中奖{$vo.reward_yi|round=###,0}元</td>
+                        <td width="71" align="left" valign="middle">{$vo.add_time|date="Y-m-d",###}</td>
+                  </tr>
+                  </volist>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+                </table>
+         </div>
+        <div class="floor_f2">
+       <table width="800" border="0" cellspacing="0" cellpadding="0" id="yichui">
+      <tr>
+            <td height="103" align="left" valign="bottom" class="guize guize2">每个直投项目最后一名投资成功的亲将赢得该奖项；奖金{$expconf[6]['num']*$expconf[6]['money']}元将在项目结束后以优惠券的形式发放到您的{$glo.web_name}账户中；所中奖金仅限于在本平台投资使用。</td>
+          </tr>
+      <tr>
+        <td height="255" align="left" valign="top"><table width="850" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="400" height="225" align="center" valign="top">
+            <if condition="!empty($special_award[6])">
+            <table width="300" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="90" align="center" valign="bottom" class="reward_h1 reward_hxx">恭喜 <span class="reward_hx_span">[{$special_award[6]['user_name']}]</span></td>
+              </tr>
+              <tr>
+                <td height="40" align="center" valign="middle" class="reward_h2 reward_hxx">在<span class="reward_hx_span">[{$special_award[6]['borrow_name']}]</span>中赢得一锤定音奖！</td>
+              </tr>
+              <tr>
+                <td height="35" align="center" valign="middle" class="reward_h3 reward_hxx">中奖时间:<span class="reward_hx_span">{$special_award[6]['add_time']|date="Y-m-d H:i:s",###}</span></td></tr>
+                                            </tr>
+                <tr>
+                    <td height="35" align="center" valign="middle" class="reward_h3 reward_hxx">
+                投资{$special_award[6]['invest_money']|getMoneyFormt=###}元  中奖金额{$special_award[6]['money']}元</td>
+              </tr>
+              <tr>
+                <td height="50" align="center" valign="middle" class="reward_h4 reward_hxx1">名花有主，下次不再犹豫</td>
+              </tr>
+            </table>
+            <elseif condition="empty($special_award[6]) and  (!empty($yichui_left)) "/>
+            <table width="300" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="113" align="center" valign="bottom" class="reward_h1">当前项目还剩{$yichui_left['borrow_money']-$yichui_left['has_borrow']|getMoneyFormt=###}元</td>
+  </tr>
+              <tr>
+                <td height="95" align="center" class="reward_h1">谁来搞定它？！</td>
+              </tr>
+              <tr>
+                <td height="50" align="center" class="reward_h4"><a href="/fund/{$borrow_id}.html">赶快走起 搞定它去</a></td>
+              </tr>
+            </table>
+            <else/>
+                                        <table width="300" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="113" align="center" class="reward_h1">谁来最后一锤？</td>
+  </tr>
+              <tr>
+                <td height="95" align="center" class="reward_h1"></td>
+              </tr>
+              <tr>
+                <td height="50" align="center" class="reward_h4"><a href="/fund/">赶快走起 搞定它去</a></td>
+              </tr>
+            </table>
+            </if>
+            </td>
+            <td width="291" align="center" valign="middle"><table width="285" border="0" cellpadding="0" cellspacing="0" >
+              <tr>
+                <td height="48" align="center" valign="middle" class="jilu">历史中奖记录</td>
+              </tr>
+              <tr>
+                <td height="168" align="center" valign="top"><table width="285" border="0" cellspacing="0" cellpadding="0" class="jilulist">
+                <volist name="yichui_history" id="vo">
+                  <tr>
+                    <td width="51" height="26" align="left" valign="middle">{$vo.user_name|cnsubstr=###,4}</td>
+                    <td width="91" align="left" valign="middle">投资{$vo.investor_capital|getMoneyFormt=###}元</td>
+                    <td width="71" align="left" valign="middle">中奖{$vo.reward_yi|round=###,0}元</td>
+                    <td width="71" align="left" valign="middle">{$vo.add_time|date="Y-m-d",###}</td>
+                  </tr>
+                  </volist>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+
+        </table></td>
+      </tr>
+                </table></div>
+        <div class="floor_f3">
+        <table width="800" border="0" cellspacing="0" cellpadding="0" id="yiming">
+      <tr>
+            <td height="103" align="left" valign="bottom" class="guize guize3" >每个直投项目投资总金额最高的亲将赢得该奖项，金额相同的情况下，按时间先后排序，先到者赢；奖金{$expconf[7]['num']*$expconf[7]['money']}元将在项目结束后以优惠券的形式发放到您的{$glo.web_name}账户中；所中奖金仅限于在本平台投资使用。</td>
+          </tr>
+      <tr>
+        <td height="256" align="left" valign="bottom"><table width="860" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="400" height="225" align="center" valign="top">
+            <if condition="!empty($special_award[7])">
+            <table width="300" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="90" align="center" valign="bottom" class="reward_h1 reward_hxx">恭喜 <span class="reward_hx_span">[{$special_award[7]['user_name']}]</span></td>
+              </tr>
+              <tr>
+                <td height="40" align="center" valign="middle" class="reward_h2 reward_hxx">在<span class="reward_hx_span">[{$special_award[7]['borrow_name']}]中赢得一鸣惊人奖！</span></td>
+              </tr>
+              <tr>
+                <td height="35" align="center" valign="middle" class="reward_h3 reward_hxx">中奖时间:<span class="reward_hx_span">{$special_award[7]['add_time']|date="Y-m-d H:i:s",###}</span>
+                </td>
+              </tr>
+                <tr>
+                    <td height="35" align="center" valign="middle" class="reward_h3 reward_hxx">投资<span class="reward_hx_span">{$special_award[7]['invest_money']|getMoneyFormt=###}</span>元  中奖金额<span class="reward_hx_span">{$special_award[7]['money']}</span>元</td>
+                </tr>
+              <tr>
+                <td height="50" align="center" valign="middle" class="reward_h4 reward_hx1">已被PK出，下次心狠点儿</td>
+              </tr>
+            </table>
+            <elseif condition="empty($special_award[7]) and ($borrow_id gt 0)"/>
+            <table width="300" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="113" align="center" valign="bottom" class="reward_h2">当前项目投资最高金额</td>
+  </tr>
+              <tr>
+                <td height="95" align="center"  class="reward_h1">{$yichui_left['borrow_money']-$yichui_left['has_borrow']|getMoneyFormt=###}元</td>
+              </tr>
+              <tr>
+                <td height="50" align="center" valign="middle" class="reward_h4"><a href="/fund/{$borrow_id}.html">赶快走起 PK去</a></td>
+              </tr>
+            </table>
+            <else/>
+            <table width="300" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="113" align="center" valign="middle" class="reward_h2">一鸣惊人 一飞冲天</td>
+  </tr>
+              <tr>
+                <td height="95" align="center"  class="reward_h1"></td>
+              </tr>
+              <tr>
+                <td height="50" align="center" valign="middle" class="reward_h4"><a href="/fund/">赶快走起 PK去</a></td>
+              </tr>
+            </table>
+            </if>
+            </td>
+            <td width="291" align="center" valign="middle"><table width="285" border="0" cellpadding="0" cellspacing="0" >
+              <tr>
+                <td height="48" align="center" valign="middle" class="jilu">历史中奖记录</td>
+              </tr>
+              <tr>
+                <td height="168" align="center" valign="top"><table width="285" border="0" cellspacing="0" cellpadding="0" class="jilulist">
+                <volist name="yiming_history" id="vo">
+                  <tr>
+                    <td width="51" height="26" align="left" valign="middle">{$vo.user_name|cnsubstr=###,4}</td>
+                    <td width="91" align="left" valign="middle">投资{$vo.investor_capital|getMoneyFormt=###}元</td>
+                    <td width="71" align="left" valign="middle">中奖{$vo.reward_yi|round=###,0}元</td>
+                    <td width="71" align="left" valign="middle">{$vo.add_time|date="Y-m-d",###}</td>
+                  </tr>
+                  </volist>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+                </table></div>
+
+    </div>
+
+</div>
+
+<include file="Public:_footer" />

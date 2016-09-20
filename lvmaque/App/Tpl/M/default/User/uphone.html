@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>绑定手机</title>
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+		<link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+	    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/email.css" rel="stylesheet" />
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+        <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+        <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+	</head>
+	<body class="bg-white">
+	<header>
+		<h1>绑定手机</h1>
+		<a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+	</header>
+	<div class="mod-manage-toubiaonr">
+    
+    <form class="am-form am-form-horizontal form-withdraw">
+	
+            <div class="am-form-group">
+				<div class="am-container">
+					<label class="am-u-sm-3 am-form-label">手机号</label>
+					<div class="am-u-sm-9">
+						<input type="text" class="am-radius" id="phoneNum2" name="cellphone" onblur="NumberCheck(this)" placeholder="请输入手机号" />
+					</div>
+				</div>
+            </div>
+			<if condition="$is_manual eq 0">
+	      <div class="am-form-group">
+			<div class="am-container">
+                <label class="am-u-sm-3 am-form-label">验证码</label>
+                <div class="am-u-sm-9">
+                    <div class="am-cf input-width-btn">
+                        <div class="verify-input">
+                            <input type="text" class="am-radius "id="sms_vcode2" name="sms_vcode2" required="required" type="text" placeholder="请输入验证码" />
+                        </div>
+                        <div class="get-verify-btn">
+                            <a onClick="subnewphone()" class="am-btn am-btn-danger am-radius am-btn-block " id="sendSmsBtnt2">获取验证码</a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+
+		</div>
+		</if>
+		<div class="am-container am-margin-top">
+			<a  onClick="subsetphone()" class="am-btn am-radius am-btn-xl am-btn-block am-btn-danger">确认绑定</a>
+		</div>
+    </form>
+	</div>
+
+	<!-- email_content star -->
+
+
+<!-- 	<div class="my_phone clearfix">
+		
+		<div class="my_phone_01 clearfix">
+			<b class="fl">手机号&nbsp;&nbsp;&nbsp;</b>
+			<input class="my_phone fl" type="text" id="phoneNum2" name="cellphone" onblur="NumberCheck(this)" placeholder="请输入手机号" />
+		</div>
+		
+		<div class="my_phone_01 clearfix">
+	            <b class="fl">验证码&nbsp;&nbsp;&nbsp;</b>
+		    <input class="my_phone fl" id="sms_vcode2" name="sms_vcode2" required="required" type="text" placeholder="请输入验证码"  />
+	            <input id="sendSmsBtnt2" class="com_bgcolor fr white_Col bor_ra" type="button" onClick="subnewphone()" value="获取短信验证码">
+	
+		</div>
+	
+	</div>
+	    <span id="phoneerr" style="margin-left: 175px; color:red;"></span>
+	<div class="approve_rz_03 clearfix">
+	        <input class="com_bgcolor" id="phoneSubmitBtnnn" class="btn-style-3 allbgcolor" onClick="subsetphone()" type="button" value="确认绑定" />
+	</div>	 -->	
+	<!-- email_content end -->
+
+    <script type="text/javascript">
+        var mbTest = /^(13|14|15|17|18)[0-9]{9}$/;
+        var reg_email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+        var timer = null;
+        var leftsecond = 60; //倒计时
+        var msg = "";
+
+
+        function NumberCheck(t){ //匹配数字
+            var num = t.value;
+            var re=/^\d*$/;
+            if(!re.test(num)){
+                isNaN(parseInt(num))?t.value='':t.value=parseInt(num);
+            }
+        }
+        function subnewphone(){
+            var phone = $("#phoneNum2").val();
+            if(phone == ''){
+               // return setError("请输入手机号~");
+                $().toastmessage('showErrorToast', "请输入手机号~");
+                return false;
+            }
+            if (mbTest.test(phone)) {
+                $('#phoneerr').html("短信发送中...");
+                $.ajax({
+                    url: "__URL__/sendphone/",
+                    type: "post",
+                    dataType: "json",
+                    data: {"cellphone":phone},
+                    success: function(d) {
+                        leftsecond = 60;
+                        if (d.status == 1) {
+                            msg = " √ 发送成功，如未收到";
+                            clearInterval(timer);
+                            timer = setInterval(setLeftTime4, 1000, "1");
+                           // $("#phoneNum2").attr("disabled",true);	//false	手机号禁止输入
+                           // $("#sendSmsBtnt2").removeAttr("onclick");	//发送时间内，不能再次发送
+                        }else if(d.status == 2){
+                            $('#phoneerr').html("手机号码已经被注册");
+                            $().toastmessage('showErrorToast', "手机号已被注册！");
+                            return false;
+
+                        }else if(d.status == 3){
+                            $('#phoneerr').html(d.message);
+                            $().toastmessage('showErrorToast', d.message);
+                            return false;
+                        }else {
+                            $('#phoneerr').html("校验码发送失败,请重试！");
+                            $().toastmessage('showErrorToast', " 校验码发送失败,请重试！");
+                            return false;
+                        }
+                    }
+                });
+            }else {
+                $('#phoneerr').html("<font color='red'> × 手机号码有误！</font>");
+                return;
+            }
+        }
+        function setLeftTime4() {
+            var second = Math.floor(leftsecond);
+            $("#phoneerr").eq(0).html(msg + second + "秒后可重发");
+
+            leftsecond--;
+            if (leftsecond < 1) {
+                    $("#phoneerr").eq(0).html("现在可重新发送！");
+                clearInterval(timer);
+                    $("#sendSmsBtnt2").attr("onclick","subnewphone();");	//发送时间截止，添加发送事件
+                try {
+                    $("#phoneNum2").attr("disabled",false);	//恢复手机号输入
+                } catch (E) { }
+                return;
+            }
+        }
+
+        /**
+         * 手机认证--认证手机--首次
+         */
+        function subsetphone(){
+            //phoneNum2,sms_vcode2,
+            var phone = $("#phoneNum2").val();
+            var code = $("#sms_vcode2").val();
+            if(phone == ''){
+                $('#phoneerr').html("请输入手机号~");
+                return;
+            }
+            if (!mbTest.test(phone)) {
+                $('#phoneerr').html("手机号格式不正确~");
+                return;
+            }
+            $.ajax({
+                url: "__URL__/validatephone",
+                type: "post",
+                dataType: "json",
+                timeout: 2000,
+                data: {"code":code,"cellphone":phone},
+                success: function(d) {
+                    if (d.status==1) {
+//                        return Seoks("恭喜您，绑定成功");
+                          $().toastmessage('showSuccessToast', "恭喜您，绑定成功!");
+                    }else {
+                          $().toastmessage('showErrorToast', d.message);
+                          return false;
+                    }
+                }
+            });
+        }
+
+    </script>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+/* CSS Document */
+@charset "utf-8";
+html,body,p,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,texarea,button,th,td{ margin:0; padding:0;}
+body,button,input,select,textarea{font:12px/1 "Microsoft YaHei",Arial,Helvetica,sans-serif;overflow-x:hidden;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+img{ border:none;}
+.bg_img1{height:940px;margin:0px;padding:0px;border:0px;width:1400px;margin:0 auto;}
+.phone_gg{width:1400px;margin:0 auto;position:relative;}
+.phone_hdimg{width:991px;margin:0 auto;height:56px;}
+.tellpone_img{float:left;background:url(../images/phone1.png) no-repeat;height:406px;width:194px;margin-top:40px;}
+.phone_ldmk{float:left;background:url(../images/ldts.png) no-repeat;height:282px;width:412px;margin-top:50px;margin-left:40px;}
+.phone_right{float:left;margin-left:80px;margin-top:50px;}
+.phone_ztys1{font-size:18px;color:#4f4f4f;height:40px;line-height:40px;}
+.phone_ztys3{font-size:18px;color:#4f4f4f;height:70px;line-height:70px;}
+.phone_fr1{height:80px;width:80px;margin-left:5px;float:left;}
+.phone_fr2{height:80px;width:80px;float:left;margin-left:10px;}
+.phone_ztys2{font-size:12px;color:#4f4f4f;padding-top:82px;position:absolute;width:80px;text-align:center;}
+.Iphone_img{;}
+.Android_img{margin-top:10px;}
+.phone_sousuo{position:absolute;margin-top:65px;}
+.ssbuttom{background:url(../images/phone_sousuo.png) no-repeat;}
+.phone_db{position:absolute;margin-top:110px;}
+.phone_db_font a{text-decoration:none;font-size:16px;color:#4f4f4f;width:250px;padding:5px 25px;width:200px;}
+.phone_db_font a:hover{color: #FA9D64;}
+
+.andir{background: url(../images/andir1.png) no-repeat;height:78px;width:261px; display:block;}
+.andir:hover{background:url(../images/andir2.png) no-repeat;height:78px;width:261px;}
+.xapple{background:url(../images/apple.png) no-repeat;height:78px;width:262px; display:block;}
+.xapple:hover{background:url(../images/apple2.png) no-repeat;height:78px;width:262px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

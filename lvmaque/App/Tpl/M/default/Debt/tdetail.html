@@ -1,0 +1,199 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>债权转让详情页</title>
+    <link rel="icon" type="image/png" href="..__ROOT__/Style/NewWeChat/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/invest.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/common.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+    <script>
+        var rooturl = "__URL__/";
+    </script>
+</head>
+
+<body>
+<!-- 散标、理财通用 -->
+    <header>
+        <h1>转让详情</h1>
+		<a href="__APP__/m/debt/" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="page-loan">
+        <div class="loan-info">
+            <div class="money">
+                <div class="field">转让金额（元）</div>
+                <div class="num num-lg">
+                    {$datas.money}
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-6">
+                    <div class="field">
+                        现年化收益
+                    </div>
+                    <div class="data">
+                        <span class="num num-md">{$datas.interest_rate}</span>%
+                    </div>
+                </div>
+                <div class="am-u-sm-6">
+                    <div class="field">
+                        原年化收益
+                    </div>
+                    <div class="data">
+                        <span class="num num-md"><del>{$datas.borrow_interest_rate}</del></span>%
+                    </div>
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-progress">
+                    <div class="am-progress-bar"></div>
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-6">
+                   
+                </div>
+                <div class="am-u-sm-6">
+                    剩余：<span class="num num-sm">{$datas.need}</span>元
+                </div>
+            </div>
+        </div>
+        <div class="loan-list ">
+            <ul class="am-list ">
+                <li>
+                    <div class="con">
+                        {$datas.borrow_name}
+                    </div>
+                    <div class="field">
+                        项目名称
+                    </div>
+                </li>
+                <li>
+                    <if condition="$datas['borrow_type'] eq 6">
+                        <a href="__APP__/m/tinvest/tdetail?id={$datas.invest_id}">
+                            <div class="con">
+                                <i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field">
+                                查看原项目
+                            </div>
+                        </a>
+                    <elseif condition="$datas['borrow_type'] eq 7" />
+                        <a href="__APP__/m/fund/tdetail?id={$datas.invest_id}">
+                            <div class="con">
+                                <i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field">
+                                查看原项目
+                            </div>
+                        </a>
+                    <else />
+                        <a href="__APP__/m/invest/detail?id={$datas.invest_id}">
+                            <div class="con">
+                                <i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field">
+                                查看原项目
+                            </div>
+                        </a>
+                    </if>
+                </li>
+                <li>
+                    <div class="con">
+                        {$datas.qitou}
+                    </div>
+                    <div class="field">
+                        起投金额
+                    </div>
+                </li>
+                <li>
+                    <div class="con">
+                        {$datas.remain_duration}
+                    </div>
+                    <div class="field">
+                        剩余期限
+                    </div>
+                </li>
+                <li>
+                    <div class="con">
+                        {$datas.repayment_type_name}
+                    </div>
+                    <div class="field">
+                        还款方式
+                    </div>
+                </li>
+                <li>
+                    <div class="con">
+                        {$datas.debt_et}
+                    </div>
+                    <div class="field">
+                        截至日期
+                    </div>
+                </li>
+                <li>
+                    <a href="__URL__/investRecord?borrow_id={$datas.invest_id}">
+                        <div class="con">
+                            {$datas.invest_num}人 <i class="am-icon-chevron-right"></i>
+                        </div>
+                        <div class="field">
+                            投标记录
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="__URL__/info.html">
+                        <div class="con">
+                            <i class="am-icon-chevron-right"></i>
+                        </div>
+                        <div class="field">
+                            项目描述
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-loan-oper">
+
+                <if condition="$datas.status eq 4">
+                    <a href="javascript:;" class="am-btn am-btn-danger am-btn-block btn-buy" style="background:#bdbdbd;border:1px solid #bdbdbd">已结束</a>
+                <elseif condition="$uid eq ''"/>
+                    <a href="__APP__/m/common/logins" class="am-btn am-btn-danger am-btn-block btn-buy" style="background:#bdbdbd;border:1px solid #bdbdbd">请先登陆</a>
+                <elseif condition="$datas.status eq 2"/>
+                    <!--<a href="__URL__/ajax_invest/?id={$debtid}" class="am-btn am-btn-danger am-btn-block btn-buy">立即投资</a>-->
+                    <a href="javascript:void(0);" onclick="tiaozhuan();" class="am-btn am-btn-danger am-btn-block btn-buy">立即投资</a>
+                </if>
+
+
+    </div>
+<script type="text/javascript">
+    $(".am-progress-bar").width('{$borrow_moneys}%');
+
+    function setError(tip){
+        layer.msg(tip,{icon:0});
+        return false;
+    }
+
+    function tiaozhuan(){
+        var borrow_uid = {$borrow_uid};
+        var uid = {$uids};
+        if(borrow_uid == uid){
+            return setError("不能去投自己的债权");
+        }else{
+            window.location.href="__URL__/ajax_invest/?id={$debtid}";
+        }
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+  <div class="page_tit">优惠券颁发</div>
+  <div class="Toolbar_inbox">
+  <htmlA:commonBtn type="jsfun" action="redeem();" value="奖励设置" style="search_action" />
+  </div>
+<div class="list">
+    <form method="post" name="expForm" id="expForm" action="__URL__/addExp" enctype="multipart/form-data">
+      <table id="bank_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th class="line_l" width=60>名称</th>
+          <th class="line_l" width=60 align="center">数量</th>
+          <th class="line_l" width="60">金额</th>
+          <th class="line_l" width=60>有效期</th>
+          <th class="line_l" width=70>0：抵现券，1：体验券</th>
+          <th class="line_l" width="150">投资金额限制</th>
+        </tr>
+
+          <tr overstyle='on' >
+            <td>网站奖励</td>
+            <td><htmlA:input id="num"  value="{$expconf['num']|default=1}" style="width:50px;" />张</td>
+             <td><htmlA:input id="money"  value="{$expconf['money']|default=5}"  style="width:50px;" />元</td>
+             <td><htmlA:input id="expired_time"  value="{$expconf['expired_time']|default=1}"  style="width:50px;" />月</td>
+             <td><htmlA:input id="is_taste"  value="{$expconf['is_taste']|default=0}"  style="width:50px;" /></td>
+             <td>投资<htmlA:input id="invest_money"  value="{$expconf['invest_money']|default=1000}" style="width:50px;" />元可用</td>
+          </tr>
+          <tr><td colspan="5"><font color="red">
+          	1.优惠券分为两种：抵现券和体验券。<br/>
+            2.优惠券数量为0或者为空时，表示不开启此优惠券。<br/>
+            3.体验券投资后，获得的利息可以提现，体验券本身金额不可以提现。<br/>
+            4.抵现券投资后，本金和利息都可以提现。</font></td><td>&nbsp;</td></tr>
+      </table>
+      <div class="Toolbar_inbox">
+        <htmlA:commonBtn type="jsfun" action="dosubmit1();" value="奖励所有会员" style="" />
+      </div> 
+      
+      <div style=" padding:10px; margin-top:10px; font-size: 14px;">奖励指定会员请在下方输入用户名 多个用户名请用“,”隔开（英文输入模式下,逗号）</div>
+      <table id="bank_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr overstyle='on' >
+            <td><htmlA:text id="user"  value="" style="width:500px;" /></td>
+             
+          </tr>
+      </table> 
+     <div class="Toolbar_inbox">
+        <htmlA:commonBtn type="jsfun" action="dosubmit();" value="奖励指定会员" style="" />
+      </div>
+      <input type="hidden" id="isAll" name="isAll" value="0">
+      <input type="hidden" id="type" name="type" value="99">
+    </form>
+  </div>
+  </div>
+<script type="text/javascript">
+
+function dosubmit1()
+{
+	if(confirm("您确定对网站所有会员进行优惠券奖励吗?")){
+		$("#isAll").val('1');
+	    dosubmit();
+	}
+}                   
+function dosubmit()
+{
+   $("#expForm").submit(); 
+}   
+</script>
+
+<include file="Public:_footer" />

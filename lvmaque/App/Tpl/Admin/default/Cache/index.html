@@ -1,0 +1,26 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">缓存设置</div>
+<div class="page_tab"><span data="tab_1" class="active">参数设置</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/index" onsubmit="return subcheck();">
+		<div id="tab_1">
+			<dl class="lineD"><dt>Memcache缓存：</dt><dd><htmlA:radio id="is_cache" value="key|list.is_cache" default="1|开启,0|关闭"/></dd></dl>
+			<dl class="lineD"><dt>Memcache服务器：</dt><dd><htmlA:input id="cache_server" value="{$list['cache_server']}"/></dd></dl>
+			<dl class="lineD"><dt>Memcache端口：</dt><dd><htmlA:input id="cache_port" value="{$list['cache_port']}"/></dd></dl>
+			<dl class="lineD"><dt>Memcache缓存时间：</dt><dd><htmlA:input id="cache_time" value="{$list['cache_time']}"/></dd></dl>
+			<dl class="lineD"><dt>页面缓存：</dt><dd><htmlA:radio id="is_trace" value="key|list.is_trace" default="1|开启,0|关闭"/></dd></dl>
+			<dl class="lineD"><dt>页面缓存时间：</dt><dd><htmlA:input id="trace_time" value="{$list['trace_time']}"/></dd></dl>
+			<dl class="lineD"><dt>smarty缓存：</dt><dd><htmlA:radio id="is_smarty" value="key|list.is_smarty" default="1|开启,0|关闭"/></dd></dl>
+		</div>
+		<div class="page_btm">
+		  <input type="submit" class="btn_b" value="确定" />
+		</div>
+	</form>
+</div>
+
+</div>
+
+<include file="Public:_footer" />

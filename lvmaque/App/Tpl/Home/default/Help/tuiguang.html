@@ -1,0 +1,119 @@
+<include file="Public:_header_common" /><include file="Public:_header_main" />
+<title>{$glo.web_name}推广系统</title>
+<meta name="keywords" content="{$glo.web_keywords}" />
+<meta name="description" content="{$glo.web_descript}" />
+	<script type="text/javascript" src="__ROOT__/Style/H/js/ZeroClipboard.js"></script>
+	<script language="JavaScript">
+		var clip = null;
+		
+		function $(id) { return document.getElementById(id); }
+		
+		function init() {
+			clip = new ZeroClipboard.Client();
+			clip.setHandCursor( true );
+			
+			clip.addEventListener('load', my_load);
+			clip.addEventListener('mouseOver', my_mouse_over);
+			clip.addEventListener('complete', my_complete);
+			
+			clip.glue( 'colink_id' );
+		}
+
+		function my_load(client) {
+			debugstr("Flash movie loaded and ready.");
+		}
+		
+		function my_mouse_over(client) {
+			// we can cheat a little here -- update the text on mouse over
+			clip.setText( $('txt_links').value );
+		}
+		
+		function my_complete(client, text) {
+	//		debugstr("Copied text to clipboard: " + text );
+			alert("复制成功,您可以按Ctrl+v键把邀请链接粘贴到目标位置！"); 
+		}
+		
+		function debugstr(msg) {
+			var p = document.createElement('p');
+			p.innerHTML = msg;
+			$('d_debug').appendChild(p);
+		}
+
+		document.onload = setTimeout("init()" , 0);
+	</script>
+<center>
+  <!--中部开始-->
+  <div class="wrap2">
+    <div class="tuiGuangTU"></div>
+    <div class="tuiGuangPH">
+	
+      <div class="title01" >
+	  <span class="oldai_color_jk">推广收入排名</span>	  
+	  </div>
+     
+        <div class="listPH">
+          <table id="content" style="width: 100%;float: left;border-collapse: collapse;" border="0px" cellspacing="0">
+            <tbody>
+              <tr id="tdHead">
+                <th scope="col" class="tdHeard"><p class="PHp">会员名单</p> </th>
+                <th scope="col" class="tdHeard"><p class="PHp">奖金贡献</p> </th>
+              </tr>
+              <volist name="list" id="vo">
+                <tr class="nodatashowtr">
+                  <td class="tuiguang04"><p class="PHp">{$vo.user_name}</p></td>
+                  <td class="tuiguang04"><p class="PHp">{$vo.jiangli|default=0}</p></td>
+                </tr>
+              </volist>
+            </tbody>
+          </table>
+        </div>
+     </div>
+    <div class="tuiGuangSM">
+	 <div class=title003>
+	  <span class="oldai_color">推广系统说明</span>
+	  </div>
+      <div class="listSM "> <strong>一、</strong>请不要发送邀请信给不熟悉的人士,避免给别人带来不必要的困扰。<br /><br />
+        <strong>二、</strong>请把下边的链接地址发给您的好友，这样您就成了他的上线用户。<br /><br />
+        <strong>三、</strong>您的线下用户在网站投资（不包含<?php echo BorrowModel::get_borrow_type(3);?>、<?php echo BorrowModel::get_borrow_type(4);?>、天标交易），立即送您优惠券奖励，赶快行动吧。
+<br /><br />
+        <strong>四、</strong>永久有效只要他在网站投资无论何时您都可以得到奖金。
+<br /><br />
+        <strong>五、</strong>奖金即时自动结算不会延时。<br /><br />
+        <strong>六、</strong>
+        奖金不封顶 无论线下用户投资多少您都可以拿到奖金。
+</div>
+ 
+    </div >
+    <div class="tuiGuangLink">
+      <if condition="session('u_id') !=''">
+        <div class="tuiguang02"> 您的邀请链接：
+          <input id="txt_links" readonly="readonly" class="tuiguang01" value="{$url}" type="text" onChange="clip.setText(this.value)">
+          <a href="javascript:" id="colink_id" class="colink"> 复制链接</a> </div>
+        <else/>
+		<div class="tuiguang02"> 您的邀请链接：
+          <input id="txt_links" readonly="readonly" class="tuiguang01" value="您尚未登陆，登陆后即可获取邀请链接！" type="text">
+          <a href="javascript:" class="colink" onClick="login();"> 马上登陆</a> </div>
+      </if>
+    </div>
+    
+    
+  </div>
+</center>
+<!--中部结束-->
+
+
+
+
+
+<script type="text/javascript">
+ 
+ 
+        $(function() {
+            $("#txt_links").click(function() { $(this).select(); });
+        });
+		
+		function login(){
+			window.location.href = "/member/";
+		}
+</script>
+<include file="Public:_footer" /> 

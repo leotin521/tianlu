@@ -1,0 +1,173 @@
+<include file="default:Public:_header_common" group="Home" />
+	<title>新用户注册-- {$glo.web_name}</title>
+<include file="default:Public:_header_main" group="Home"/>
+<!--<link rel="stylesheet" href="__ROOT__/Style/H/css/registerreset.css" />-->
+<link rel="stylesheet" href="__ROOT__/Style/H/css/registerstyle.css" />
+<script type="text/javascript">
+var imgpath="__ROOT__/Style/M/";
+var curpath="__URL__";
+</script>
+<script type="text/javascript" src="__ROOT__/Style/M/js/reg.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/Js/strength.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/Js/autoMail.js"></script>
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+.demo{width:300px;margin:40px auto;}
+/* mailBox */
+#mailBox{background:#fff;border:1px solid #ddd;padding:3px 5px 5px;position:absolute;z-index:9999;display:none;-webkit-box-shadow:0px 2px 7px rgba(0, 0, 0, 0.35);-moz-box-shadow:0px 2px 7px rgba(0, 0, 0, 0.35);}
+#mailBox p{width:100%;margin:0;padding:0;height:20px;line-height:20px;clear:both;font-size:12px;color:#ccc;cursor:default;}
+#mailBox ul{padding:0;margin:0;}
+#mailBox li{font-size:12px;height:22px;line-height:22px;color:#939393;font-family:'Tahoma';list-style:none;cursor:pointer;overflow:hidden;}
+#mailBox .cmail{color:#000;background:#e8f4fc;}
+#dvUser img{margin-right:0!important;}
+</style>
+<div class="register_main" style="background:#ffffff;">
+		<div class="register_form">
+            <div class="register_nav"></div>
+            <form action="" name="form" method="post" onsubmit="return false;">
+            <div class="regist_left">
+            	<p></p>
+				<p>
+					<span class="require">
+						<b>用户名</b>
+					</span>
+					<input id="txtUser" tabindex="1" type="text" class="register_name" onkeyup="if(this.value=='')this.value=''" onblur="if (this.value ==''){this.value=this.defaultValue}" value="" data="请输入用户名"/>
+				</p>
+				<div id="dvUser" class="dv_r_4_3"></div>
+				<p></p>
+				<p>
+                	<input type="text"  tabindex="2" class="register_pass" id="txtPwdyc" value="密码" style="position: absolute;top: 64px;left:174px;z-index: 11;"/>
+                </p>
+				<p>
+					<span class="require">
+						<b>密码</b>
+					</span>
+					<input id="txtPwd" type="password" class="register_pass" onKeyUp=pwStrength(this.value) onBlur=pwStrength(this.value) style="color:#000;"/></p><div id="dvPwd" class="dv_r_4_3"></div>
+                <p></p>
+                <p><input type="text"   class="register_pass" id="txtRepwdyc" value="确认密码" style="position: absolute;top: 128px;left:174px;z-index: 11;"/></p>
+				<p><span class="require"><b>确认密码</b></span><input id="txtRepwd" type="password" class="register_pass" style="color:#000;"/></p><div id="dvRepwd" class="dv_r_4_3"></div>
+				<p></p>
+                <empty name="tmp_invite_user">
+				<p><span class="require"><b class="no_bg">推选人(选填)</b></span><input type="text" class="register_rec" id="txtRec" value="推选人(选填)" data=""/></p><div id="dvRec" class="dv_r_4_3"></div>
+				<p></p>
+                <else/>
+                <input type="hidden" class="register_rec" id="txtRec"/> <div id="dvRec" class="dv_r_4_3" style="display: none;"></div>
+                </empty>
+				<p id="phonecard" style="display:none;">
+					<span class="require"><b>验证码</b></span><input id="txtCode" type="text" class="register_check"  value=""  data="验证码"/>
+                    <img src='__URL__/verify' style="width:116px; height:36px;border: 1px solid #ccc;" alt="点击换一个校验码" id="imVcode" onclick="this.src=this.src+'?t='+Math.random();BlurCode()" /><span>&nbsp;<a href="javascript:document.getElementById('imVcode').onclick();">换一张！</a></span>
+                    </p><div id="dvCode" class="dv_r_4_3" style="display:none;"></div>
+                <p style="clear:both"></p>
+				<p class="teshu">
+					<span class="require" style="float:none"></span><input type="checkbox" class="register_checkbox" checked="checked"/><a href="__APP__/ruleserver/index.html"  target="_Blank">同意《注册服务协议》 </a>
+				</p>
+                <p style="height:55px;">
+                <input alt="" id="Img1" type="button" style="background: url(/Style/H/images/register_submit.jpg); height:40px; width:278px; border:0;margin-left:175px;" class="register_submit" onclick="RegSubmit(this);" />
+                    <input type="image" value="" style="display: none" />
+                </p>
+				<p class="teshu">
+					<span class="require" style="float:none"></span><a href="__APP__/member/common/login/">已有账号[立即登录]</a>
+                    <if condition="$loginconfig['sina']['enable'] eq '1'">&nbsp;&nbsp;<a href="__APP__/member/oauth/sina/" style="float:right;"><img src="__ROOT__/Style/H/images/sina_n.png" /></a></if>
+        <if condition="$loginconfig['qq']['enable'] eq '1'"><a href="__APP__/member/oauth/qq/" style="float:right;"><img src="__ROOT__/Style/H/images/qq_n.png" />&nbsp;&nbsp;</a></if>
+				</p>
+
+            </div>
+            </form>
+ <script type="text/javascript">
+
+ SetDefaultTitle("txtUser");
+ $('#txtUser').focus( function() {
+     if( $(this).val() == '请输入用户名' ) {
+         $(this).val('');
+     }
+ })
+ //SetDefaultTitle("txtEmail");
+ SetDefaultTitle("txtRec");
+ SetDefaultTitle("txtCode");
+  $(document).ready(function(){
+	$("#txtPwdyc").focus(function(){
+		$("#txtPwdyc").hide();
+		$("#txtPwd").show();
+		$("#txtPwd").focus();
+	  });
+	  $("#txtPwd").blur(function(){
+		var $txtPwd_obj=$('#txtPwd');
+		if($txtPwd_obj.val()==''){
+		  $("#txtPwdyc").show();
+	    }
+	  });
+	$("#txtRepwdyc").focus(function(){
+		$("#txtRepwdyc").hide();
+		$("#txtRepwd").show();
+		$("#txtRepwd").focus();
+	  });
+	  $("#txtRepwd").blur(function(){
+		var $txtPwd_obj=$('#txtRepwd');
+		if($txtPwd_obj.val()==''){
+		  $("#txtRepwdyc").show();
+	    }
+	  });
+	  $("#txtCode").focus(function(){
+		   if( $(this).val() == '验证码'){
+               $(this).val('');
+    	  }
+
+	   });
+	  $("#txtCode").keyup(function(){
+		  if($("#txtCode").val().length==4){
+			  $('#dvCode').show()
+			   BlurCode();
+		  }
+	  })
+//	  $('#txtUser').keyup( function() {
+//		  BlurUName()
+//	  })
+
+  });
+
+</script>    
+		</div>
+
+	</div>
+<script type="text/javascript">
+            $('form').submit( function() {
+                $('#Img1').trigger('click');
+            })
+
+function closeAction(){
+	window.location.href="__APP__/member/";
+}
+
+function jfun_dogetpass(){
+	var ux = $("#emailname").val();
+	if(ux==""){
+		layer.msg('请输入用户名或者邮箱',{icon:0});
+		return false;
+	}
+	layer.msg('邮件发送中...',{icon:6});
+	$.ajax({
+		url: "__APP__/member/common/dogetpass/",
+		data: {"u":ux},
+		//timeout: 5000,
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==1){
+					layer.msg('发送成功，请去邮箱查收',{icon:1});
+				}else{
+					layer.msg('发送失败，请重试',{icon:2});
+				}
+			}
+		}
+	});
+
+}
+$(document).ready(function(){
+    $('#txtEmail').autoMail({
+        emails:['qq.com','163.com','126.com','sina.com','sohu.com','yahoo.cn','gmail.com','hotmail.com','live.cn']
+    });
+});
+</script>
+<include file="default:Public:_footer" group="Home" />

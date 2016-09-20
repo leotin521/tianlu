@@ -1,0 +1,90 @@
+<include file="Public:_header" />
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+
+<tagLib name="htmlA" />
+<div class="so_main">
+        <div class="page_tit">编辑{$designer[7]}</div>
+        <div class="page_tab"><span data="tab_1" class="active">基本信息</span></div>
+        <div class="form2">
+                <form method="post" action="__URL__/doEdit" onsubmit="return subcheck();" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{$vo.id}"/>
+                        <input type="hidden" name="progress" value="{$vo.progress}"/>
+                        <div id="tab_1">
+<!--                                    <dl class="lineD"><dt>是否显示：</dt><dd><htmlA:radio id="on_off" value="key|vo.on_off" default="1|显示,0|不显示" tip="是否在列表显示出来"/></dd></dl>-->
+                                    <dl class="lineD"><dt>是否允许自动投标：</dt><dd><if condition="$vo.can_auto eq 1 ">是<else />否</if></dd></dl>
+                                    <dl class="lineD"><dt>是否新手标：</dt><dd><if condition="$vo.is_xinshou eq 1">是<else />否</if></dd></dl>
+									<dl class="lineD"><dt>是否体验标：</dt><dd><if condition="$vo.is_taste eq 1">是<else />否</if></dd></dl>
+                                    <!-- <htmlA:radio id="is_auto"  value="key|vo.is_auto" default="0|不允许,1|允许" tip="是否允许自动投标"/> -->
+                                    <dl class="lineD"><dt>借款人：</dt><dd><span class="tip">{$vo.borrow_user.user_name}</span></dd></dl>
+                                    <dl class="lineD"><dt>产品编号：</dt><dd><span class="tip">{$vo.borrow_name}</span></dd></dl>
+                                    <dl class="lineD"><dt>起投金额：</dt><dd>{$vo.per_transfer}</dd></dl>
+<!--                                    <dl class="lineD"><dt>上线时间：</dt>
+                                        <dd>
+                                            <htmlA:timer id="online_time" tip='上线时间' arg="{dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$vo.online_time|mydate='Y-m-d H:i:s',###}"/>
+                                      </dd>
+                                    </dl>-->
+                                    <dl class="lineD"><dt>总认购份数：</dt><dd>{$vo.transfer_total}</dd></dl>
+                                    <dl class="lineD"><dt>总筹集额度：</dt><dd>{$vo.borrow_money}</dd></dl>
+                                    <dl class="lineD"><dt>年化利率：</dt><dd>{$vo.borrow_interest_rate}%</dd></dl>
+                                    <dl class="lineD"><dt>认购期限：</dt><dd>{$vo.borrow_duration}个月</dd></dl>
+                                    <dl class="lineD"><dt>单人最大购买份数：</dt><dd><htmlA:input  addstr='onkeyup="checkIntType(this);"'  id="borrow_max" value="{$vo.borrow_max}" tip="0表示无限制"/></dd></dl>
+                                    <!--<dl class="lineD"><dt>借款管理费：</dt><dd><htmlA:input addstr='onkeyup="checkFloatType(this);"'  id="borrow_fee" value="{$vo.borrow_fee}" tip="元 平台收取的管理费用" /></dd></dl>-->
+                                    <dl class="lineD"><dt>项目介绍：</dt><dd><htmlA:text id="borrow_breif" value="{$vo.borrow_breif}" tip="*" style="height:320px;"/></dd></dl>
+                                    <if condition="$vo.borrow_status eq '-1' ">
+                                    	<dl class="lineD"><dt>上线时间：</dt><dd><htmlA:timer id="online_time" tip='不填则默认为当前时间' arg="{minDate:'%y-%M-%d', dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$vo.online_time}"/></dd></dl>
+                                    </if>
+                                    <script type="text/javascript">
+                                            function summoney(){    
+                                                    var pertr = $("#per_transfer").val();
+                                                    $("#borrow_money").val(parseFloat(pertr) * parseInt($("#transfer_total").val()));
+                                                    $("#vouch_money").val(parseFloat(pertr) * parseInt($("#transfer_total").val()));
+                                            }
+                                    </script>	
+
+                        </div><!--tab1-->
+                        <div class="page_btm">
+                                <input type="submit" class="btn_b" value="确定" />
+                        </div>
+                </form>
+        </div>
+</div>
+<script type="text/javascript">
+        function checkIntType(t) {
+               var num = t.value;
+                var re=/^\d*$/;
+                if(!re.test(num)){
+                        isNaN(parseInt(num))?t.value='':t.value=parseInt(num);
+                }
+    }
+      function checkFloatType(t) {
+                    var num = t.value;
+                    var re=/^\d{0,20}(\.)\d*$/;
+                    if(!re.test(num)){
+                        isNaN(parseFloat(num))?t.value='':t.value=parseFloat(num);
+                    }
+    }
+//获取会员用户名
+getusername();
+function getusername(){
+	var uid = $("#borrow_uid").val();
+	$(".userinfo").html("加载中...");
+
+	var datas = {'uid':uid};
+	$.post("__URL__/getusername", datas, uidResponse,'json');
+}
+
+function uidResponse(res){
+    $(".userinfo").html(res.uname);
+}
+
+var cansub = true;
+function subcheck(){
+        if(!cansub){
+                alert("请不要重复提交，如网速慢，请耐心等待！");
+                return false;	
+        }
+        cansub = false;
+        return true;
+}
+</script>
+<include file="Public:_footer" />

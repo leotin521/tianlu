@@ -1,0 +1,12 @@
+
+<div class="cms_nav">
+  <ul class="cn-nav-1-1ist">
+    <volist name="leftlist" id="vl" key='k'>
+      <li class="cn1l-item <if condition="$vl.id eq $cid">current</if>"<if condition="$k eq 1">style="border-top: 1px solid #dddddd;"</if>> <a href="{$vl.turl}" title="{$vl.type_name}" class="cn1l-item-name">
+      	<if condition="$vl.type_img neq '' ">
+      	<img src="{$vl.type_img}"  style="width:25px;height=25px;margin-top:15px;">
+      </if>
+      	{$vl.type_name|cnsubstr2=###,8}</a> </li>
+    </volist>
+  </ul>
+</div>

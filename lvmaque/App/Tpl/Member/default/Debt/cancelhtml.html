@@ -1,0 +1,62 @@
+<style type="text/css">
+/*新风格 填写金额窗口*/
+.ajax-invest{ width:360px; height:auto; float:left; margin:40px;}
+.ajax-invest .item{ width:100%; height:auto; float:left;}
+.ajax-invest .item li{ width:100%; height:auto; float:left; margin-bottom:20px;}
+.ajax-invest .item li h6{ width:100px; height:30px; font-size:14px; line-height:30px; text-align:center; float:left;}
+.ajax-invest .item li input{ width:200px; height:30px; line-height:30px; float:left; border:1px solid #CBCBCB; padding:0 3px; border-radius:3px;}
+.ajax-invest .item li div{ width:100%; height:40px; float:left; margin:30px 0 0; _display:none;}
+.ajax-invest .item li a{ width:auto; height:40px; line-height:40px; color:#fff; float:left; padding:0 20px; background:#da4848; border-radius:5px;}
+.ajax-invest .item li a.center{ margin-left:110px; _display:none;}
+.ajax-invest .item li div a.center{ margin-left:135px; _display:none;}
+.ajax-invest .item li a:hover{ background:#da4848;}
+.ajax-invest .item li p{ text-align:center;}
+</style>
+<div class="ajax-invest">
+    <ul class="item">
+    	
+		<li>
+			<h6>支付密码</h6>
+			<input type="password" name="paypass"  id="paypass"/>
+		</li>
+		<li>
+			<div>
+			<input type="hidden" name="invest_id" id="invest_id" value="{$invest_id}">
+			<a href="javascript:void(0);" class="center" id="dosubmit">确认撤销</a>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<script type="text/javascript">
+$("#dosubmit").click(function(){
+    var paypass = $("#paypass").val();
+    var invest_id = $("#invest_id").val();
+    if(!invest_id){
+    	layer.msg('缺少参数，请联系客服！', {icon: 0});
+        return false;
+    }
+    if(!paypass){
+    	layer.msg('请输入支付密码！', {icon: 0});
+        return false;
+    }
+    layer.msg('处理中...', {icon: 16});
+    $.ajax({
+        url: "__URL__/cancel/",
+        data: {"paypass":paypass, "invest_id":invest_id},
+        timeout: 4000,
+        cache: false,
+        type: "post",
+        dataType: "json",
+        success: function (d, s, r) {
+        	if(d.status==1){
+        		layer.msg(d.message, {icon: 1});
+        		location.reload();
+        	}else{
+        		layer.msg(d.message, {icon: 2});
+                return false;
+            }
+        }
+    });
+})
+</script>

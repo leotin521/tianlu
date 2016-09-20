@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>绑定银行卡</title>
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/email.css" rel="stylesheet" />
+        <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/lv.css">
+        <script src="__ROOT__/Style/NewWeChat/js/jquery-1.7.1.min.js"></script>
+        <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+	</head>
+	<body>
+	<div class="top_nav_h">
+		<div class="top_nav">
+			<div class="com_bgcolor">
+				<h1><a href="__URL__/userinfo" class="comm_back"></a>绑定银行卡</h1>
+			</div>
+		</div>
+	</div>
+	
+	<!-- email_content star -->
+
+    <div class="add_bank clearfix">
+    	<h2>请绑定持卡人本人银行卡</h2>
+    	<div class="add_bank_01 clearfix">
+            <li class="form-style-1-item">
+                <b>银行</b>
+                <select name="branchhs" id="branchhs" class="select_01">
+                    <foreach name="bank_list" item="data" key="key">
+                        <if condition="$vobank.bank_name eq $key ">
+                            <option value="{$key}" selected="selected" >{$data}</option>
+                        <else />
+                            <option value="{$key}">{$data}</option>
+                        </if>
+                    </foreach>
+                </select>
+            </li>
+    	</div>
+    	
+    	
+    	<div class="add_bank_01 clearfix">
+    		<b>卡号</b>
+    		<input class="select_01" id="cardNum" name="bank_num" required="required" type="text" placeholder="请填写银行卡卡号" autofocus="autofocus" />
+    	</div>
+
+
+        <div class="add_bank_01 clearfix">
+            <ul>
+                <li class="form-style-1-item">
+                    <b>开户城市</b>
+                    <select id="province" name="province" class="city_01" onchange="sel('province','city')">
+                        <option>请选择</option>
+                        <volist name="province" id="pro">
+                            <if condition="$vobank.bank_province eq $pro.id ">
+                                <option value="{$pro.id}" selected="selected" >{$pro.name}</option>
+                            <else />
+                                <option value="{$pro.id}">{$pro.name}</option>
+                            </if>
+                        </volist>
+                    </select>
+                    <select id="city" name="city" class="city_02"  onchange="sel('city','')">
+                        <option value="">请选择</option>
+                        <foreach name="city" item="ci">
+                            <if condition="$vobank.bank_city eq $ci.id ">
+                                <option value="{$ci.id}" selected="selected" >{$ci.name}</option>
+                                <else />
+                                <option value="{$ci.id}" >{$ci.name}</option>
+                            </if>
+                        </foreach>
+                    </select>
+                    <span class="form-style-1-error" style="float:none;margin-left:10px"></span>
+                </li>
+            </ul>
+        </div>
+    	
+    	<div class="add_bank_01 clearfix">
+    		<b>开户支行</b>
+    		<input class="select_01" id="branchh" name="branchh" type="text" value="" placeholder="请填写开户支行" />
+    	</div>
+    	<script src="__ROOT__/Style/NewWeChat/js/jquery.min.js" type="text/javascript"></script>
+    	<script type="text/javascript">
+//			$(document).ready(function(){
+//				$("#province").change(function(){
+//					$("#province option").each(function(i,o){
+//						if($(this).attr("selected"))
+//						{
+//							$(".city").hide();
+//							$(".city").eq(i).show();
+//						}
+//					});
+//				});
+//				   $("#province").change();
+//			});
+		</script>
+    </div>
+	
+		
+	<div class="approve_rz_03 clearfix">
+		<input type="button" id="addBankSubmit" onclick="sub();" value="已经绑定" class="com_bgcolor" />
+	</div>		
+	<!-- email_content end -->
+
+    <script>
+
+
+        function SetError(tip){
+            layer.msg(tip,{icon:1});
+            return false;
+        }
+
+        function sub(){
+            var msg = '请上PC端修改';
+            return SetError(msg);
+        }
+
+    </script>
+	</body>
+</html>

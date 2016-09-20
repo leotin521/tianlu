@@ -1,0 +1,247 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>我要借款</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/borrow.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>我要借款</h1>
+    </header>
+    <div class="mod-borrow">
+
+        <!--信用标-->
+        <div class="borrow-unit">
+            <div class="mod-media">
+                <div class="mod-media-object">
+                    <img src="__ROOT__/Style/NewWeChat/images/loan/icon-loan-x.png" height="75" width="75" alt="">
+                </div>
+                <div class="media-body ">
+                    信用借款标显示"信"字标记，是一种免抵押、免担保、纯信用的小额个人信用贷款标！
+                </div>
+            </div>
+            <p><b>【申请条件】</b>：</p>
+            <p>（1）23-60周岁，信用记录良好的中国大陆居民
+                <br> （2）所抵押房产的完全所有人
+                <br> （3）还款超过6个月的按揭房
+            </p>
+            <p><b>【借款额度】</b>：</p>
+            <div class="am-g">
+                <div class="am-u-sm-6">可使用额度:￥<if condition="$data.credit_limit eq ''" >0<else />{$data['credit_limit']}</if></div>
+                <div class="am-u-sm-6">总额度:￥<if condition="$data.credit_cuse eq ''">0<else />{$data['credit_cuse']}</if></div>
+                <div class="am-u-sm-6">已使用额度:￥<if condition="$data.credit_use eq ''" >0<else />{$data['credit_use']}</if></div>
+                <div class="am-u-sm-6">额度状态:<if condition="$data['credit_stuats'] eq 1">正常<else />异常</if></div>
+            </div>
+           <div class="am-g oper">
+                <div class="am-u-sm-6">
+                    <if condition="$qiyeandgeren eq 1">
+                        <a href="" class="am-btn am-radius am-btn-block am-btn-danger is_not_borrower">发布借款</a>
+                    <else />
+                        <if condition="$data['credit_limit'] lt 1">
+                            <a href="javascript:void(0);" onclick="yanzhen();" class="am-btn am-radius am-btn-block am-btn-danger">发布借款</a>
+                        <else />
+                            <a href="__URL__/postt/normal.html" class="am-btn am-radius am-btn-block am-btn-danger">发布借款</a>
+                        </if>
+                    </if>
+                </div>
+                <div class="am-u-sm-6">
+                    <a href="__APP__/m/user/apply" class="am-text-danger">申请额度</a>
+                </div>
+            </div>
+        </div>
+
+        <!--担保标-->
+        <div class="borrow-unit">
+            <div class="mod-media">
+                <div class="mod-media-object">
+                    <img src="__ROOT__/Style/NewWeChat/images/loan/icon-loan-d.png" height="75" width="75" alt="">
+                </div>
+                <div class="media-body ">
+                    机构担保借款标显示标记"担"，担保人和借款人之间协商并签订抵押担保手续，是有担保机构进行担保的借款。
+                </div>
+            </div>
+            <p><b>【申请条件】</b>：</p>
+            <p>（1）有担保机构为其进行担保；逾期由担保机构垫付本息还款。
+            </p>
+            <!--<p><b>【借款额度】</b>：</p>-->
+            <!--<div class="am-g">-->
+                <!--<div class="am-u-sm-6">可使用额度：￥10,000.00 </div>-->
+                <!--<div class="am-u-sm-6">总额度：￥10,000.00 </div>-->
+                <!--<div class="am-u-sm-6">已使用额度：￥0 </div>-->
+                <!--<div class="am-u-sm-6">额度状态：正常 </div>-->
+            <!--</div>-->
+            <div class="am-g oper">
+                <div class="am-u-sm-6">
+                    <if condition="$qiyeandgeren eq 1">
+                        <a href="" class="am-btn am-radius am-btn-block am-btn-danger is_not_borrower">发布借款</a>
+                        <else />
+                        <a href="__URL__/postt/vouch.html" class="am-btn am-radius am-btn-block am-btn-danger" >发布借款</a>
+                    </if>
+                </div>
+            </div>
+        </div>
+
+        <!--秒还标-->
+        <div class="borrow-unit">
+            <div class="mod-media">
+                <div class="mod-media-object">
+                    <img src="__ROOT__/Style/NewWeChat/images/loan/icon-loan-m.png" height="75" width="75" alt="">
+                </div>
+                <div class="media-body ">
+                    秒还标显示标记"秒"，秒还标是一种娱乐庆祝送钱的标，可以很快提升发标者的积分，把快乐送给大家。
+                </div>
+            </div>
+            <p><b>【申请条件】</b>：</p>
+            <p>（1）在网站有过投资记录；并且账户金额能够支付发这次秒标的手续费以及利息
+            </p>
+            <!--<p><b>【借款额度】</b>：</p>-->
+            <!--<div class="am-g">-->
+                <!--<div class="am-u-sm-6">可使用额度：￥10,000.00 </div>-->
+                <!--<div class="am-u-sm-6">总额度：￥10,000.00 </div>-->
+                <!--<div class="am-u-sm-6">已使用额度：￥0 </div>-->
+                <!--<div class="am-u-sm-6">额度状态：正常 </div>-->
+            <!--</div>-->
+            <div class="am-g oper">
+                <div class="am-u-sm-6">
+                    <if condition="$qiyeandgeren eq 1">
+                        <a href="" class="am-btn am-radius am-btn-block am-btn-danger is_not_borrower">发布借款</a>
+                        <else />
+                        <a href="__URL__/postt/second.html" class="am-btn am-radius am-btn-block am-btn-danger">发布借款</a>
+                    </if>
+                </div>
+            </div>
+        </div>
+
+
+        <!--净值标-->
+        <div class="borrow-unit">
+            <div class="mod-media">
+                <div class="mod-media-object">
+                    <img src="__ROOT__/Style/NewWeChat/images/loan/icon-loan-j.png" height="75" width="75" alt="">
+                </div>
+                <div class="media-body ">
+                    净值借款标显示标记"净"，如果客户净资产大于借款金额，网站运营方允许发布净值借款标用于临时周转。
+                </div>
+            </div>
+            <p><b>【申请条件】</b>：</p>
+            <p>（1）本网站的投资者；在本网站拥有一定债权，以站内债权为担保
+            </p>
+            <p><b>【借款额度】</b>：</p>
+            <div class="am-g">
+                <div class="am-u-sm-6">可使用额度:￥{$data['netmoney']}</div>
+                <div class="am-u-sm-6">总额度:￥{$data['allnetMoney']}</div>
+                <div class="am-u-sm-6">已使用额度:￥{$data['allnetMoney_use']}</div>
+                <div class="am-u-sm-6">额度状态:<if condition="$data['netMoney_stuats'] eq 1">正常<else />异常</if></div>
+            </div>
+            <div class="am-g oper">
+                <div class="am-u-sm-6">
+                    <if condition="$qiyeandgeren eq 1">
+                        <a href="" class="am-btn am-radius am-btn-block am-btn-danger is_not_borrower">发布借款</a>
+                    <else />
+                        <if condition="$data['netmoney'] lt 1">
+                            <a href="javascript:void(0);" onclick="yanzhen2();" class="am-btn am-radius am-btn-block am-btn-danger">发布借款</a>
+                       <else />
+                            <a href="__URL__/postt/net.html" class="am-btn am-radius am-btn-block am-btn-danger"">发布借款</a>
+                        </if>
+                    </if>
+                </div>
+            </div>
+        </div>
+
+
+        <!--抵押标-->
+        <div class="borrow-unit">
+            <div class="mod-media">
+                <div class="mod-media-object">
+                    <img src="__ROOT__/Style/NewWeChat/images/loan/icon-loan-y.png" height="75" width="75" alt="">
+                </div>
+                <div class="media-body ">
+                    抵押借款标显示标记"抵"，是网站运营方经过线下严格核查借款人资产负债！
+                </div>
+            </div>
+            <p><b>【申请条件】</b>：</p>
+            <p>（1）有关政府以及商业银行推荐、优质资产和股权;一般为地区优质中小微企业、并且办理相关抵押手续
+            </p>
+            <!--<p><b>【借款额度】</b>：</p>-->
+            <!--<div class="am-g">-->
+                <!--<div class="am-u-sm-6">可使用额度：￥10,000.00 </div>-->
+                <!--<div class="am-u-sm-6">总额度：￥10,000.00 </div>-->
+                <!--<div class="am-u-sm-6">已使用额度：￥0 </div>-->
+                <!--<div class="am-u-sm-6">额度状态：正常 </div>-->
+            <!--</div>-->
+            <div class="am-g oper">
+                <div class="am-u-sm-6">
+                <if condition="$qiyeandgeren eq 1">
+                    <a href="" class="am-btn am-radius am-btn-block am-btn-danger is_not_borrower">发布借款</a>
+                <else />
+                    <a href="__URL__/postt/mortgage.html" class="am-btn am-radius am-btn-block am-btn-danger">发布借款</a>
+                </if>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="block-90"></div>
+    <include file="Pub:footer" />
+    <!-- 购买弹窗 -->
+    <div class="am-modal mod-confirm " tabindex="-1" id="modal-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">借款类型
+                <a href="javascript: void(0)" class="btn btn-cancel" data-am-modal-close>取消</a>
+            </div>
+            <div class="am-modal-bd ">
+                <div class="am-g mod-borrow-apply">
+                    <div class="am-u-sm-6">
+                            <a class="am-btn" href="__APP__/m/personal">
+                                个人借款
+                            </a>
+                    </div>
+                    <div class="am-u-sm-6">
+						<a class="am-btn" href="__APP__/m/personal/qiyeziliao">
+							企业借款
+						</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // 如果未申请成为借款人，请执行下面代码
+
+        $(function() {
+            var $modal = $('#modal-confirm');
+            $('.is_not_borrower', '.borrow-unit').on('click', function(e) {
+                e.preventDefault();
+                var $target = $(e.target);
+                if (($target).hasClass('js-modal-open')) {
+                    $modal.modal();
+                } else if (($target).hasClass('js-modal-close')) {
+                    $modal.modal('close');
+                } else {
+                    $modal.modal('toggle');
+                }
+            });
+        });
+
+		function yanzhen(){
+           alert("您的信用额度不足");
+        }
+        function yanzhen2(){
+            alert("您的净值额度不足");
+        }
+    </script>
+</body>
+
+</html>

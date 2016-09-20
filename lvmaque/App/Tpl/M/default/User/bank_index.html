@@ -1,0 +1,48 @@
+<!doctype html>
+<html class="no-js">
+<!--账户信息-银行卡信息页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>银行卡信息</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>银行卡信息</h1>
+        <a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+
+            <div class="mod-info-blank">
+            	 <ul class="am-list">
+                     <volist name="banks" id="vo">
+                     <li>
+                        <a href="__URL__/edit_bank?id={$vo.id}">
+                            <div class="con" style="margin-top:3%;">
+                                <i class="am-icon-chevron-right"></i>
+                            </div>
+                            <div class="field" style="font-size:1.6rem;">
+                               <span class="mod-blank-img"><img src="__ROOT__/Style/NewWeChat/images/bank/{$vo.bank_id}.png" alt="" style="width:50px;height:50px;" border="0" /></span>{$vo.bank_name}<br/><font style="color:#5a5959;line-height:30px;">尾号{$vo.bank_num|hidecard=###,3}</font>                            </div>
+                               <div class="clear:both"></div>
+                        </a>
+                     </li>
+                    </volist>
+                </ul>
+            </div>
+			<div class="am-u-sm-6 am-u-sm-centered mod-infon-tijiao" style="width:100%;">
+                      <a href="__URL__/add_banks"><button type="submit" class="am-btn am-btn-block  am-radius am-btn-danger num-lt" style="width: 90%;margin:0 auto;font-size:20px;letter-spacing: 3px;">+添加</button></a>
+            </div>
+
+</body>
+
+</html>
+

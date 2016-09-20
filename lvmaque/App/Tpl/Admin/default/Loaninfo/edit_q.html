@@ -1,0 +1,172 @@
+<include file="Public:_header" />
+<link href="__ROOT__/Style/M/css/tab1.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<tagLib name="htmlA" />
+<style type="text/css">
+.text2{border:0 none; height:25px; line-height:25px}
+</style>
+<div class="so_main">
+
+<div class="page_tit">查看会员资料</div>
+<div class="page_tab"><span data="tab_8" class="active">审核</span><span data="tab_1">企业资料</span></div>
+<div class="form2">
+	<div id="tab_8">
+	<form method="post" action="__URL__/doEdit_q" onsubmit="return subcheck();">
+	<input type="hidden" name="id" value="{$vo.id}"/>
+
+	<dl class="lineD"><dt>是否通过审核：</dt><dd><htmlA:radio id="status" default="2|是,0|否" tip="*"/></dd></dl>
+	<dl class="lineD"><dt>企业申请者：</dt><dd>{$vo.uname}</dd></dl>
+	<dl class="lineD"><dt>申请时间：</dt><dd>{$vo.update_time|date="Y-m-d H:i",###}</dd></dl>
+	<dl class="lineD"><dt>处理说明：</dt><dd><htmlA:text id="deal_info" value="{$vo.deal_info}" tip="*"/></dd></dl>
+	
+	
+	<div class="page_btm">
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+	</div>
+	<div id="tab_1" style="display:none">
+<table cellspacing="0" cellpadding="0" id="formTb" style="width: 100%;margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+	<tbody><tr class="trBg">
+		<td class="tdTitle">
+			企业名称：
+		</td>
+		<td class="tdContent">
+			{$vx.business_name|default="未填写"}
+		</td>
+		<td id="dv_realname" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			注册号：
+		</td>
+		<td class="tdContent">
+			{$vx.bianhao|default="未填写"}
+		</td>
+		<td id="dv_idcard" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			法人代表：
+		</td>
+		<td class="tdContent">
+			{$vx.legal_person|default="未填写"}
+		</td>
+		<td id="Td3" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			身份证号：
+		</td>
+		<td class="tdContent">
+			{$vx.idcard|default="未填写"}
+		</td>
+		<td id="dv_mobile" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			注册资金：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.registered_capital|default="未填写"}&nbsp;&nbsp;元
+		</td>
+		<td id="dv_gender" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			所在地：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.city|default="未填写"}
+		</td>
+		<td id="dv_degree" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			借款金额：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.bid_money|default="未填写"}&nbsp;&nbsp;万元
+		</td>
+		<td id="dv_degree" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			周期：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.bid_duration|default="未填写"}&nbsp;&nbsp;月
+		</td>
+		<td id="dv_marrage" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			借款用途：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.use_type|default="未填写"}
+		</td>
+		<td id="dv_degree" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			还款来源：
+		</td>
+		<td class="tdContent radioPos">
+			{$vx.repay_source|default="未填写"}
+		</td>
+		<td id="dv_degree" class="tdTip">
+		</td>
+	</tr>
+	</tbody></table>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+//获取会员用户名
+function downfile(url){
+	window.open("/"+url);
+}
+getusername();
+function getusername(){
+	var uid = $("#borrow_uid").val();
+	$(".userinfo").html("加载中...");
+
+	var datas = {'uid':uid};
+	$.post("__URL__/getusername", datas, uidResponse,'json');
+}
+
+function uidResponse(res){
+	$(".userinfo").html(res.uname);
+}
+
+function addone(){
+	var htmladd = '<dl class="lineD"><dt>资料名称：</dt>';
+		htmladd+= '<dd><input type="text" name="updata_name[]" value="" />&nbsp;&nbsp;更新时间:<input type="text" name="updata_time[]" onclick="WdatePicker();" class="Wdate" /></dd>';
+		htmladd+= '</dl>';
+	$(htmladd).appendTo("#tab_3");
+}
+function subcheck(){
+	if($("input[name='status']:checked").val()!=0 && $("input[name='status']:checked").val()!=2){
+		ui.error("请选择审核结果");
+		return false;
+	}
+	
+	var deal_info = $("#deal_info").val();
+	if(deal_info ==""){
+		ui.error("处理说明不能为空！");
+		return false;
+	}
+	return true;
+}
+</script>
+<include file="Public:_footer" />

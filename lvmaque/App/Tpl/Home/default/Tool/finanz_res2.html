@@ -1,0 +1,56 @@
+
+                  <table style="border-bottom: 5px solid #E7E9EB;width:100%;">
+                    <tr style="border-bottom: 1px solid #E7E9EB;">
+                      <th width="33%"><p>序号</p></th>
+                      <th width="33%"><p>用户名</p></th>
+                      <th width="34%"><p>累计金额</p></th>
+                    </tr>
+                    <volist name="tenddata" id="vs" key="k">
+                    <tr style="border-bottom: 1px solid #E7E9EB;">
+                      <td><p>{$k}</p></td>
+                      <td><p>{$vs.user_name|hidecard=###,5} </p></td>
+                      <td><p class="red">{$vs.money_all} </p></td>
+                    </tr>
+                    </volist>
+                  </table>
+                   <div  class="pages" style=" width:99%">{$page}</div>
+            
+                <script type="text/javascript">
+                    $(".sub_skip").click(function(){
+                      // window.location.hr ef="/invest/tendlately.html?p="+$(this).siblings(".jumpto").val();
+                    });
+		            $('.pages a').click(function(){
+		            	try{	
+		            		var geturl = $(this).attr('href');
+		                    $.ajax({
+		                        url: geturl,
+		                        data: {},
+		                        timeout: 5000,
+		                        cache: false,
+		                        type: "get",
+		                        dataType: "json",
+		                        success: function (d, s, r) {
+		                          	if(d) $("#finanz_detail").html(d.html);
+		                        }
+		                    });
+		            	}catch(e){};
+		            	return false;
+		            });
+		            $(".sub_skip").click(function(){    
+		                try{    
+		                    var geturl = $(this).attr("before")+$(this).siblings(".jumpto").val();
+		                    $.ajax({
+		                        url: geturl,
+		                        data: {},
+		                        timeout: 5000,
+		                        cache: false,
+		                        type: "get",
+		                        dataType: "json",
+		                        success: function (d, s, r) {
+		                          	if(d) $("#finanz_detail").html(d.html);
+		                        }
+		                    });
+		                }catch(e){};
+		                return false;
+		            });
+                </script>

@@ -1,0 +1,130 @@
+<include file="Public:_header_common" />
+<title>我的账户-- {$glo.web_name}</title>
+<include file="default:Public:_header_main" group="Home"/>
+<!--中部开始-->
+<div class="wrap2">
+	<div id="hy_left">
+		<include file="Public:_left" />
+	</div>
+	<div id="hy_right">
+            <div class="box">
+				<div class="Menubox1">
+					<ul class="menu">
+                        <li><a  onclick="window.location.href='__URL__#fragment-1';return false;">投资总表</a></li>
+                        <li><a  onclick="window.location.href='__URL__#fragment-2';return false;">竞标中的投资</a></li>
+                        <li><a  onclick="window.location.href='__URL__#fragment-3';return false;">回收中的投资</a></li>
+                        <li><a  onclick="window.location.href='__URL__#fragment-4';return false;">逾期的投资</a></li>
+                        <li class="ui-tabs-selected"><a href="javascript:;" onclick="return false;">待收详细</a></li>
+					</ul>
+				</div> 
+<div class="contentright">
+<style type="text/css">
+.tdHeard, .tdContent { border: solid 1px #ccc; }
+#pager { margin: 10px 4px 3px 0px; }
+.notes_frame { width: 715px; overflow: hidden; margin: 0 auto; height: 30px; margin-top: 10px; }
+.notes_frame div { padding-top: 13px; }
+.operaframe { width: 100%; overflow: hidden; line-height: 27px; padding-left: 25px; margin-top: 20px; }
+.operaframe ul { padding: 0px; margin: 0px; text-align: left; overflow: hidden; line-height: 25px; }
+.operaframe ul li { float: left; line-height: 25px; }
+</style>
+
+<div class="top_account_bg" style="overflow:hidden; height:50px; line-height:25px">
+	<img src="__ROOT__/Style/H/images/ministar.gif" style="margin-right: 5px;">‘{$name}’的还款明细
+</div>
+<!--选择操作-->
+<div style="margin-top: 10px; overflow: hidden; text-align: left;">
+	<table id="content" style="width: 785px; border-collapse: collapse;margin-left: 6px;" cellspacing="0">
+		<tbody><tr>
+			<th scope="col" class="tdHeard" style="width: 150px;">
+				应收日期
+			</th>
+			<th scope="col" class="tdHeard" style="width: 160px;">
+				应收本金
+			</th>
+			<th scope="col" class="tdHeard" style="width: 100px;">
+				应收利息
+			</th>
+			<th scope="col" class="tdHeard" style="width: 100px;">
+				应收手续费
+			</th>
+			<th scope="col" class="tdHeard" style="width: 80px; text-align:center">
+				实收本息
+			</th>
+			<!--<th scope="col" class="tdHeard" style="width: 80px; text-align:center">
+				应收本息
+			</th>-->
+			<th scope="col" class="tdHeard" style="width: 80px;">
+				收款状态
+			</th>
+			<th scope="col" class="tdHeard" style="width: 80px; text-align:center">
+				当前/总(期)
+			</th>
+		</tr>
+	
+	<volist name="list" id="vo">
+	<tr class="nodatashowtr">
+		<td class="tdContent">{$vo.deadline|date="Y-m-d",###}</td>
+		<td class="tdContent">{$vo.capital}</td>
+		<td class="tdContent">{$vo['interest']}</td>
+		<td class="tdContent">{$vo['interest_fee']}</td>
+		<td class="tdContent">{$vo['receive_interest']+$vo['receive_capital']}</td>
+		<!--<td class="tdContent"><if condition="($vo.status eq 1) or ($vo.status eq 2) or ($vo.status eq 3)">0<else/>{:getFloatValue(($vo['interest']+$vo['capital']-$vo['receive_interest']-$vo['receive_capital']-$vo['interest_fee']),2)}</if></td>-->
+		<td class="tdContent"><if condition="$vo['deadline'] lt time() && $vo['status'] eq 7">逾期未还<else/>{$status_arr[$vo['status']]}</if></td>
+		<td class="tdContent">{$vo.sort_order}/{$vo.total}</a></td>
+	</tr>
+	</volist>
+	</tbody></table>
+	<div data="fragment-2" id="pager" style="float: right; text-align: right; width: 500px; padding-right: 0px;" class="yahoo2 ajaxpagebar">{$pagebar}</div>
+</div>
+<div style="clear: both; float: none;">
+</div>
+
+<script type="text/javascript">
+function repayment(bid,sort_order){
+	x = {"bid":bid,"sort_order":sort_order};
+	layer.msg('还款中...',{icon:6});
+	$.ajax({
+		url: "__URL__/repayment",
+		data: x,
+		timeout: 15000,
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if (d.status == 1) {
+					layer.msg('还款成功',{icon:1});
+				}else{
+					layer.msg(d.message,{icon:2});
+					return false;
+				} 
+			}
+		}
+	});
+}
+
+$('.ajaxpagebar a').click(function(){
+	try{	
+		var geturl = $(this).attr('href');
+		var id = $(this).parent().attr('data');
+		var x={};
+        $.ajax({
+            url: geturl,
+            data: x,
+            timeout: 5000,
+            cache: false,
+            type: "get",
+            dataType: "json",
+            success: function (d, s, r) {
+              	if(d) $("#"+id).html(d.html);//更新客户端竞拍信息 作个判断，避免报错
+            }
+        });
+	}catch(e){};
+	return false;
+})
+</script>
+</div>
+			</div>
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home" />

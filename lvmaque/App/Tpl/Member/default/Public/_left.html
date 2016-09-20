@@ -1,0 +1,187 @@
+<div class="user-sidebar">
+    <div class="user-sidebar-box user-info">
+        <div class="user-info-detail">
+            <div class="user-head-portrait">
+                <a href="__ROOT__/member/memberinfo/"><php>if(empty($windowuser['head_img'])){</php><img src="{$UID|get_avatar=###}"><php>}else{</php><img src="{$windowuser.head_img|headimg=###,2}"><php>}</php></a>
+            </div>
+            <div class="user-name">
+                <strong><a href="__ROOT__/member/memberinfo/" title="{$_SESSION['u_user_name']}">{$_SESSION['u_user_name']|cnsubstr=###,7}</a></strong>
+            </div>
+        </div>
+        <div class="user-info-status clearfix">
+            <span class="identity-not-static" _title=""></span>
+            <span class="phone-not-static" _title=""></span>
+            <span class="mail-not-static" _title=""></span>
+            <span class="password-not-static" _title=""></span>
+            <div class="user-info-status-progress">
+                <div class="user-info-status-progress-di" style="width:{$windowuser.process}%; background:#00c25f;"></div>
+            </div>
+            <div class="user-info-status-txt">
+                <div style="float:left;">安全等级：<strong style="color:#00c25f">{$windowuser.safe_rand}</strong></div>
+                <if condition="$windowuser['process'] lt 100">
+                    <a href="__ROOT__/member/verify/">[提升]</a>
+                </if>
+            </div>
+        </div>
+    </div>
+    <div class="user-sidebar-box user-account-nav">
+        <ul class="user-account-nav-list clearfix">
+            <li class="user-account-nav-list-item">
+                <a href="__ROOT__/member/" class="user-account-nav-item"><i class="user-nav-main"></i><span>账户主页</span></a>
+            </li>
+            <li class="user-account-nav-list-item">
+                <div class="user-account-nav-item"><i class="user-nav-money-manage"></i><span>资产管理</span></div>
+                <ul class="clearfix" data-height="129" style="display:none">
+                    <li <if condition="$parse_url eq 'member/capital'">class="active"</if> ><a href="__ROOT__/member/capital/" >资产统计</a></li>
+                <li <if condition="$parse_url eq 'member/tendout/trade'">class="active"</if> ><a href="__ROOT__/member/tendout/trade/">交易记录</a></li>
+            <li <if condition="$parse_url eq 'member/charge'">class="active"</if> ><a href="__ROOT__/member/charge/">充值</a></li>
+            <li <if condition="$parse_url eq 'member/withdraw'">class="active"</if> ><a href="__ROOT__/member/withdraw/">提现</a></li>
+        </ul>
+        </li>
+        <li class="user-account-nav-list-item">
+            <div class="user-account-nav-item"><i class="user-nav-invest-manage"></i><span>投资管理</span></div>
+            <ul class="clearfix" style="display:none">
+            <if condition="$version['agility'] eq 1 ">
+                <li <if condition="$parse_url eq 'agility/user/index'">class="active"</if> ><a href="__ROOT__/agility/user/index"><?php echo AgilityBehavior::$THE_SPIRIT;?></a></li>
+            </if>
+        
+        <li <if condition="$parse_url eq 'member/tendout'">class="active"</if> ><a href="__ROOT__/member/tendout/">投资管理</a></li>
+<!--        <li <if condition="$parse_url eq '/member/borrowin/'">class="active"</if> ><a href="__ROOT__/member/borrowin/">还款计划</a></li>-->
+        <li <if condition="$parse_url eq 'member/debt'">class="active"</if> ><a href="__ROOT__/member/debt/">债权转让</a></li>
+        <if condition="($version['single'] neq 1) AND ($version['business'] neq 1) AND ($version['fund'] neq 1) ">
+        <else />
+        <li <if condition="$parse_url eq 'member/auto'">class="active"</if> ><a href="__ROOT__/member/auto/">自动投标</a></li>
+        </if>
+        </ul>
+        </li>
+        <!-- `mxl 20150316` -->
+        <?php if($windowuser['is_transfer'] >0 ): ?>
+        <li class="user-account-nav-list-item">
+            <div class="user-account-nav-item"><i class="user-nav-invest-manage"></i><span>借款管理</span></div>
+            <ul class="clearfix" style="display:none">
+                <li <if condition="$parse_url eq 'member/memberinfo/index_index'">class="active"</if> ><a href="__ROOT__/member/memberinfo/index_index">资料信息</a></li>
+        <li <if condition="$parse_url eq 'member/borrows/summa/index'">class="active"</if> ><a href="__ROOT__/member/borrows/summa/index">借款总表</a></li>
+        <!-- <li><a href="__ROOT__/member/borrows/">借款记录</a></li> -->
+        <li <if condition="$parse_url eq 'member/borrows/calendar'">class="active"</if> ><a href="__ROOT__/member/borrows/calendar">还款计划</a></li>
+        <?php if($windowuser['is_transfer'] == MembersModel::MEMBERS_IS_TRANSFER_PERSONAL ): ?>
+        <if condition="$version['single'] eq 1 ">
+        <li <if condition="$parse_url eq 'member/borrows/credit'">class="active"</if> ><a href="__ROOT__/member/borrows/credit">信用额度</a></li>
+        </if>
+        <?php endif;?>
+        <li <if condition="$parse_url eq 'member/borrowcapital/index'">class="active"</if> ><a href="__ROOT__/member/borrowcapital/index">资金统计</a></li>
+        </ul>
+        </li>
+        <?php endif;?>
+        <!-- `mxl 20150316` -->
+        <li class="user-account-nav-list-item">
+            <div class="user-account-nav-item"><i class="user-nav-award-manage"></i><span>奖励管理</span></div>
+            <ul class="clearfix" style="display:none">
+                <li <if condition="$parse_url eq 'member/promotion'">class="active"</if> ><a href="__ROOT__/member/promotion/">邀请奖励</a></li>
+        <li <if condition="$parse_url eq 'member/promotion/coupon'">class="active"</if> ><a href="__ROOT__/member/promotion/coupon/">我的优惠券</a></li>
+        <li <if condition="$parse_url eq 'member/bonus/index'">class="active"</if> ><a href="__ROOT__/member/bonus/index">我的红包</a></li>
+        <li <if condition="$parse_url eq 'member/credit/index'">class="active"</if> ><a href="__ROOT__/member/credit/index">投资积分</a></li>
+        </ul>
+        </li>
+        <li class="user-account-nav-list-item">
+            <div class="user-account-nav-item"><i class="user-nav-message-manage"></i><span>消息管理</span></div>
+            <ul class="clearfix js_sidebar_msg" style="display:none">
+                <li <if condition="$parse_url eq 'member/msg/index'">class="active"</if> ><a href="__ROOT__/member/msg/index">站内信息</a></li>
+        </ul>
+        </li>
+        <li class="user-account-nav-list-item">
+            <div class="user-account-nav-item"><i class="user-nav-account-manage"></i><span>账户管理</span></div>
+            <ul class="clearfix" style="display:none">
+                <li <if condition="$parse_url eq 'member/memberinfo'">class="active"</if> ><a href="__ROOT__/member/memberinfo/">个人信息</a></li>
+        <li <if condition="$parse_url eq 'member/bank'">class="active"</if> ><a href="__ROOT__/member/bank/">银行卡信息</a></li>
+        <li <if condition="$parse_url eq 'member/verify'">class="active"</if> ><a href="__ROOT__/member/verify/">安全设置</a></li>
+        <li <if condition="$parse_url eq 'member/remind'">class="active"</if> ><a href="__ROOT__/member/remind/">通知设置</a></li>
+        <if condition="($loginconfig['qq']['enable'] eq 1) OR ($loginconfig['sina']['enable'] eq 1) ">
+        <li <if condition="$parse_url eq 'member/oauthlogin'">class="active"</if> ><a href="__ROOT__/member/oauthlogin/">快捷登录</a></li>
+        </if>
+        </ul>
+        </li>
+        </ul>
+    </div>
+
+</div>
+<script type="text/javascript">
+    //获取会员认证信息//`mxl 20150314`
+    $(document).ready(function () {
+        var titles = {
+            mail: {
+                action: "完成邮箱验证",
+                link: "mail"
+            },
+            phone: {
+                action: "绑定手机",
+                link: "phone"
+            },
+            identity: {
+                action: "完成实名认证",
+                link: "identity"
+            },
+            password: {
+                action: "设置支付密码",
+                link: "password"
+            }
+        };
+        var txtStatus = {
+            not: {
+                sub: "您尚未",
+                btn: "完成",
+                mailBtn: '验证',
+                phoneBtn: '绑定',
+                identityBtn: '认证',
+                passwordBtn: '设置'
+            },
+            yes: {
+                sub: "您已",
+                btn: "修改",
+                mailBtn: '修改',
+                phoneBtn: '修改',
+                identityBtn: '修改',
+                passwordBtn: '修改'
+            }
+        };
+        $.ajax({
+            url: "__ROOT__/member/memberinfo/getStatus/",
+            timeout: 5000,
+            cache: false,
+            type: "get",
+            dataType: "json",
+            success: function (d, s, r) {
+                if (d) {
+                    var tmp = "message";
+                    $("[class$='-not-static']").attr("class", function () {
+
+                        var oldclass = $(this).attr("class");
+                        var shortcut = oldclass.slice(0, oldclass.indexOf("-not-static"));
+                        var status = eval("d." + shortcut + ".status");
+                        status = (status === "1") ? "yes" : "not";
+                        title = eval("txtStatus." + status + ".sub") + eval("titles." + shortcut + ".action") + eval("d." + shortcut + ".number");
+                        title += " <a href='__ROOT__/member/verify?curMod=" + eval("titles." + shortcut + ".link") + "#" + shortcut + "Anchor' style='color:rgb(20,104,236)'>点击" + eval("txtStatus." + status + "." + shortcut + "Btn") + "</a>";
+                        $(this).attr("_title", title);
+                        if (status != "not") {
+                            return shortcut + "-yes-static";
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    //左导选择样式
+    $('.user-account-nav-list-item').each(function () {
+        if ($(this).find('li').hasClass("active")) {
+            $(this).find('ul').show();
+        }
+    })
+    $('.user-info-status span').click( function() {
+        var oldclass = $(this).attr("class");
+        var shortcut = oldclass.split('-')[1];
+        if( shortcut == 'not' ) {
+            window.location.href="{:U('member/verify/index')}"
+        }
+    })
+
+</script> 

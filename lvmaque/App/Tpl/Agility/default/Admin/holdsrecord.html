@@ -1,0 +1,49 @@
+<include file="default:Public:_header"  group="Admin"/>
+<tagLib name="htmlA" />
+
+<div class="so_main">
+  <div class="page_tit">持有记录</div>
+  <div class="Toolbar_inbox" style="height: 25px;">
+    <div class="page right">{$pagebar}</div>
+   
+  </div>
+  <div class="list">
+    <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th style="width:30px;"> <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+          <label for="checkbox"></label>
+        </th>
+        <th class="line_l">ID</th>
+        <th class="line_l">项目编号</th>
+        <th class="line_l">用户名</th>
+        <th class="line_l">持有金额</th>
+        <th class="line_l">已赎回金额</th>
+        <th class="line_l">总收益</th>
+
+      </tr>
+        <volist name="list" id="vo">
+        <tr overstyle='on' id="list_{$vo.id}">
+          <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+          <td>{$vo.id}</td>
+          <td>{$vo.batch_no}</td>
+          <td>{$vo.user_name}</td>
+          <td>{$vo.money}元</td>
+          <td>{$vo.out_money}元</td>
+          <td>{$vo.interest}元</td>
+        </tr>
+        </volist>
+
+    </table>
+  </div>
+  <div class="Toolbar_inbox" style="height: 25px;">
+    <div class="page right">{$pagebar}</div>
+
+  </div>
+</div>
+<script type="text/javascript">
+function verifyIn(id)
+{
+    ui.box.load("__URL__/verifyIn?id="+id, {title:"入金审核"});   
+}
+</script>
+<include file="default:Public:_footer" group="Admin" />

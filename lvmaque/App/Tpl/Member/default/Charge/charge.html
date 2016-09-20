@@ -1,0 +1,830 @@
+<script type="text/javascript">var bankimg = "__ROOT__/Style/M/";</script>
+<script type="text/javascript">var Himg = "__ROOT__/Style/H/";</script>
+<script type="text/javascript" src="__ROOT__/Style/M/js/recharge.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/M/js/amounttochinese.js" language="javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#money_off").bind("keyup", function() {
+		$this = $(this);
+		$this.val($this.val().toString().replace(/[^(\d|\.)]+/, ""));
+	});
+	$("#money_off").focus(function() {
+		$("#d_money_2").css("display", "none");
+	});
+});
+
+var arrWrong = "<img  src='__ROOT__/Style/M/images/zhuce2.gif'/>&nbsp";
+function SetError(val, cont) {
+		$("#d_money_2").css("display", "block");
+		$("#d_money_2").html(val + cont);
+		$("#d_money_2").attr("class", "reg_wrong");
+}
+
+function testAmount() {
+	
+	var testreuslt = true;
+
+	if (testreuslt) {
+		showChineseAmount();
+		
+	}
+	return testreuslt;
+}
+
+function showChineseAmount() {
+	var regamount = /^(([1-9]{1}[0-9]{0,})|([0-9]{1,}\.[0-9]{1,2}))$/;
+	var reg = new RegExp(regamount);
+	if (reg.test($("#money_off").val())) {
+		var amstr = $("#money_off").val();
+		var leng = amstr.toString().split('.').length;
+		if (leng == 1) {
+			$("#money_off").val($("#money_off").val() + ".00");
+		}
+		$("#d_money_2").html(Arabia_to_Chinese($("#money_off").val()));
+		$("#d_money_2").css("display", "");
+		$("#d_money_2").css("color", "red");
+		$("#d_money_2").removeClass("reg_wrong");
+		
+	}
+	else {
+		$("#d_money_2").html("");
+	}
+}
+</script>
+<style type="text/css">
+.dv_header_8 { background-image: url(); }
+.dv_account_0 { margin-top: 10px; }
+
+
+.cz dl{line-height: 200%;margin-bottom: 12px;}
+.cz dt{width: 160px;text-align: right; display: inline-block;}
+.cz dd{display: inline-block;}
+.cz dd input{width: 95px; 
+	border: 1px solid #D4D4D4;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	color: #555555;
+    display: inline-block;
+    font-family: Tahoma,"微软雅黑","宋体";
+    font-size: 14px;
+    height: 26px;
+    line-height: 26px;
+	vertical-align: middle;
+}
+
+.btn{background: url("/Style/M/images/bank/fukan.jpg") repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 28px;
+    width: 124px;
+    color: #FFFFFF;
+	font-family: Tahoma,微软雅黑,宋体;
+}
+.btn:hover {
+    background-position: 0 -28px;
+}
+
+
+.radiobox {
+    display: inline-block;
+    font-size: 14px;
+	margin:5px;
+	width:80px;
+    position: relative;
+    text-decoration: none;
+    vertical-align: middle;
+}
+a.radiobox:link, a.radiobox:visited {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border: 2px solid #CFCFCF;
+    color: #555555;
+    height: 30px;
+	padding-top:5px;
+	padding-bottom:5px;
+	text-align:center;
+}
+.selected a.radiobox:link, .selected a.radiobox:visited, a.radiobox:active, a.radiobox:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    background-color: #F4F8EB;
+    border: 2px solid #A5C85B;
+    color: #608908;
+    height: 30px;
+    outline: 0 none;
+	text-align:center;
+}
+
+
+
+
+.radiobox .iconcheck {
+    bottom: 0;
+    display: none;
+    position: absolute;
+    right: 0;
+}
+
+.iconcheck {
+    background: url("/Style/M/images/bank/element.png") no-repeat  0 -103px transparent;
+    display: inline-block;
+    font-size: 0;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    width: 16px;
+}
+.selected .iconcheck {
+    display: block;
+    background-position: -112px -72px;
+    margin: -16px 0 0 104px;
+}
+
+.modbank:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.modbank {
+    color: #666666;
+    font: 12px/1.4 "微软雅黑","宋体",Tahoma;
+    padding-bottom: 10px;
+}
+
+.modbank .banklogo {
+    border: 1px solid #DDDEDE;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    margin: 16px 18px -1px 0;
+    position: relative;
+    width: 120px;
+    z-index: 0;
+}
+.modbank .banklogo:hover, .modbank .selected {
+    background-color: #F4F8EB;
+    border: 1px solid #A5C85B;
+    z-index: 3;
+}
+
+
+.modbank .iconradio {
+    /*
+	background: url("/Style/M/images/bank/element.png") no-repeat scroll -48px -56px transparent;
+    margin-left: 8px;
+	*/
+    margin-right: 8px;
+    position: relative;
+    vertical-align: -2px;
+    display: inline-block;
+    font-size: 0;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    width: 16px;
+}
+.modbank .selected .iconradio {
+    background-position: -64px -56px;
+}
+
+.ico_icbc, .ico_cmb, .ico_ccb, .ico_abc, .ico_boc, .ico_spdb, .ico_sdb, .ico_cib, .ico_bob, .ico_cebb, .ico_boco, .ico_cmbc, .ico_ecitic, .ico_gdb, .ico_pingan, .ico_post, .ico_union, .ico_jsb, .ico_srcb, .ico_hkb, .ico_nbcb, .ico_njcb, .ico_bosh, .ico_hxb, .ico_hzb, .ico_hkbea, .ico_ordos, .ico_cbhb, .ico_jzb, .ico_gdrcu, .ico_nccb, .ico_glccb, .ico_bsb, .ico_ynrcc, .ico_gzcb, .ico_cqrcb, .ico_zjcb {
+    background: url("/Style/M/images/bank/bank_ico.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 18px;
+    line-height: 999px;
+    margin-right: 3px;
+    overflow: hidden;
+    position: relative;
+    vertical-align: -3px;
+    width: 18px;
+}
+.ico_icbc {
+    background-position: 0 0;
+}
+.ico_cmb {
+    background-position: -18px 0;
+}
+.ico_ccb {
+    background-position: -36px 0;
+}
+.ico_abc {
+    background-position: -54px 0;
+}
+.ico_boc {
+    background-position: -72px 0;
+}
+.ico_spdb {
+    background-position: -54px -18px;
+}
+.ico_sdb {
+    background-position: -108px -18px;
+}
+.ico_cib {
+    background-position: 0 -18px;
+}
+.ico_bob {
+    background-position: -126px -18px;
+}
+.ico_cebb {
+    background-position: -90px 0;
+}
+.ico_boco {
+    background-position: -36px -18px;
+}
+.ico_cmbc {
+    background-position: -90px -18px;
+}
+.ico_ecitic {
+    background-position: -126px 0;
+}
+.ico_gdb {
+    background-position: -72px -18px;
+}
+.ico_pingan {
+    background-position: 0 -36px;
+}
+.ico_post {
+    background-position: -18px -18px;
+}
+.ico_union {
+    background-position: -27px -36px;
+    width: 27px;
+}
+.ico_jsb {
+    background-position: -54px -36px;
+}
+.ico_srcb {
+    background-position: -72px -37px;
+}
+.ico_nbcb {
+    background-position: -90px -36px;
+}
+.ico_njcb {
+    background-position: -108px -36px;
+}
+.ico_hkb {
+    background-position: -126px -36px;
+}
+.ico_bosh {
+    background-position: 0 -54px;
+}
+.ico_hxb {
+    background-position: -18px -54px;
+}
+.ico_hzb {
+    background-position: -36px -54px;
+}
+.ico_hkbea {
+    background-position: -54px -54px;
+}
+.ico_ordos {
+    background-position: -72px -54px;
+}
+.ico_cbhb {
+    background-position: -108px -54px;
+}
+.ico_jzb {
+    background-position: -90px -54px;
+}
+.ico_gdrcu {
+    background-position: 0 -73px;
+}
+.ico_nccb {
+    background-position: -18px -73px;
+}
+.ico_glccb {
+    background-position: -36px -73px;
+}
+.ico_bsb {
+    background-position: -54px -73px;
+}
+.ico_ynrcc {
+    background-position: -72px -73px;
+}
+.ico_gzcb {
+    background-position: -90px -73px;
+}
+.ico_cqrcb {
+    background-position: -108px -73px;
+}
+.ico_zjcb {
+    background-position: -126px -73px;
+}
+
+
+</style>
+<if condition="$payConfig['baofoo']['enable'] neq '1' && $payConfig['unspay']['enable'] neq '1' && $payConfig['reapal']['enable'] neq '1'">
+<div style="height: 25px; width: 100%; line-height: 25px; text-indent: 26px;
+	text-align: left; margin: 0px; padding: 12px 0px; color:#FF0000;" class="charge2"> 温馨提示：网站当前尚未开启任何在线支付，敬请期待。</div>
+<else/>
+<div style="height: 25px; width: 100%; line-height: 25px; text-indent: 26px;
+	text-align: left; margin: 0px; padding: 12px 0px;" class="charge2"> 温馨提示：最低充值金额50元。充值免手续费！充值资金可用于进行验证、投标、还款等。充值成功后资金会立刻划拨到您的帐户。 </div>
+<div class="cz" style="width: 705px; display:block;margin: 10px 0 10px 35px;padding: 8px 13px 8px 12px; border:1px #E9E8E7 solid;" id="xianxia_bt">
+  <dl>
+    <dt style="float:left;">账户余额：</dt>
+    <dd style="width:500px;"><span style="color: Red;font-size: 24px;font-weight: bold;">{$account_money.account_money|default="0.00"}</span>&nbsp;&nbsp;元&nbsp;</dd>
+  </dl>
+  <dl>
+    <dt style="float:left;">充值金额：</dt>
+    <dd style="width:500px;">
+      <input type="text" name="money" class="input_money" value="0.00"  id="t_money"  onblur="testAmount();" />
+      &nbsp;&nbsp;元&nbsp;&nbsp;<span class="rtu"></span></dd>
+    <dt style="float:left;">大写金额：</dt>
+    <dd style="width:500px; height:20px;"><span id="d_money_3"></span></dd>
+  </dl>
+  <div style="clear:both;"></div>
+</div>
+</if>
+<if condition="$payConfig['unspay']['enable'] eq '1'">
+  <input type="hidden" value="unspay" id="pd_bank" name="pd_bank" />
+  <elseif condition="$payConfig['reapal']['enable'] eq '1'"/>
+  <input type="hidden" value="reapal" id="pd_bank" name="pd_bank" />
+  <else/>
+  <input type="hidden" value="baofoo" id="pd_bank" name="pd_bank" />
+</if>
+</if>
+<!--资金输入-->
+<div class="cz" style="width: 705px;margin: 10px 0 10px 35px;padding: 8px 13px 8px 12px; border:1px #E9E8E7 solid;">
+  <div style="clear:both;"></div>
+  <div>
+    <div class="cztd_title">请选择您的充值通道</div>
+    <script type="text/javascript">
+		$(document).ready(function(){
+			var yinshengb = {$payConfig['unspay']['enable']};
+			var baofu = {$payConfig['baofoo']['enable']};
+			var reapal = {$payConfig['reapal']['enable']};
+			if(yinshengb == 1){
+				$("#yinshengb_zf").show();
+				$("#baofu_zf").hide();
+				$("#reapal_zf").hide();
+			}else if(baofu == 1){
+				$("#baofu_zf").show();
+				$("#yinshengb_zf").hide();
+				$("#reapal_zf").hide();
+			}else if(reapal == 1){
+				$("#reapal_zf").show();
+				$("#baofu_zf").hide();
+				$("#yinshengb_zf").hide();
+				$("#reapal").addClass("zhifu_bk_bg");
+			}
+		 })
+		function showTailinkzf(type,obj){
+				$("#state_info_navzf a").removeClass("zhifu_bk_bg");
+				$(obj).addClass("zhifu_bk_bg");
+				if(type=="yinshengb_zf"){
+					$("#yinshengb_zf").show();
+					$("#baofu_zf").hide();
+					$("#xianxia_bt").show();//顶部充值部分
+					$("#btn_s").show();//隐藏充值按钮
+					$("#xianxia_zf").hide();
+					$("#reapal_zf").hide();
+
+				}else if(type=="baofu_zf"){
+					$("#yinshengb_zf").hide();
+					$("#baofu_zf").show();
+					$("#xianxia_bt").show();//顶部充值部分
+					$("#btn_s").show();//隐藏充值按钮
+					$("#xianxia_zf").hide();
+					$("#reapal_zf").hide();
+				}else if(type=="reapal_zf"){
+					$("#reapal_zf").show();
+					$("#yinshengb_zf").hide();
+					$("#baofu_zf").hide();
+					$("#xianxia_bt").show();//顶部充值部分
+					$("#btn_s").show();//隐藏充值按钮
+					$("#xianxia_zf").hide();
+				}else{
+					$("#yinshengb_zf").hide();
+					$("#baofu_zf").hide();
+					$("#xianxia_bt").hide();//顶部充值部分
+					$("#btn_s").hide();//隐藏充值按钮
+					$("#xianxia_zf").show();
+					$("#reapal_zf").hide();
+				}
+			}
+		</script>
+    <div class="chongzhi_lb">
+      <div class="zhifu_left">
+        <ul id="state_info_navzf">
+		<if condition="$payConfig['unspay']['enable'] eq '1'">
+          <li> <a id="unspay" href="javascript:void(0)" class="zhifu_bk_bg zhifu_fore_bg"  onclick="showTailinkzf('yinshengb_zf',this);"> <img src="__ROOT__/Style/M/images/bank/ysb.jpg" height="33" width="121" /> </a> </li><else/></if>
+		  <!--宝付开始-->
+		  <if condition="$payConfig['baofoo']['enable'] eq '1' && $payConfig['unspay']['enable'] neq '1'">
+          <li> <a id="baofoo" href="javascript:void(0)" class="zhifu_fore_bg zhifu_bk_bg"  onclick="showTailinkzf('baofu_zf',this);"> <img src="__ROOT__/Style/M/images/bank/baofu.jpg" height="33" width="121" /> </a> </li>
+		  <elseif condition="$payConfig['baofoo']['enable'] eq '1'"/>
+		  <li> <a id="baofoo" href="javascript:void(0)" class="zhifu_fore_bg"  onclick="showTailinkzf('baofu_zf',this);"> <img src="__ROOT__/Style/M/images/bank/baofu.jpg" height="33" width="121" /> </a> </li>
+		  </if>
+		  <!--宝付结束-->
+		  <!--融宝开始-->
+		  <if condition="$payConfig['reapal']['enable'] eq '1' && $payConfig['unspay']['enable'] neq '1' && $payConfig['baofoo']['enable'] neq '1'">
+          <li> <a id="reapal" href="javascript:void(0)" class="zhifu_fore_bg zhifu_bk_bg"  onclick="showTailinkzf('reapal_zf',this);"> <img src="__ROOT__/Style/M/images/bank/rongbao.png" height="33" width="121" /> </a> </li>
+		  <elseif condition="$payConfig['reapal']['enable'] eq '1'"/>
+		  <li> <a id="reapal" href="javascript:void(0)" class="zhifu_fore_bg"  onclick="showTailinkzf('reapal_zf',this);"> <img src="__ROOT__/Style/M/images/bank/rongbao.png" height="33" width="121" /> </a> </li>
+		  </if>
+		  <!--融宝结束-->
+		   <if condition="$payoff eq '1'">
+          <li> <a href="javascript:void(0)" class="zhifu_fore_bg" onclick="showTailinkzf('xianxia_zf',this);"> <img src="__ROOT__/Style/M/images/bank/bank-offline.jpg" height="33" width="121" /> </a> </li></if>
+		 
+        </ul>
+      </div>
+      <div class="zhifu_right">
+        <div id="yinshengb_zf" class="modbank" style="display:none;">
+          <div class="">请选择银行：</div>
+          <dd style="width:570px;margin-top: 10px;">
+            <label code='icbc'  class="banklogo"><i class="iconradio"></i><i class="ico_icbc"></i>工商银行<i class="iconcheck"></i></label>
+			<label  code='ccb'  class="banklogo"><i class="iconradio"></i><i class="ico_ccb"></i>建设银行<i class="iconcheck"></i></label>
+			<label  code='bocsh'  class="banklogo"><i class="iconradio"></i><i class="ico_boc"></i>中国银行<i class="iconcheck"></i></label>
+			<label  code='abc'  class="banklogo"><i class="iconradio"></i><i class="ico_abc"></i>农业银行<i class="iconcheck"></i></label>
+			<label code='psbc'   class="banklogo"><i class="iconradio"></i><i class="ico_post"></i>邮政储蓄<i class="iconcheck"></i></label>
+			<label  code='comm'  class="banklogo"><i class="iconradio"></i><i class="ico_boco"></i>交通银行<i class="iconcheck"></i></label>
+            <label code='cmb'  class="banklogo"><i class="iconradio"></i><i class="ico_cmb"></i>招商银行<i class="iconcheck"></i></label>
+            <label code='cncb'   class="banklogo"><i class="iconradio"></i><i class="ico_ecitic"></i>中信银行<i class="iconcheck"></i></label>           
+            <label  code='cmbc'  class="banklogo"><i class="iconradio"></i><i class="ico_cmbc"></i>民生银行<i class="iconcheck"></i></label>            
+            <label code='ceb'   class="banklogo"><i class="iconradio"></i><i class="ico_cebb"></i>光大银行<i class="iconcheck"></i></label>            
+            <label code='bob'   class="banklogo"><i class="iconradio"></i><i class="ico_bob"></i>北京银行<i class="iconcheck"></i></label> 
+			<!--<label code='desz'   class="banklogo"><i class="iconradio"></i><i class="ico_sdb"></i>深发银行<i class="iconcheck"></i></label>-->
+            <label  code='cib'  class="banklogo"><i class="iconradio"></i><i class="ico_cib"></i>兴业银行<i class="iconcheck"></i></label>
+            <label code='gdb'   class="banklogo"><i class="iconradio"></i><i class="ico_gdb"></i>广发银行<i class="iconcheck"></i></label>
+            <label  code='hxb'  class="banklogo"><i class="iconradio"></i><i class="ico_hxb"></i>华夏银行<i class="iconcheck"></i></label>
+            <label code='spdb'   class="banklogo"><i class="iconradio"></i><i class="ico_spdb"></i>浦发银行<i class="iconcheck"></i></label>
+            <label code='unspay'   class="banklogo selected"><i class="iconradio"></i><i class="ico_union"></i>更多>><i class="iconcheck"></i></label>
+          </dd>
+        </div>
+
+		<div id="baofu_zf" class="modbank" style="display:none;">
+          <div class="">请选择银行：</div>
+          <dd style="width:570px;margin-top: 10px;">
+            <label code='3002'  class="banklogo"><i class="iconradio"></i><i class="ico_icbc"></i>工商银行<i class="iconcheck"></i></label>
+            <label  code='3003'  class="banklogo"><i class="iconradio"></i><i class="ico_ccb"></i>建设银行<i class="iconcheck"></i></label>
+			<label  code='3026'  class="banklogo"><i class="iconradio"></i><i class="ico_boc"></i>中国银行<i class="iconcheck"></i></label>           
+            <label  code='3005'  class="banklogo"><i class="iconradio"></i><i class="ico_abc"></i>农业银行<i class="iconcheck"></i></label>
+			<label code='3038'   class="banklogo"><i class="iconradio"></i><i class="ico_post"></i>邮政储蓄<i class="iconcheck"></i></label>
+			<label  code='3020'  class="banklogo"><i class="iconradio"></i><i class="ico_boco"></i>交通银行<i class="iconcheck"></i></label>
+            <label  code='3006'  class="banklogo"><i class="iconradio"></i><i class="ico_cmbc"></i>民生银行<i class="iconcheck"></i></label>
+			<label code='3004'   class="banklogo"><i class="iconradio"></i><i class="ico_spdb"></i>浦发银行<i class="iconcheck"></i></label>
+            <label  code='3009'  class="banklogo"><i class="iconradio"></i><i class="ico_cib"></i>兴业银行<i class="iconcheck"></i></label>            
+			<label code='3001'  class="banklogo"><i class="iconradio"></i><i class="ico_cmb"></i>招商银行<i class="iconcheck"></i></label>
+            <label code='3022'   class="banklogo"><i class="iconradio"></i><i class="ico_cebb"></i>光大银行<i class="iconcheck"></i></label>           
+            <label  code='3032'  class="banklogo"><i class="iconradio"></i><i class="ico_bob"></i>北京银行<i class="iconcheck"></i></label>
+            <label code='3035'   class="banklogo"><i class="iconradio"></i><i class="ico_pingan"></i>平安银行<i class="iconcheck"></i></label>
+            <label code='3036'   class="banklogo"><i class="iconradio"></i><i class="ico_gdb"></i>广发银行<i class="iconcheck"></i></label>            
+            <label code='3039'   class="banklogo"><i class="iconradio"></i><i class="ico_ecitic"></i>中信银行<i class="iconcheck"></i></label>
+           <!-- <label  code='1050'  class="banklogo"><i class="iconradio"></i><i class="ico_hxb"></i>华夏银行<i class="iconcheck"></i></label>-->
+            <label code='baofoo'   class="banklogo selected"><i class="iconradio"></i><i class="ico_union"></i>更多>><i class="iconcheck"></i></label>
+          </dd>
+        </div>
+		<div id="reapal_zf" class="modbank" style="display:none;">
+          <div class="">请选择银行：</div>
+          <dd style="width:570px;margin-top: 10px;">
+            <label code='ICBC'  class="banklogo"><i class="iconradio"></i><i class="ico_icbc"></i>工商银行<i class="iconcheck"></i></label>
+            <label  code='CCB'  class="banklogo"><i class="iconradio"></i><i class="ico_ccb"></i>建设银行<i class="iconcheck"></i></label>
+			<label  code='BOC'  class="banklogo"><i class="iconradio"></i><i class="ico_boc"></i>中国银行<i class="iconcheck"></i></label>           
+            <label  code='ABC'  class="banklogo"><i class="iconradio"></i><i class="ico_abc"></i>农业银行<i class="iconcheck"></i></label>
+			<label code='PSBC'   class="banklogo"><i class="iconradio"></i><i class="ico_post"></i>邮政储蓄<i class="iconcheck"></i></label>
+			<label  code='BOCM'  class="banklogo"><i class="iconradio"></i><i class="ico_boco"></i>交通银行<i class="iconcheck"></i></label>
+            <label  code='CMBC'  class="banklogo"><i class="iconradio"></i><i class="ico_cmbc"></i>民生银行<i class="iconcheck"></i></label>
+			<label code='SPDB'   class="banklogo"><i class="iconradio"></i><i class="ico_spdb"></i>浦发银行<i class="iconcheck"></i></label>
+            <label  code='CIB'  class="banklogo"><i class="iconradio"></i><i class="ico_cib"></i>兴业银行<i class="iconcheck"></i></label>            
+			<label code='CMB'  class="banklogo"><i class="iconradio"></i><i class="ico_cmb"></i>招商银行<i class="iconcheck"></i></label>
+            <label code='CEB'   class="banklogo"><i class="iconradio"></i><i class="ico_cebb"></i>光大银行<i class="iconcheck"></i></label>     
+            <label code='SDB'   class="banklogo"><i class="iconradio"></i><i class="ico_pingan"></i>平安银行<i class="iconcheck"></i></label>
+            <label code='GDB'   class="banklogo"><i class="iconradio"></i><i class="ico_gdb"></i>广发银行<i class="iconcheck"></i></label>            
+            <label code='CITIC'   class="banklogo"><i class="iconradio"></i><i class="ico_ecitic"></i>中信银行<i class="iconcheck"></i></label>
+            <label code='reapal'   class="banklogo selected"><i class="iconradio"></i><i class="ico_union"></i>更多>><i class="iconcheck"></i></label>
+          </dd>
+        </div>
+        <div id="btn_s" style="display:block; text-align:center; width: 61%;margin-top:60px;margin-left:150px;">
+          <if condition="$payConfig['baofoo']['enable'] neq '1' && $payConfig['unspay']['enable'] neq '1' && $payConfig['reapal']['enable'] neq '1'">
+            <else/>
+            <button class="btn" id="bank_submit"></button>
+          </if>
+        </div>
+		
+		
+        <div id="xianxia_zf" style="display:none;">
+          <style type="text/css">
+	body { margin: 0; _height: 100%; }
+	.tdTitle { text-align: right;font-size: 12px; height: 40; line-height: 40px; vertical-align: middle; width: 82px; font-weight: bold; background-color: #F9F9F9; border: #E9E8E7 solid 1px; }
+	.tdContent { text-align: left; padding-left: 10px; font-size: 12px; height: 40; line-height: 40px; vertical-align: middle; border: #E9E8E7 solid 1px;width:400px; }
+	.tdContent_pingzheng { text-align: left; padding-left: 10px; font-size: 12px;vertical-align: middle; border: #E9E8E7 solid 1px; }
+	.alertDiv_pin {width:550px;  background-color: #FEFACF; border: 1px solid green; line-height: 25px;margin-left: -16px; }
+	.alertDiv_pin li { margin: 5px 0; list-style-type: decimal; color: #005B9F; padding: 0px; line-height: 20px; list-style-type:circle }
+	.alertDiv_pin ul { text-align: left; list-style-type: decimal; display: block; padding: 0px; margin: 0px 0px 0px 75px; }
+	.font666 { color: #666; }
+	.dv_account_0 { margin-top: 8px; }
+	.albCt{height:200px; width:233px;}
+	</style>
+          <div class="alertDiv_pin">
+            <ul style="display: block;">
+              <li>请准确填写您的充值金额和帐单流水号</li>
+            </ul>
+          </div>
+          <div style="width:550px; margin-top: 5px;margin-left:-27px;">
+            <form action="__APP__/Pay/offline" method="post" name="offlinePay" id="offlinePay">
+              <table style="width: 550px; float: left; margin: 0px 10px;padding:0px;border-collapse:collapse;text-align:left;" id="formTb" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <volist  name="bank" id="vo">
+                    <tr>
+                      <td class="tdTitle"><input type="radio" name="bank" id="bank" value="{$i}" /><if condition="$i eq 1">checked="checked"</if>/>
+                         {$vo.bank}</td>
+                      <td class="tdContent"> 开户名：{$vo.payee}
+                        账户号：{$vo.account}
+                        开户地址：{$vo.address} </td>
+                    </tr>
+                  </volist>
+                  <tr>
+                    <td class="tdTitle"> 充值金额： </td>
+                    <td class="tdContent"><div style="float: left; line-height: 21px;">
+                        <input id="money_off" name="money_off" class="text2" type="text" onblur="testAmount();" />
+                      </div>
+                      <div id="d_money_2" style="width: 250px; height: 20px; line-height: 20px; margin-left: 10px; float: left;"></div></td>
+                  </tr>
+                  <tr>
+                    <td class="tdTitle"> 账单流水号： </td>
+                    <td class="tdContent"><input id="tran_id" name="tran_id" class="text2" type="text" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="tdTitle"> 充值方式： </td>
+                    <td class="tdContent"><input id="off_way" name="off_way" class="text2" type="text" />
+                      (如网银转帐，柜台汇款,汇款人等) </td>
+                  </tr>
+                  <tr>
+                    <td class="tdTitle">打款凭证：</td>
+                    <td class="tdContent_pingzheng"><div style="display: inline; border: solid 1px #7FAAFF; background-color: #C5D9FF; padding: 5px;"> <span id="spanButtonPlaceholder"></span> </div>
+                      <dt>图片预览：</dt>
+                      <dd>
+                        <table cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 20px 0">
+                          <tr id="handfield">
+                            <td class="bline" style="background:url(images/albviewbg.gif) #fff 0 20px no-repeat;"><div id="divFileProgressContainer" style="height:75px;"></div>
+                              <div id="thumbnails"></div></td>
+                          </tr>
+                        </table>
+                      </dd></td>
+                  </tr>
+                  <tr>
+                    <td class="tdTitle">线下充值备注：</td>
+                    <td class="tdContent">{$info}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+          <div class="Clr"></div>
+          <div style="text-align: center; width: 550px; height: 30px; margin: 10px;"> <img id="btn_set" class="img_button" onclick="ckoffline()" src="__ROOT__/Style/M/images/button/btnsubupdate.jpg" /> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+        //充值方式
+		$('.cz_type label').click(function(){
+			if($(this).attr('id')!='offline' && $(this).attr('class')!="selected"){
+                var t = $(this).attr('id');
+                $('.selected').removeClass('selected');
+				$(this).addClass('selected');
+
+				$('.modbank').hide();
+				$('.'+t).show();
+                return true;
+            }else if ($(this).attr('id')=='offline') {
+                $('a[href=\'#fragment-3\']').click();
+                return false;
+            }
+		});
+
+        //选择银行
+		$('.banklogo').click(function(){
+			if ($(this).hasClass('selected')) {
+				$(this).removeClass('selected');
+			}else{
+				$('.banklogo').filter(".selected").removeClass('selected');
+				$(this).addClass('selected');
+			}
+            return false;
+		});
+
+        //充值金额
+        $('.input_money').click(function(){
+            $('.rtu').html("<img style='margin:2px;' src='/Style/H/images/zhuce1.gif'/>&nbsp;请输入正确的金额，最小充值金额50元。");
+            return false;
+        });
+
+        $('.input_money').blur(function(){
+            BlurMoney();
+        });
+
+        function BlurMoney() {
+            var pat = /^[0-9]*(\.[0-9]{1,2})?$/;
+            var str = $('.input_money').val();
+			
+            if (str == "") {
+                $('.rtu').html("<img style='margin:2px;' src='/Style/H/images/zhuce2.gif'/>&nbsp;输入的金额不能为空！");
+                return false;
+            }
+            
+            var m = parseFloat(str);
+
+            if (m <50) {
+                $('.rtu').html("<img style='margin:2px;' src='/Style/H/images/zhuce2.gif'/>&nbsp;最低充值金额为50元！");
+                return false;
+            }
+
+            if (pat.test(str)) {
+                $('.rtu').html("<img style='margin:2px;' src='/Style/M/images/zhuce3.gif'/>&nbsp;");
+                return true;
+            }else {
+                $('.rtu').html("<img style='margin:2px;' src='/Style/H/images/zhuce2.gif'/>&nbsp;请输入正确的金额，小数点后最多2位数。");
+                return false;
+            }
+        }
+
+        //支付
+        $('#bank_submit').click(function(){
+            if (BlurMoney()) {
+                var money = $(".input_money").val();
+                var type = $('#state_info_navzf .zhifu_bk_bg').attr('id');
+                if (type=='unspay') {
+                    bankCode = $('#yinshengb_zf .selected').attr('code');
+					 if(bankCode=='unspay'){
+					 	bankCode = 'unspay';
+					 }
+                    var url = "bankCode=" + bankCode + "&t_money=" + money;
+                    window.open("/Pay/unspay?" + url);
+                }else if (type=='baofoo') {
+                    bankCode = $('#baofu_zf .selected').attr('code');
+					if(bankCode=='baofoo'){
+					 	bankCode = 'baofoo';
+					 }
+                    var url = "bankCode=" + bankCode + "&t_money=" + money;
+                    window.open("/Pay/baofoo?" + url);
+                }else if (type=='reapal') {
+                    bankCode = $('#reapal_zf .selected').attr('code');
+					if(bankCode=='reapal'){
+					 	bankCode = 'reapal';
+					 }
+                    var url = "bankCode=" + bankCode + "&t_money=" + money;
+                    window.open("/Pay/reapal?" + url);
+                }
+            }
+            return false;
+        });
+	</script>
+  <script type="text/javascript" src="__ROOT__/Style/M/js/amounttochinese.js" language="javascript"></script>
+  <script type="text/javascript">
+$(function() {
+	$("#t_money").bind("keyup", function() {
+		$this = $(this);
+		$this.val($this.val().toString().replace(/[^(\d|\.)]+/, ""));
+	});
+	$("#t_money").focus(function() {
+		$("#d_money_3").css("display", "none");
+	});
+});
+function testAmount() {
+	
+	var testreuslt = true;
+
+	if (testreuslt) {
+		showChineseAmount();
+	}
+	return testreuslt;
+}
+
+function showChineseAmount() {
+	var regamount = /^(([1-9]{1}[0-9]{0,})|([0-9]{1,}\.[0-9]{1,2}))$/;
+	var reg = new RegExp(regamount);
+	if (reg.test($("#t_money").val())) {
+		var amstr = $("#t_money").val();
+		var leng = amstr.toString().split('.').length;
+		if (leng == 1) {
+			$("#t_money").val($("#t_money").val() + ".00");
+		}
+		$("#d_money_3").html(Arabia_to_Chinese($("#t_money").val()));
+		$("#d_money_3").css("display", "");
+		$("#d_money_3").css("color", "red");
+		$("#d_money_3").removeClass("reg_wrong");
+		
+	}
+	else {
+		$("#d_money_3").html("");
+	}
+}
+</script>
+  <!--线下充值拿过来的js-->
+  <script type="text/javascript">
+
+function ckoffline(){
+	var money = parseInt($("#money_off").val());
+	var tran_id = $("#tran_id").val();
+	if(!(money>0)){
+		layer.msg("充值金额必须大于0！", {icon: 0});
+		return false;
+	}
+	if(tran_id==""){
+		layer.msg("账单流水号不能为空！", {icon: 0});
+		return false;
+	}
+	$("#offlinePay").submit();
+}
+</script>
+  <!-- 上传-->
+  <script type="text/javascript" src="__ROOT__/Style/Swfupload/handlers2.js"></script>
+  <script type="text/javascript" src="__ROOT__/Style/Swfupload/swfupload.js"></script>
+  <script type="text/javascript">
+    var IS_AD = true;
+    $(document).ready(function() {
+        //swf上传图片
+        swfu = new SWFUpload(
+        {
+            // Backend Settings
+            upload_url: "__URL__/uploadimg",
+            post_params: {"<php> echo session_name();</php>" : "<php> echo session_id();</php>", "dopost" : ""},
+
+            // File Upload Settings
+            file_size_limit : "2 MB",    // 2MB
+            file_types : "*.jpg; *.gif; *.png",
+            file_types_description : "选择 JPEG/GIF/PNG 格式图片",
+            file_upload_limit : "2",
+
+            file_queue_error_handler : fileQueueError,
+            file_dialog_complete_handler : fileDialogComplete,
+            upload_progress_handler : uploadProgress,
+            upload_error_handler : uploadError,
+            upload_success_handler : uploadSuccess,
+            upload_complete_handler : uploadComplete,
+
+            button_image_url : "__ROOT__/Style/Swfupload/images/SmallSpyGlassWithTransperancy_17x18.png",
+            button_placeholder_id : "spanButtonPlaceholder",
+            button_width: 250,
+            button_height: 18,
+            button_text : '<span class="button">选择本地图片 <span class="buttonSmall">(单图最大为 2 MB，支持多选)</span></span>',
+            button_text_style : '.button { font-family: "宋体", sans-serif; font-size: 12px; } .buttonSmall { font-size: 10pt; }',
+            button_text_top_padding: 0,
+            button_text_left_padding: 18,
+            button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+            button_cursor: SWFUpload.CURSOR.HAND,
+            
+            // Flash Settings
+            flash_url : "__ROOT__/Style/Swfupload/swfupload.swf",
+            custom_settings : {
+                upload_target : "divFileProgressContainer"
+            },
+            
+            // Debug Settings
+            debug: false
+        });
+        //swf上传图片
+    });
+
+    var albImg = 0;
+    function addImage(src, pid,imgurl){
+        var newImgDiv = document.createElement("div");
+        var delstr = '';
+        var iptwidth = 180;
+        albImg++;
+        if(pid != 0) {
+            albImg = 'ok' + pid;
+            delstr = '<a href="javascript:;" onclick="delPic('+pid+')">[删除]</a>';
+        } else {
+            albImg = 'err' + albImg;
+        }
+        newImgDiv.className = 'albCt';
+        newImgDiv.id = 'albCt'+albImg;
+        document.getElementById("thumbnails").appendChild(newImgDiv);
+
+        if(typeof swf_justimg != 'undefined' && swf_justimg == true){
+            newImgDiv.innerHTML = '<img src="'+src+'"/>';
+            newImgDiv.innerHTML += '<input type="hidden" name="swfimglist[]" value="'+src+'" />';
+        }else{
+            newImgDiv.innerHTML = '<img src="'+src+'" width="120" height="120" />'+delstr;
+            
+            if(typeof arctype != 'undefined' && arctype ==  'article' )
+            { 
+                iptwidth = 100;
+                if(pid != 0) {
+                    newImgDiv.innerHTML = '<img src="'+src+'" width="120" onClick="addtoEdit('+pid+')"/>'+delstr;
+                }
+            }
+            newImgDiv.innerHTML += '<input type="hidden" name="swfimglist[]" value="'+src+'" />';      
+        }
+    }
+
+    //swf上传后删除图片start
+    function delPic(id){
+        var imgpath = $("#albCtok"+id).find("input[type='hidden']").eq(0).val();
+        var datas = {'picpath':imgpath,'oid':id};
+        $.post("__URL__/uploadimg?delpic", datas, picdelResponse,'json');
+    }
+
+    function picdelResponse(res){
+        var imgdiv = $("#albCtok"+res.data);
+            imgdiv.remove();
+            ui.success(res.info);
+            ui.box.close();
+    }
+    //swf上传后删除图片end
+</script>
+  <!--线下充值拿过来的js-->
+</div>

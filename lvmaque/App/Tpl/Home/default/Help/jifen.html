@@ -1,0 +1,155 @@
+<include file="Public:_header_common" />
+<title>{$glo.web_name}积分抽奖</title>
+<meta name="keywords" content="{$glo.web_keywords}" />
+<meta name="description" content="{$glo.web_descript}" />
+<style type="text/css">
+.ui_win{position:relative;font-family:"Verdana","arial","微软雅黑","宋体";width:980px;height:1337px;background:url("/style/H/images/jifen/bg.jpg");margin:auto}
+.ui_xylist{position:absolute;z-index:1;left:600px;top:170px;width:330px;height:224px;color:#fff;overflow:hidden}
+.ui_xylist .out{width:100%}
+.ui_xylist .out .list{width:100%;height:32px;font-size:14px}
+.ui_xylist .out .list .time{float:right;line-height:20px;font-size:10px;color:#ffebcd}
+.ui_xylist .out .list .light{color:#fff000}
+.ui_xylist .out .list .icon{width:13px;height:13px;float:left;margin:5px 8px 0 0;display:inline;background:url("/style/H/images/jifen/dot.gif")}
+
+.ui_zp{position:absolute;z-index:2;left:96px;top:461px;width:782px;height:782px;overflow:hidden}
+.ui_zp span{
+display:block;
+width:782px;height:8602px;
+background:url("/style/H/images/jifen/light.png");
+_background:none;
+_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/style/H/images/jifen/light.png",sizingMethod="scale");
+}
+.ui_btn{position:absolute;z-index:3;left:388px;top:750px;width:199px;height:200px;overflow:hidden}
+.ui_btn span{
+display:block;
+width:400px;height:600px;
+background:url("/style/H/images/jifen/btn.png");
+_background:none;
+_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/style/H/images/jifen/btn.png",sizingMethod="scale");
+}
+</style>
+<include file="Public:_header_main" />
+<div class="ui_win">
+	<div class="ui_xylist" id="tcz_xylist"><div class="out" id="tcz_xyout">
+<volist name="list" id="vo">
+<div class="list"><span class="icon"></span><span class="time">{$vo.addtime|date="m-d H:i",###}</span>{$vo.user_name} 获得 <span class="light">{$vo.jp_title}</span> 奖励</div>
+</volist>
+	</div></div>
+	<div class="ui_zp" id="tcz_zp"><span></span></div>
+	<div class="ui_btn" id="tcz_btn" onmouseover="this.scrollTop=200" onmouseout="this.scrollTop=0" onmousedown="this.scrollTop=400" onclick="choujiang();this.scrollTop=200"><span></span></div>
+</div>
+<!--中部结束-->
+<script type="text/javascript">
+var login_uid={$UID|default="0"};
+var zp_onlist=0;		//当前所在位置
+var zp_scronum=0;		//总共闪动次数
+
+function randnum(n1,n2){return parseInt(Math.random()*(n2-n1+1)+n1)};
+function gocz(isgo){
+	if(isgo){
+		location.href="/invest/index.html";
+		};
+	}
+function choujiang(){
+if(zp_scronum>0)return;
+if(login_uid==0){
+	layer.msg('提示：请先登陆系统再抽奖！', {icon: 0});
+	return;
+}
+$.jBox.confirm("每次抽奖需要消耗投资积分100分，将实时从您的帐户中扣除，确定要抽奖吗？", "积分抽奖", startzp, { buttons: { '确认抽奖': true, '暂不抽奖': false} });
+}
+
+function startzp(iscj){
+if(zp_scronum>0||login_uid==0||!iscj)return;
+var zp_zjnum=1;
+var zp_slow=0;	//100-zp_onlist+zp_zjnum;
+$.ajax({
+	url: "__URL__/choujiang",
+	data:{"fuid":login_uid},
+	timeout:5000,
+	cache: false,
+	type: "post",
+	dataType: "json",
+	success:function(d,s,r){
+		switch(d.data){
+			case 'ok':
+				zp_zjnum=parseInt(d.info);
+				zp_slow=100-zp_onlist+zp_zjnum;//开始变慢的位置
+				$("#tcz_btn").scrollLeft(200);
+				scronow();
+			break;
+			case 'error1':
+				$.jBox.tip('提示：请先登陆系统再抽奖！','tip');
+			break;
+			case 'error2':
+				$.jBox.confirm("您的投资积分不够抽奖了！投标可以获得积分，快去投标赚积分吧！", "温馨提示", gocz,{buttons:{'去投标': true,'再看看':false}});
+				//$.jBox.tip('亲，您的投资积分不够抽奖，每次抽奖需要100积分哦！','tip');
+			break;
+			default:
+				$.jBox.tip('55555，不知道什么问题无法抽奖，这都让您给碰上了！','tip');
+			break;
+			}
+		}
+	});
+
+//var zp_zjlist=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,3,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,10];
+//var ran=randnum(0,zp_zjlist.length);
+//var zp_zjnum=zp_zjlist[ran];//中奖号码
+//var zp_zjnum=1;
+//var zp_slow=100-zp_onlist+zp_zjnum;//开始变慢的位置
+//$("#tcz_btn").scrollLeft(200);
+
+var zp_zjarr=["","谢谢参与","30元话费","3注彩票","谢谢参与","10元话费","1注彩票","谢谢参与","5元话费","再来一次","500积分"];
+var zp_scrotime=500;	//闪动的时间
+var scronow=function(){
+	zp_scronum++;
+	zp_onlist++;
+	var h=$("#tcz_zp").innerHeight();
+	if(zp_onlist>10)zp_onlist=1;
+	var st=h*zp_onlist;
+	if(zp_scronum<20)zp_scrotime-=25;
+	else if(zp_scronum>zp_slow)zp_scrotime+=25;
+	//$("#tcz_xylist").append("|"+zp_scrotime);
+	$("#tcz_zp").scrollTop(st);
+	if(zp_scronum<(zp_slow+10)){
+		window.setTimeout(scronow,zp_scrotime);
+	}else{
+		zp_scronum=0;
+		$("#tcz_btn").scrollLeft(0);
+		//$.jBox.tip("抽奖结果："+zp_zjarr[zp_zjnum],"tip");
+		if(zp_zjarr[zp_zjnum]=="谢谢参与"){
+			$.jBox.info("唉呀，差点就中奖了，不要灰心，大奖在等着您！", "温馨提示");
+		}else if(zp_zjarr[zp_zjnum]=="再来一次"){
+			$.jBox.confirm("虽然没拿到什么奖品，不过没事，系统免费送您再抽一次，祝您好运！点击按钮马上再抽一次吧！", "中奖提示", startzp,{buttons:{'再抽一次': true}});
+		}else{
+			$.jBox.success("哇晒！人品大爆发了，恭喜您获得奖品：<font style='color:red'>"+zp_zjarr[zp_zjnum]+"</font><br><br>(如何兑换奖品？请认真看网页上的说明)", "中奖提示");
+			};
+		};
+	};
+};
+//滚动中奖用户列表
+function scrolist(){
+var h=$("#tcz_xyout").height();
+if(h<=$("#tcz_xylist").height()/2)return;
+var html=$("#tcz_xyout").html();
+$("#tcz_xyout").append(html);
+var times;
+$("#tcz_xylist").mouseleave(function(){
+	window.clearTimeout(times);
+	});
+$("#tcz_xylist").mouseout(function(){
+	gonow();
+	});
+var gonow=function(){
+	var n=$("#tcz_xylist").scrollTop()+1;
+	if(n>=h)n=0;
+	$("#tcz_xylist").scrollTop(n);
+	times=window.setTimeout(gonow,30);
+	};
+gonow();
+};
+$(document).ready(function(){
+window.setTimeout(scrolist,200);
+});
+</script>
+<include file="Public:_footer" /> 

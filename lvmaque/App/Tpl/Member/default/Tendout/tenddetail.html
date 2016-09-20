@@ -1,0 +1,96 @@
+<style>
+.pagination a, .pagination span {
+    background: none;
+    border: 0px solid #d2d2d2;
+    color: #666;
+    font-size: 12px;
+    padding: 2px 0px;
+    text-align: center;
+	text-decoration:none;
+}
+.pagination {
+    font-family: arial;
+}
+.interest-plan {
+    background: #fffcef;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 0 3px #ddd;
+    color: #555;
+    line-height: 20px;
+    padding: 0 0px 10px;
+    text-align: left;
+    width: 400px;
+    overflow: hidden;
+}
+.interest-plan h2 {
+    color: #333;
+    font-size: 14px;
+    padding-left: 10px;
+	margin:10px 0;
+}
+.interest-plan-line2 {
+    height: 20px;
+    margin: 6px 0 6px 10px;
+	font-size: 12px;
+}
+h2,th{
+	font-weight: 400;
+}
+td{
+	border-bottom: 0px solid #eee6b7;
+}
+.interest-plan-line2 b {
+    color: #ff6e01;
+}
+.interest-plan th {
+    background: none;
+    border-bottom: 0px solid #eee6b7;
+    border-top: 0px solid #eee6b7;
+    height: 33px;
+    line-height: 33px;
+    padding: 0;
+    text-align: center;
+	font-size: 12px;
+}
+.interest-plan td {
+    border:  none;	/*去掉边界线: 0 */
+    height: 30px !important;
+    line-height: 30px !important;
+    padding: 0;
+	font-size: 12px;
+}
+div{
+	font-size: 12px;
+}
+</style>
+<script type="text/javascript" src="__ROOT__/Style/Common/js/jquery.min.js"></script>
+<script src="__ROOT__/Style/M/js/jquery.pagination.js"></script>
+<div class="poptip itz-tip" style="z-index:1000;left:-160px;*left:-160px;top:41px;*top:25px;width: 402px;overflow: hidden;">
+	<div class="interest-plan">
+	<h2 style="font-size: 15px;">还款计划表</h2>
+		<div class="interest-plan-line2">
+			<span>已支付本息：<b>{$have_pay}</b>元</span>
+			<span style="margin-left:34px">未支付本息：<b>{$fail_pay}</b>元</span>
+		</div>
+		<table width="100%">
+			<tbody>
+				<tr>
+					<th width="30%">预计支付时间</th>
+					<th width="30%">预计支付金额</th>
+					<th width="*">实际支付状态</th>
+				</tr>
+				<volist name="list" id="vo">
+				<tr>
+					<td style="text-align: center; color: #555;"><gt name="vo['deadline']" value="2100000000">未确定<else />{$vo.deadline|date="Y-m-d",###}</gt></td>
+					<td style="text-align:center; color: #555;">￥{$vo['capital'] + $vo['interest'] - $vo['interest_fee']}</td>
+					<if condition="in_array($vo['status'], array(6,7,14))"><td style="text-align: center; color: #555;" class="gray999">未支付</td>
+					<else/><td style="text-align:center; color:#ff6e01;">已支付</td></if>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+		<div class="pager-content table-style-footer-1">
+          <div class="pagination">&nbsp;&nbsp;&nbsp;&nbsp;{$pagebar}</div>
+        </div> 
+	</div>
+</div>

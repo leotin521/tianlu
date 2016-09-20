@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>绿麻雀</title>
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.min.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/invest.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body style="background:#FAFAFA;">
+    <header>
+        <h1>绿麻雀</h1>
+        <a href="__APP__/m/common/logins" class="btn btn-member"><i class="am-icon-user"></i></a>
+    </header>
+    <!-- baner -->
+    <div class="am-slider am-slider-default" data-am-flexslider="{directionNav: false}" id="banner-flexslider">
+        <ul class="am-slides">
+            <!--<li><img src="__ROOT__/Style/NewWeChat/images/banner1.jpg" /></li>-->
+            <!--<li><img src="__ROOT__/Style/NewWeChat/images/banner1.jpg" /></li>-->
+            <!--<li><img src="__ROOT__/Style/NewWeChat/images/banner1.jpg" /></li>-->
+            <!--<li><img src="__ROOT__/Style/NewWeChat/images/banner1.jpg" /></li>-->
+            <!--<li><img src="__ROOT__/Style/NewWeChat/images/banner1.jpg" /></li>-->
+            <volist name="banners" id="vos">
+                <li><img src="{$vos.pic}" alt=""/></li>
+            </volist>
+
+        </ul>
+    </div>
+    <!-- 投资、借款按钮 -->
+    <div class="cap-nav am-cf">
+        <div class="cap-unit am-vertical-align">
+            <img src="__ROOT__/Style/NewWeChat/images/icon-compound.png" height="40" width="40" alt="">
+            <span class="figcaption am-vertical-align-middle"> <a href="__APP__/m/invest">投资列表</a> </span>
+        </div>
+        <div class="cap-unit am-vertical-align">
+            <img src="__ROOT__/Style/NewWeChat/images/icon-dollar.png" height="40" width="40" alt="">
+            <span class="figcaption am-vertical-align-middle"> <a href="javascript:void(0);" onclick="jieqian();">我要借款</a> </span>
+        </div>
+    </div>
+
+    <!-- 首页标 -->
+    <div class="am-container ">
+        <volist name="transfer_items.tBorrow_items" id="vo">
+            <div class="mod-loan">
+                <div class="tit"><a href="">{$vo.borrow_name|cnsubstr=###,10}</a></div>
+                <div class="rate" style="margin-top:-20px;">
+                    <span class="num num-xlg">{$vo.borrow_interest_rate}</span>%<span class="percent"></span>
+                    <div class="caption">年化利率</div>
+                </div>
+                <!-- 数据 -->
+                <div class="loan-fields">
+                    <div class="am-g ">
+                        <div class="am-u-sm-4">
+                            <div class="data"><span class="num-md">{$vo.borrow_duration}</span><if condition="$vo.duration_unit eq 1">月<else />天</if></div>
+                            <div class="field" style="font-size:1.4rem;">
+                                期限
+                            </div>
+                        </div>
+                        <div class="am-u-sm-4">
+                            <div class="data"><span class="num-md">{$vo.borrow_money}</span>元</div>
+                            <div class="field" style="font-size:1.4rem;">
+                                金额
+                            </div>
+                        </div>
+                        <div class="am-u-sm-4">
+                            <div class="data">{$vo.repayment_type}</div>
+                            <div class="field" style="font-size:1.4rem;">
+                                还款方式
+                            </div>
+							<input type="hidden" name="user_uid" id="user_uid" value="{$uid}"/>
+                        </div>
+                    </div>
+                </div>
+                <a href="{:getMinvestUrl($vo['id'],3)}" class="am-btn am-btn-danger am-radius am-btn-block btn-buy" style="background:#fa4343;"> 立即投资 </a>
+                <div class="am-u-12 data-safe"><i class="icon"><img src="__ROOT__/Style/NewWeChat/images/icon-safe.png" style="margin-right:3%;" /></i>已加入本息保障计划</div>
+            </div>
+        </volist>
+    </div>
+    <div class="block-90"></div>
+
+    <include file="Pub:footer" />
+    <script>
+
+        function settimesf5(){
+            window.location.href="__APP__/m/borrow/index";
+            setTimeout("settimesf5()", 500 )
+        }
+
+       function jieqian(){
+            var uid = $("#user_uid").val();
+                if(!uid){
+                    $().toastmessage('showErrorToast', "请您先登录！");
+                    return false;
+                }
+                $.ajax({
+                    url:"__APP__/m/borrow/yanzhen",
+                    type:"post",
+                    data:{"uid":uid},
+
+                    success:function(d){
+                        var data = eval('('+d+')')
+                        if(data.status == 0){
+                            $().toastmessage('showErrorToast', data.message);
+                            return false;
+                        }else{
+                            window.location.href="__APP__/m/borrow/index";
+                            //settimesf5();
+
+                        }
+                    }
+                })
+        }
+    </script>
+</body>
+
+</html>

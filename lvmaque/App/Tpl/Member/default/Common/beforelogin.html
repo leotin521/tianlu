@@ -1,0 +1,41 @@
+<div class="first_top">
+    <div class="dv_header top ">
+
+        <!--迷你导航-->
+
+        <div class="dw_bgx dw_mini">
+            <div class="Cmml00">
+                <?php
+ $dws= session('u_user_name');
+?>
+                <div class="fl dw_Cbg zuo">
+                    <div class="fl">客服热线:<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?></div>
+                    &nbsp;&nbsp;
+                    <div class="fl">
+                        <a class="weixin" href="">微信</a>
+                    </div>
+                    <div class="fl">
+                        <a href="">微博</a> 
+                    </div>
+                </div>
+                <div class="fr">
+                    <div class="fl">
+                        <a href="/register/" class="fl">在线注册</a>
+                        <div class="gang fl"></div> 
+                        <a href="/login/" class="fl" style="border-right: 1px solid #4f4f4f;">立即登录</a>
+                    </div>
+                    
+                    <div class="fl">
+                        <div id="dw_kefu">
+                            <div class="QQkefu"></div>
+                            <div class="dw_show"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--迷你导航结束-->
+    </div>
+</div>
+	
+

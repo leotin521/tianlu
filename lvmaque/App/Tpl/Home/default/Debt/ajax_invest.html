@@ -1,0 +1,90 @@
+<div  id="tcc"> </div>
+<form class="ajax-invest" method="post" name="investForm" onsubmit="return false;" id="investForm" action="__URL__/buydebt">
+    <input type="hidden" name="invest_id" id="invest_id" value="{$debt.invest_id}" />
+    <input type="hidden" name="money" id="money" value="{$investMoney}" />
+    <div class="payment">
+        <h2><span>确认付款</span>
+            <a href="javascript:;" id="btnClose">关闭</a></h2>
+        <div class="payB">
+			<style>
+				body{text-align:left;}
+            </style>
+            <table>
+                <tr>
+                    <td>投资金额</td>
+                    <td>实际支付金额</td>
+                    <td>到期总回款</td>
+                    <td>净收益</td>
+                </tr>
+                <tr>
+                    <td><span>{$investMoney}元</span></td>
+                    <td><span data-value="{$investMoney}" id="investMoney">{$investMoney}元</span></td>
+                    <td><span>{$receive_account}元</span></td>
+                    <td><span data-value="{$jingli}" id="backMoney">{:round($jingli,2)}元</span></td>
+                </tr>
+            </table>
+            <ul <if condition="$need_money eq 0">class="normal"</if>  id="needMoney" data-value="{$need_money}">
+            <li>账户余额&nbsp;:&nbsp; <span>{$vm['account_money'] + $vm['back_money']}</span>元</li>
+            <if condition="$need_money gt 0">
+                <li>还需金额&nbsp;:&nbsp; <span>{$need_money}</span>元</li>
+                <li>
+                    <a href="__APP__/member/charge#fragment-1" target="_blank" style="color: #fff;margin-top: 10px;">立即充值</a>
+                </li>
+                <else/>
+                <li>支付&nbsp;:&nbsp; {$investMoney}元</li>
+                <li>支付后余额&nbsp;:&nbsp; {$vm['account_money'] + $vm['back_money'] - $investMoney}元</li>
+            </if>
+            </ul>
+            <p class="p_bb"></p>
+
+            <li>
+                <p class="height_36 ">支付密码
+                    <if condition="$has_pin eq 'yes'">
+                    <input type="password" id="pin" name="pin" class="pwdInput" />
+                    <else/>
+                    <a href='__APP__/member/verify?curMod=password#passwordAnchor' target="_blank" class="center">请设置支付密码</a>
+                    </if>
+                </p>
+            </li>
+            <if condition="!empty($vo['password'])">
+                <li>
+                    <h6>定向标密码</h6>
+                    <input type="password" id="borrow_pass" name="borrow_pass" />
+                </li>
+            </if>
+
+            <!-- <p class="p_a"><input type="checkbox" value="1" name="" id="pay_nxp"><label for="pay_nxp">我已阅读并同意按<a target="_blank" href="/zqht/index.html">《债权转让购买合同范本》</a>的格式和条款生成借款协议</label></p> -->
+            <a href="javascript:;" class="pay-a" onclick="PostData()">立即投资</a>
+        </div>
+    </div>
+
+</form>
+<script type="text/javascript">
+borrow_min = {$vo.borrow_min|default=0};
+borrow_max = {$vo.borrow_max|default=0};
+
+$('#btnClose').click( function() {
+    $('#investForm').remove();
+        $('#tcc').remove();
+})
+var investMoney = $('#investMoney');
+var backMoney = $('#backMoney');
+
+// 冒泡排序
+function bubbleSort(array) {
+    var i = 0,
+    len = array.length,
+    j, d;
+    for (; i < len; i++) {
+        for (j = 0; j < len; j++) {
+            if (array[i] < array[j]) {
+                d = array[j];
+                array[j] = array[i];
+                array[i] = d;
+            }
+        }
+    }
+    return array;
+}
+
+</script>

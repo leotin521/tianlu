@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head lang="en">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	 <title>{$list['title']}</title>
+<style>
+p{display:inline !important;}
+</style>
+<style type='text/css'>
+.text-center p img{ 
+border:0; 
+margin:0; 
+padding:0; 
+/* max-width:360px; 
+width:expression(this.width>360?"360px":this.width);  */
+/** max-height:480px; 
+ max-width:360px; 
+ width:expression(this.width > 360 && this.height < this.width ? 360: true); 
+ height:expression(this.height > 360 ? 360: true);*/
+}
+img{height:auto;width: auto;width:100%;}
+.lead .text-center p{ width:360px; overflow:hidden;}
+
+
+table{width:100% !important}
+</style>
+</head>
+<body>
+
+
+<div class="lead text-center">
+    <h3 style="text-align:center;">{$list['title']}</h3>
+	<div style="font-size:11px; text-align:center;border-bottom:1px #ccc dashed;padding-bottom:17px; margin-bottom:17px">{$list['art_time']}</div>
+    <p style="font-size:12px;text-align:left;">{$list['art_content']}</p>
+</div>
+
+
+</body>
+
+</html>

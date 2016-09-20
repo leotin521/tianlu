@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>优惠券</title>
+		<link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+	    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/detail.css" rel="stylesheet" />
+		<script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.js"></script>
+		<script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+		<style>
+			.clearfix_s{width:100%;display:block;}
+			.coupons{width:100%; margin-left: 1em;}
+			.coupons b{float: left;width: 14%;}
+			.coupons label{float: left;}
+			.coupons input{float:left; width: 9%;}
+			.coupons p{margin-left: 20px;color: #CCC;}
+			.clearfix_cons{ width:100%;}
+		
+			
+			.coupons1{width:100%; margin-left: 1em;}
+			.coupons1 p{ width:50%; float:left;}
+			
+			.coupons2{width:100%; float:left; }
+			.coupons2 label{width:30%; margin: 3px;}
+			.coupons2 p input{margin-left: 1em;}
+			.submits{width:100%; margin-top:10px;}
+			.submits .trues{width: 74px;float: right;background-color: #B53354;margin-right: 20%; margin-top: 5px;}
+			.submits .falses{width: 74px;float: left;background-color: #B53354;margin-left: 20%; margin-top: 5px;}
+		</style>
+	</head>
+	<body>
+	
+	<!--<div class="top_nav_h">
+		<div class="top_nav">
+			<div class="com_bgcolor">
+				<h1>优惠券</h1>
+			</div>
+		</div>
+	</div>-->
+	
+	<div class="clearfix_s">
+			<div class="coupons">
+				<b>优惠券</b>
+				<input  type="radio" name="youhuiquan" /><label>最高面额</label>
+				<input  type="radio" name="youhuiquan" /><label>即将到期</label>
+			</div>
+			<div class="coupons1">
+				<p>可减元</p>
+				<p>了解详情</p>
+			</div>
+			<volist name="expand_list" id="vo" key="k">
+			<div class="coupons2">
+				<p><input type="radio" id="coup_yhq" name="coupon"  value="{$vo.id}"><label>抵现券{$vo.money}元</label><label>满{$vo.invest_money}元抵{$vo.money}元</label><label>{$vo.expired_time|date='Y-m-d',###}到期</label></p>
+			</div>
+			</volist>
+			<div class="submits">
+				<p>
+				<input type="button" id="trues" class="trues" name="" onclick="" value="确定">
+				<input type="button" id="closeIframe" class="falses" name="" value="取消">
+				</p>
+			</div>
+	</div>
+	<script>
+		var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+		//给父页面传值
+		$('#trues').on('click', function(){
+			//var yhq = $("#coup_yhq").val();
+			var yhq = $('.coupons2 input[name="coupon"]:checked').val();
+			parent.$('#yhq_money').val(yhq);
+			parent.layer.tips('您选择了一张优惠券', '#coupons', {time: 1500});
+			parent.layer.close(index);
+		});
+		
+		$('#closeIframe').click(function(){
+			//parent.layer.msg('您将标记 [ ' +val + ' ] 成功传送给了父窗口');
+			//var yhq = $("#coup_yhq").val(0);
+			//parent.$('#yhq_money').val();
+			//parent.layer.tips('您选择优惠券'+yhq+'元', '#yhq_money', {time: 5000});
+			parent.layer.close(index);
+		});
+	</script>
+	
+	
+	</body>
+</html>

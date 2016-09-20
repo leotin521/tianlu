@@ -1,0 +1,63 @@
+
+/*ul.menu li
+{
+    float: left;
+    margin-bottom: -1px;
+    line-height: 30px;
+    height: 29px;
+    border: 1px #ccc solid;
+    margin-right: 6px;
+    text-align: center;
+    padding: 0 12px;
+    cursor: pointer;
+    border-bottom: none;
+    background-image: url(../images/barl.jpg);
+}
+*//*ul.menu li.current{border: 1px solid #cccccc;border-bottom: none;background: #fff;height: 30px;padding-bottom: -3px;line-height: 26px;margin-right: 6px;background-image: url(../images/tabBack.jpg);}
+ul.menu li.current a{display: block;height: 17px;color: #bf0707;font-weight: bold;font-size: 14px;line-height: 20px; padding: 0 2px;margin-top: 6px;text-decoration: none;}
+ul.menu li.ui-tabs-selected{border: 1px solid #cccccc;border-bottom: none;background: #fff;height: 30px;padding-bottom: -3px;line-height: 26px;margin-right: 6px;background-image: url(../images/tabBack.jpg);}
+ul.menu li.ui-tabs-selected a{display: block;height: 17px;color: #bf0707;font-weight: bold;font-size: 14px;line-height: 20px; padding: 0 2px;margin-top: 6px;text-decoration: none;}
+.ui-tabs-hide{display:none}
+*/
+
+
+.content
+{
+    padding: 4px;
+    border: #ccc 1px solid;
+    border-top: none;
+}
+
+
+
+
+
+
+
+/*tab END*/
+ .barline{background:#f6f6f6; width:100%; height:23px; padding-top:10px; margin-top:15px;}
+.dv_account_0 { width: 960px; height: 100%; overflow: hidden; margin: 0 auto; }
+.sp_basic_1 { width: 70px; margin-right: 15px; }
+
+.dv_account_3 { width: 798px; border: 1px solid #ffcc66; background-color: #ffffe3; height: 150px; float: left; }
+.dv_account_4 { width: 600px; height: 100%; overflow: hidden; float: left; }
+.dv_account_4_1 { width: 598px; border: 1px solid #ffcc66; background-color: #ffffe3; float: left; height: 150px; }
+.dv_account_5 { width: 198px; float: left; }
+.dv_account_6 { width: 128px; float: left; height: 150px; }
+.dv_account_6_1 { width: 128px; float: left; height: 120px; }
+.dv_account_6_2 { width: 128px; float: left; height: 30px; line-height: 30px; }
+.dv_account_7 { width: 470px; float: left; height: 150px; line-height: 30px; }
+.dv_account_7_1 { width: 470px; float: left; height: 30px; text-align: left; }
+.dv_account_7_2 { width: 70px; float: left; height: 30px; text-align: left; }
+.dv_account_7_3 { width: 400px; float: left; height: 30px; text-align: left; margin-top: 5px; }
+.dv_account_8 { width: 598px; border: 1px solid #cccccc; background-color: #f1dede; float: left; height: 30px; line-height: 30px; margin-top: 8px; text-align: left; }
+.dv_account_9 { width: 598px; border-left: 1px solid #cccccc; border-right: 1px solid #cccccc; border-bottom: 1px solid #cccccc; background-color: #f6f6f6; float: left; height: 30px; line-height: 30px; text-align: left; height: 100%; overflow: hidden; }
+.dv_account_9_1 { width: 299px; float: left; height: 30px; line-height: 30px; text-align: left; }
+ 
+.sp_account_1 { font-size: 14px; color: #993300; font-weight: bold; margin: 5px; }
+.sp_account_2 { font-size: 12px; color: #000000; width: 80px; margin: 5px; }
+
+
+
+
+

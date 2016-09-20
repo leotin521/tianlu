@@ -1,0 +1,250 @@
+<script type="text/javascript" src="__ROOT__/Style/M/js/amounttochinese.js" language="javascript"></script>
+<script type="text/javascript">
+$(function() {
+	//$("#btnSendMsg").click(sendSMS);
+	$("#txt_Amount").bind("keyup", function() {
+		$this = $(this);
+		$this.val($this.val().toString().replace(/[^(\d|\.)]+/, ""));
+	});
+	$("#txt_Amount").focus(function() {
+		$("#d_money").css("display", "none");
+	});
+});
+var suretx = function(d,h,v){
+	if(d===true){
+			$.ajax({
+				url: "__URL__/actwithdraw",
+				type: "post",
+				dataType: "json",
+				data: {"pwd":$("#txtPassword").val(),"amount":$("#txt_Amount").val()},
+				success: function(d) {
+					if (d.status == 2) {
+						layer.msg(d.message,{icon:2});
+						return false;
+					}
+					else if(d.status==1) {
+						layer.msg(d.message,{icon:1});
+					} else {
+						layer.msg("支付密码错误！",{icon:2});
+						return false;
+					}
+				}
+			});
+	}
+}
+var arrWrong = "<img  src='__ROOT__/Style/M/images/zhuce2.gif'/>&nbsp";
+function SetError(val, cont) {
+		$("#d_money").css("display", "block");
+		$("#d_money").html(val + cont);
+		$("#d_money").attr("class", "reg_wrong");
+}
+
+function drawMoney() {
+	if (testAmount()) {
+		if ($("#txtPassword").val().length < 1) {
+			layer.msg("请输入支付密码后再点击确认提现！", {icon: 0});
+			return false;
+		}
+		if (parseFloat($("#txt_Amount").val()) <= parseFloat($("td.tdContent span").html()) && $("#txtPassword").eq(0).val().length > 0 && parseFloat($("#txt_Amount").val()) > 0) {
+			$.ajax({
+				url: "__URL__/validate",
+				type: "post",
+				dataType: "json",
+				data: {"pwd":$("#txtPassword").val(),"amount":$("#txt_Amount").val()},
+				success: function(d) {
+					if (d.status == 2) {
+						layer.msg(d.message, {icon: 2});
+						return false;
+					}
+					else if(d.status==1) {
+						$.jBox.confirm(d.message, "提现确认", suretx, { buttons: { '确认提现': true, '暂不提现': false} });
+					} else {
+						layer.msg("支付密码错误！", {icon: 2});
+						return false;
+					}
+				}
+			});
+		} 
+	}
+}
+
+function testAmount() {
+	var testreuslt = true;
+	if ($("#txt_Amount").val() == '') {
+		SetError(arrWrong, "请输入提现金额，如1000.10。");
+		testreuslt = false;
+	}
+	if (!(/^\d+(.)?\d{1,2}$/.test($("#txt_Amount").val()))) {
+		SetError(arrWrong, "请输入正确的提现金额，如1001.20。");
+		testreuslt = false;
+	}
+	if (parseFloat($("#txt_Amount").val()) < 100) {
+		SetError(arrWrong, "提现金额不能小于100。");
+		testreuslt = false;
+	}
+	//if (parseFloat($("#txt_Amount").val()) > 30000) {
+	//	SetError(arrWrong, "提现金额不能大于30000。");
+	//	testreuslt = false;
+	//}
+	if (parseFloat($("#currentMoeny").html()) < parseFloat($("#txt_Amount").val())) {
+		SetError(arrWrong, "您的账户余额不足以提现。");
+		testreuslt = false;
+	}
+	if (testreuslt) {
+		showChineseAmount();
+	}
+	return testreuslt;
+}
+
+function showChineseAmount() {
+	var regamount = /^(([1-9]{1}[0-9]{0,})|([0-9]{1,}\.[0-9]{1,2}))$/;
+	var reg = new RegExp(regamount);
+	if (reg.test($("#txt_Amount").val())) {
+		var amstr = $("#txt_Amount").val();
+		var leng = amstr.toString().split('.').length;
+		if (leng == 1) {
+			$("#txt_Amount").val($("#txt_Amount").val() + ".00");
+		}
+		$("#d_money").html(Arabia_to_Chinese($("#txt_Amount").val()));
+		$("#d_money").css("display", "");
+		$("#d_money").css("color", "red");
+		$("#d_money").removeClass("reg_wrong");
+	}
+	else {
+		$("#d_money").html("");
+	}
+}
+</script>
+<style type="text/css">
+        .btnEnable { width: 96px; height: 28px; line-height: 25px; text-align: center; cursor: pointer; background-image: url(__ROOT__/Style/M/images/sendMsg.jpg); }
+        a.btnEnable:hover { color: #F4FFFF; }
+        a.btnDisable { color: Gray; }
+        .tdTitle { text-align: right; padding-left: 10px; font-size: 12px; height: 40; line-height: 40px; vertical-align: middle; width: 110px; color: #000; }
+        .tdContent { text-align: left; padding-left: 10px; font-size: 12px; height: 40; line-height: 40px; vertical-align: middle; width: 535px; color: #000; }
+        .reg_wrong { font-size: 12px; background-color: #fff9dd; border: 1px solid #ff0000; color: #ff0000; height: 22px; line-height: 21px; }
+        #vtiplink, #bacctip { width: 115px; border: none; cursor: pointer; display: block; height: 5px; }
+        #formTb { width: 100%; margin: 0px; padding: 0px; border-collapse: collapse; text-align: left; }
+        #currentMoeny { color: Red; font-weight: bold; font-size: 12px; }
+        .titstrong { height: 30px; line-height: 30px; text-indent: 30px; padding-top: 20px; text-align: left; border-bottom: dashed 1px #ccc; margin-bottom: 10px; }
+        .listframe { width: 100%; overflow: hidden; padding: 0px 0px; }
+        .divtitle { height: 20px; line-height: 25px; text-align: left; padding-left: 40px; font-size: 12px; margin-top: 8px; margin-bottom: 1PX; }
+        .listframe td { border: 1px solid #dedede; }
+        .listframe a { color: #0000ff; }
+    </style>
+    <style type="text/css">
+        .dv_header_8 { background-image: url(); }
+        .dv_account_0 { margin-top: 10px; }
+    </style>
+<div class="divtitle" style="width: 100%; height: 70px; text-indent:0px">
+	1、尊敬的{$vo.real_name}，提现操作涉及您的资金变动，请仔细核对您的提现信息<br>
+	2、一般用户单日提现上限为{$fee.2.1}万元<br>
+	3、涉及到您的资金安全，请仔细操作
+</div>
+<div class="listframe" style="clear: both; margin-top: 20px; width: 100%;">
+	<table id="formTb" style="margin: 0px 20px 10px 20px;
+		width: 762px;" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td class="tdTitle">
+				您的银行账号是：
+			</td>
+			<td class="tdContent">
+				<div style="height: 20px; line-height: 20px;">
+					{$vo.bank_num|hidecard=###,3,'还没有登记您的银行账号'}
+					[<a href="__APP__/member/bank#fragment-1">点此修改</a>]
+				</div>
+				<div style="height: 20px; line-height: 20px;">
+					{$vo.bank_name} -- {$vo.bank_address}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				您的真实姓名：
+			</td>
+			<td class="tdContent">
+				{$vo.real_name}（必须和您银行账户姓名一致）
+				
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				联络手机：
+			</td>
+			<td class="tdContent">
+				{$vo.user_phone|default="还未验证"}
+				（{$glo.web_name}划款时会通知您）[<a href="__APP__/member/safe#fragment-3">点此修改</a>]
+				
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				提款期限：
+			</td>
+			<td class="tdContent">
+				72小时/24小时（72小时内打款，到帐时间因各个银行不同）
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				可提现金额：
+			</td>
+			<td class="tdContent">
+				[<span id="currentMoeny">{$vo.all_money}元</span>] <br/>
+                （单笔提现金额会员限制为100-{$fee.2.0}万元，回款({$vo.back_money}元) + 非回款({$vo.account_money}元) - 未还<?php echo BorrowModel::get_borrow_type(4);?>({$borrow_info['borrow']-$borrow_info['alos']}元)）
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				手续费：
+			</td>
+			<td class="tdContent" style="line-height:200%;">
+				会员提现金额在回款总金额之内的免收手续费，超出的部分每笔提现收取手续费为提现金额的千分之{$fee.0.0}，{$fee.0.1}元封顶；如账户余额大于提现手续费，则系统自动在账户余额中扣除手续费，否则提现费用在提现金额中扣除。
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				提现金额：
+			</td>
+			<td class="tdContent">
+				<div style="float: left; line-height: 21px;">
+					<input name="txt_Amount" id="txt_Amount" class="text2" onblur="testAmount();" type="text">
+				</div>
+				<div id="d_money" style="width: 250px; height: 20px; line-height: 20px; margin-left: 10px;
+					float: left;">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">
+				支付密码：
+			</td>
+			<td class="tdContent">
+				<input name="txtPassword" id="txtPassword" class="text2" style="float: left; margin-top: 5px;" type="password">（为了保证您的提款安全，请输入您的支付密码。）
+			</td>
+		</tr>
+		<tr>
+			<td class="tdTitle">&nbsp;
+				
+			</td>
+			<td class="tdContent">
+				<img style="cursor: pointer;" alt="确认提现" onclick="drawMoney()" src="__ROOT__/Style/M/images/draw.jpg">
+				<img src="__ROOT__/Style/M/images/sendMsgdis.jpg" style="display: none;">
+			</td>
+		</tr>
+	</tbody></table>
+	<div style="clear: both; margin-bottom: 30px; padding-left: 20px;">
+	
+	<div style="float: left; height: 84px; width: 20px;">
+		<img src="__ROOT__/Style/M/images/minilogo.gif" style="width: 17px; height: 17px;
+			margin: 3px; margin-top: 6px;">
+	</div>
+	<div style="width: 666px; float: left; padding: 4px; line-height: 20px; font-size: 12px;
+		text-align: left; color: #aaaaaa;">
+		提示：如果您要加快提现速度，请在每日上午提现。{$glo.web_name}周一到周五的提现处理时间在下午2点之后，周末在下午或者晚上。
+		<br>在法定节日期间，用户申请提现，安排支付时间，{$glo.web_name}会以公告形式发布。
+	</div>
+
+
+
+		</div>
+</div>

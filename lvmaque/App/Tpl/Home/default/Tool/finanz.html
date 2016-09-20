@@ -1,0 +1,94 @@
+<include file="Public:_header_common" />
+<title>实时财务</title>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/H/css/by_jiekuan.css" />
+
+<include file="Public:_header_main" />
+<!--中部开始-->
+
+
+    <div class="wrap2">
+	<img src="__ROOT__/Style/H/images/sscw_bg1.jpg" complete="complete" style="width:980px" />
+	<div class="title_cw">
+	  <div class="zi_bg1">
+	  <span class="oldai_color">实时财务</span>
+	  </div>
+	  </div>
+	  
+        <div class="finanz">
+         
+            <div id="finanz_count" class="tab-con">
+                <table><tbody>
+                    <tr>
+                        <th>风险准备金余额</th>
+                        <th>成功放款笔数</th>
+                        <th>成功放款总额</th>
+                        <th>待回收本金总额</th>
+                    </tr>
+                    <tr>
+                        <td><span class="red">￥{$mborrowBail} 元</span></td>
+                        <td><span class="red">{$mborrowOutNum} 笔</span></td>
+                        <td><span class="red">￥{$mborrowOut}元</span></td>
+                        <td><span class="red">￥{$mborrowLimit} 元</span></td>
+                    </tr>
+                </tbody></table>
+            </div>
+			<img src="__ROOT__/Style/H/images/sscw_bg3.jpg" complete="complete" style="width:980px" />
+        </div>
+        <div class="finanz">
+		
+            <ul id="finanz_title" class="tab-list1">
+                <li  site="1">一周内应回收欠款列表</li>
+                <li class="li2" site="2">逾期未归还列表</li>
+                <li class="li2" site="3">投资排行榜</li>
+                <li class="li2" site="4">借款排行榜</li>
+            </ul>
+            <div id="finanz_detail" class="tab-con"></div>
+            <script type="text/javascript">
+                //获取url参数值
+                function getQueryString(name) {
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) return unescape(r[2]); return null;
+                }
+
+                $(function(){
+                    //获取数据
+                    function getData (site) {
+                        try{    
+                            $.ajax({
+                                url: "/home/tool/finanzData",
+                                data: {site:site},
+                                timeout: 5000,
+                                cache: false,
+                                type: "get",
+                                dataType: "json",
+                                success: function (d, s, r) {
+                                    if(d) $("#finanz_detail").html(d.html);//
+									
+                                }
+                            });
+                        }catch(e){};
+                        return false;
+                    }
+               $("#finanz_title li").first().addClass("current");
+                    //起始选中
+                    var site = 0;
+                    if(parseInt(getQueryString("site"))>=0 && parseInt(getQueryString("site"))<=4){
+                        site = parseInt(getQueryString("site"));
+                    }
+                    $("#finanz_title li[site="+site+"]").addClass("current");
+                    getData(site);
+
+                    $("#finanz_title li").click(function(){
+                        $(this).parent().find(".current").removeClass("current");
+                        $(this).addClass("current");
+                        getData($(this).attr("site"));
+                    });
+				
+                });
+            </script>
+        </div>
+		<img src="__ROOT__/Style/H/images/sscw_bg3.jpg" complete="complete" style="width:980px" />
+    </div>
+
+<include file="Public:_footer" />

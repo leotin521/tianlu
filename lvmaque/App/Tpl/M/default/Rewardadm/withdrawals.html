@@ -1,0 +1,122 @@
+<include file="pub:header"/>
+<include file="pub:header_mini"/>
+	<div class="top_nav_h">
+		
+	</div>
+	
+	<!-- detail star -->
+	<div class="loading" id="loading"></div>
+	<div class="form_fk_content clearfix">
+		<form>
+			<div class="form_cz clearfix">
+				<b class="fl font_15">当前余额：</b>
+				<label class="fl font_15" style="margin-left: 1em;">{$usermoney}元</label>
+			</div>
+			<div class="form_cz clearfix">
+				<b class="fl font_15">银行卡：</b>
+				<select id="pay_t" class="pay_t" name="bank_num" style="text-align: center;text-align: center;margin-left: 26px;width: 60%;">
+					<option value="0">请选择银行卡</option>
+					<volist name="bank_info" id="vo">
+						<option id="opt" value="{$vo.numberor}"><!--{$vo.bank_num}-->{$vo.bank_name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="form_cz clearfix">
+				<b class="fl font_15">提现金额：</b>
+				<input class="pay_t" id="amount" name="amount" required="required" type="text" placeholder="请输入提现金额" autofocus="autofocus" onblur="NumberCheck(this)"/>
+			</div>
+			<div class="form_cz clearfix">
+				<b class="fl font_15">支付密码：</b>
+				<input class="pay_t" id="pin_pass" name="pin_pass" required="required" type="password" placeholder="请输入支付密码" autofocus="autofocus"/>
+			</div>
+		
+			<div class="form_cz_01 clearfix">
+				<input type="button" value="提交申请" onclick="chargemoney()"/>
+			</div>
+		
+		</form>
+	</div>
+	<div id="rct"></div>
+	<script>
+		$(function(){
+			//$("#pay_t #opt").css({"overflow":"hidden","padding-left":"3em"});
+			$("#pay_t label").css({"overflow":"hidden","padding-left":"3em"});
+		})
+	</script>
+	<script>
+        function NumberCheck(t){ //匹配数字
+            var num = t.value;
+            var re=/^\d*$/;
+            if(!re.test(num)){
+                isNaN(parseInt(num))?t.value='':t.value=parseInt(num);
+            }
+        }
+		
+		var t = 5;
+		function settimesf5(){
+			t -=1;
+			if(t == 0){
+				layer.msg("正在返回");
+				window.location.href="__APP__/m/user/";
+			}
+			setTimeout("settimesf5()", 1000 );
+		}
+		
+		var money = "{$usermoney}";
+		function chargemoney(){
+			var amount = $("#amount").val();
+			var pin_pass = $("#pin_pass").val();
+			var bankname = $("#pay_t").val();
+			if(bankname == "" || bankname < 1){
+				layer.msg("请选择银行卡");
+				return false;
+			}
+			
+			if(amount == ""){
+				layer.msg("提现金额不能为空");
+				return false;
+			}
+			
+			if(amount > money){
+				layer.msg('您的账户余额不足以提现');
+				return false;
+			}
+			
+			if(amount < 100){
+				layer.msg("金额不能小于100元");
+				return false;
+			}
+			
+			if(pin_pass == ""){
+				layer.msg("请输入支付密码");
+				return false;
+			}
+			
+			$.ajax({
+					url:"__URL__/actwithdraw",
+					type:"post",
+					data:{"amount": amount,"pin_pass": pin_pass,"bankname": bankname},
+					datatype:"json",
+					timeout:"3000",
+					//beforeSend: function () {
+						//$("#loading").show();
+						//layer.msg("提交中");
+					//},
+					success: function(d){
+						var t = eval('('+d+')');
+						//alert(t.status);
+						if(t.status == 0){
+							layer.msg(t.message);
+						}else{
+							layer.msg(t.message);
+							settimesf5();
+						}
+					}
+					//complete: function(){
+						//$("#loading").hide();
+					//}
+				})
+		}
+	</script>
+	</body>
+</html>

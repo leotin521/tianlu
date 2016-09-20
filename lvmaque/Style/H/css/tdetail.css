@@ -1,0 +1,33 @@
+/*定投宝开始*/
+/*企业相关图片*/
+/*****************************************investdetail*******************************************************************/
+.list-h,.list-h1,.list-h2{padding: 0px; left: 0; margin-left: 0; margin-top: 0; overflow: hidden; position: absolute; top: 0; }
+#preview { clear: both; margin: 10px 0px 0px; text-align: center; width: 100%; border:0px #ccc solid;}
+.bot05 ul li { display: inline; float: left;width: 168px;height: 134px; position:relative;}
+.bot05 ul li img { width:150px; height: 120px; padding: 3px; border:#ccc solid 1px; }
+.bot05 { display: inline; float: left; height: 265px; }
+#spec-n5 { height: 265px; padding-top: 10px; position:relative; }
+.spec-button { cursor: pointer; display: block; float: left; height: 28px; width: 56px;}
+.spec-left{position:absolute;top:99px;left:22px;}
+.spec-right{position:absolute;top:99px;right:2px;}
+.spec-button img { margin-top: 22px; }
+.barBig { PADDING: 10px; LINE-HEIGHT: 24px; MARGIN: 0px auto; clear: both; WIDTH: 958px; BORDER-TOP: #ccc 0px solid; BORDER-right: #ccc 0px solid; BORDER-left: #ccc 0px solid; BORDER-bottom: #ccc 1px solid; overflow: hidden; }
+#biaoSu { LINE-HEIGHT: 26px; MARGIN: 0px 20px; WIDTH: 680px; padding-top:10px; height: auto; overflow: hidden;  }
+#biaoSu table { margin-left:30px; margin-bottom:10px }
+.fLeft { DISPLAY: inline; FLOAT: left; }
+
+.red { COLOR: #ea5413; }
+.arial { FONT-FAMILY: Arial, Helvetica, sans-serif; }
+.txtC { TEXT-ALIGN: center; }
+.borderDash { BORDER-BOTTOM: #ccc 1px dashed; text-align: left; color: #5a7184; }
+.bdrOnlyBtm { BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px }
+.tdBorder { BORDER: #ccc 1px solid; width:100%; }
+.tdBorder TD { BORDER-BOTTOM: #ccc 1px dashed; PADDING-LEFT: 10px }
+.bdrOnlyTop { BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; }
+.clr { CLEAR: both; }
+.bot01 { MARGIN-TOP: 10px; margin-left:10px; FLOAT: left; }
+.bot02 { margin-top:6px }
+.bot03 { color:#F00; font-weight:bold }
+.bot04 { padding:10px; border:#ccc 1px solid; border-top:#0699D1 2px solid; LINE-HEIGHT: 24px; MARGIN: 0px auto; WIDTH: 958px;  }
+.bot06 { height: 265px; overflow: hidden; position: relative; z-index: 1; left:80px; top:10px;}
+/************企业相关图片**/

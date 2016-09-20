@@ -1,0 +1,31 @@
+<include file="Public:js_ueditor" />
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<link href="__ROOT__/Style/newmobile/css/app.css" rel="stylesheet" type="text/css" />
+
+ <div  class="banner">   
+  <div class="title">banner图片列表</div> 
+	<ul>     
+	   
+<volist name="vo" id="vo">
+		
+		 <li> 
+		    <div class="imgpath"><img src="{$vo.pic}"> </div> 
+		    <div class="imgtitle">  
+			    <div style="padding-bottom:6px;">标题：{$vo.title}&nbsp;&nbsp;|&nbsp;&nbsp;编号：{$vo.id}</div>
+			 <a href="__URL__/delbanner?id={$vo.id}">删除 </a> &nbsp;&nbsp;<a href="__URL__/adbanner?id={$vo.id}">编辑</a>
+			 
+			 </div> 
+        </li>  
+</volist>		
+	
+	</ul>
+ 
+ <div class="clear"> </div>
+ 
+  </div>  
+
+
+
+
+<include file="Public:_footer" />

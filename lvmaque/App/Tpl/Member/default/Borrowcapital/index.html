@@ -1,0 +1,178 @@
+<include file="default:Public:_header_common"/>
+<!--<script src="__ROOT__/Style/M/js/jquery.easing.1.3.js"></script>-->
+<style type="text/css">
+    .sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style>
+</head>
+<body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-main clearfix">
+        <include file="default:Public:_left"/>
+        <!--资产统计begin-->    
+        <div class="user-con user-property-statistics">
+            <div class="user-box-1">
+                <div class="user-property-total">
+                    <div class="user-box-title-1 clearfix">
+                        <h2>资产统计</h2>
+                    </div>
+                    <div class="user-box-con-1">
+                        <dl class="clearfix">
+                            <dt>资产总计：<strong>{:Fmoney($minfo['account_money']+$minfo['back_money']+$minfo['money_collect']+$minfo['money_freeze']-$pcount['borrow_fee']-$wait['capital']-$wait['interest'])}</strong> 元&nbsp;&nbsp;<span class="pro_tips-1" _title="可用余额 + 待收金额 + 冻结金额 - 借款管理费 - 待还金额 "></span></dt>
+                            <dd class="user-property-money" style="width:860px;">
+                                <ul id="pieUl" class="clearfix">
+                                    <li style="margin-left: 0px;margin-left:20px;">
+                                        <span class="icon-yue"></span>
+                                        <span class="user-property-money-name">可用余额</span>
+                                        <span class="user-property-money-value">{$minfo['account_money'] + $minfo['back_money']|Fmoney|default="0.00"} 元</span>
+                                    </li>
+                                    <li style="margin-left: 0px;margin-left:20px;">
+                                        <span class="icon-zijin-fee"></span>
+                                        <span class="user-property-money-name">借款管理费</span>
+                                        <span class="user-property-money-value">{$pcount['borrow_fee']|Fmoney|default="0.00"} 元</span>
+                                    </li>
+                                    <li style="margin-left: 0px;margin-left:20px;">
+                                        <span class="icon-benjin"></span>
+                                        <span class="user-property-money-name">待收本金</span>
+                                        <span class="user-property-money-value">{$benefit.capital_collection|Fmoney|default="0.00"} 元</span>
+                                    </li>
+                                    <li style="margin-left: 0px;margin-left:20px;">
+                                        <span class="icon-zijin-bj"></span>
+                                        <span class="user-property-money-name">待还本金</span>
+                                        <span class="user-property-money-value">{$wait['capital']|Fmoney|default="0.00"} 元</span>
+                                    </li>
+                                    <li style="margin-left: 0px;margin-left:20px;">
+                                        <span class="icon-zijin-ds"></span>
+                                        <span class="user-property-money-name">待收利息</span>
+                                        <span class="user-property-money-value">{$benefit['interest_collection']|Fmoney|default="0.00"} 元</span>
+                                    </li>
+                                    <li style="margin-left: 0px;margin-left:20px;">
+                                        <span class="icon-zijin-lx"></span>
+                                        <span class="user-property-money-name">待还利息</span>
+                                        <span class="user-property-money-value">{$wait['interest']|Fmoney|default="0.00"} 元</span>
+                                    </li>
+                                     
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="user-property-wait-earnings">
+                    <div class="user-box-title-1 clearfix">
+                        <h2>待还统计</h2>
+                    </div>
+                    <div id="container" style="height:240px;width:764px; margin:0 auto;"></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="user-property-total-accumulate-invest">
+                    <div class="user-box-title-1 clearfix">
+                        <h2>累计统计</h2>
+                    </div>
+                    <div class="user-box-con-1">
+                        <dl class="clearfix">
+                            <dd class="user-leiji-money" style="min-height:120px; _height:120px;">
+                                <ul class="left">
+                                    <li>
+                                        <span class="user-property-money-name">累计充值金额</span>
+                                        <span class="user-property-money-value">{$pcount.payonline|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="用户累计充值的金额"></span>
+                                    </li> 
+
+                                    <li>
+                                        <span class="user-property-money-name">累计投资金额</span>
+                                        <span class="user-property-money-value">{$pcount.ljtz|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="投资人累计投资的金额"></span>
+                                    </li> 
+                                    <li>
+                                        <span class="user-property-money-name">累计支出提现手续费</span>
+                                        <span class="user-property-money-value">{$out.withdraw_fee|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="用户累计支付提现手续费"></span>
+                                    </li> 
+                                    <li>
+                                        <span class="user-property-money-name">累计借入金额</span>
+                                        <span class="user-property-money-value">{$pcount.jrje|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="借款人累计借入金额"></span>
+                                    </li> 
+
+                                    <li>
+                                        <span class="user-property-money-name">累计支出投标奖励</span>
+                                        <span class="user-property-money-value">{$out.pay_tender|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="累计支出投标奖励"></span>
+                                    </li> 
+                                    <li>
+                                        <span class="user-property-money-name">累计支出逾期罚息</span>
+                                        <span class="user-property-money-value">{$out.expired_money|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="借款人累计支出逾期罚息"></span>
+                                    </li> 
+                                </ul>
+                                <ul class="right" >
+                                    <li>
+                                        <span class="user-property-money-name">累计提现金额</span>
+                                        <span class="user-property-money-value">{$pcount.withdraw|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="用户累计提现金额"></span>
+                                    </li> 
+                                    <li>
+                                        <span class="user-property-money-name">累计赚取收益</span>
+                                        <span class="user-property-money-value">{$benefit.total|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="您在网站累计获取收益的总额"></span>
+                                    </li> 
+                                    <li>
+                                        <span class="user-property-money-name">累计获取奖励</span>
+                                        <span class="user-property-money-value">{:Fmoney($benefit['spread_reward']+$benefit['ireward'] + $benefit['re_reward'])}元</span>
+                                        <span class="pro_tips-1" _title="推广奖励{$benefit['spread_reward']|default='0.00'}元+投标奖励{$benefit.ireward|default='0.00'}元+线下充值奖励{$benefit.re_reward|default='0.00'}元"></span>
+                                    </li> 
+                                    <li>
+                                        <span class="user-property-money-name">累计支出利息</span>
+                                        <span class="user-property-money-value">{$out.interest|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="借款人累计支出利息"></span>
+                                    </li> 
+                                    <li>
+                                        <span class="user-property-money-name">累计支出借款管理费</span>
+                                        <span class="user-property-money-value">{$benefit.borrow_manage|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="借款人累计支出利息管理费"></span>
+                                    </li> 
+                                    <li>
+                                        <span class="user-property-money-name">累计支出催收费</span>
+                                        <span class="user-property-money-value">{$out.call_fee|Fmoney|default="0.00"} 元</span>
+                                        <span class="pro_tips-1" _title="借款人累计支出催收费"></span>
+                                    </li> 
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--资产统计end-->
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/bcapital.js"></script>
+<script>
+            Highcharts.setOptions({
+                    global: {
+                                useUTC: true //开启UTC
+                  }
+            });
+            $(function(){
+                var indexData = {
+                        line2 : [
+                                <volist name = "interest_wait" id = "vo" key = "i" >
+                                    [{$vo.deadline}, {$vo.shouyi}] <if condition = "count($interest_wait) neq $i" > , </if>
+                                </volist>
+                        ], 
+                        chartCategory : [Array], //x轴月份
+                        tipTime: [], //日数据时间参数
+                        nowcharttime: '{:date("Y")}', //当前年月
+                        date : {
+                        year : {:date("Y")},
+                        month : {:date("m")},
+                        day : {:date("d")}
+                        }  
+                };
+                itz.userIndex.init(indexData);
+            });
+</script>
+</body>
+</html>

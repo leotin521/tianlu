@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>注册协议</title>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.min.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>注册协议</h1>
+        <a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="am-container" id="contents">
+       
+
+    </div>
+    <script>
+        $.ajax({
+            url: "__URL__/protocals/",
+            data: {"1":1},
+            timeout: 1500,
+            //cache: false,
+            type: "post",
+            dataType: "json",
+            success: function (d) {
+                $("#contents").html(d.message);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+/*关于我们首页*/
+.mod-more .am-list{margin: 1em 0;}
+.mod-more .am-list li >a {padding: 0;} 
+.mod-more .am-list li{padding: .8em 1em;}
+.mod-more .am-list li:nth-child(2){margin-bottom: 5px;}
+.mod-more .am-list li .con{float: right;color: #999;line-height: 2.9rem;}
+.mod-more .am-listli .field{font-size: 2rem;line-height: 3rem;color: #333;}
+
+.am-list-news li{padding: 0 .5em}
+.am-list-news li .time{color: #999999;font-size: 1.2rem;}
+.am-list-news li .tit{color: #323232;}
+.am-list-news li .am-fr i{color: #B4B4B4;padding-top: .8rem;}
+
+article .am-article-title{text-align: center;font-size: 2rem ;margin-bottom: 0.4rem;color: #323232;font-weight: 400;}
+article .am-article-meta{font-size: 1.2rem;color: #666666;text-align: center;}
+article .hd{padding: .5rem 0;border-bottom: 1px solid #fff;}
+article .bd{font-size: 1.4rem;color: #333333;line-height: 2rem;padding: .5rem 1rem;}
+.mod-more .am-list li .con a{color:#999}
+
+form.feedback{padding-top: 1rem;}
+form.feedback label{text-align: right;}
+form.feedback textarea{min-height: 10rem}

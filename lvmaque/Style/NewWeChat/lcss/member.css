@@ -1,0 +1,136 @@
+.top_nav_me{top:0;position:fixed; _position:absolute;z-index:9999; top:0px;left: 0;  width: 100%; height: 90px; line-height: 45px; margin: 0 auto;    
+        _top:expression(eval(document.compatMode &&     
+        document.compatMode=='CSS1Compat') ?     
+        documentElement.scrollTop     
+        +(documentElement.clientHeight-this.clientHeight) - 0    
+        : document.body.scrollTop     
+        +(document.body.clientHeight-this.clientHeight) - 0); width:100%; }
+.top_nav_me h1{ color:#fff;text-align: center; font-size: 18px; font-weight: 700;}
+.top_nav_me p{ color:#fff;text-align: center; font-size: 15px; font-weight: 700;}
+
+
+
+.top_nav_set{top:0;position:fixed; _position:absolute;z-index:9999; top:0px;left: 0;  width: 100%; height: 45px; line-height: 45px; margin: 0 auto;    
+        _top:expression(eval(document.compatMode &&     
+        document.compatMode=='CSS1Compat') ?     
+        documentElement.scrollTop     
+        +(documentElement.clientHeight-this.clientHeight) - 0    
+        : document.body.scrollTop     
+        +(document.body.clientHeight-this.clientHeight) - 0); width:100%; }
+    
+.top_nav_set h1{ color:#fff;text-align: center; font-size: 18px; font-weight: 700;}
+.top_nav_set p{ color:#fff;text-align: center; font-size: 15px; font-weight: 700;}
+
+
+
+
+
+.me_content{width: 100%; padding: 10px 0px; margin-top: 90px;}
+.alinl{text-align: left;}
+.alinr{text-align: right;}
+.me_content .me_content_01{ background-color: #FFF; padding:0px; margin: 0px auto 15px;}
+
+.me_content .me_content_01 .me_content_01_01{ padding: 10px; border-bottom: 1px solid #DEDEDE;}
+.me_content .me_content_01 .me_content_01_02{ padding: 10px;}
+
+.me_content .me_content_01 .me_content_01_01 span{display: block; width: 40%; height: 30px; line-height: 30px;padding: 0px 7px; font-size: 15px;}
+
+.me_content .me_content_01 .me_content_01_01 span.bor_r{border-right: 1px solid #DEDEDE;}
+
+.me_content .me_content_01 .me_content_01_02 span{display: block; width: 40%; height: 30px; line-height: 30px;padding: 0px 7px; font-size: 15px;}
+
+.me_content .me_content_01 .me_content_01_02 span.bor_r{border-right: 1px solid #DEDEDE;}
+.top_nav_set_h{ height: 45px;}
+.me_content .me_content_02{background-color: #FFF; margin: 10px auto;}
+.me_content .me_content_02 a{
+	display: block;
+	padding: 0px 15px;
+	height: 50px; 
+	line-height: 50px; 
+	border-bottom: 1px solid #DEDEDE; 
+	background: url(../images/new/d_black_right.png) no-repeat 95% 50%;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.me_content .me_content_03{background-color: #FFF; margin: 10px auto 0px;border-bottom: 1px solid #DEDEDE; border-top: 1px solid #DEDEDE;}
+
+.me_content .me_content_03 .me_content_03_01_01a{background:#72CC91 url(../images/new/d_chongzhi.png) no-repeat 20% 45%;}
+.me_content .me_content_03 .me_content_03_01_02a{background:#72CC91 url(../images/new/d_tixian.png) no-repeat 20% 45%;}
+
+
+
+.me_content .me_content_03 .me_content_03_01{width: 80%; margin: 10px auto; height: 50px; padding: 5px 0px;}
+.me_content .me_content_03 .me_content_03_01 a{
+	border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	display: block;
+	margin: 5px 0px;
+	width: 45%;
+	height: 40px; 
+	line-height: 40px; 
+    text-align: center;
+	font-size: 14px;
+	color: #fff;
+	font-weight: 700;
+}
+
+/*****设置****/
+.set_content{width: 100%; padding: 20px 0px; margin:0 auto;}
+
+.set_content .set_content_01{background-color: #fff; height: 50px; line-height: 50px; margin: 10px auto;}
+.set_content .set_content_01 .set_content_01_a{display:block; width: 85%; height: 100%; font-size: 15px; font-weight: 700; background: url(../images/new/torggle_close.png) no-repeat center right; margin: 0 auto;}
+
+.set_content .set_content_02{background-color: #fff; line-height: 40px; margin: 10px auto;}
+.set_content .set_content_02 .set_content_01_a0_0{
+	display: block;
+	width: 90%;
+	margin: 0 auto;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #DEDEDE;
+	background: transparent url("../images/new/d_black_right.png") no-repeat scroll 95% 50%;
+	font-size: 14px;
+	font-weight: 700;
+	text-indent: 1em;
+}
+.set_content .set_content_02 .set_content_01_a0{
+	display: block;
+	width: 90%;
+	margin: 0 auto;
+	height: 50px;
+	line-height: 50px;
+	background: transparent url("../images/new/d_black_right.png") no-repeat scroll 95% 50%;
+	font-size: 14px;
+	font-weight: 700;
+	text-indent: 1em;
+}
+
+.set_content_03{width: 80%; height: 50px; line-height: 50px; text-align: center;
+	
+	font-size: 16px;
+	font-weight: 700;
+	margin: 10px auto;
+}
+.set_content_03 a{
+	display: block;
+	height: 100%;
+	width: 100%;
+	color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

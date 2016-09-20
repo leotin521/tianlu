@@ -1,0 +1,88 @@
+<include file="Public:_header" />
+<style type="text/css">
+.alertDiv { margin: 0px auto; background-color: #FEFACF; border: 1px solid green; line-height: 25px; background-image: url(__ROOT__/Style/M/images/info/001_30.png); background-position: 20px 4px; background-repeat: no-repeat; }
+.alertDiv li { margin: 5px 0; list-style-type: decimal; color: #005B9F; padding: 0px; line-height: 20px; }
+.alertDiv ul { text-align: left; list-style-type: decimal; display: block; padding: 0px; margin: 0px 0px 0px 75px; }
+</style>
+<tagLib name="htmlA" />
+<div class="so_main">
+  <div class="page_tit">公安部实名验证接口管理</div>
+
+  <div class="page_tab"><span data="tab_1">公安部实名验证</span></div>
+    <div class="alertDiv">
+	  <ul>
+		<li>当您需要开启公安部实名验证或实名验证费用不足时，可联系工作人员充值购买！</li>
+		<li>购买联系方式：&nbsp;&nbsp;QQ：2851336116&nbsp;&nbsp;&nbsp;&nbsp;电话：13263413312</li>
+	  </ul>
+  </div>
+  <div class="form2">
+   <form method="post" action="__URL__/save" >
+      <div id="tab_1">
+		<dl class="lineD" >
+          <dt>是否启用：</dt>
+          <dd>
+			<htmlA:radio id="enabled" name="enabled" datakey="type_list" value="key|id5_config.enabled"/>
+          </dd>
+        </dl>
+		<div id="close">
+          <dl class="lineD">
+            <dt>当前服务状态:</dt>
+            <dd>关闭</dd>
+          </dl>
+          <dl class="lineD">
+            <dt>友情提示:</dt>
+            <dd>当您停止服务时，系统将无法通过公安部实名认证对会员进行身份认证！</dd>
+          </dl>
+        </div>
+	  <div id="Balance">
+		<dl class="lineD" >
+			<dt>账户余额：</dt>
+			<dd>
+				剩余条数:<font style="color:green;font-size:18px;">{$SimpleBalance|default=0}</font>条&nbsp;&nbsp;|&nbsp;&nbsp;<font style="color:#005B9F;font-size:14px;">{$Errmsg}</font>
+			</dd>
+		</dl>
+        <dl class="lineD">
+			<dt>用户名：</dt>
+			<dd>
+				<htmlA:input id="account_name" value="{$id5_config.account_name}" />
+			</dd>
+		</dl>
+		<dl class="lineD">
+			<dt>密码：</dt>
+			<dd>
+				<input type="password" name="account_password" id="account_password" value="{$id5_config.account_password}" class="input" />
+			</dd>
+		</dl>
+		</div>
+      </div>
+      <div class="page_btm">
+        <input type="submit" class="btn_b" value="确定" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<script language=javascript type="text/javascript" >
+$(document).ready(function() {
+	var b_type = $(":input[name='enabled']:checked").val();
+	if(b_type==1){
+		$("#Balance").show(); 
+		$("#close").hide();
+	}else{ 
+		$("#Balance").hide();
+		$("#close").show();
+	}
+});
+$(function(){
+   $(":input[name='enabled']").click(function(){
+  if($(this).attr("value")=="1"){
+		$("#Balance").show(); 
+		$("#close").hide();
+  }else{
+		$("#Balance").hide();
+		$("#close").show();
+  }
+ });
+});
+</script>
+<include file="Public:_footer" />

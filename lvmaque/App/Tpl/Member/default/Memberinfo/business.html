@@ -1,0 +1,291 @@
+<tagLib name="htmlA" />
+<script src="/Style/Js/jquery.validate.js"></script>
+<script src="/Style/Js/jquery.validate.cn.js"></script>
+<form action="__URL__/business" method="post" id="signupForm" name="form">
+<table cellspacing="0" cellpadding="0" id="formTb" style="width: 100%; float: left; margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+	<tbody><tr class="trBg">
+		<td class="tdTitle">
+			企业名称：
+		</td>
+		<td class="tdContent">
+				<htmlA:input id="business_name" value="{$vo.business_name}" class="text2"/>
+		</td>
+		<td id="dv_monthin" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			注册号：
+		</td>
+        <td class="tdContent">
+            <htmlA:input id="bianhao" value="{$vo.bianhao}" addstr='onkeyup="NumberCheck(this);"' class="text2"/>
+        </td>
+		<td id="dv_incomedes" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			法人代表：
+		</td>
+		<td class="tdContent">
+				<htmlA:input id="legal_person" value="{$vo.legal_person}" addstr='onkeyup="NumberCheck(this);"' class="text2"/>
+		</td>
+		<td id="dv_monthout" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			身份证号：
+		</td>
+        <td class="tdContent">
+            <htmlA:input id="idcard" value="{$vo.idcard}" addstr='onkeyup="NumberCheck(this);"' class="text2"/>
+        </td>
+		<td id="dv_outdes" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			注册资金：
+		</td>
+		<td class="tdContent">
+				<htmlA:input id="registered_capital" value="{$vo.registered_capital}" class="text2" tip="单位：元"/>
+		</td>
+		<td id="dv_housevalue" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			所在地：
+		</td>
+		<td class="user-info-value">
+			    <span class="select-style-1">
+			    <select name="province" id="province" onchange="sel('province','city')" style="width:88px">
+			    <option>请选择</option>
+			    <volist name="province" id="pro">
+			    	<if condition="$pro.id eq $sheng">
+			    		<option value="{$pro.id}" selected>{$pro.name}</option>
+			    	<else />
+			    		<option value="{$pro.id}">{$pro.name}</option>
+			    	</if>	
+			    </volist>
+			    </select>
+			    <select id="city" name="city" onchange="sel('city','')" style="width:88px">
+			    <option value="">请选择</option>
+			    <volist name="city_list" id="ci">
+			    	<if condition="$ci.id eq $shi">
+			    		<option value="{$ci.id}" selected>{$ci.name}</option>
+			    	<else />
+			    		<option value="{$ci.id}">{$ci.name}</option>
+			    	</if>	
+			    </volist>
+			    </select>
+			    		<htmlA:input id="city3" value="{$vo.city}" class="text2" style="height:28px"/>
+			    </span>
+			    
+	    	</td>
+		<!-- <td class="tdContent">
+            <htmlA:input id="city" value="{$vo.city}" class="text2"/>
+		</td>
+		<td id="dv_car" class="tdTip">
+		</td> -->
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			借款金额：
+		</td>
+		<td class="tdContent">
+				<htmlA:input id="bid_money" value="{$vo.bid_money}" class="text2" tip="万元"/>
+		</td>
+		<td id="dv_carvalue" class="tdTip">
+		</td>
+	</tr>
+    <tr>
+        <td class="tdTitle">
+            周期：
+        </td>
+        <td class="tdContent">
+            <htmlA:input id="bid_duration" value="{$vo.bid_duration}" class="text2" tip="月"/>
+        </td>
+        <td id="dv_durationvalue" class="tdTip">
+        </td>
+    </tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			借款用途：
+		</td>
+        <td style="height: 100px;" class="tdContent">
+            <htmlA:text style="height:80px;width:423px;" id="use_type" value="{$vo.use_type}" class="textarea1"/>
+        </td>
+		<td id="dv_StockCompany" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			还款来源：
+		</td>
+        <td style="height: 100px;" class="tdContent">
+            <htmlA:text style="height:80px;width:423px;" id="repay_source" value="{$vo.repay_source}" class="textarea1"/>
+        </td>
+	</tr>
+	<tr>
+		<td>&nbsp;
+		</td>
+		<td style="height: 50px;">
+			<input class="btn-style-3 allbgcolor"  id="businessBtn" type="submit" style="margin-top: 5px; cursor: pointer;" value="保存">
+		</td>
+		<td id="xx" class="tdTip">
+		</td>
+	</tr>
+</tbody>
+</table>
+</form>
+<script type="text/javascript">
+function sel(aid,bid) {
+	var pid=$("#"+aid).val();
+	$.ajax({
+		url:"__URL__/sele",
+		type:"post",
+		data:{"pid":pid},
+		success:function(e){
+			var o=eval("("+e+")");
+			var str="<option value=''>请选择</option>";
+			for(var a in o){
+				str=str+"<option value='"+o[a].id+"'>"+o[a].name+"</option>";
+			}
+			$("#"+bid).html(str);
+		}
+	})
+}
+    $.validator.setDefaults({
+        submitHandler: function() {
+            document.form.submit();
+        }
+    });
+
+    $().ready(function() {
+        jQuery.validator.addMethod("zhStr", function(value, element) {
+            var zhReg = /^[\u4e00-\u9fa5]+$/;
+            var info ='';
+            return this.optional(element) || (zhReg.test(value));
+        }, '只能为中文字符');
+        jQuery.validator.addMethod("dReg", function(value, element) {
+            var dReg = /^[0-9]+$/;
+            var info ='';
+            return this.optional(element) || (dReg.test(value));
+        }, '只能为数字');
+        jQuery.validator.addMethod("isIDCard2", function(value, element) {
+            var isIDCard2=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            var info ='';
+            return this.optional(element) || (isIDCard2.test(value));
+        }, '身份证号有误');
+
+        // validate signup form on keyup and submit
+        $("#signupForm").validate({
+            rules: {
+                business_name: {
+                    required: true,
+                    zhStr:true,
+                    minlength: 5
+                },
+                bianhao: {
+                    required: true,
+                    dReg: true,
+                    minlength: 5
+                },
+                legal_person: {
+                    required: true,
+                    zhStr: true,
+                    minlength: 2,
+                    maxlength: 6
+                },
+                idcard: {
+                    required: true,
+                    isIDCard2: true
+                },
+                registered_capital: {
+                    required: true,
+                    digits: true,
+                    minlength: 2,
+                    maxlength: 15
+                },
+                /* city: {
+                    required: true,
+                    minlength: 2,
+                    zhStr:true
+                }, */
+                bid_money: {
+                    required: true,
+                    digits: true,
+                    minlength: 2,
+                    maxlength: 9
+                },
+                bid_duration: {
+                    required: true,
+                    digits: true,
+                    minlength: 1,
+                    maxlength: 6
+                },
+                use_type: {
+                    required: true,
+                    minlength: 15,
+                    maxlength: 200
+                },
+                repay_source: {
+                    required: true,
+                    minlength: 15,
+                    maxlength: 200
+                }
+            },
+            messages: {
+                business_name: {
+                    required: "企业名称不能为空",
+                    minlength: "至少5个字符"
+                },
+                bianhao: {
+                    required: "注册号不能为空",
+                    minlength: "至少5个字符"
+                },
+                legal_person: {
+                    required: "法人代表不能为空",
+                    minlength: "至少2个字符",
+                    maxlength: "至多6个字符"
+                },
+                idcard: {
+                    required: "身份证号不能为空",
+                    minlength: "至少15个字符",
+                    maxlength: "至多18个字符"
+                },
+                registered_capital: {
+                    required: "注册资金不能为空",
+                    minlength: "至少2个字符",
+                    maxlength: "至多15个字符"
+                },
+                city: {
+                    required: "所在城市不能为空",
+                    minlength: "至少2个字符"
+                },
+                bid_money: {
+                    required: "借款金额不能为空",
+                    minlength: "至少2个字符",
+                    maxlength: "至多9个字符"
+                },
+                bid_duration: {
+                    required: "周期不能为空",
+                    minlength: "至少1个字符",
+                    maxlength: "至多6个字符"
+                },
+                use_type: {
+                    required: "借款用途不能为空",
+                    minlength: "至少15个字符",
+                    maxlength: "至多200个字符"
+                },
+                repay_source: {
+                    required: "还款来源不能为空",
+                    minlength: "至少15个字符",
+                    maxlength: "至多200个字符"
+                }
+            }
+        });
+
+    });
+</script>

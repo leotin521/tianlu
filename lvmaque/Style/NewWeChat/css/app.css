@@ -1,0 +1,109 @@
+/*
+ *本文件整站通用
+ *
+ * 
+ *命名规则
+ * .am- 开头的为amazeui 默认组件	
+ *	
+ *	.mod- 开头为自定义组件
+ *	原则上，不需使用常用单词如 money loan tit 为class 直接覆盖样式，会导致重名样式冲突，
+ *	请从上一层模块选择器开始定义
+	
+
+*/
+
+/*全局设置，覆盖掉amazeui的默认样式*/
+body{background-color: #F1EEEE;}
+a{color: #333;}
+a:hover,a:active{color: #FA4343;}
+.c-blue{color: #35b5d8;}
+.c-red{color: #fa4343;}
+li{ list-style:none;}
+.bg-white{background-color: #fff;}
+
+
+
+/*设置常用字体大小*/
+.num{font-size: 2rem;}
+.num.num-xlg{font-size: 8rem;}
+.num.num-lg{font-size: 4rem;}
+.num.num-md{font-size: 3rem;}
+.num.num-um{font-size: 2.5rem;}
+.num.num-sm{font-size: 2rem;}
+.num.num-lt{font-size:1.8rem;}
+.num.num-zt{font-size:1.6rem;}
+.num.num-yt{ font-size:1.4rem;}
+
+/* 通用按钮大小 */
+.am-btn-xl{font-size:1.8rem;padding:1rem 0}
+
+input.input-inline{display:inline !important;float:none !important}
+.am-table th{text-align:center;font-weight:400}
+.am-table td{text-align:center}
+.am-form-content-text{padding-top:.6rem;vertical-align:middle}
+
+.am-icon-toggle-on{color:#FA4343}
+.am-icon-toggle-off{color:#999}
+/*设置layout 样式*/
+.m1e0{margin: 1em 0;}	
+.block-90{height: 90px;width: 100%;}
+.textlayout{ text-align:center;border: 1px solid #c9c9c9;border-left: none;border-bottom: none; background:#f1eeee;}
+.textlayout a{ color:#fa4343;}
+
+/* 整个页面背景色 */
+body.page-bg-white{background:#fff}
+/*通用组件*/
+	/* header 网站通用 */
+	header{position: relative;background-color: #FA4343;overflow: hidden;}
+	header h1{color: #fff;font-size: 20px; ;line-height: 2.5;font-weight: 400;text-align: center;margin-bottom: 0;}
+	header a.btn{position: absolute;top: 0;width: 40px;height: 50px;text-align: center;font-size: 1rem;line-height: 50px;color: #fff;}
+	header a.btn i{font-size: 2rem;padding-top:.2rem;}
+	header a.btn-goback{left: 0}
+	header a.btn-member{right:0;}
+	header a.btn-message{right:0;}
+
+
+	/*底部固定导航*/
+	.fixed-footer{width:100%;position: fixed;text-align: center;bottom: 0;background-color: #F0F0F0;border-top: 2px solid #838383;}
+	.fixed-footer a{padding: .1em 0;color: #646464;display: block;width: 100%;height: 100%;font-size: 1.4rem;}
+	.fixed-footer .active a{color: #FF0000;}
+	.fixed-footer a:active{color: #FF0000;}
+	.fixed-footer span{display: block;width: 32px;height: 32px;margin:0 auto;}
+	.fixed-footer .fixedbar-home span{background: url(../images/icon-home.png?__sprite) no-repeat center center;}
+	.fixed-footer .fixedbar-home.active span{background: url(../images/icon-home-active.png?__sprite) no-repeat center center;}
+
+	.fixed-footer .fixedbar-invest span{background: url(../images/icon-graphic.png?__sprite) no-repeat center center;}
+	.fixed-footer .fixedbar-invest.active span{background: url(../images/icon-graphic-active.png?__sprite) no-repeat center center;}
+
+	.fixed-footer .fixedbar-account span{background: url(../images/icon-bag.png?__sprite) no-repeat center center;}
+	.fixed-footer .fixedbar-account.active span{background: url(../images/icon-bag-active.png?__sprite) no-repeat center center;}
+
+	.fixed-footer .fixedbar-more span{background: url(../images/icon-more.png?__sprite) no-repeat center center;}
+	.fixed-footer .fixedbar-more.active span{background: url(../images/icon-more-active.png?__sprite) no-repeat center center;}
+
+
+
+
+/*定制导航*/
+.menu-customize .am-menu-toggle{top: -40px;visibility:hidden}
+.am-menu-dropdown1 .am-menu-nav > li > a{background-color: #fff;color: #666;border-bottom: 1px solid #ccc;}
+.am-menu-dropdown1 .am-menu-nav > li > a:active{color: #FA4343;}
+.am-menu-dropdown1 .am-menu-nav > li > a.selected img{margin:1.6rem 1rem 0 0}
+.am-menu-dropdown1 .am-menu-nav > li.menu-item{position: relative;}
+
+/*新增media 布局，参照bootstrap*/
+.mod-media:after{content: "";display: table;clear: both;line-height: 0;}
+.mod-media .mod-media-object{float: left;padding-right: 1rem;}
+.mod-media .media-body{overflow: hidden;}
+
+/*弹出框样式*/
+.am-modal-hd{position: relative;padding: 0;background-color: #FA4343;color: #fff;font-size: 2rem;line-height: 4rem;text-align: center;}
+.am-modal-hd .btn{background-color: #FA4343;color: #fff;position: absolute;height: 4rem;line-height: 4rem;padding: 0 10px;font-size: 2rem;}
+.am-modal-hd .btn:active{background-color: #C82828;}
+
+.am-modal-hd .btn-do{right: 0;top: 0;}
+.am-modal-hd .btn-cancel{left: 0;top: 0;}
+ul {list-style: none;}
+ul li{text-align: left;}
+
+

@@ -1,0 +1,160 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<style type="text/css">
+.sel_fs{width:110px}
+</style>
+<!--调试内容开始-->
+<!--<pre><php>var_dump($_SERVER);</php></pre>-->
+<!--调试内容结束-->
+<div class="so_main">
+
+<div class="page_tit">修改会员</div>
+<div class="page_tab"><span data="tab_1" class="active">基本信息</span><span data="tab_2">基本资料</span><span data="tab_3">银行卡信息</span><span data="tab_4">紧急联系人信息</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/doEdit" onsubmit="return subcheck();">
+	<input type="hidden" name="id" value="{$vo.id}" />
+	<input type="hidden" name="uid" value="{$vo.id}" />
+	
+	<div id="tab_1">
+<dl class="lineD"><dt>会员类型：</dt><dd>
+    <volist name="member_type" id="vb">
+        <input type="radio" name="is_transfer" value="{$key}" id="is_transfer_{$key}" <if condition="$vo['is_transfer'] eq $key">checked="checked"</if> >
+        <label for="is_transfer_{$key}">{$vb}</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    </volist>
+    <span id="tip_is_transfer" class="tip">普通会员不能进行借款</span>
+</dd>
+</dl>
+	<dl class="lineD"><dt>是否冻结：</dt><dd><htmlA:radio id="is_ban" default="0|否,1|是,2|登录次数超限，已锁定" value="key|vo.is_ban" tip="锁定或者冻结后会员不能登录，须联系客服处理"/></dd></dl>
+	<dl class="lineD"><dt>是否允许发布借款：</dt><dd><htmlA:radio id="is_borrow" default="0|否,1|是" value="key|vo.is_borrow" tip="会员只有被允许发布借款时，才可以发标"/></dd></dl>
+	<!-- <dl class="lineD"><dt>客户类型：</dt><dd><htmlA:radio id="user_type" datakey="utype" value="key|vo.user_type"/></dd></dl> -->
+	<dl class="lineD"><dt>客服ID：</dt><dd><htmlA:input id="customer_id"  value="{$vo.customer_id}"/></dd></dl>
+	<dl class="lineD"><dt>新密码：</dt><dd><input name="user_pass" id="user_pass" class="input" type="password" value=""><span id="tip_user_pass" class="tip">如不修改则留空</span></dd></dl>
+	<dl class="lineD"><dt>确认新密码：</dt><dd><input name="re_user_pass" id="re_user_pass" class="input" type="password" value=""><span id="tip_re_user_pass" class="tip">如不修改则留空</span></dd></dl>
+	<dl class="lineD"><dt>新支付密码：</dt><dd><input name="pin_pass" id="pin_pass" class="input" type="password" value=""><span id="tip_pin_pass" class="tip">如不修改则留空</span></dd></dl>
+	<dl class="lineD"><dt>确认支付密码：</dt><dd><input name="re_pin_pass" id="re_pin_pass" class="input" type="password" value=""><span id="tip_re_pin_pass" class="tip">如不修改则留空</span></dd></dl>
+
+	</div><!--tab1-->
+
+	<div id="tab_2" style="display:none">
+	<dl class="lineD"><dt>会员名：</dt><dd><htmlA:input id="user_name"  value="{$vo.user_name }"/></dd></dl>
+	<dl class="lineD"><dt>真实姓名：</dt><dd><htmlA:input id="real_name"  value="{$vo.real_name}"/></dd></dl>
+	<dl class="lineD"><dt>身份证号：</dt><dd><htmlA:input id="idcard"  value="{$vo.idcard}"/></dd></dl>
+	<dl class="lineD"><dt>手机号码：</dt><dd><htmlA:input id="user_phone"  value="{$vo.user_phone}"/></dd></dl>
+	<dl class="lineD"><dt>会员邮箱：</dt><dd><htmlA:input id="user_email" value="{$vo.user_email}" /></dd></dl>
+	<dl class="lineD"><dt>地址：</dt><dd><htmlA:input id="address" value="{$city.address}" /></dd></dl>
+	<dl class="lineD"><dt>职业：</dt><dd><htmlA:input id="profession" value="{$city.profession}" /></dd></dl>
+	<!--//////////////////////////////////////////////-->
+	<dl class="lineD"><dt>身份证正面图片：</dt><dd><div style="text-align:left; clear:both; overflow:hidden; width:290px; height:100px"><div id="imgDiv"></div><if condition="$vo.card_img eq ''">无缩略图<else/><img src="__ROOT__/{$vo.card_img}" width="100" height="100" /></if></div>
+	</dd></dl>
+	<dl class="lineD"><dt>身份证反面图片：</dt><dd><div style="text-align:left; clear:both; overflow:hidden; width:290px; height:100px"><div id="imgDiv"></div><if condition="$vo.card_back_img eq ''">无缩略图<else/><img src="__ROOT__/{$vo.card_back_img}" width="100" height="100" /></if></div>
+	</dd></dl>
+<!--//////////////////////////////////////////////-->
+	</div><!--tab1-->
+	
+	<!-- 紧急联系人 -->
+	<div id="tab_4" style="display:none">
+	<dl class="lineD"><dt>紧急联系人姓名：</dt><dd><htmlA:input id="em_name" value="{$vo.em_name}" tip="如不修改则留空" /></dd></dl>
+	<dl class="lineD"><dt>紧急联系人手机号码：</dt><dd><htmlA:input id="em_phone" value="{$vo.em_phone}" tip="如不修改则留空"/></dd></dl>
+	<dl class="lineD"><dt>与紧急联系人关系：</dt><dd>
+	<select name="em_relation" id="em_relation">
+		<option value="">请选择</option>
+		<foreach name="relation" item="rel" key="key">
+			<if condition="$vo.em_relation eq $key ">
+			<option value="{$vo.em_relation}" selected >{$rel}</option>
+			<else />
+            <option value="{$key}">{$rel}</option>
+            </if>
+        </foreach>
+	</select>
+	</dd></dl>
+	</div><!--tab1-->
+	<!-- 紧急联系人 -->
+	
+	<!--银行卡信息-->
+	<div id="tab_3"  style="display:none">
+	<if condition="$list neq '' ">
+	<foreach name="list" item="it" key="key">
+		<dl id="del_{$it.id}"><dt>银行账号&nbsp;{$key+1}：</dt><dd>{$it.bank_num}&nbsp;&nbsp;&nbsp;&nbsp;{$it.bank_name}&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="butt" value="修改" onclick="upcheck({$it.id},{$it.uid})" /><input type="button" name="delet" value="删除" onclick="dele({$it.id},{$it.uid})" /></dd></dl>
+	</foreach>
+	<else />
+	</if>
+	<dl><dt>添加银行卡：</dt><dd><input type="button" name="butt" value="添加" onclick="upcheck(0,{$vo.id})" /></dd></dl>
+	</div>
+	<!--银行卡信息-->
+	<div class="page_btm">
+        <input type="hidden" name="user_id" value="{$vo.id}" />
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+function subcheck(){
+	var pass = $("#user_pass").val();
+	var re_pass = $("#re_user_pass").val();
+	if( (pass!=""||re_pass!="") && re_pass!=pass){
+		ui.error("新密码和确认密码不能相同，如不修改则都留空");
+		return false;
+	}
+	var pin = $("#pin_pass").val();
+	var re_pin = $("#re_pin_pass").val();
+	if( (pin!=""||re_pin!="") && re_pin!=pin){
+		ui.error("新支付密码和确认支付密码不相同，如不修改则都留空");
+		return false;
+	}
+	return true;
+}
+//update
+function upcheck(id,uid){
+	$.ajax({
+		   type: "get",
+		   url: "__URL__/bankEdit",
+		   data: {'id':id, 'uid':uid },
+		   success: function(msg){
+			   $(".page_btm").hide();
+		     $("#tab_3").html(msg);
+		   }
+		});
+}
+//liandong
+function sel(aid,bid) {
+	var pid=$("#"+aid).val();
+	$.ajax({
+		url:"__URL__/sele",
+		type:"post",
+		data:{"pid":pid},
+		success:function(e){
+			var o=eval("("+e+")");
+			var str="<option value=''>请选择</option>";
+			for(var a in o){
+				str=str+"<option value='"+o[a].id+"'>"+o[a].name+"</option>";
+			}
+			$("#"+bid).html(str);
+		}
+	})
+}
+//delete
+function dele(id,uid){
+	if(!confirm('删除后不可恢复，确定要删除吗？')) return;
+	$.ajax({
+		url:'__URL__/bankdel',
+		data:{'id':id,'uid':uid},
+		type:'post',
+		dataType:'json',
+		success:function(d,s,r){
+			if(d){
+				if(d.status==1){
+					alert(d.message);
+					$("#del_"+id).remove();
+				}else{
+					ui.error(d.message);
+					return false;
+				}
+			}
+		}
+	})
+}
+</script>
+</div>
+<include file="Public:_footer" />

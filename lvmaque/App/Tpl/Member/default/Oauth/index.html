@@ -1,0 +1,252 @@
+<include file="default:Public:_header_common" group="Home" />
+<title>用户登录-- {$glo.web_name}</title>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/M/css/login.css" />
+<style type="text/css">
+a.new_hover:hover { color: #005B9F; }
+body { margin: 0; _height: 100%; }
+#dvInvote a { font-size: 12px; text-decoration: underline; }
+#Img1, #imVcode { cursor: pointer; }
+#imVcode { float: left; height: 35px; width: 150px; cursor: hand; }
+.dv_header_8 { background-image: url(); height: 10px; }
+.dv_l_4 { margin-top: 10px; height:36px; }
+.dv_left { background-image: url(__ROOT__/Style/M/images/login_left_bg.jpg); background-repeat: no-repeat; width: 412px; height: 453px; float: left; }
+.dv_right {width: 540px; height:480px; float: right;}
+.content { width: 980px; margin: 10px auto; border:1px solid #CCC }
+
+
+.user_tit{
+    width:900px;
+    margin:0 auto;
+    border-bottom: #CCCCCC solid 1px;
+    height: 60px;
+    line-height: 35px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top:10px;
+    text-indent: 15px;
+    padding-bottom: 0px;
+    font-size: 14px;
+}
+.user_left {
+    float: left;
+    width: 550px;
+    margin-left:60px;
+}
+.pl2 {
+    color: #666666;
+    font-size: 14px;
+    line-height: 35px;
+}
+#signupform table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    empty-cells: show;
+    line-height: 45px;
+}
+#signupform .label {
+    padding-right: 8px;
+    text-align: right;
+    width: 25px;
+    white-space: nowrap;
+    font-size: 14px;
+}
+.uinput {
+    margin-top: 0px;
+    padding: 2px;
+    height: 24px;
+    line-height: 24px;
+    color: #49880d;
+    font-size: 14px;
+}
+
+.aside {
+    float: right;
+    width: 350px;
+}
+
+a.submit:link, a.submit:visited, a.submit:hover, .submit:hover {
+    background-color: #63AB1A;
+    border: 1px solid #50950E;
+    border-radius: 3px;
+    color: #FFFFFF;
+    cursor: default;
+    display: inline-block;
+    padding: 3px 10px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.submit {
+    background-color: #6dbc1d;
+    border: 1px solid #5aa710;
+    border-radius: 3px;
+    color: #FFFFFF;
+    cursor: default;
+    display: inline-block;
+    padding: 3px 10px;
+    text-align: center;
+    cursor: pointer;
+}
+.reg_ok {
+    font-size: 12px;
+    color: #339966;
+    padding-left: 2px;
+    line-height: 22px;
+}
+</style>
+<script type="text/javascript">
+var imgpath="__ROOT__/Style/M/";
+var curpath="__URL__";
+</script>
+<include file="default:Public:_header_main" group="Home"/>
+<!--中部开始-->
+    <div class="content" style="width:980px; height:484px;">
+        <div class="user_tit">
+           <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td width="60"><img src="{$user.img}" width="50" height="50"></td>
+                        <td style="line-height:22px; padding-top:5px" valign="top">
+                            <p>亲爱的 {$nickname}</p><p>欢迎通过 <img src="/Style/H/images/{$user.type_img}"> 来到{$glo.web_name}！</p>
+                        </td>
+                    </tr>
+                </tbody>
+           </table>
+        </div>
+        
+        <div class="user_left">
+            <p class="pl2">&gt; 没有{$glo.web_name}账号？填写资料马上拥有！</p>
+            <form id="signupform" method="POST" action="">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="Tabletext">
+                    <tbody>
+                        <tr>
+                            <td class="label"><label id="email" for="email">Email：</label></td>
+                            <td class="field" width="300"><input class="uinput" id="txtEmail" name="txtEmail" type="email" value="" placeholder="请输入Email" autofocus=""></td>
+                            <td class="status" id="dvEmail"></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><label>用户名：</label></td>
+                            <td class="field"><input class="uinput valid" type="text" id="txtUser" name="txtUser" value="{$nickname}"></td>
+                            <td class="status" id="dvUser"></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><label>密码：</label></td>
+                            <td class="field"><input class="uinput valid" type="password" id="txtPwd" name="txtPwd" value=""></td>
+                            <td class="status" id="dvPwd"></td>
+                        </tr>
+                        <tr>
+                            <td class="label"></td>
+                            <td class="field">
+                            
+                            <input class="submit" type="button" id="registr" onclick="jfun_bind()" value="好了，保存吧" style="margin-top:8px">
+                            
+                            </td>
+                            <td class="status"></td>
+                        </tr>
+                        <tr>    
+                            <td class="label"><br></td>
+                            <td class="field"><br></td>
+                            <td class="status"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+
+        <div class="aside">
+            <p class="pl2">&gt; 已有{$glo.web_name}帐号？马上绑定！</p>
+            <form id="signupform" method="POST" action="">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="Tabletext">
+                    <tbody>
+                        <tr>
+                            <td class="label"><label  for="email">用户名：</label></td>
+                            <td class="field" width="300"><input class="uinput" id="a_user" name="a_user" type="email" value="" placeholder="请输入用户名" autofocus=""></td>
+                            <td class="status"></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><label>登录密码：</label></td>
+                            <td class="field"><input class="uinput" type="password" id="a_password" name="a_password"></td>
+                            <td class="status"></td>
+                        </tr>
+                        <tr>    
+                            <td class="label"></td>
+                            <td class="field"><input class="submit" type="button" onclick="jfun_bindOld()" value="好了，保存吧" style="margin-top:8px"></td>
+                            <td class="status"></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><br></td>
+                            <td class="field"><br></td>
+                            <td class="status"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function jfun_bindOld(){
+        var uname = $("#a_user").val();
+        var pass= $("#a_password").val();
+        if(uname=="" || pass==""){
+            layer.msg('用户名和密码不能为空！', {icon: 0});
+            return false;
+        }
+        layer.msg('提交中...', {icon: 16});
+        $.ajax({
+            url: "/Member/oauth/appbindold/",
+            data: {"uname":uname,"pass":pass},
+            timeout: 5000,
+            cache: false,
+            type: "post",
+            dataType: "json",
+            success: function (d, s, r) {
+                if(d){
+                    if(d.status==1){
+                        window.location.href="/member/";
+                    }else{
+						layer.msg(d.message, {icon: 2}); 
+						return false;
+					}
+                }
+            }
+        });
+    }
+
+
+    function jfun_bind(){
+        
+        var uname = $("#txtUser").val();
+        var pass= $("#txtPwd").val();
+        var email= $("#txtEmail").val();
+        var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if(!reg.test(email)){
+		 	layer.msg('email格式不正确！', {icon: 2});
+            return false;
+        }
+        if(uname=="" || pass==""){
+            layer.msg('用户名和密码不能为空！', {icon: 0});
+            return false;
+        }
+        layer.msg('提交中...', {icon: 16});
+        $.ajax({
+            url: "/Member/oauth/appbind/",
+            data: {"uname":uname,"pass":pass,"email":email},
+            timeout: 5000,
+            cache: false,
+            type: "post",
+            dataType: "json",
+            success: function (d, s, r) {
+                if(d){
+                    if(d.status==1){
+                        window.location.href="/member/";
+                    }else{
+						layer.msg(d.message, {icon: 2}); 
+						return false;
+					}
+                }
+            }
+        });
+    }
+    </script>
+<include file="default:Public:_footer" group="Home" />

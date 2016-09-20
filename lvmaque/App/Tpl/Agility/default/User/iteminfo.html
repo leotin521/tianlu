@@ -1,0 +1,428 @@
+<include file="default:Public:_header_common" group="Member"/>
+<style type="text/css">
+.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}
+.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}
+.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}
+.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}
+.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style><style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}
+.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}
+.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}
+.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}
+.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}
+</style><style id="poshytip-css-tip-yellow" type="text/css">
+div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}
+div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}
+div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellow td.tip-right{background-position:100% 0;}
+div.tip-yellow td.tip-bottom{background-position:100% 100%;}div.tip-yellow td.tip-left{background-position:0 100%;}div.tip-yellow div.tip-inner{background-position:-10px -10px;}
+div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}
+</style>
+<script type="text/javascript">
+    //初始化
+    $(document).ready(function(){
+        $(".fmt_money").each(function(){ fmtMoney($(this)); });
+        $(".pro_tips-1").tip({ words_per_line: 1e3 });
+    });
+</script> 
+<link rel="stylesheet" type="text/css" href="/Style/M/css/agility.css" />
+<script  src="/Style/JBox/jquery.jBox.min.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/Style/JBox/Skins/Currently/jbox.css"/>
+
+</head>
+<body>
+<include file="default:Public:_header_main" group="Member"/>
+
+<div class="user-page">
+    <div class="user-main clearfix">
+        <include file="default:Public:_left" group="Member"/>
+        <div class="user-con">  
+            <div class="shuhui user-box-1 user-integral">
+                <div class="user-box-title-1 clearfix" style="position:relative;">
+                    <H2>{$bao_info.name}</H2>                    
+                </div>
+				<style type="text/css">
+				.fl{float:left;}
+				.Clr{clear:both;}
+				.lhb_body{margin: 20px 25px;width:765px;}
+				.lhb_fir{height:40px;line-height:40px;background:#e25453;width:765px;color:#fff;font-size:15px;}
+				.lhb_fir h2{float:left;margin-left:15px;}
+				.lhb_fir a{display:block;float:right;margin-right:15px;height:40px;line-height:40px;color:#fff;}
+				.lhb_sec table{margin:20px 0px;float:left;}
+				.lhb_sec table tr td{height:30px;width:190px;text-align:center;font-size:13px;}
+				.lhb_sec table tr td span{font-size:20px;color:#e25453;}
+				.lhb_fgx{background:url(__ROOT__/Style/H/images/hlb_fgx.png) no-repeat;height:76px;width:1px; float:left;margin-top: 10px;}
+				.lhb_three{width:765px;border:1px solid #efefef;height:150px;}
+				.lhb_three table{width:382px;float:left;margin:10px 0px;}
+				.lhb_three table tr td{width:382px;text-align:center;height:30px;font-size:15px;}
+				.lhb_three_fgx{border-right:1px solid #efefef;height:150px;float:left;}
+				.lhb_tqsh{margin-left:100px;width:180px;height:30px;text-align:center;line-height:30px;background:#e25453;display:block;color:#fff;}
+				.lhb_tqsh:hover{color:#fff;}
+				.lhb_four{width:765px;margin:20px 0px;}
+				.lhb_four_01{height:40px;line-height:40px;background:#e25453;font-size:15px;color:#fff;}
+				.lhb_four_01 h2{float:left;margin-left:20px;display:block;}
+				.lhb_four_01 h3{float:right;margin-right:20px;color:#fff;display:block;}
+				.lhb_four table{width:765px;border:1px solid #e0e0e0;}
+				.lhb_four table tr{height:30px;line-height:30px;}
+				.lhb_four table tr td{width:153px;text-align:center;}
+				#hlb_tqsh_tcshow{position: absolute;width:350px;height:150px;top:400px; left:40%;background:#fff;z-index:999;border: 1px solid #e0e0e0;}
+				#hlb_tqsh_tcshow h2{height:30px;line-height:30px;width:350px;background:#e25453;}
+				#hlb_tqsh_tcshow h2 a{line-height: 30px;display: block;width: 50px;height: 30px;background: #ccc;text-align: center;float: right;}
+				#hlb_tqsh_tcshow h2 span{line-height: 30px;display: block;width: 280px;height: 30px;color:#fff;padding-left:20px;float: left;}
+				#popDiv{}
+				.sh_content{margin:20px;}
+				.sh_content table tr td{height:30px;line-height:30px;font-size:13px;}
+				.sh_content table tr td a{display:block;height:30px;line-height:30px;width:80px;text-align:center;background:#e25453;color:#fff;margin-left:10px;}
+				</style>
+				
+				<div class="lhb_body">
+					<div class="lhb_fir">
+						<h2>{$bao_info.batch_no}</h2>											
+						<a href="__ROOT__/member/agreement/flexible?id={$bao_info.batch_no}">
+							<img src="__ROOT__/Style/H/images/lhb_xqimg.png" height="14" width="16" style=" vertical-align: middle;"/>
+							投资协议
+						</a>						
+						<div class="Clr"></div>
+					</div>
+					<div class="lhb_sec">
+						<table>
+							<tr>
+								<td>在投金额：</td>
+							</tr>
+							<tr>
+								<td><span>{$bao_invest.money|default="0.00"}</span>元</td>
+							</tr>
+						</table>
+						<div class="lhb_fgx"></div>						
+						<table>
+							<tr>
+								<td>年化收益：</td>
+							</tr>
+							<tr>
+								<td><span>{$bao_info.interest_rate|default="0.00"}</span>%</td>
+							</tr>
+						</table>
+
+						<div class="lhb_fgx"></div>					
+						<table>
+							<tr>
+								<td>封存期限：</td>
+							</tr>
+							<tr>
+								<td><span>{$bao_info.term}</span>天</td>
+							</tr>
+						</table>
+                        <div class="lhb_fgx"></div>
+                        <table>
+                            <tr>
+                                <td>已赚收益：</td>
+                            </tr>
+                            <tr>
+                                <td><span>{$record.money|default='0.00'}</span>元</td>
+                            </tr>
+                        </table>
+                        <div class="Clr"></div>
+					</div>
+					<div class="lhb_three">
+						<table>
+							<tr>
+								<td>投资日期：{$add_time|date="Y-m-d",###}</td>
+							</tr>
+							<tr>
+								<td>起息日期：<if condition="$e_time eq 0">无<else/>{$e_time|date="Y-m-d",###}</if></td>
+							</tr>
+							<tr>
+								<td>收益分配方式：收益复投</td>
+							</tr>
+						</table>
+						<div class="lhb_three_fgx"></div>
+						<table>
+							<tr>
+								<td>{$archive_time|date="Y年m月d号",###}后，可随时一次性或部分赎回本息</td>
+							</tr>
+                            <tr>
+                                <td>部分赎回后剩余金额不得小于{$bao_info.start_funds|default=0}元</td>
+                            </tr>
+
+							<tr>
+								<td>{$bao_invest.deadline|date="Y-m-d",###}号 还本付息</td>
+							</tr>
+							<tr>
+								<td>
+									<!--<a href="{:U('redeem', array('batch'=>$bao_info['batch_no']))}" class="lhb_tqsh">提前赎回</a>-->
+									<if condition="$bao.money gt 0">
+                                    <a href="javascript:hlb_tqsh_tc()" class="lhb_tqsh">提前赎回</a>
+                                    <else />
+                                    <a  class="lhb_tqsh">没有可赎回的资金</a>
+                                    </if>
+								</td>
+							</tr>
+                            
+						</table>
+						<div class="Clr"></div>
+						<script type="text/javascript">						
+							  function hlb_tqsh_tc() {
+           					 	$('#hlb_tqsh_tcshow').show(); 
+								$('#popDiv').show();          					 	         
+       						 }     
+
+							function closeDiv() {
+								$('#popDiv').hide();
+							    $('#hlb_tqsh_tcshow').hide();
+							}
+						</script>
+					</div>
+					<div id="hlb_tqsh_tcshow" style="display:none;">
+						<h2>
+							<span>赎回项目：[{$bao_info.batch_no}]</span>
+							<a href="javascript:closeDiv()" id="popDiv">关闭</a>
+							<div class="Clr"></div>
+						</h2>
+						<div class="sh_content">
+							<table>
+								<tr>
+									<td width="80">赎回金额：</td>
+									<td width="100"><input onKeyUp="moneyFiter(this,event,'0.07')" id="bufenid"  style="height:25px;line-height:25px;width:100px;"></td>
+									<td><a charset="submit_sh" onClick="save()" id="submitid">确定赎回</a></td>
+								</tr>
+								<tr>
+									<td>可赎回金额</td>
+									<td colspan="2">{$bao.money}元</td>
+								</tr>
+							</table>
+						</div>
+							
+					</div>
+					<div class="lhb_four" style="overflow: hidden;">
+						<div class="lhb_four_01">
+							<h2>收益记录表</h2>
+							<h3>（已结息{$record.count|default="0"}次，共结息{$record.money|default='0.00'}元）</h3>
+							<div class="Clr"></div>
+						</div>
+						<table border="1">
+							<tr bgcolor="#ededed" >
+
+								<td>结息日期</td>
+								<td>计息金额</td>
+								<td>本金</td>
+								<td>支付/复投收益状态</td>
+							</tr>
+							
+							<tbody id="record_list"></tbody>
+						</table>
+                        <div style="float:right; margin:8px" class="pagination">
+                            <div id="recordpage" class="pagination"></div>
+                        </div>
+					</div>
+					
+					<div class="lhb_four" style="overflow: hidden;">
+						<div class="lhb_four_01">
+							<h2>赎回记录</h2>
+							<h3>（已完成{$ransom.count|default=0}次操作，赎回本息{$ransom.money|default='0.00'}元）</h3>
+							<div class="Clr"></div>
+						</div>
+						<table border="1">
+							<tr bgcolor="#ededed" >
+								<td>赎回时间</td>
+								<td>赎回金额</td>
+								<td>赎回方式</td>
+								<td>状态</td>
+								<td>备注</td>
+							</tr>
+							<tbody id="log_list"></tbody>
+						</table>
+                        <div style="float:right; margin:8px" class="pagination">
+                            <div id="logpage" class="pagination"></div>
+                        </div>
+					</div>
+				</div>
+
+            </div>
+        </div>           
+                    
+    </div>
+</div>
+
+
+<include file="default:Public:_footer" group="Member"/>
+ <script src="__ROOT__/Style/M/js/common.js"></script>
+ <script type="text/javascript">
+ var batch =  '{$bao_info.batch_no}';
+               
+ $(function(){
+     getLog(1); 
+     getRecord(1); 
+ })
+ function lognext()
+ {
+     var p = Number($(".plog").html()); 
+     getLog(p+1); 
+ }
+ function logprev()
+ {
+     var p = Number($(".plog").html());
+     getLog(p-1); 
+ }
+ function logpage(p)
+ {
+     getLog(p);
+ }
+ function getLog(p)
+ {
+    $.get("{:U('agility/user/getLog2')}",{batch:batch,type:2,p:p }, function(data){
+         var obj=eval(data); 
+         $("#log_list").html(obj[1]); 
+         $("#logpage").html(obj[0]); 
+    });    
+ }
+
+ function recordnext()
+ {
+     var p = Number($(".precord").html()); 
+     getRecord(p+1); 
+ }
+ function recordprev()
+ {
+     var p = Number($(".precord").html());
+     getRecord(p-1); 
+ }
+ function recordpage(p)
+ {
+     getRecord(p);
+ }
+ function getRecord(p)
+ {
+    $.get("{:U('agility/user/getrecord')}",{batch:batch,p:p }, function(data){
+         var obj=eval(data); 
+         $("#record_list").html(obj[1]); 
+         $("#recordpage").html(obj[0]); 
+    });    
+ }
+ </script>
+  <script src="/Style/Agility/js/jquery.hiAlerts-min.js"></script>
+ <link href="/Style/Agility/images/jquery.hiAlerts.css" type="text/css" rel="stylesheet">
+ <script type="text/javascript">
+ function moneyFiter(obj,e,fyearincomerate){
+        var dayaccult="2";
+        var favailableamount ="{$bao.money|default=0}";
+        var money = obj.value;
+        var regu = /^[-]?\d+(\.\d{1,2})?$/;
+        var re = new RegExp(regu);
+        var iKeyCode = window.event ? e.keyCode : e.which;
+        if (iKeyCode != 46 && iKeyCode != 8) {
+            if (!re.test(money)) {
+                if (money.indexOf('.') != -1) {
+                    if (money.indexOf('.') == 0) {
+                        obj.value = 0;
+                        money = 0;
+                    } else {
+                        if (money.split('.').length == 2) {
+                            if (money.length - money.indexOf('.') > 3) {
+                                obj.value = money.split('.')[0] + "."
+                                        + money.split('.')[1].substring(0, 2);
+                                money = money.split('.')[0] + "."
+                                        + money.split('.')[1].substring(0, 2);
+                            } else {
+                                if (iKeyCode != 190 && iKeyCode != 110) {
+                                    if (((48 <= iKeyCode <= 57) || (96 <= iKeyCode <= 105))) {
+                                        obj.value = 0;
+                                        money = 0;
+                                    }
+                                }
+                            }
+                        } else {
+                            obj.value = 0;
+                            money = 0;
+                        }
+
+                    }
+                } else {
+                    obj.value = 0;
+                    money = 0;
+                }
+            }
+        }
+        if (money.length > 1 && money.toString().indexOf(".") == -1) {
+            if (money.indexOf('0') == 0) {
+                obj.value = money.replace('0', '');
+            }
+        }
+        if (money.toString().indexOf(".") != -1) {
+            if (money.length - money.indexOf('.') != 1) {
+                if (Number(money) >Number(favailableamount)) {
+                    obj.value = favailableamount;
+                    money=favailableamount;
+                }  
+                $("#fredeeminterestId").val((((Number(money)*Number(fyearincomerate))/365)*Number(dayaccult)).toFixed(2));
+            }
+        } else {
+            
+            if (Number(money) > Number(favailableamount)) { 
+                obj.value = favailableamount;
+                money=favailableamount; 
+            } 
+            $("#fredeeminterestId").val((((Number(money)*Number(fyearincomerate))/365)*Number(dayaccult)).toFixed(2));
+        }
+    }
+    
+    function save(){
+
+        var redeemMoney = $("#bufenid").val();
+        if(redeemMoney==null||redeemMoney=='' || redeemMoney==0){   
+            //$.jBox.tip("赎回金额不能为空！","fail");
+			layer.msg("赎回金额不能为空！",{icon:0});
+             return ;
+        }
+        hiConfirm("你本次赎回金额为"+redeemMoney+"元，确定要赎回吗？", "友情提醒", function(r) {
+            if(r){
+        var minInvestAmount ="{$bao_info.start_funds}";
+        var favailableamount ="{$bao.money}";
+
+                 if(redeemMoney!=null&&redeemMoney!=''){   
+                     if(redeemMoney==0){
+                         //$.jBox.tip("赎回金额不能小于等于0！","fail"); 
+						 layer.msg("赎回金额不能小于等于0！",{icon:0});
+                         return ;
+                     }else if(Number(redeemMoney)<Number(favailableamount)&&((Number(favailableamount)-Number(minInvestAmount))<Number(redeemMoney))){
+                        //$.jBox.tip("剩余本金不低于起投金额"+minInvestAmount+"元","fail");   
+						layer.msg("剩余本金不低于起投金额"+minInvestAmount+"元",{icon:0}); 
+                        return ;
+                    }
+                     
+                }    
+               
+                if(Number(redeemMoney)>Number(favailableamount)){
+                    //$.jBox.tip("赎回金额不能大于可赎回金额！","fail");
+					layer.msg("赎回金额不能大于可赎回金额！",{icon:0}); 
+                    return;
+                }
+                if(Number(redeemMoney)<0){
+                    //$.jBox.tip("赎回金额不能小于0元！","fail");  
+					layer.msg("赎回金额不能小于0元！",{icon:0});   
+                    return;
+                }
+                //$.jBox.tip("提交中......",'loading');
+				layer.msg("提交中......",{icon:6});
+                $.post("{:U('redeemSave')}",{batch:batch,fredeemamount:redeemMoney}, function(result){
+                    var obj = eval(result);
+                    if(obj[0]==1){ 
+                        //$.jBox.tip(obj[1]);
+						layer.msg(obj[1],{icon:2});
+                        document.location.reload();
+                    }else{
+                        //$.jBox.tip(obj[1],"fail");
+						layer.msg(obj[1],{icon:2});
+                    }   
+                    
+                })
+            
+            }else{
+                return ;
+            }
+            return ;
+        });
+    }
+
+
+ </script>
+
+
+</body></html>

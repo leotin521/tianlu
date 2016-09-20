@@ -1,0 +1,53 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+  <div class="page_tit">优惠券设置</div>
+  <div class="Toolbar_inbox">
+  <!-- <htmlA:commonBtn type="jsfun" action="redeem();" value="积分兑换设置" style="search_action" /> -->
+  </div>
+<div class="list">
+    <form method="post" name="expForm" id="expForm" action="__URL__/setexp" enctype="multipart/form-data">
+      <table id="bank_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th class="line_l" width=80>名称</th>
+          <th class="line_l" width=80 align="center">数量</th>
+          <th class="line_l" width="80">金额</th>
+          <th class="line_l" width=80>有效期</th>
+          <th class="line_l" width="80">0：抵现券，1：体验券</th>
+          <th class="line_l" width="150">投资金额限制</th>
+        </tr>
+        <volist name='exp_type' id='vo'>
+          <tr overstyle='on' >
+            <td>{$vo}</td>
+            <td><htmlA:input id="exp[{$key}][num]"  value="{$expconf[$key]['num']}" style="width:50px;" />张</td>
+             <td><htmlA:input id="exp[{$key}][money]"  value="{$expconf[$key]['money']}"  style="width:50px;" />元</td>
+             <td><htmlA:input id="exp[{$key}][expired_time]"  value="{$expconf[$key]['expired_time']}"  style="width:50px;" />月</td>
+              <td><htmlA:input id="exp[{$key}][is_taste]"  value="{$expconf[$key]['is_taste']}"  style="width:50px;" /></td>
+             <td>投资<htmlA:input id="exp[{$key}][invest_money]"  value="{$expconf[$key]['invest_money']}" style="width:50px;" />元可用</td>
+          </tr>
+        </volist>
+        <tr><td colspan="5"><font color="red">
+        	1.优惠券分为两种：抵现券和体验券。<br/>
+            2.优惠券数量为0或者为空时，表示不开启此优惠券。<br/>
+            3.体验券投资后，获得的利息可以提现，体验券本身金额不可以提现。<br/>
+            4.抵现券投资后，本金和利息都可以提现。</font></td></tr>
+      </table>
+    </form>
+  </div>
+</div>
+  <div class="Toolbar_inbox">
+    <htmlA:commonBtn type="jsfun" action="dosubmit();" value="保存设置" style="search_action" />
+  </div>
+<script type="text/javascript">
+
+function dosubmit()
+{
+   $("#expForm").submit(); 
+}   
+function redeem()
+{
+   ui.box.load("__URL__/redeem", {title:"积分兑换设置"});       
+}
+</script>
+
+<include file="Public:_footer" />

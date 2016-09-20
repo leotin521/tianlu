@@ -1,0 +1,149 @@
+<include file="default:Public:_header" group="Admin"/>
+<link href="__ROOT__/Style/Swfupload/swfupload.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__ROOT__/Style/Swfupload/handlers.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/Swfupload/swfupload.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<script type="text/javascript" src="__ROOT__/Style/A/js/uploadPreview.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+         $("#funds").blur(function(){
+             intval($(this));
+         })
+         $("#term").blur(function(){
+             intval($(this));
+         })
+    });
+    function intval(obj){
+         var funds = obj.val().replace(/[^0-9]/ig, "");
+         var pertr = parseInt(funds);
+         if(pertr < 1 || !pertr){
+            pertr = 1;
+         }
+         obj.val(pertr);    
+    }
+</script>
+
+<tagLib name="htmlA" />
+<div class="so_main">
+  <div class="page_tit">发布<?php echo AgilityBehavior::$THE_SPIRIT;?>项目</div>
+  <div class="page_tab"><span data="tab_1" class="active">项目信息</span></div>
+  <div class="form2">
+    <form method="post" action="" onsubmit="return subcheck();" >
+    <htmlA:select id="_day_option" datakey="borrow_day_time" style="display:none"/>
+    <htmlA:select id="_month_option" datakey="borrow_month_time" style="display:none"/>
+      <div id="tab_1">
+       
+       <dl class="lineD">
+          <dt><?php echo AgilityBehavior::$THE_SPIRIT;?>编号：</dt>
+          <dd>
+            {$vo.batch_no}
+            <input type="hidden" name="batch_no" value="{$vo.batch_no}">
+          </dd>
+        </dl>
+       
+        <!--dl class="lineD">
+          <dt>状态：</dt>
+          <dd>
+            <htmlA:radio id="status" value="key|vo.status" default="0|不开启,1|开启"  />
+          </dd>
+        </dl-->
+        <dl class="lineD">
+          <dt>计划金额：</dt>
+          <dd>
+            <htmlA:input  addstr='onkeyup="checkIntType(this);"'   id="funds" value="{$vo.funds|default=$info['funds']}" tip="(元) *，必须为正整数，计划金额是起投金额的整数倍"/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>起投金额：</dt>
+          <dd>
+            <htmlA:input  addstr='onkeyup="checkIntType(this);"'   id="start_funds" value="{$vo.start_funds|default=$info['start_funds']}" tip="(元) *，必须为正整数"/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>年化利率：</dt>
+          <dd>
+            <htmlA:input  addstr='onkeyup="checkFloatType(this);"'   id="interest_rate" value="{$vo.interest_rate|default=$info['interest_rate']}" tip="%，精确到两位小数比如5.35%"/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>封存期限：</dt>
+          <dd>
+            <htmlA:input  addstr='onkeyup="checkIntType(this);"'   id="term" value="{$vo.term|default=$info['term']}" tip="天，必须正整数"/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>借款期限：</dt>
+          <dd>
+            <htmlA:input  addstr='onkeyup="checkIntType(this);"'  id="repayment_period" value="{$vo.repayment_period|default=$info['repayment_period']}" tip="月，必须正整数"/>  
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>上线时间：</dt>
+          <dd>
+            <htmlA:timer id="online_time" tip='前一个计划没有结束前，此计划需要排队等候' arg="{minDate:'%y-%M-%d', dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$online_time|mydate='Y-m-d H:i:s',###}"/>
+          </dd>
+        </dl>
+
+      </div>
+      <div class="page_btm">
+        <input type="submit" class="btn_b" value="确定" />
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+        function checkIntType(t) {
+               var num = t.value;
+                var re=/^\d*$/;
+                if(!re.test(num)){
+                        isNaN(parseInt(num))?t.value='':t.value=parseInt(num);
+                }
+    }
+       function checkFloatType(t) {
+                    var num = t.value;
+                    var re=/^\d{0,20}(\.)\d*$/;
+                    if(!re.test(num)){
+                        isNaN(parseFloat(num))?t.value='':t.value=parseFloat(num);
+                    }
+    }
+var cansub = true;
+function subcheck(){
+    if(!cansub){
+        alert("请不要重复提交，如网速慢，请耐心等待！");
+        return false;    
+    }
+    var name = $('#name').val();
+    var status = $('#status').val();
+    var funds = $('#funds').val();
+    var interest_rate = $('#interest_rate').val();
+    var term = $('#term').val();
+    var repayment_period = $("#repayment_period").val();
+    var start_funds = $("#start_funds").val();
+    
+    if(funds==''||funds==0){
+        ui.error("请输入计划金额");
+        return false;
+    }
+    if(interest_rate==''||interest_rate==0){
+        ui.error("请输入年化利率");
+        return false;
+    }
+    if(term==''||term==0){
+        ui.error("请输入封存期限");
+        return false;
+    }
+    if(repayment_period==''||repayment_period==0){
+        ui.error("请输入还款期限");
+        return false;
+    }
+    if(start_funds=='' || start_funds==0){
+        ui.error("起投金额不能为空");
+        return false;
+    }
+    
+    cansub = false;
+    return true;
+}
+
+</script>
+<include file="default:Public:_footer" group="Admin"/>

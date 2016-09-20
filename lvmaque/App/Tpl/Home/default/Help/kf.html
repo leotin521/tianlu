@@ -1,0 +1,42 @@
+<include file="Public:_header_common" />
+<title>{$vo.type_name}-{$glo.web_name}客服中心</title>
+<meta name="keywords" content="{$vo.type_keyword}" />
+<meta name="keywords" content="{$vo.type_info}" />
+<include file="Public:_header_main" />
+<!--中部开始-->
+
+<div class="cms_page"> <!-- {:get_ad(5)} -->
+  <div class="cms_frame cf"> <include file="left" />
+    <div class="cms_content">
+      <div class="cms-title-1">
+        <h2>客服中心</h2>
+      </div>
+      <div class="cms-details">
+        <div class="article-list-wrap mgt">
+          <ul class="cjwt_b_02">
+          <div class="artcontent">
+            <volist name="kflist" id="vl">
+              <div class="kefu03">
+                <div  class="kefu04"><img src="{$vl.id|get_avatar=###+10000000}" class="kefu05"></div>
+                <div>
+                  <ul  class="kefu06">
+                    <li class="kefu02">{$vl.user_name}</li>
+                    <li class="kefu02">姓名：{$vl.real_name}</li>
+                    <li class="kefu02">电话:{$vl.phone}</li>
+                    <li class="kefu02">
+                    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={$vl.qq}&amp;site=qq&amp;menu=yes" target="_blank" class="kefu07">
+                    <img border="0" src="/Style/H/images/qq.gif" title="点击这里给我发消息"  alt="点击这里给我发消息">
+                    </a></li>
+                  </ul>
+                </div>
+              </div>
+            </volist>
+          </div>
+        </ul>
+        </div>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+</div>
+<include file="Public:_footer" />

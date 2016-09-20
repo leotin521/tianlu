@@ -1,0 +1,53 @@
+<include file="default:Public:_header_common" group="Home" />
+<title>新用户注册-- {$glo.web_name}</title>
+<include file="default:Public:_header_main" group="Home"/>
+<link rel="stylesheet" href="__ROOT__/Style/H/css/registerstyle.css" />
+<script type="text/javascript">
+    var imgpath="__ROOT__/Style/M/";
+    var curpath="__URL__";
+    setTimeout("jump()",5000);
+    function jump(){
+        window.location.href="/member/index.html";
+    }
+</script>
+<script type="text/javascript" src="__ROOT__/Style/M/js/reg.js"></script>
+<style>
+    .register_nav li.space2,.register_nav li.space3{ color:#fff;}
+</style>
+<div class="register_main">
+    <div class="register_form">
+        <div class="register_regsuccess"></div>
+        <div style="width:500px; margin:100px auto 100px;">
+
+            <table style=" margin:10px; font-size:12px; text-align:left; line-height:24px;" id="tips">
+                <tbody><tr>
+                    <td style=" font-size:16px; font-weight:bold;" rowspan="5"><img src="__ROOT__/Style/M/images/zhuce4.png" style=" margin-right:10px;"></td>
+                    <td style=" font-size:24px; font-weight:bold;">恭喜您注册成功！</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <php>if(isset($money)){</php>
+                <tr>
+                    <td colspan="2">您已获得<font style="color: #e25353;font-size: 18px;">{$money}元</font>优惠券！</td>
+                </tr>
+                <php>}</php>
+                <tr>
+                    <td colspan="2" style=" padding-top:10px;"><span id="mes" style="color: ;">5</span>&nbsp;秒钟后自动跳转至您的账户中心。<a href="/member/index.html" style=" color:#45c4f9;">点击这里</a>立即跳转。</td>
+                </tr>
+                </tbody></table>
+
+        </div>
+    </div>
+
+</div>
+<script language="javascript" type="text/javascript">
+    var i = 5;
+    var intervalid;
+    intervalid = setInterval("fun()", 1000);
+    function fun() {
+        document.getElementById("mes").innerHTML = i;
+        i--;
+    }
+</script>
+<include file="default:Public:_footer" group="Home" />

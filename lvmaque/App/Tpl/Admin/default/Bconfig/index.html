@@ -1,0 +1,449 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<style type="text/css">
+    .alertDiv { margin: 0px auto; background-color: #FEFACF; border: 1px solid green; line-height: 25px; background-image: url(__ROOT__/Style/M/images/info/001_30.png); background-position: 20px 4px; background-repeat: no-repeat; }
+    .alertDiv li { margin: 5px 0; list-style-type: decimal; color: #005B9F; padding: 0px; line-height: 20px; }
+    .alertDiv ul { text-align: left; list-style-type: decimal; display: block; padding: 0px; margin: 0px 0px 0px 75px; }
+</style>
+<div class="so_main">
+    <div class="page_tit">发标管理</div>
+    <div class="page_tab">
+        <span data="tab_1" class="active">借款用途</span>
+        <span data="tab_2" >最小金额</span>
+        <span data="tab_3" >最大金额</span>
+        <span data="tab_4" >募资时间</span>
+        <!-- <span data="tab_9">查询金额</span> -->
+        <span data="tab_11">提现银行</span>
+        <span data="tab_12">积分参数</span>
+    </div>
+    <div class="form2">
+        <div class="alertDiv">
+            <ul>
+                <li>参数新增或者删除操作时，请记住点击下方的确认按钮来提交您的新数据！</li>
+                <li>所有参数的修改或者删除操作提交一次即可,修改后请清空数据缓存，以便新参数即时生效！</li>
+            </ul>
+        </div>
+        <form method="post" action="__URL__/save" enctype="multipart/form-data">
+            <div id="tab_1">
+                <div class="Toolbar_inbox">
+                    <div class="page right">{$pagebar}</div>
+                    <htmlA:commonBtn type="jsfun" action="addone($j=1);" value="添加一个级别" />
+                </div>
+                <div class="list">
+                    <table id="area_listbuse" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <th style="width:30px;">
+                                <input type="checkbox" class="checkbox_handle" onclick="checkAll(this)" value="0">
+                                <label for="checkbox"></label>
+                            </th>
+                            <th class="line_l">序号</th>
+                            <th class="line_l">参数名称</th>
+                            <th class="line_l">参数值</th>
+                            <th class="line_l">操作</th>
+                        </tr>
+                        <?php $a=1; $j=1; $y=0;?>
+                        <volist id="vo" name="buse" key="key">
+
+                            <tr overstyle='on' id="list_buse{$key}">
+                                <td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="{$key}"></td>
+                                <td>{$a}</td>
+                                <td><htmlA:input style="width:100px"  id="borrow[BORROW_USE][{$y}]" value="{$key-1}" /><?php $y++; ?></td>
+                            <td><htmlA:input style="width:100px"  id="borrow[BORROW_USE][{$y}]" value="{$vo}" /><?php $y++; ?></td>
+
+
+                            <td>
+                                <a href="javascript:void(0);" onclick="delxa({$key});">删除</a>  
+                            </td>
+                            </tr>
+                            <?php $a++; ?>
+                        </volist>
+
+                    </table>
+                </div>
+
+            </div><!--tab1-->
+            <div id="tab_2" style="display:none">
+                <div class="Toolbar_inbox">
+                    <div class="page right">{$pagebar}</div>
+                    <htmlA:commonBtn type="jsfun" action="addone($j=2);" value="添加一个级别" />
+                </div>
+                <div class="list">
+                    <table id="area_listbmin" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <th style="width:30px;">
+                                <input type="checkbox" class="checkbox_handle" onclick="checkAll(this)" value="0">
+                                <label for="checkbox"></label>
+                            </th>
+                            <th class="line_l">序号</th>
+                            <th class="line_l">参数名称</th>
+                            <th class="line_l">参数值</th>
+                            <th class="line_l">操作</th>
+                        </tr>
+                        <?php $b=1; $j=2;?>
+                        <volist id="vo" name="bmin ">
+
+                            <tr overstyle='on' id="list_bmin{$key}">
+                                <td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="{$key}"></td>
+                                <td>{$b}</td>
+                                <td><input type="text" style="width:100px" name="borrow[BORROW_MIN][]" value="{$key}" /></td>
+                                <td><input type="text" style="width:100px" name="borrow[BORROW_MIN][]" value="{$vo}" /></td>
+
+
+                                <td>
+                                    <a href="javascript:void(0);" onclick="delxb({$key});">删除</a>  
+                                </td>
+                            </tr>
+                            <?php $b++; ?>
+                        </volist>
+
+                    </table>
+                </div>
+
+            </div><!--tab2-->
+            <div id="tab_3"  style="display:none">
+                <div class="Toolbar_inbox">
+                    <div class="page right">{$pagebar}</div>
+                    <htmlA:commonBtn type="jsfun" action="addone($j=3);" value="添加一个级别" />
+                </div>
+                <div class="list">
+                    <table id="area_listbmax" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <th style="width:30px;">
+                                <input type="checkbox" class="checkbox_handle" onclick="checkAll(this)" value="0">
+                                <label for="checkbox"></label>
+                            </th>
+                            <th class="line_l">序号</th>
+                            <th class="line_l">参数名称</th>
+                            <th class="line_l">参数值</th>
+                            <th class="line_l">操作</th>
+                        </tr>
+                        <?php $c=1; $j=3; ?>
+                        <volist id="vo" name="bmax ">
+
+                            <tr overstyle='on' id="list_bmax{$key}">
+                                <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$key}"></td>
+                                <td>{$c}</td>
+                                <td><input type="text" style="width:100px" name="borrow[BORROW_MAX][]" value="{$key}" /></td>
+                                <td><input type="text" style="width:100px" name="borrow[BORROW_MAX][]" value="{$vo}" /></td>
+
+
+                                <td>
+                                    <a href="javascript:void(0);" onclick="delxc({$key});">删除</a>  
+                                </td>
+                            </tr>
+                            <?php $c++; ?>
+                        </volist>
+
+                    </table>
+                </div>
+
+            </div><!--tab3-->
+            <div id="tab_4"  style="display:none">
+                <div class="Toolbar_inbox">
+                    <div class="page right">{$pagebar}</div>
+                    <htmlA:commonBtn type="jsfun" action="addone($j=4);" value="添加一个级别" />
+                </div>
+                <div class="list">
+                    <table id="area_listbtime" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <th style="width:30px;">
+                                <input type="checkbox" class="checkbox_handle" onclick="checkAll(this)" value="0">
+                                <label for="checkbox"></label>
+                            </th>
+                            <th class="line_l">序号</th>
+                            <th class="line_l">参数名称</th>
+                            <th class="line_l">参数值</th>
+                            <th class="line_l">操作</th>
+                        </tr>
+                        <?php $d=1; $j=4; ?>
+                        <volist id="vo" name="btime ">
+
+                            <tr overstyle='on' id="list_btime{$key}">
+                                <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$key}"></td>
+                                <td>{$d}</td>
+                                <td><input type="text" style="width:100px" name="borrow[BORROW_TIME][]" value="{$key}" /></td>
+                                <td><input type="text" style="width:100px" name="borrow[BORROW_TIME][]" value="{$vo}" /></td>
+
+
+                                <td>
+                                    <a href="javascript:void(0);" onclick="delxd({$key});">删除</a>  
+                                </td>
+                            </tr>
+                            <?php $d++; ?>
+                        </volist>
+
+                    </table>
+                </div>
+
+            </div><!--tab4-->
+
+            <div id="tab_11"  style="display:none">
+                <div class="Toolbar_inbox">
+                    <div class="page right">{$pagebar}</div>
+                    <htmlA:commonBtn type="jsfun" action="addone($j=11);" value="添加一个级别" />
+                </div>
+                <div class="list">
+                    <table id="area_listbbankname" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <th style="width:30px;">
+                                <input type="checkbox" class="checkbox_handle" onclick="checkAll(this)" value="0" >
+                                <label for="checkbox"></label>
+                            </th>
+                            <th class="line_l">序号</th>
+                            <th class="line_l">参数名称</th>
+                            <th class="line_l">参数值</th>
+                            <th class="line_l">图标</th>
+                            <th class="line_l"></th>
+                            <th class="line_l">操作</th>
+                        </tr>
+                        <?php $p=1; $j=11;?>
+                        <volist id="vo" name="bbankname">
+
+                            <tr overstyle='on' id="list_bbankname{$p}">
+                                <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$key}"></td>
+                                <td>{$p}</td>
+                                <td><input type="text" style="width:100px" readonly="readonly" name="borrow[BANK_NAME][]" value="{$key}" /></td>
+                                <td><input type="text" style="width:100px" name="borrow[BANK_NAME][]" value="{$vo}" /></td>
+                                <td><input id="PhotoUpload{$key}" type="file" name="file" onchange="img(this.value,{$key})"></td>
+								<td>图片尺寸限制为143*38，大小2M。</td>
+
+                                <td>
+                                    <a href="javascript:void(0);" onclick="delxp({$p});">删除</a>  
+                                </td>
+                            </tr>
+                            <?php $p++; ?>
+                        </volist>
+
+                    </table>
+                </div>
+
+            </div><!--tab11-->
+            <!--积分参数开始-->
+            <div id="tab_12"  style="display:none">
+                <div class="Toolbar_inbox">
+                    <div class="page right">{$pagebar}</div>
+                    <htmlA:commonBtn type="jsfun" action="addone($j=12);" value="添加一个级别" />
+                </div>
+                <div class="list">
+                    <table id="area_integration" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <th style="width:30px;">
+                                <input type="checkbox" class="checkbox_handle" onclick="checkAll(this)" value="0" >
+                                <label for="checkbox"></label>
+                            </th>
+                            <th class="line_l">序号</th>
+                            <th class="line_l">参数名称</th>
+                             <th class="line_l">参数类别(1为<if condition="($version['business'] eq 0) AND ($version['fund'] eq 0) ">保留<else />企业</if>参数，2为<if condition="$version['single'] eq 0 ">保留<else />个人</if>参数,3为公共参数)</th>
+                            <th class="line_l">积分值</th>
+                            <th class="line_l">描述</th>
+                            <th class="line_l">操作</th>
+                        </tr>
+                        <?php $p=1; $j=12;?>
+                        <volist id="vo" name="integration">
+
+                            <tr overstyle='on' id="list_bbankname{$p}">
+                                <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$key}"></td>
+                                <td>{$p}</td>
+                                <td><input type="text" style="width:200px" name="integration[parameter][]" value="{$key}" /></td>
+                                <td><input type="text" style="width:200px" name="integration[utype][]" value="{$vo.utype}" /></td>
+                                <td><input type="text" style="width:200px" name="integration[fraction][]" value="{$vo.fraction}" /></td>
+
+                                <td><input type="text" style="width:200px" name="integration[description][]" value="{$vo.description}" /></td>
+                                <td>
+                                    <a href="javascript:void(0);" onclick="delxp({$p});">删除</a>  
+                                </td>
+                            </tr>
+                            <?php $p++; ?>
+                        </volist>
+
+                    </table>
+                </div>
+
+            </div>
+            <!--tab12-->
+            <div class="page_btm"><input type="submit" class="btn_b" value="确定" />
+            </div>
+        </form>
+    </div>
+
+
+</div>
+<script type="text/javascript" src="__ROOT__/Style/Js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+   function img(Value,Title)
+           {
+	   		var arr = [ "gif", "GIF", "jpg", "JPG", "png", "PNG" ];	//预定义上传类型
+			var names = Value.split(".");
+			var name = names[names.length-1];	//获取上传文件类型
+			if( $.inArray( name, arr ) < 0 )	//判断上传类型
+			{
+				alert('上传类型必须为gif,jpg,png格式');
+				return false;
+			}
+              $.ajaxFileUpload
+                 (
+                   {
+                        url:'__URL__/ajaximg', //你处理上传文件的服务端
+                        secureuri:false,
+                        fileElementId:'PhotoUpload'+Title,
+                        data:{title: Title},  
+                        dataType: 'json',
+                        success: function (data)
+                              {
+                        		if (data.status == '1'){
+                        			//
+                        		}else {
+                        			alert(data.message);
+                        			return false;
+                        		}
+                              }
+                           }
+                     )
+
+                   return false;
+             }
+  </script>
+<script type="text/javascript">
+
+
+            var xssa = parseInt({$a}) || 0;
+            var xssb = parseInt({$b}) || 0;
+            var xssc = parseInt({$c}) || 0;
+            var xssd = parseInt({$d}) || 0;
+            /*var xsse=parseInt({$e})||0;
+             var xssf=parseInt({$f})||0;
+             var xssg=parseInt({$g})||0;
+             var xssm=parseInt({$m})||0;*/
+            var xssn = parseInt({$n}) || 0;
+            var xsso = parseInt({$o}) || 0;
+            var xssp = parseInt({$p}) || 0;
+            function addone($j){
+
+
+            switch ($j){
+            case 1:
+
+                    var htmladd = '<tr overstyle="on" id="list_buse' + xssa + '">';
+                    htmladd += '<td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="' + xssa + '"></td>';
+                    htmladd += '<td>' + xssa + '</td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_USE][] value="" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_USE][]" value="" /></td>';
+                    htmladd += '<td><a href="javascript:void(0);" onclick="delxa(' + xssa + ');">删除</a></td>';
+                    htmladd += '</tr>';
+                    $(htmladd).appendTo("#area_listbuse");
+                    xssa++;
+                    break;
+                    case 2:
+
+                    htmladd = '<tr overstyle="on" id="list_bmin' + xssb + '">';
+                    htmladd += '<td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="' + xssb + '"></td>';
+                    htmladd += '<td>' + xssb + '</td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_MIN][]" value="" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_MIN][]" value="" /></td>';
+                    htmladd += '<td><a href="javascript:void(0);" onclick="delxb(' + xssb + ');">删除</a></td>';
+                    htmladd += '</tr>';
+                    $(htmladd).appendTo("#area_listbmin");
+                    xssb++;
+                    break;
+                    case 3:
+
+                    htmladd = '<tr overstyle="on" id="list_bmax' + xssc + '">';
+                    htmladd += '<td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="' + xssc + '"></td>';
+                    htmladd += '<td>' + xssc + '</td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_MAX][]" value="" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_MAX][]" value="" /></td>';
+                    htmladd += '<td><a href="javascript:void(0);" onclick="delxc(' + xssc + ');">删除</a></td>';
+                    htmladd += '</tr>';
+                    $(htmladd).appendTo("#area_listbmax");
+                    xssc++;
+                    break;
+                    case 4:
+
+                    htmladd = '<tr overstyle="on" id="list_btime' + xssd + '">';
+                    htmladd += '<td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="' + xssd + '"></td>';
+                    htmladd += '<td>' + xssd + '</td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_TIME][]" value="" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BORROW_TIME][]" value="" /></td>';
+                    htmladd += '<td><a href="javascript:void(0);" onclick="delxd(' + xssd + ');">删除</a></td>';
+                    htmladd += '</tr>';
+                    $(htmladd).appendTo("#area_listbtime");
+                    xssd++;
+                    break;
+                    case 10:
+
+                    htmladd = '<tr overstyle="on" id="list_bmax' + xsso + '">';
+                    htmladd += '<td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="' + xsso + '"></td>';
+                    htmladd += '<td>' + xsso + '</td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[DATA_TYPE][]" value="" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[DATA_TYPE][]" value="" /></td>';
+                    htmladd += '<td><a href="javascript:void(0);" onclick="delxo(' + xsso + ');">删除</a></td>';
+                    htmladd += '</tr>';
+                    $(htmladd).appendTo("#area_listbdatatype");
+                    xsso++;
+                    break;
+                    case 11:
+
+                    htmladd = '<tr overstyle="on" id="list_bbankname' + xssp + '">';
+                    htmladd += '<td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="' + xssp + '"></td>';
+                    htmladd += '<td>' + xssp + '</td>';
+                    htmladd += '<td><input type="text" style="width:100px" readonly="readonly" name="borrow[BANK_NAME][]" value="' + xssp + '" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="borrow[BANK_NAME][]" value="" /></td>';
+                    htmladd += '<td><input id="PhotoUpload' + xssp + '" type="file" name="file" onchange="img(this.value,' + xssp + ')"><input type="hidden" name="isupload" value="1" /></td>';
+                    htmladd += '<td>图片尺寸限制为143*38，大小2M。</td>';
+                    htmladd += '<td><a href="javascript:void(0);" onclick="delxp(' + xssp + ');">删除</a></td>';
+                    htmladd += '</tr>';
+                    $(htmladd).appendTo("#area_listbbankname");
+                    xssp++;
+                    break;
+                    case 12:
+
+                    htmladd = '<tr overstyle="on" id="list_bbankname' + xssp + '">';
+                    htmladd += '<td><input type="checkbox" name="checkbox" class="checkbox2" onclick="checkon(this)" value="' + xssp + '"></td>';
+                    htmladd += '<td>' + xssp + '</td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="integration[parameter][]" value="" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="integration[utype][]" value="" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="integration[fraction][]" value="" /></td>';
+                    htmladd += '<td><input type="text" style="width:100px" name="integration[description][]" value="" /></td>';
+                    htmladd += '<td><a href="javascript:void(0);" onclick="delxp(' + xssp + ');">删除</a></td>';
+                    htmladd += '</tr>';
+                    $(htmladd).appendTo("#area_integration");
+                    xssp++;
+                    break;
+            }
+
+            }
+    function delxa(id){
+    if (confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_buse" + id).remove();
+            }
+    function delxb(id){
+    if (confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_bmin" + id).remove();
+            }
+    function delxc(id){
+    if (confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_bmax" + id).remove();
+            }
+    function delxd(id){
+    if (confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_btime" + id).remove();
+            }
+    /*function delxe(id){
+     if(confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_brepa"+id).remove();
+     }
+     function delxf(id){
+     if(confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_btype"+id).remove();
+     }
+     function delxg(id){
+     if(confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_breward"+id).remove();
+     }
+     function delxm(id){
+     if(confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_bstatus"+id).remove();
+     }*/
+    function delxn(id){
+    if (confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_bsearch" + id).remove();
+            }
+    function delxo(id){
+    if (confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_bdatatype" + id).remove();
+            }
+    function delxp(id){
+    if (confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_bbankname" + id).remove();
+            }
+</script>
+<include file="Public:_footer" />

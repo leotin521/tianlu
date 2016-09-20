@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta property="qc:admins" content="305051165722621627674116375" />
+<meta property="wb:webmaster" content="d0d120bc5ee656d7" />
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta name="renderer" content="ie-stand">
+<link href="favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="__ROOT__/Style/Common/css/common.css">
+<link rel="stylesheet" href="__ROOT__/Style/N/css/lv.css">
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/H/css/common.css" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/H/css/css.css" />
+<script type="text/javascript" src="__ROOT__/Style/Common/js/jquery.min.js"></script>
+<script src="__ROOT__/Style/layer/layer.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/Js/utils.js"></script>
+<script  type="text/javascript" src="__ROOT__/Style/H/js/backtotop.js"></script>
+<script type="text/javascript">
+    var browser=navigator.appName;
+    var b_version=navigator.appVersion;
+    var version=b_version.split(";"); 
+    if(version.length>1) var trim_Version=version[1].replace(/[ ]/g,"");
+
+    if(browser=="Microsoft Internet Explorer" && (trim_Version=="MSIE5.0" || trim_Version=="MSIE6.0")) 
+        alert("您正在使用的浏览器版本过低，有些网站效果会显示不出来，建议升级后再使用本网站。"); 
+
+	function makevar(v){
+		var d={};
+		for(i in v){
+			var id = v[i];
+			d[id] = $("#"+id).val();
+			if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+			if(!d[id]) d[id] = $("input[name='"+id+"']").val();
+			if(typeof d[id] == "undefined") d[id] = "";
+		}
+		return d;
+	}
+    function addBookmark(title, url) {
+        if (window.sidebar) {
+            window.sidebar.addPanel(title, url, "");
+        }
+        else if (document.all) {
+            window.external.AddFavorite(url, title);
+        }
+        else if (window.opera && window.print) {
+            return true;
+        }
+    }
+    function SetHome(obj, vrl) {
+        try {
+            obj.style.behavior = 'url(#default#homepage)'; obj.setHomePage(vrl);
+            NavClickStat(1);
+        }
+        catch (e) {
+            if (window.netscape) {
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                }
+                catch (e) {
+                    alert("抱歉！您的浏览器不支持直接设为首页。请在浏览器地址栏输入“about:config”并回车然后将[signed.applets.codebase_principal_support]设置为“true”，点击“加入收藏”后忽略安全提示，即可设置成功。");
+                }
+                var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+                prefs.setCharPref('browser.startup.homepage', vrl);
+            }
+        }
+    }
+     
+// 修复 IE 下 PNG 图片不能透明显示的问题
+function fixPNG(myImage) {
+var arVersion = navigator.appVersion.split("MSIE");
+var version = parseFloat(arVersion[1]);
+if ((version >= 5.5) && (version < 7) && (document.body.filters))
+{
+     var imgID = (myImage.id) ? "id='" + myImage.id + "' " : "";
+     var imgClass = (myImage.className) ? "class='" + myImage.className + "' " : "";
+     var imgTitle = (myImage.title) ? "title='" + myImage.title   + "' " : "title='" + myImage.alt + "' ";
+     var imgStyle = "display:inline-block;" + myImage.style.cssText;
+     var strNewHTML = "<span " + imgID + imgClass + imgTitle
+
+   + " style=\"" + "width:" + myImage.width
+
+   + "px; height:" + myImage.height
+
+   + "px;" + imgStyle + ";"
+
+   + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+
+   + "(src=\'" + myImage.src + "\', sizingMethod='scale');\"></span>";
+     myImage.outerHTML = strNewHTML;
+} } 
+
+
+</script>

@@ -1,0 +1,67 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin:0;padding:0;}
+body{background:url(../images/bj.jpg) no-repeat center 0}
+.down_page{
+	width:1400px;height:710px;margin:0 auto;
+	}
+.down_l{
+	width:500px;height:480px;float:left;margin-top:60px;margin-left:60px; position:relative;
+	}
+.wap_sy{
+	width:215px;height:420px;float:left;background:url(../images/ping_left_bj.png) no-repeat; position:absolute;z-index:1;padding-left:15px;padding-top:53px;
+	}
+.wap_sy img{width:200px;height:360px;}
+.wap_lb{
+	width:186px;height:354px;float:left;background:url(../images/ping_right_bj.png) no-repeat; position:absolute;z-index:0;left:180px;bottom:17px;padding-left:14px;padding-top:49px;
+	}
+.wap_lb img{width:171px;height:304px;}
+.down_r{
+	width:790px;height:140px;float:left;margin-top:317px;
+	}
+.erwm{
+	width:140px;height:140px;float:left;
+	}
+.erwm img{
+	width:140px;height:140px;
+	}
+.down_a{
+	width:450px;height:140px;float:left;margin:0 30px;
+	}
+.down_a a.dp_button{
+	width:450px;height:61px;margin-top:9px;float:left; text-decoration:none;
+	}
+.down_a a.iph{
+	background:url(../images/iph_button.png) no-repeat left 0;
+	}
+.down_a a.and{
+	background:url(../images/and_button.png) no-repeat right 0;
+	}
+.down_a a.iph:hover{
+	background:url(../images/iph_button.gif) no-repeat left 0;
+	}
+.down_a a.and:hover{
+	background:url(../images/and_button.gif) no-repeat right 0;
+	}
+.down_f{
+	width:1500px;height:150px;float:right;margin-right:30px;
+	}
+.down_f ul li{
+	text-align:right; list-style:none;
+	}
+.down_f ul li a{
+	font-size:14px;line-height:30px;color:#3395d8; text-decoration:none;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+

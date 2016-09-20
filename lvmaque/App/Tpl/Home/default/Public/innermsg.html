@@ -1,0 +1,60 @@
+<STYLE> 
+*{padding-bottom:0px;margin:0px;padding-left:0px;padding-right:0px;padding-top:0px}.nav{width:620px;display:block;float:left;height:300px}.yetitle{width:100%;background:url(__ROOT__/Style/H/images/line.jpg) repeat-x 0px 37px;height:45px}.yuet{margin:15px auto auto 5px;display:block;float:left;font-size:12px;font-weight:bold}.buttonc{margin:10px 0px;display:block;float:right}.close{border-right-width:0px;width:22px;background:url(__ROOT__/Style/H/images/1_03.gif);BORDER-TOP-WIDTH:0px;border-bottom-width:0px;height:19px;border-left-width:0px}.tip{text-align:center;margin-top:50px;width:100%;font-family:Arial;font-size:16px}.buttontwo{text-align:center;margin-top:40px;width:100%}.buttony{border-right-width:0px;width:109px;background:url(__ROOT__/Style/H/images/bow_btn.jpg);BORDER-TOP-WIDTH:0px;border-bottom-width:0px;height:28px;color:#fff;font-size:14px;border-left-width:0px;cursor:pointer;font-weight:bold}.leftitle{width:100px;display:block;float:left}.leftitle SPAN{text-align:right;width:100%;display:block;height:30px}.rightnavv{text-align:left;padding-left:10px;display:block;float:left}.rightnavv SPAN{width:100%;display:block;height:30px}.textarea{border-bottom:#ccc 1px solid;border-left:#ccc 1px solid;width:350px;height:100px;border-top:#ccc 1px solid;border-right:#ccc 1px solid}*{font-size:12px}.tip{line-height:200%;margin:20px 0px;font-size:14px}.nav{margin-left:20px} 
+</STYLE>
+ 
+<DIV style="overflow:hidden;">
+<DIV id="jubaoform">
+<DIV class="nav" style="height:auto; padding-top:20px">
+    <DIV class="tip2">
+    
+        <DIV class="leftitle">
+        <SPAN>标题：</SPAN> 
+        <SPAN>要留言的信息：</SPAN> 
+        </DIV>
+        
+        <DIV class="rightnavv">
+        <SPAN style="HEIGHT: 30px; line-height:30px"><input type="text" id="title" style="width:282px; padding:3px" /></SPAN>
+        <SPAN style="HEIGHT: 100px"><TEXTAREA id="txtReportContent" class="textarea" name="textfield" type="text"></TEXTAREA> </SPAN>
+        </DIV>
+        
+        <DIV style="CLEAR: both">
+        </DIV>
+    </DIV>
+    <DIV class="buttontwo">
+    <INPUT id="submit" class="buttony" type="button" name="only" value="确   定" />&nbsp;&nbsp;&nbsp;&nbsp;<BR /><SPAN style="LINE-HEIGHT: 280%" id="spanErr"></SPAN>&nbsp;&nbsp;&nbsp;&nbsp;
+    </DIV>
+</DIV>
+<SCRIPT language="javascript" type="text/javascript"> 
+ var touid = {$touid};
+$(document).ready(function() {
+	$("#submit").click(function() {
+		var contents = $("#txtReportContent").val();
+		var title = $("#title").val();
+        var showMsgSp = $("#spanErr");
+		if (title.length < 1) {
+			showMsgSp.css("display", "");
+			showMsgSp.html("您好，请填写标题！");
+			return;
+		}
+		if (contents.length < 1) {
+			showMsgSp.css("display", "");
+			showMsgSp.html("您好，请填写内容！");
+			return;
+		}
+		layer.msg("提交中...",{icon:6});
+		$.post("__URL__/doinnermsg", {"msg": contents,"title":title,"to":touid},
+			function(d) {
+				if (d.status==1) {
+					layer.msg("您好，信息已发送成功！",{icon:1});
+				}else {
+					layer.msg(d.message,{icon:2});
+					return false;
+				}
+			},'json'
+		);
+	});
+});
+            
+</SCRIPT>
+</DIV>
+</DIV>

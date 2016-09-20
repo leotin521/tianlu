@@ -1,0 +1,105 @@
+<!doctype html>
+<html class="no-js">
+<!--交易记录页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>交易记录</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <style>
+        #btn{width: 100%;height:30px;line-height: 30px;border:none;background: #ccc;text-align: center;vertical-align: middle;cursor: pointer;}
+        #btn:hover{background: #aaa}
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>交易记录</h1>
+        <a href="__URL__/index" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="content">
+    <volist name="logs" id="vo">
+
+            <a rel="{$vo.id}" href="__URL__/jiaoyijilvinfo?id={$vo.id}">
+                <div class="mod-transaction mod-transaction-one" id="test">
+                    <div class="mod-transaction-left">
+                        <div class="mod-transaction-lefticon">
+                            <if condition="$vo.affect_money lt 0">
+                                <img src="__ROOT__/Style/NewWeChat/images/member/icon-transaction.png" alt="" border="0" />
+                                <else />
+                                <img src="__ROOT__/Style/NewWeChat/images/member/icon-transaction2.png" alt="" border="0" />
+                            </if>
+                        </div>
+                        <div class="mod-transaction-link">{$vo.type}<br/><span>{$vo.add_time|date="Y-m-d H:i:s",###}</span></div>
+                    </div>
+                    <if condition="$vo.affect_money lt 0">
+                        <div class="mod-transaction-right" style="color:#02E738;">{$vo.affect_money}元</div>
+                        <else />
+                        <div class="mod-transaction-right" style="color:red;">+{$vo.affect_money}元</div>
+                    </if>
+                </div>
+            </a>
+
+
+    </volist>
+    </div>
+    <!--<span>{$list['page']}</span>-->
+    <!--<span style="margin:auto 0px; float:left;">{$page}</span>-->
+    <input type='button' name='btn' id='btn' value='查看更多'>
+    <script language="javascript">
+
+        $(function(){
+           // alert(p)
+            var flag=false;
+            $("input[name=btn]").click(function(){
+                //初始状态，如果没数据return ,false;否则
+                if($(".content a").size()<=0)
+                {
+                    return false;
+                }
+                else{
+
+                    send();
+                }
+            })
+
+            function send(){
+                var p=$(".content a").last().attr('rel');
+                if(flag){
+                    return false;
+                }
+                $.ajax({
+                    type:'post',
+                    url:"__URL__/jiaoyijilv_page",
+                    data:{k:p},
+                    beforeSend:function(){
+                        $(".content a").last().append("<div id='load'>加载中……</div>");
+                    },
+
+                    success:function(data){
+                        if(data!=null){
+                            $(".content a").last().append(data.message);
+                        }else{
+                            $("input[name=btn]").val('加载完毕');
+                            flag=true;
+                        }
+                    },
+                    complete:function(){
+                        $("#load").remove();
+                    },
+                    dataType:'json'});
+                p++;
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<include file="default:Public:_header_common" group="Home" />
+<title>新用户注册-- {$glo.web_name}</title>
+<include file="default:Public:_header_main" group="Home"/>
+<link rel="stylesheet" href="__ROOT__/Style/H/css/registerstyle.css" />
+<script type="text/javascript">
+    var imgpath="__ROOT__/Style/M/";
+    var curpath="__URL__";
+</script>
+<script type="text/javascript" src="__ROOT__/Style/M/js/reg.js"></script>
+<style>
+    .register_nav li.space2,.register_nav li.space3{ color:#fff;}
+</style>
+<div class="register_main">
+    <div class="register_form">
+        <ul class="register_nav register_navsuccess register_regsuccess">
+            <li class="space1">1.填写账户信息</li>
+            <li class="space2">2.验证邮箱信息</li>
+            <li class="space3">3.注册成功</li>
+        </ul>
+        <div style="width:500px; margin:100px auto 100px;">
+
+            <table style=" margin:10px; font-size:12px; text-align:left; line-height:24px;" id="tips">
+                <tbody><tr>
+                    <td style=" font-size:16px; font-weight:bold;" rowspan="5"><img src="__ROOT__/Style/M/images/zhuce4.png" style=" margin-right:10px;"></td>
+                    <td style=" font-size:24px; font-weight:bold;">恭喜您{$username}，您已注册成功！!</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2">页面将在3秒钟之后跳转至登录前的网页。</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style=" padding-top:10px;"><a href="" style=" color:#45c4f9;">点击这里</a>立即跳转。</td>
+                </tr>
+                </tbody></table>
+
+        </div>
+    </div>
+
+</div>
+
+<include file="default:Public:_footer" group="Home" />

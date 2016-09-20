@@ -1,0 +1,511 @@
+<include file="Public:_header" />
+<include file="Public:js_ueditor" />
+<link href="__ROOT__/Style/Swfupload/swfupload.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__ROOT__/Style/Swfupload/handlers.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/Swfupload/swfupload.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//swf上传图片
+		swfu = new SWFUpload(
+		{
+			// Backend Settings
+			upload_url: "swfupload",
+			post_params: {"<php> echo session_name();</php>" : "<php> echo session_id();</php>", "dopost" : ""},
+
+			// File Upload Settings
+			file_size_limit : "2 MB",	// 2MB
+			file_types : "*.jpg; *.gif; *.png",
+			file_types_description : "选择 JPEG/GIF/PNG 格式图片",
+			file_upload_limit : "0",
+
+			file_queue_error_handler : fileQueueError,
+			file_dialog_complete_handler : fileDialogComplete,
+			upload_progress_handler : uploadProgress,
+			upload_error_handler : uploadError,
+			upload_success_handler : uploadSuccess,
+			upload_complete_handler : uploadComplete,
+
+			button_image_url : "__ROOT__/Style/Swfupload/images/SmallSpyGlassWithTransperancy_17x18.png",
+			button_placeholder_id : "spanButtonPlaceholder",
+			button_width: 250,
+			button_height: 18,
+			button_text : '<span class="button">选择本地图片 <span class="buttonSmall">(单图最大为 2 MB，支持多选)</span></span>',
+			button_text_style : '.button { font-family: "宋体", sans-serif; font-size: 12px; } .buttonSmall { font-size: 10pt; }',
+			button_text_top_padding: 0,
+			button_text_left_padding: 18,
+			button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+			button_cursor: SWFUpload.CURSOR.HAND,
+
+			// Flash Settings
+			flash_url : "__ROOT__/Style/Swfupload/swfupload.swf",
+
+			custom_settings : {
+				upload_target : "divFileProgressContainer"
+			},
+
+			// Debug Settings
+			debug: false
+		});
+		//swf上传图片
+	});
+
+</script>
+<script type="text/javascript">
+//swf上传后排序
+function rightPic(o){
+	 var o = $("#albCtok"+o);
+	 if( o.next().length > 0) {
+		  var tmp = o.clone();
+		  var oo = o.next();
+		  o.remove();
+		  oo.after(tmp);
+	 }else{
+		alert("已经是最后一个了");
+	 }
+}
+//swf上传后排序
+function leftPic(o){
+	 var o = $("#albCtok"+o);
+	 if( o.prev().length > 0) {
+		  var tmp = o.clone();
+		  var oo = o.prev();
+		  o.remove();
+		  oo.before(tmp);
+	 }else{
+		alert("已经是第一个了");
+	 }
+}
+//swf上传后删除图片start
+function delPic(id){
+	var imgpath = $("#albCtok"+id).find("input[type='hidden']").eq(0).val();
+	var datas = {'picpath':imgpath,'oid':id};
+	$.post("__URL__/swfupload?delpic", datas, picdelResponse,'json');
+}
+
+function picdelResponse(res){
+	var imgdiv = $("#albCtok"+res.data);
+		imgdiv.remove();
+		ui.success(res.info);
+		ui.box.close();
+}
+//swf上传后删除图片end
+</script>
+<style type="text/css">
+.albCt{height:200px}
+</style>
+<tagLib name="htmlA" />
+<div class="so_main">
+  <div class="page_tit">审核借款</div>
+  <div class="page_tab"><span data="tab_1" class="active">基本信息</span><span data="tab_2">审核信息</span><span data="tab_3">借款方图片资料</span></div>
+  <div class="form2">
+    <form method="post" action="__URL__/doEdit{$xact}" onsubmit="return subcheck();" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="{$vo.id}" />
+      <input type="hidden" name="borrow_type" value="{$vo['borrow_type']}" />
+      <div id="tab_1">
+        <dl class="lineD">
+          <dt>借款标题：</dt>
+          <dd>
+            <htmlA:input id="borrow_name" value="{$vo.borrow_name}" tip="*"/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>还款方式：</dt>
+          <dd>
+              <if condition="$vo['borrow_status'] eq 4">
+                  <htmlA:select id="repayment_type" value="key|vo.repayment_type" datakey='type_list' addstr="disabled='disabled'"  tip="*"/>
+              <else/>
+                  <htmlA:select id="repayment_type" value="key|vo.repayment_type" datakey='type_list'   tip="*"/>
+              </if>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>借款金额：</dt>
+          <dd>
+              <if condition="$vo['borrow_status'] eq 4">
+                  <htmlA:input id="borrow_money" value="{$vo.borrow_money}" addstr="disabled='disabled'" tip="*"/>
+                  <else/>
+                  <htmlA:input addstr='onkeyup="checkIntType(this);"'  id="borrow_money" value="{$vo.borrow_money}" tip="*"/>
+              </if>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>年化利率：</dt>
+          <dd>
+              <if condition="$vo['borrow_status'] eq 4">
+                  <htmlA:input id="borrow_interest_rate" value="{$vo.borrow_interest_rate}" addstr="disabled='disabled'" tip="%*"/>
+                  <else/>
+              
+                  <htmlA:input  id="borrow_interest_rate" addstr='onkeyup="checkFloatType(this)"' value="{$vo.borrow_interest_rate}" tip="%*"/>
+              </if>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>借款期限：</dt>
+          <dd>
+              <if condition="$vo['borrow_status'] eq 4">
+                  <htmlA:input  id="borrow_duration" value="{$vo.borrow_duration}" addstr="disabled='disabled'" tip="*"/>
+                  <else/>
+                  
+                  <htmlA:input  addstr='onkeyup="checkIntType(this);"' id="borrow_duration" value="{$vo.borrow_duration}" tip="{$duration_unit}*"/>
+              </if>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>借款说明：</dt>
+          <dd>
+            <!-- <htmlA:text id="borrow_info" value="{$vo.borrow_info}" tip="*"/> -->
+			<textarea name="borrow_info" id="borrow_info" type="text/plain" style="width:780px;height:360px;">{$vo.borrow_info}</textarea>
+          </dd>
+        </dl>
+      </div>
+      <!--tab1-->
+      <div id="tab_2" style="display:none">
+        <dl class="lineD">
+          <dt>是否允许自动投标：</dt>
+          <dd>
+              <if condition="$vo['borrow_status'] eq 4">
+                  <htmlA:radio id="can_auto" value="key|vo.can_auto" default="0|否,1|是"  addstr="disabled='disabled'"  />
+                  <else/>
+                  <htmlA:radio id="can_auto" value="key|vo.can_auto" default="0|否,1|是" />
+              </if>
+          </dd>
+        </dl>
+    	<!--<dl class="lineD">
+          <dt>是否设为推荐：</dt>
+          <dd>
+            <htmlA:radio id="is_tuijian" value="key|vo.is_tuijian" default="0|否,1|是" />
+          </dd>
+        </dl>-->
+        <dl class="lineD">
+          <dt>借款标分类：</dt>
+          <dd>
+            {$borrow_type[$vo['borrow_type']]}
+          </dd>
+        </dl>
+        <if condition="$vo['borrow_type'] eq 2">
+		<div id="danbaojigou" >
+		<dl class="lineD">
+          <dt>担保机构：</dt>
+          <dd>
+              <htmlA:select id="danbao" value="key|vo.danbao"  datakey='danbao_list' addstr='title="设置此次借款融资的担保投资公司"' />
+		  </dd>
+        </dl>
+		<!-- <dl class="lineD">
+          <dt>担保金额：</dt>
+          <dd>
+           <htmlA:input id="vouch_money" value="{$vo.vouch_money}" tip="设置担保金额" />
+		  </dd>
+        </dl> -->
+		</div>
+        </if>
+        <dl class="lineD">
+          <dt>借款管理费：</dt>
+          <dd>
+              <if condition="$vo['borrow_status'] eq 4">
+                  <htmlA:input  id="borrow_fee" value="{$vo.borrow_fee}" addstr="disabled='disabled'" tip="默认为按后台设置计算出来的，如果私下有协议可以改" />
+                  <else/>
+                  
+                  <htmlA:input addstr='onkeyup="checkFloatType(this);"'  id="borrow_fee" value="{$vo.borrow_fee}" tip="默认为按后台设置计算出来的，如果私下有协议可以改" />
+              </if>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>募集时间(天)：</dt>
+          <dd>
+              <if condition="$vo['borrow_status'] eq 4">
+                  <htmlA:input  id="collect_day" value="{$vo.collect_day}" addstr="disabled='disabled'" tip="在前台展示天数，如在担心在设定时间内不能募集完成，可修改延长" />
+              <else/>
+                 
+                  <htmlA:input  addstr='onkeyup="checkIntType(this);"'  id="collect_day" value="{$vo.collect_day}" tip="在前台展示天数，如在担心在设定时间内不能募集完成，可修改延长" />
+              </if>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>最多投标总额：</dt>
+          <dd>
+              <if condition="$vo['borrow_status'] eq 4">
+                  <htmlA:input  id="borrow_max" addstr="disabled='disabled'" value="{$vo.borrow_max}" tip="0表示无限制" />
+                  <else/>
+                  
+                  <htmlA:input  addstr='onkeyup="checkIntType(this);"'  id="borrow_max" value="{$vo.borrow_max}" tip="0表示无限制" />
+              </if>
+          </dd>
+        </dl>
+          <dl class="lineD">
+          <dt>投标待收金额限制设置：</dt>
+          <dd>
+              <if condition="$vo['borrow_status'] eq 4">
+                  <htmlA:input  id="money_collect" addstr="disabled='disabled'" value="{$vo.money_collect}" tip="0.00表示无限制" />
+                  <else/>
+                  <htmlA:input  addstr='onkeyup="checkFloatType(this);"'  id="money_collect" value="{$vo.money_collect}" tip="0.00表示无限制" />
+              </if>
+          </dd>
+        </dl>
+          <if condition="$vo['borrow_status'] eq 0 or $vo['borrow_status'] eq -1">
+          <dl class="lineD">
+              <dt>上线时间：</dt>
+              <?php $time = time();?>
+              <dd>
+              <if condition="$vo.online_time neq '0000-00-00 00:00:00' ">
+                  <htmlA:timer id="online_time" tip='不填则默认为当前时间' arg="{minDate:'%y-%M-%d', dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$vo.online_time}"/>
+              <else />
+              	  <htmlA:timer id="online_time" tip='不填则默认为当前时间' arg="{minDate:'%y-%M-%d', dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$time|date='Y-m-d H:i:s',###}"/>
+              </if>
+              </dd>
+          </dl>
+          </if>
+          <dl class="lineD">
+              <dt>是否通过：</dt>
+              <dd>
+                  <htmlA:radio id="borrow_status" datakey="borrow_status" value="key|vo.borrow_status" />
+              </dd>
+          </dl>
+
+        <if condition="$vo.borrow_status lt '3' || $vo.borrow_status eq '3'">
+           <dl class="lineD">
+            <dt>借款保证金：</dt>
+            <dd>
+                <if condition='$vo.money_deposit gt 0'>{$vo.money_deposit}%<else/>{$money_deposit}%</if>
+              <input type="hidden" name="money_deposit" id="money_deposit" value="<if condition='$vo.money_deposit gt 0'>{$vo.money_deposit}<else/>{$money_deposit}</if>" />
+              <span class="tip">借款者借款成功后冻结的保证金,10表示借款总金额的10%</span>
+            </dd>
+          </dl>
+          <dl class="lineD">
+            <dt>初审处理意见：</dt>
+            <dd>
+              <htmlA:text id="deal_info" value="{$vv.deal_info}" tip="*" />
+            </dd>
+          </dl>
+        </if>
+        <if condition="$vo.borrow_status gt '3'">
+          <dl class="lineD">
+            <dt>借款保证金：</dt>
+            <dd>
+                 借款总金额的{$vo.money_deposit}%
+            </dd>
+          </dl>
+             <dl class="lineD">
+            <dt>复审处理意见：</dt>
+            <dd>
+              <htmlA:text id="deal_info_2" value="{$vv.deal_info_2}" tip="*" />
+            </dd>
+          </dl>
+        </if>
+      </div>
+      <!--tab3-->
+      <div id="tab_3" style="display:none">
+        <dl class="lineD">
+          <dt>商品图片：</dt>
+          <dd>
+            <div class="upload_back"><span id="spanButtonPlaceholder"></span></div>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>图片预览：</dt>
+          <dd>
+            <table cellpadding="0" cellspacing="0" width="100%">
+              <tr id="handfield">
+                <td colspan="4" class="bline" style="background:url(images/albviewbg.gif) #fff 0 20px no-repeat;"><table width='100%' height='160' style="margin:0 0 20px 0">
+                    <tr>
+                      <td>
+
+						<div id="divFileProgressContainer" style="height:75px;"></div>
+			 		<div id="thumbnails">
+				<php>$x=1000;foreach(unserialize($vo['updata']) as $v){ $x--;</php>
+						<div class="albCt" id="albCtok<php>echo $x;</php>">
+							<img width="120" height="120" src="__ROOT__/<php>echo get_thumb_pic($v['img']);</php>"><a onclick="javascript:delPic(<php>echo $x;</php>)" href="javascript:;">[删除]</a><a onclick="javascript:leftPic(<php>echo $x;</php>)" href="javascript:;">[前移]</a><a onclick="javascript:rightPic(<php>echo $x;</php>)" href="javascript:;">[后移]</a><div style="margin-top:10px">注释：<input type="text" style="width:190px;" value="<php>echo $v['info'];</php>" name="picinfo[]"><input type="hidden" value="__ROOT__/<php>echo $v['img'];</php>" name="swfimglist[]"></div>
+						</div>
+				<php> } </php>
+					</div>
+
+
+						</td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table>
+          </dd>
+        </dl>
+      </div>
+      <div class="page_btm">
+        <input type="submit" class="btn_b" value="确定" />
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用ue就能拿到相关的实例
+    var ue = UE.getEditor('borrow_info');
+
+
+    function isFocus(e){
+        alert(ue.isFocus());
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function setblur(e){
+        ue.blur();
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        ue.execCommand('insertHtml', value)
+    }
+    function createEditor() {
+        enableBtn();
+        ue;
+    }
+    function getAllHtml() {
+        alert(ue.getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(ue.getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(ue.getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        ue.setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        ue.setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        ue.setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = ue.selection.getRange();
+        range.select();
+        var txt = ue.selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(ue.getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(ue.hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        ue.focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        ue.destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+
+    function getLocalData () {
+        alert(ue.execCommand( "getlocaldata" ));
+    }
+
+    function clearLocalData () {
+        ue.execCommand( "clearlocaldata" );
+        alert("已清空草稿箱")
+    }
+</script>
+<script type="text/javascript">
+
+    function checkIntType(t) {
+               var num = t.value;
+                var re=/^\d*$/;
+                if(!re.test(num)){
+                        isNaN(parseInt(num))?t.value='':t.value=parseInt(num);
+                }
+    }
+
+    function checkFloatType(t) {
+        var num = t.value;
+        var re=/^\d{0,20}(\.)\d*$/;
+        if(!re.test(num)){
+            isNaN(parseFloat(num))?t.value='':t.value=parseFloat(num);
+        }
+    }
+function addone(){
+	var htmladd = '<dl class="lineD"><dt>资料名称：</dt>';
+		htmladd+= '<dd><input type="text" name="updata_name[]" value="" />&nbsp;&nbsp;更新时间:<input type="text" name="updata_time[]" onclick="WdatePicker();" class="Wdate" /></dd>';
+		htmladd+= '</dl>';
+	$(htmladd).appendTo("#tab_3");
+}
+var cansub = true;
+function subcheck(){
+	if(!cansub){
+		alert("请不要重复提交，如网速慢，请等待！");
+		return false;
+	}
+	var deal_info = $("#deal_info").val();
+	var deal_info_2 = $("#deal_info_2").val();
+	var borrow_status = {$vo.borrow_status};
+	var borrow_money = $("#borrow_money").val();
+	var vouch_money = $("#vouch_money").val();
+                       var money_deposit  =$("#money_deposit").val();
+                    if(money_deposit>20){
+                       ui.error("冻结保证金不能大于借款金额的20%！");
+                       return false;
+                    }
+	if(vouch_money>borrow_money){
+		vouch_money = borrow_money;
+		$("#vouch_money").val(borrow_money);
+		ui.error("担保金额不能大于借款金额！");
+		return false;
+	}
+
+	if(borrow_status<=3){
+		if(deal_info ==""){
+			ui.error("初审处理意见不能为空！");
+			return false;
+		}
+	}else{
+		if( deal_info_2 ==""){
+			ui.error("复审处理意见不能为空！");
+			return false;
+		}
+	}
+	cansub = false;
+	return true;
+}
+</script>
+<include file="Public:_footer" />

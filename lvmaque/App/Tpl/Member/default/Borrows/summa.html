@@ -1,0 +1,362 @@
+<include file="default:Public:_header_other"/>
+<style type="text/css">
+    .select-style-rp select {
+        background: 0 0;
+        border: 0;
+        background-color: #fff;
+        border: 1px solid #d8d8d8;
+        border-radius: 3px;
+        height: 26px;
+        padding: 0 0 0 10px;
+        margin: 0;
+        min-width: 200px;
+        _width: 200px;
+        max-width: 200px;
+        float: left
+    }
+
+    .hk_status {
+        width: 760px;
+        height: 50px;
+        padding-left: 26px;
+        font-family: Arial;
+        padding-right: 20px;
+    }
+
+    .hk_status h2 {
+        display: block;
+        float: left;
+        width: 65px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 13px;
+    }
+
+    .hk_sxx {
+        float: left;
+        width: 500px;
+        height: 50px;
+        line-height: 50px;
+        display: block;
+        margin-top: 13px;
+    }
+
+    #state_info_nav_hk {
+        list-style: none;
+    }
+
+    #state_info_nav_hk li {
+        float: left;
+    }
+
+    #state_info_nav_hk a {
+        width: 65px;
+        height: 25px;
+        line-height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
+        text-align: center;
+        float: left;
+    }
+
+    .hkbk_bg {
+        width: 65px;
+        height: 25px;
+        line-height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
+        background: #e25353;
+        color: #fff;
+    }
+
+    .hkbk_bg:hover {
+        color: #fff;
+    }
+
+    .Clr {
+        clear: both;
+    }
+
+    .hk_content {
+        margin-left: 20px;
+        margin-right: 20px;
+        clear: both;
+    }
+
+    #yhq_xqlbshow {
+        position: absolute;
+        left: 36%;
+        top: 31%;
+        z-index: 999;
+    }
+
+    #yhq_xqlbshow table {
+        border: 1px solid #e0e0e0;
+        width: 678px;
+        background: #fff;
+    }
+
+    #yhq_xqlbshow table tr td {
+        width: 113px;
+        text-align: center;
+        height: 40px;
+        line-height: 40px;
+    }
+</style>
+</head>
+<body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"></div>
+    </div>
+    <div class="user-main clearfix">
+        <include file="default:Public:_left"/>
+        <div class="user-con user-deal-record">
+            <div class="user-box-1">
+                <div class="user-box-title-1 clearfix">
+                    <h2>借款总表</h2>
+                </div>
+                <div class="user-box-con-2">
+                    <div class="classify-selected-1-a">
+                        <dl class="classify-selected-1 clearfix">
+                            <dt>还款方式:</dt>
+                            <dd><span class="select-style-rp">
+                                        <select id="repay_type" name="repay_type">
+                                            <option value="">全部</option>
+                                            <volist name="repay_type" id="rp">
+                                                <option value="{$i}">{$rp}</option>
+                                            </volist>
+                                        </select>
+                                    </span>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="classify-selected-1-time">
+                        <dl class="classify-selected-1 clearfix">
+                            <dt>到期日期</dt>
+                            <dd id="deadline" class="pairtimer">
+                                <input type="text" readonly class="input-text-style-1 startone"/>
+                                <span>-</span>
+                                <input type="text" readonly class="input-text-style-1 endone"/>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="hk_status">
+                    <h2>还款状态：</h2>
+                    <div class="hk_sxx">
+                        <ul id="state_info_nav_hk" _cur="hkbk_bg">
+                            <?php if(isset($status) && $status=='overdue'){ ?>
+                            <a href="javascript:void(0)" _repay="1" onclick="onTabClick($(this));">发标中</a>
+                            <a href="javascript:void(0)" _repay="2" onclick="onTabClick($(this));">偿还中</a>
+                            <a href="javascript:void(0)" class="hkbk_bg" _repay="3"
+                               onclick="onTabClick($(this));">已逾期</a>
+                            <?php }else{ ?>
+                            <a href="javascript:void(0)" class="hkbk_bg" _repay="1" onclick="onTabClick($(this));">发标中</a>
+                            <a href="javascript:void(0)" _repay="2" onclick="onTabClick($(this));">偿还中</a>
+                            <a href="javascript:void(0)" _repay="3" onclick="onTabClick($(this));">已逾期</a>
+                            <?php } ?>
+
+                            <a href="javascript:void(0)" _repay="4" onclick="onTabClick($(this));">已失败</a>
+                            <a href="javascript:void(0)" _repay="5" onclick="onTabClick($(this));">已还清</a>
+
+                            <div class="Clr"></div>
+                        </ul>
+                    </div>
+                    <div class="Clr"></div>
+                </div>
+                <div id="flash_table"></div>
+                <div class="hk_content" id="summa_list">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/H/js/globalfunc.js"></script>
+<script id="summaList" type="text/x-dot-template">
+    {{? it == 0}}
+    <tr>
+        <td colspan="{{=it.cols}}"
+            style="text-align:center; font-size:14px; color:#999; height:50px; line-height:50px;">登录状态已过期，请您重新 <a
+                href="/member/common/login/" style="color:#3181d8">登录</a></td>
+    </tr>
+    {{ }else{ }}
+    <table width="765" style="border:1px solid #efefef;">
+        <tr class="allbgcolor" height="40" style="color:#fff;">
+            {{~it.name :value:index}}
+            <td width="{{=it.width[index]}}" style="text-align:center">{{=value}}</td>
+            {{~}}
+        </tr>
+        {{? it.allpage == 0 }}
+        <tr>
+            <td colspan="{{=it.cols}}"
+                style="text-align:center; font-size:14px; color:#999; height:50px; line-height:50px;">暂时无任何记录
+            </td>
+        </tr>
+        {{ }else{ }}
+        {{~it.list :value:index}}
+        <tr bgcolor="#efefef" height="35">
+            <td width="720" colspan="{{=(it.pay > 0) ? it.cols - 1 : it.cols}}" style="padding-left:45px;">
+                项目名称：<a target="_blank" href="{{=value.borrow_url}}" title="{{=value.borrow_name}}">{{=(value.borrow_name.length
+                > 45 ? value.borrow_name.substring(0,45) + "..." : value.borrow_name)}}</a>
+            </td>
+            {{? it.pay > 0 }}
+            <td width="85" style="text-align:center"><span></span>
+                <a target="_blank" href="/member/borrows/payPage?bid={{=value.bid}}">{{=(it.pay == 1) ? "马上还款" :
+                    "明细列表"}}</a>
+                <img src="__ROOT__/Style/H/images/mshk_img.png" height="16" width="16"
+                     style="margin-left:5px;margin-top:-4px;" class="pay_list" _bid="{{=value.bid}}"/>
+            </td>
+            {{?}}
+        </tr>
+        <tr height="35">
+            {{~it.code :code:inx}}
+            <td style="text-align:center">{{=value[code]}}</td>
+            {{~}}
+        </tr>
+        {{~}}
+        {{?}}
+    </table>
+    {{?}}
+    {{? it.allpage > 0 }}
+    <tr>
+        <td colspan="{{=it.cols}}">
+            <div class="pager-content table-style-footer-1">
+                <div class="pagination" id="pageline" _cur="current">
+                    {{for (var i = 1, p = Math.ceil(it.allpage / it.perpage); p >= i; i++){}}
+                    {{? i == it.curpage}}<a class="current">{{ }else{ }}<a _page={{=i}} onclick="onTabClick($(this));">{{?}}{{=i}}</a>&nbsp;&nbsp;
+                    {{}}}
+                    <b class="flag_yeshu" style="font-weight:normal;">共{{=p}}页，{{=it.allpage}}条记录</b>
+                </div>
+            </div>
+        </td>
+    </tr>
+    {{?}}
+</script>
+<script id="payList" type="text/x-dot-template">
+    <table width="678" border="1">
+        <tr bgcolor="#ededed">
+            <td>计划还款日期</td>
+            <td>计划还款本金</td>
+            <td>计划还款利息</td>
+            <td>实还本息</td>
+            <td>需还本息</td>
+            <td>还款状态</td>
+        </tr>
+        {{~it.list :value:index}}
+        <tr>
+            {{ var m1=parseFloat(value.capital),m2=parseFloat(value.interest),rp=parseFloat((value.status > 0 && 6 >
+            value.status) ? value.receive : 0); }}
+            <td>{{=(value.deadline > 0) ? String((new Date(Number(value.deadline)*1000)).Format("yyyy-MM-dd")) : "-"}}
+            </td>
+            <td>{{=(m1 > 0) ? m1 : "-"}}</td>
+            <td>{{=(m2 > 0) ? m2 : "-"}}</td>
+            <td>{{=(rp > 0) ? rp : "-"}}</td>
+            <td>{{=(m1 + m2 >= rp) ? Math.round((m1 + m2 - rp) * 100) / 100 : "0"}}</td>
+            <td>{{=it.list_status[value.status]}}</td>
+        </tr>
+        {{~}}
+    </table>
+</script>
+<script>
+    $(function(){
+
+    var summaData={
+        flash: "#flash_table",
+        transfer_type: "POST",
+        url: "/Member/borrows/summaList/",
+        temp_id: "summaList",
+        disp_id: "#summa_list",
+        param: {
+            perpage: 10
+        },
+        tabs: {
+            page: {
+                obj: "#pageline a",
+                cur: "current"
+            },
+            repay: {
+                obj: "#state_info_nav_hk a",
+                cur: "hkbk_bg"
+            }
+        },
+        timer: {
+            deadline: "#deadline"
+        },
+        select: {
+            rptype: "#repay_type"
+        },
+        attr: {
+            curpage: {
+                tab: "page",
+                key: "_page"
+            },
+            type: {
+                tab: "repay",
+                key: "_repay"
+            }
+        },
+        pops: {
+            pay: {
+                url: "/Member/borrows/payList/",
+                obj: ".pay_list",
+                temp_id: "payList",
+                attr: {
+                    bid: "_bid"
+                },
+                param: {
+                    perpage: 10
+                },
+                alignX: "left"
+            }
+        },
+        click: {
+            pay: {
+                url: "/Member/borrows/doErase/",
+                obj: ".do_erase",
+                attr: {
+                    bid: "_bid"
+                },
+                check: {
+                    func: "chkErase",
+                    param: {
+                        attr: {
+                            bid: "_bid"
+                        }
+                    }
+                },
+                flash: "#flash_table"
+            }
+        }
+    };
+    zz.userAction.init(summaData);
+    zz.timer.init();
+    //撤销操作之前的提示
+
+    })
+    var revertBorrow = false;
+    function chkErase(n) {
+
+        if( revertBorrow == true ) {
+            revertBorrow = false;
+            return true;
+        }else{
+            layer.confirm("撤销第" + n + "号借款标？", {
+                btn: ['确定', '取消'], //按钮
+                shade: false, //不显示遮罩
+                icon: 3
+            }, function () {
+                revertBorrow = true;
+                $('#do_erase'+n).trigger('click');
+                $('.layui-layer-close').trigger('click');
+//                layer.msg('撤销成功', {icon: 1});
+            }, function () {
+
+            });
+        }
+    }
+</script>
+</body></html>

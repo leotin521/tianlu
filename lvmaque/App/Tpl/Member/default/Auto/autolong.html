@@ -1,0 +1,416 @@
+<style>
+div.jbox .jbox-content {
+min-height: 24px;
+line-height: 50px;
+color: #444444;
+padding-left:15px;
+}
+</style>
+<script type="text/javascript">
+	var regCount = /^(([1-9]{1}[0-9]{0,})|([0-9]{1,}))$/;
+	var regRate = /^\d{1,2}\.{0,1}\d{0,2}$/;
+	var newTitle = '{$glo.web_name}提醒您：';
+	$(document).ready(function() {
+		$("input[type='button'].btnsave").click(
+		function() {
+			UpdateMiniAmount($(this));
+		});
+		if (!$("input[type='radio']:checked").length) {
+			$("input[type='radio']:first").attr("checked", "checked");
+		}
+	});
+
+	var objectarray =
+	[
+		"您好，请输入正确的余额！",
+		"您好，请输入正确的利率！",
+		"您好，请输入正确的借款期限！",
+		"您好，请输入正确的投标金额，最低金额为50元！",
+		"您好，最大投资金额必须大于最小投资金额！",
+		"您好，最大投资金额必须大于或等于200！",
+		"您好，最小投标金额必须大于或等于50元！",
+		"您好，最大投资金额必须为数字！",
+		"您好，最小投资金额必须为数字！",
+		"点击确定后将自动刷新页面",
+	];
+</script>
+
+<script language="javascript" type="text/javascript">
+
+	var dateMiniSet = '2012-07-01';
+	$(document).ready(function() {
+		var interestrates = '0';
+		//var tendamount = '200';
+		var miniamount = '0';
+		var creditrating = '0';
+		var loancycle = '';
+		var prioritytype = '0';
+		var expireddate = '2000-01-01';
+		if (expireddate.indexOf("0001") > -1) { expireddate = ""; }
+		else if (expireddate.indexOf("2000") > -1) { expireddate = ""; }
+		var borrowtype = '1';
+        if (borrowtype > 0) {
+			//$(":radio[name='borrow_type']").attr("checked", "checked");
+		}
+		if (interestrates > 0) {
+			$("#chkinterestrates").attr("checked", "checked");
+			$(":input[name='interestrates']").val(interestrates);
+		}
+		if (loancycle.length > 0) {
+			$("#chkloancycle").attr("checked", "checked");
+			var days = loancycle.split(',');
+			$(":input[name='loancycle']").eq(0).val(days[0]);
+			$(":input[name='loancycle']").eq(1).val(days[1]);
+		}
+		if (miniamount > 0) {
+			$("#chkminiamount").attr("checked", "checked");
+			$(":input[name='miniamount']").val(miniamount);
+		}
+		if (expireddate != "") {
+			$("#chkexpireddate").attr("checked", "checked");
+			$(":input[name='expireddate']").val(expireddate);
+		}
+		//$(":input[name='tendamount']").val(tendamount);
+		
+		if (prioritytype > 0) {
+			$("#rdoprioritytype" + prioritytype).attr("checked", "checked")
+			$("#chkLoanAfterReturn").attr("checked", "checked")
+		}
+	});
+
+	//提交设置
+	function updateLoanAuto() {
+		var checklist = $(":input[name='tendamount']");
+		if (checklist.length == 0 && '无' == "无") {
+			layer.alert('您没有进行任何条件设置！', {icon: 5}); return;
+		}
+		else {
+			var interest = 0;
+			//年化利率
+			if ($(":checked[id='chkinterestrates']").length > 0) {
+				interest = $(":input[name='interestrates']").val();
+				if (!regRate.test(interest) || interest == 0) { 
+					layer.msg(objectarray[1], {icon: 5});
+					return; 
+				}
+			}
+			//最大投资金额
+			var tendamount = $(":input[name='tendamount']").val(); 
+			//最小投资金额
+			var mininvest = $(":input[name='mininvest']").val(); 
+			//最大投资金额必须大于200
+			if(parseInt(tendamount)<200 || tendamount=='') { 
+				layer.msg(objectarray[5], {icon: 5});
+				return;
+			}
+			//最大投资金额必须为数字
+			if(isNaN(tendamount)) { 
+				layer.msg(objectarray[7], {icon: 5});
+				return; 
+			}
+			//最小投资金额必须大于等于50
+			if(parseInt(mininvest)<50 || mininvest=='') { 
+				layer.msg(objectarray[6], {icon: 5});
+				return;
+			}
+			//最小投资金额必须为数字
+			if(isNaN(mininvest)) { 
+				layer.msg(objectarray[8], {icon: 5});
+				return;
+			}
+			//最大投资金额必须大于最小投资金额
+			if (parseInt(tendamount) < parseInt(mininvest)) { 
+				layer.msg(objectarray[4], {icon: 5});
+				return;
+			}
+			
+			var tamount = $(":checked[name='tamount']").val();
+			if (tamount == 0 && (!regCount.test(tendamount) || tendamount < 50)) { 
+				layer.msg(objectarray[3], {icon: 5});
+				return;
+			}
+			tendamount = tamount == 1 ? 0 : tendamount;
+			//账户最小余额
+			var miniamount = 0; 
+			if ($(":checked[id='chkminiamount']").length > 0) {
+				miniamount = $(":input[name='miniamount']").val();
+				if (!regCount.test(miniamount) || miniamount == 0) { 
+					layer.msg(objectarray[0], {icon: 5});
+					return;
+				}
+			}
+			//投资期限
+			var loancycle = ""; 
+			if ($(":checked[id='chkloancycle']").length > 0) {
+				var start = $(":input[name='loancycle']").val();
+				var end = $(":input[name='loancycle']").eq(1).val();
+				if ((!regCount.test(start) || !regCount.test(end)) || parseInt(start) > parseInt(end) || parseInt(start) < 1 || parseInt(end) > 24) { 
+					layer.msg(objectarray[2], {icon: 5});
+					return;
+				}
+				else { loancycle = start + "," + end; }
+			}
+			//失效日期
+			var expireddate = ""; 
+			if ($(":checked[id='chkexpireddate']").length > 0) {
+				expireddate = $(":input[name='expireddate']").val();
+			}
+			var borrowtype='1';
+			if ($(":checked[name='borrow_type']").length > 0) {
+				borrowtype = $(":checked[name='borrow_type']").val();
+			}
+			$.ajax({
+				url: "__URL__/savelong",
+				type: "post",
+				dataType: "json",
+				data: "interest=" + interest + "&tendAmount=" + tendamount + "&miniamount=" + miniamount + "&mininvest=" + mininvest + "&loancycle=" + loancycle + "&expireddate=" + expireddate + "&borrowtype=" +borrowtype+ "&prioritytype=" + $('input:checked[name="prioritytype"]').val() + "&chkautoday=" + $("input:checked[name='chkAutoDay']").val(),//`mxl:autoday`
+				success: function(d) {
+					if(d.status==1){
+						layer.alert(d.message + "，" + objectarray[9], {icon: 1}, function(index){
+						    layer.close(index);
+						    window.location.reload();
+						});
+					}else {
+						layer.msg(d.message, {icon: 5});
+						return;
+					}
+				}
+			});
+		}
+	}
+</script>
+
+<style type="text/css">
+	.tdHead { font-size: 12px; font-weight: bold; text-align: left; height: 40px; line-height: 40px; background-color: #F9F9F9; border: #E9E8E7 solid 1px; text-align: center; }
+	.tdContent { font-size: 12px; text-align: left; height: 35px; line-height: 35px; border: #E9E8E7 solid 1px; padding-left: 10px; padding-right: 10px; text-align: left; }
+	.btnsave { border: none; width: 80px; height: 31px; background-image: url(__ROOT__/Style/M/images/b1i.jpg); cursor: pointer; }
+	.text6 { width: 50px; margin: 0 3px; }
+	.line11 { float: left; height: 32px; width: 39px; }
+	.line12 { float: left; height: 22px; width: 669px; padding: 10px 0 0 0; }
+	.line2 { float: left; height: 29px; width: 727px; padding: 5px 0 0 25px; border-width: 1px 0 0 0; border-style: solid; border-color: #e1e1e1; }
+	#line3 { float: left; height: 70px; *height: 90px; width: 683px; padding: 7px 0 0 25px; background-color: #f0f0f0; border-width: 1px 0; border-style: solid; border-color: #e1e1e1; line-height:180%; *line-height:150%; }
+	#line4 { float: left; height: 28px; width: 755px; padding: 20px 0; text-align: right; }
+	#line5 { float: left; height: auto; width: 755px; padding: 10px 0 15px 0; background-color: #fff7f8; border-width: 1px 0 0 0; border-style: solid; border-color: #ef7475; }
+	#line51 { float: left; height: 17px; width: 658px; padding: 0 25px 0 25px; }
+	.line511 { float: left; height: 17px; width: 17px; }
+	.line512 { float: left; height: 15px; width: 639px; padding: 2px 0 0 2px; }
+	#line52 { float: left; height: auto; width: 640px; padding: 8px 25px 0 43px; line-height: 2.1; color: #005B9F; }
+	.line1 { float: left; height: 32px; width: 755px; border-width: 3px 0 0 0; border-style: solid; border-color: #e1e1e1; }
+	.dv_header_8 { background-image: url(); }
+	.dv_account_0 { margin-top: 10px; }
+	.vtexttop { vertical-align: text-top; }
+	.sp_gray { color: #666666; }
+	.errsty { float: left; overflow: hidden; height: 25px; line-height: 20px; }
+	.resetResult { background: url(__ROOT__/Style/M/images/button/zdtb_13.jpg); height: 28px; width: 163px; border: 0px; }
+	.setState0{ background: url(__ROOT__/Style/M/images/button/zanting_queren.gif) 0 -38px; height: 29px; width: 163px; border: 0px; margin-bottom:30px; cursor:pointer; }
+	.setState1{ background: url(__ROOT__/Style/M/images/button/zanting_queren.gif); height: 29px; width: 165px; border: 0px; margin-bottom:30px; cursor:pointer; }
+</style>
+<div style="margin: 10px 0 0 24px;overflow:hidden;">
+	<br>
+	<div class="line1">
+		<div class="line12" style="padding-left: 25px;">
+			同时满足以下条件，将进行自动投标：</div>
+	</div>
+	<div class="line2">
+		<div style="float: left; overflow: hidden;">
+			自动投标类型&nbsp;<input name="borrow_type" type="radio" style="background-color:none;" checked="checked" value="{$type}">&nbsp;{$borrow_type[$type]}
+		</div>
+	</div>
+    <div class="line2">
+		<div style="float: left; overflow: hidden;">
+			最大投资金额
+			<if condition="($xs eq 1) AND ($list[0]['invest_money'] neq '') ">
+			<input class="text6" name="tendamount" id="txttendamount" type="text" value="{$list[0]['invest_money']}">
+			<else />
+			<input class="text6" name="tendamount" id="txttendamount" type="text" value="200">
+			</if>
+			该数值须为不小于200元的整数；
+		</div>
+		<div id="errsty2" class="errsty">
+		</div>
+	</div>
+    <div class="line2">
+		<div style="float: left; overflow: hidden;">
+			最小投资金额
+			<if condition="($xs eq 1) AND ($list[0]['min_invest'] neq '') ">
+			<input class="text6" name="mininvest" id="mininvest" type="text" value="{$list[0]['min_invest']}">
+			<else />
+			<input class="text6" name="mininvest" id="mininvest" type="text" value="50">
+			</if>
+			大于等于50元，不大于最大投标金额；
+		</div>
+		<div id="errsty2" class="errsty">
+		</div>
+	</div>
+	<div class="line2">
+		<div style="float: left; overflow: hidden;">
+			<label>
+			</label>
+			<if condition="($xs eq 1) AND ($list[0]['interest_rate'] neq 0) ">
+			<input name="chkAutoRule" value="InterestRates" checked="checked" id="chkinterestrates" style="margin: 3px 15px 0 0;" type="checkbox">年化利率≥
+			<input class="text6" name="interestrates" id="interestrates" type="text" value="{$list[0]['interest_rate']}">%；
+			<else />	
+			<input name="chkAutoRule" value="InterestRates" id="chkinterestrates" style="margin: 3px 15px 0 0;" type="checkbox">年化利率≥
+			<input class="text6" name="interestrates" id="interestrates" type="text">%；
+			</if>
+			<script type="text/javascript">
+				$("input[name='interestrates']").focus(function(){
+					$("#chkinterestrates").attr("checked",'checked');
+				});
+			</script>
+		</div>
+		<div id="errsty2" class="errsty">
+		</div>
+	</div>
+	<div class="line2">
+		<div style="float: left; overflow: hidden;">
+			<label>
+			</label>
+			<if condition="($xs eq 1) AND ($list[0]['duration_from'] neq 0) ">
+			<input name="chkAutoRule" value="LoanCycle" id="chkloancycle" checked="checked" style="margin: 3px 15px 0 0;" type="checkbox">借款期限在
+			<input class="text6" name="loancycle" id="loancycle" type="text" value="{$list[0]['duration_from']}" >个月到<input class="text6" name="loancycle" id="loancycle1" type="text" value="{$list[0]['duration_to']}" >个月；
+			<else />
+			<input name="chkAutoRule" value="LoanCycle" id="chkloancycle" style="margin: 3px 15px 0 0;" type="checkbox">借款期限在
+			<input class="text6" name="loancycle" id="loancycle" type="text" >个月到<input class="text6" name="loancycle" id="loancycle1" type="text" >个月；
+			</if>
+			<script type="text/javascript">
+				$("input[name='loancycle']").focus(function(){
+					$("#chkloancycle").attr("checked",'checked');
+				});
+			</script>
+		</div>
+		<div id="errsty3" class="errsty">
+		</div>
+	</div>
+	<!-- `mxl:autoday` -->
+	<input type="hidden" id="hi_status" value="{$xs}">
+	<div class="line2">
+		<div style="float: left; overflow: hidden;">
+			<label></label>
+			<if condition="($xs eq 1) AND ($list[0]['is_auto_day'] eq 1) ">
+			<input name="chkAutoDay" id="chkautoday" checked="checked" style="margin: 3px 15px 0 0;" type="checkbox" value="2199">
+			<else />
+			<input name="chkAutoDay" id="chkautoday" style="margin: 3px 15px 0 0;" type="checkbox" value="2199">
+			</if>包括天标；
+		</div>
+		<div id="errsty2" class="errsty"></div>
+	</div>
+	<!-- `mxl:autoday` -->
+	<div class="line2">
+		<div style="float: left; overflow: hidden;">
+			<label>
+			</label>
+			<if condition="($xs eq 1) AND ($list[0]['account_money'] neq 0) ">
+			<input name="chkAutoRule" value="MiniAmount" checked="checked" id="chkminiamount" style="margin: 3px 15px 0 0;" type="checkbox">账户保留金额≥
+			<input class="text6" name="miniamount" id="miniamount" type="text" value="{$list[0]['account_money']}">
+			<else />
+			<input name="chkAutoRule" value="MiniAmount" id="chkminiamount" style="margin: 3px 15px 0 0;" type="checkbox">账户保留金额≥
+			<input class="text6" name="miniamount" id="miniamount" type="text">元；（当您账户可用余额低于该值时，将不能自动投标）
+			</if>
+			<script type="text/javascript">
+				$("input[name='miniamount']").focus(function(){
+					$("#chkminiamount").attr("checked",'checked');
+				});
+			</script>
+		</div>
+		<div id="errsty4" class="errsty">
+		</div>
+	</div>
+	<div class="line2">
+		<div style="float: left; overflow: hidden;">
+			<label>
+			</label>
+			<if condition="($xs eq 1) AND ($list[0]['end_time'] neq '') ">
+			<input name="chkAutoRule" checked="checked" value="ExpiredDate" id="chkexpireddate" style="margin: 3px 15px 0 0;" type="checkbox">自动投标日期设置于
+			<input name="expireddate" id="expireddate" readonly="readonly" onclick="return returnDateFomartWith_();" size="10" onfocus="WdatePicker({ minDate: dateMiniSet })" type="text" value="{$list[0]['end_time']|date='Y-m-d',###}" >
+			<else />
+			<input name="chkAutoRule" value="ExpiredDate" id="chkexpireddate" style="margin: 3px 15px 0 0;" type="checkbox">自动投标日期设置于
+			<input name="expireddate" id="expireddate" readonly="readonly" onclick="return returnDateFomartWith_();" size="10" onfocus="WdatePicker({ minDate: dateMiniSet })" type="text"></if>自动取消；
+			<script type="text/javascript">
+				$("input[name='expireddate']").focus(function(){
+					$("#chkexpireddate").attr("checked",'checked');
+				});
+			</script>
+		</div>
+		<div id="errsty5" class="errsty">
+		</div>
+	</div>
+	
+	<div id="line4">
+		<img style="cursor: pointer;" alt="确定" onclick="updateLoanAuto()" src="__ROOT__/Style/M/images/button/btn2.gif">
+		&nbsp;&nbsp;&nbsp;
+	</div>
+<php>if(is_array($list)){</php>
+<volist name="list" id="vo">
+<!-- 散标设置 -->
+	<div id="line5">
+		<div id="line51">
+			<div class="line511">
+				<img alt="" src="__ROOT__/Style/M/images/minilogo.gif"></div>
+			<div class="line512">
+				您当前的<if condition="$vo.borrow_type eq 6"><?php echo BorrowModel::get_borrow_type(6);?><elseif condition="$vo.borrow_type eq 7"/><?php echo BorrowModel::get_borrow_type(7);?><else/>散标</if>自动投标设置为：</div>
+		</div>
+		<div id="line52">
+			<table cellpadding="0" cellspacing="0">
+				<tbody>
+				<tr>
+				<input type="hidden" id="type_status" value="{$vo.borrow_type}" />
+					<td style="width: 490px;">
+						<if condition="$vo.id gt '0'">
+							<if condition="$vo.invest_money eq '0'"><else/>最大投标金额 <font color="#000">{$vo.invest_money} </font>元；</if><br>
+							<if condition="$vo.min_invest eq '0'"><else/>最小投标金额 <font color="#000">{$vo.min_invest} </font>元；</if><br>
+							<if condition="$vo.interest_rate eq '0'"><else/>最低利率≥ <font color="#000">{$vo.interest_rate} </font>%；<br></if>
+							<if condition="$vo.duration_from eq '0'"><else/>借款期限在 <font color="#000">{$vo.duration_from}</font> 月到 <font color="#000">{$vo['duration_to']%180} </font>月；<br></if>
+							<li><if condition="$vo.is_auto_day eq '0'">不</if>包括天标；</li>
+							<if condition="$vo.account_money eq '0'"><else/>账户保留金额≥ <font color="#000">{$vo.account_money} </font>元；（当您账户可用余额低于该值时，将不能自动投标）<br></if>
+							
+							<if condition="$vo.end_time eq '0'">
+							<else/>自动投标日期设置于 <font color="#000">{$vo.end_time|date="Y-m-d",###} </font>自动取消；<br>
+						</if>
+						<font color="#000"><if condition="$vo.is_use eq 0">当前设置已暂停使用<else/>当前设置已启用 </if></font>；
+						</if>
+					</td>
+					<td>
+						<if condition="$vo.is_use eq '1'">
+							<input value="" style="cursor:pointer"  class="resetResult" onclick="updateSate(0,{$vo.id})" type="button">
+						<else/>
+							<input value="" style="cursor:pointer" class="setState0" onclick="updateSate(1,{$vo.id})" type="button">
+						</if>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</volist>
+<php>}</php>
+<!-- 结束 -->
+</div>
+<script type="text/javascript">
+	function updateSate(state,aid) {
+		var oldstate = state;
+		var hi_status = $("#hi_status").val();
+		var type_status = $("#type_status").val();
+		state == 0 ? 1 : 0;
+		layer.confirm('您好，确认要' + (oldstate == 0 ? '暂停使用' : '启用') + '当前设置吗?', {icon: 3}, function(index){
+		    layer.close(index);
+		    if (aid!="") {
+				$.post("__URL__/setupauto", { "aid": aid,s: state }, function(data) {
+					if(data==1){
+						if(hi_status==1){
+							check(type_status);
+						}else{
+							check(3);
+						}
+					}else{
+						layer.msg("状态修改失败，请重试！", {icon: 5});
+						return false;
+					}
+				});
+			}else {
+				layer.msg("您好，您目前没有任何设置！", {icon: 5});
+				return false;
+			}
+		});
+	}
+</script>				

@@ -1,0 +1,506 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>我要借款</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+	<style>
+		select{
+	-webkit-appearance: none;
+}
+	</style>
+</head>
+
+<body>
+    <header>
+        <h1>我要借款</h1>
+        <a href="__URL__/index" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+ 			<form action="" class="am-form am-form-horizontal form-apply">
+            <div class="mod-info-usermeg">
+            	 <ul class="am-list ">
+
+                	<li class="mod-info-listline" style="margin-top:1rem">
+                       <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">借款金额</label>
+                             <div class="" style="margin-top:12px;padding:0;margin-left:0;width:100%">
+                                 <div style="padding-top:1rem;float:right;font-size:1.5rem">&nbsp;元</div><input class="am-radius" style="width:60%; float:right" align="bottom" type="text" id="borrow_money" name="borrow_money" title="借款金额不能小于50元，且必须是最低投资金额的整数倍。交易币种均为人民币。借款成功后,请按时还款 手续费请查看收费规则">&nbsp;
+                             </div>
+                         </div>
+                    </li>
+
+                    <li class="mod-info-listline">
+                        <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">年利率</label>
+                             <div class="" style="margin-top:12px;padding:0;margin-left:0;width:100%">
+                                 <div style="padding-top:1rem;float:right;font-size:1.5rem">&nbsp;&nbsp;%</div><input class="am-radius" style="width:60%; float:right" align="bottom" type="text" id="borrow_interest_rate" name="borrow_interest_rate" title="填写您提供给投资者的年利率,所填写的利率是您还款的年利率。且只保留小数后最后两位。">&nbsp;
+                             </div>
+                         </div>
+                    </li>
+                    <li class="mod-info-listline" style="margin-top:1rem">
+                        <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt" style="width:35%">借款用途</label>
+                             <div class="am-u-sm-9" style="margin-top:12px; width:65%">
+                                 <div class="am-form-group">
+                                     <select id="borrow_use" name="borrow_use" class="am-radius" style="height:3.8rem;-webkit-appearance:none;" dir="rtl">
+                                         <volist name="borrow_use" id="data">
+                                             <option value="{$key}">{$data}</option>
+                                         </volist>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                    </li>
+                    <li class="mod-info-listline">
+                         <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">借款期限</label>
+                             <div class="am-u-sm-9" style="margin-top:12px; width:65%">
+                                 <div class="am-form-group" id="yue">
+                                     <select id="borrow_duration" class="am-radius" style="height:3.8rem;-webkit-appearance: none;" dir="rtl">
+                                         <volist name="borrow_month_time" id="data">
+                                             <option value="{$key}">{$data}</option>
+                                         </volist>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                                 <div class="am-form-group" id="tian" style="display:none;">
+                                     <select id="borrow_day_times" class="am-radius" style="height:3.8rem;-webkit-appearance: none;" dir="rtl">
+                                         <volist name="borrow_day_time" id="data">
+                                             <option value="{$key}">{$data}</option>
+                                         </volist>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+                     </li>
+
+
+
+                       <li class="mod-info-listline">
+                         <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt" style="width:35%">最低投标金额</label>
+                             <div class="am-u-sm-9" style="margin-top:12px; width:65%">
+                                 <div class="am-form-group">
+                                     <select id="borrow_min" name="borrow_min" class="am-radius" style="height:3.8rem;-webkit-appearance: none;" dir="rtl">
+                                         <volist name="borrow_min" id="data">
+                                             <option value="{$key}" style="text-align: right;">{$data}</option>
+                                         </volist>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                     </li>
+                      <li class="mod-info-listline">
+                        <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt" style="width:35%">最多投标金额</label>
+                             <div class="am-u-sm-9" style="margin-top:12px; width:65%">
+                                 <div class="am-form-group">
+                                     <select id="borrow_max" name="borrow_max" class="am-radius" style="height:3.8rem;-webkit-appearance: none;" dir="rtl">
+                                         <volist name="borrow_max" id="data">
+                                             <option value="{$key}">{$data}</option>
+                                         </volist>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                    </li>
+                     <li class="mod-info-listline">
+                         <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt" style="width:35%">有效时间</label>
+                             <div class="am-u-sm-9" style="margin-top:12px; width:65%">
+                                 <div class="am-form-group">
+                                     <select id="borrow_time" name="borrow_time" class="am-radius" style="height:3.8rem;-webkit-appearance: none;" dir="rtl">
+                                         <volist name="borrow_time" id="data">
+                                             <option value="{$key}">{$data}</option>
+                                         </volist>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                     </li>
+
+                    <!-- <li class="mod-info-listline">
+                                        <div class="am-form-group">
+                        <label for="" class="am-u-sm-3  mod-info-bdshoujitxt">毕业院校：</label>
+                        <div class="am-u-sm-9" style="margin-top:12px;">
+                            <input id="school_" class="am-radius" type="text" class="input-text-style-1" value="{$minfo.school}">
+                        </div>
+                    </div>
+                                        </li> -->
+
+					<!--  <li class="mod-info-listline">
+                                            <div class="am-form-group">
+                                                <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">婚姻状况：</label>
+                                                <div class="am-u-sm-9">
+                                                   <div class="am-form-group ">
+                                                        <if condition="$minfo.marry eq '已婚'">
+                                                           <input type="radio" id="yihun" value="已婚" checked="checked" name="merriage_status">&nbsp;
+                                                           <label for="yihun">已婚</label> &nbsp;&nbsp;
+                                                           <input type="radio" id="weihun" value="未婚" name="merriage_status">&nbsp;
+                                                           <label for="weihun">未婚</label>&nbsp;&nbsp;
+                                                        <elseif condition="$minfo.marry eq '未婚'"/>
+                                                            <input type="radio" id="yihun" value="已婚" name="merriage_status">&nbsp;
+                                                            <label for="yihun">已婚</label> &nbsp;&nbsp;
+                                                            <input type="radio" id="weihun" value="未婚" checked="checked" name="merriage_status">&nbsp;
+                                                            <label for="weihun">未婚</label>&nbsp;&nbsp;
+                                                        </if>
+                                                        <if condition="$minfo.marry eq ''">
+                                                            <input type="radio" id="yihun" value="已婚"  name="merriage_status">&nbsp;
+                                                            <label for="yihun">已婚</label> &nbsp;&nbsp;
+                                                            <input type="radio" id="weihun" value="未婚" name="merriage_status">&nbsp;
+                                                            <label for="weihun">未婚</label>&nbsp;&nbsp;
+                                                        </if>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                     -->
+                   <!--   <li class="mod-info-listline">
+                       <div class="am-form-group">
+                           <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">居住地址：</label>
+                           <div class="am-u-sm-9" style="margin-top:12px;">
+                               <input class="am-radius" type="text" id="address_" class="input-text-style-1" value="{$minfo.address}">
+                           </div>
+                       </div>
+                   </li> -->
+<!--
+                     <li class="mod-info-listline">
+                         <div class="am-form-group">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">公司行业：</label>
+                             <div class="am-u-sm-9">
+                                 <div class="am-form-group">
+                                     <select name="business_type" id="business_type_" class="am-radius">
+                                         <option value="{$minfo.range}">{$minfo.range}</option>
+                                         <volist name="business_type" id="data">
+                                             <option value="{$data}">{$data}</option>
+                                         </volist>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                     </li>
+ -->
+                    <!--  <li class="mod-info-listline">
+                        <div class="am-form-group">
+                            <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">公司规模：</label>
+                            <div class="am-u-sm-9">
+                                <div class="am-form-group">
+                                    <select name="business_scale" id="officeScale" class="am-radius">
+                                        <option value="{$minfo.number}">{$minfo.number}</option>
+                                        <volist name="business_scale" id="data">
+                                            <option value="{$data}">{$data}</option>
+                                        </volist>
+                                    </select>
+                                    <span class="am-form-caret"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li> -->
+
+                     <li class="mod-info-listline">
+                         <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt" style="width:35%">还款方式</label>
+                             <div class="am-u-sm-9" style="margin-top:12px; width:65%">
+                                 <div class="am-form-group">
+                                     <select id="repayment_type" name="repayment_type" class="" style="height:3.8rem;-webkit-appearance: none;" dir="rtl" onchange='huankuanfangshi()'>
+                                        <option value="4">每次月还利息，到期还本</option>
+										<option value="1">按天到期还款</option>
+										<option value="2">等额本息</option>
+										<option value="5">一次性还款</option>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                     </li>
+
+
+                    <li class="mod-info-listline" style="margin-top:1rem">
+                        <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt" style="width:35%">是否投标奖励</label>
+                             <div class="am-u-sm-9" style="margin-top:12px; width:65%">
+                                 <div class="am-form-group">
+                                     <select id="is_reward" name="selse" class="am-radius" style="height:3.8rem;-webkit-appearance: none;" dir="rtl">
+										<option value="0">否</option>
+                                        <option value="1">是</option>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                    </li>
+					<li class="mod-info-listline" id="repayment_type_text" style="display:hidden">
+                        <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">投标奖励</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <div style="padding-top:1rem;float:right; font-size:1.5rem">&nbsp;%</div><input class="am-radius" style="width:41%; float:right" align="bottom" type="text" id="reward_type_1_value" value="{$minfo.address}">
+                             </div>
+                         </div>
+                    </li>
+					<li class="mod-info-listline" style="margin-top:1rem">
+                        <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt" style="width:35%">是否定向标</label>
+                             <div class="am-u-sm-9" style="margin-top:12px; width:65%">
+                                 <div class="am-form-group">
+                                     <select id="is_pass" name="selse" class="am-radius" style="height:3.8rem;-webkit-appearance: none;" dir="rtl">
+										<option value="0">否</option>
+                                        <option value="1">是</option>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                    </li>
+					<li class="mod-info-listline" id="is_pass_text" style="display:hidden">
+                        <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">定向标密码</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <input class="am-radius" style="width:41%; float:right" align="bottom" type="text" id="password" value="{$minfo.address}">
+                             </div>
+                         </div>
+                    </li>
+					<li class="mod-info-listline" style="margin-top:1rem">
+                        <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt" style="width:35%">是否有投标限制</label>
+                             <div class="am-u-sm-9" style="margin-top:12px; width:65%">
+                                 <div class="am-form-group">
+                                     <select id="is_moneycollect" name="selse" class="am-radius" style="height:3.8rem;-webkit-appearance: none;" dir="rtl">
+										<option value="0">否</option>
+                                        <option value="1" style="text-align:right">是</option>
+                                     </select>
+                                     <span class="am-form-caret"></span>
+                                 </div>
+                             </div>
+                         </div>
+                    </li>
+					<li class="mod-info-listline" id="is_moneycollect_text" style="display:hidden">
+                        <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt" style="width:35%; ">投标限制金额</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;width:65%;" >
+                                 <div style="padding-top:1rem;float:right; font-size:1.5rem">&nbsp;%</div><input class="am-radius" style="width:51%; float:right" align="bottom" type="text" id="money_collect" value="{$minfo.address}">
+                             </div>
+                         </div>
+                    </li>
+					<li class="mod-info-listline" style="margin-top:1rem">
+                       <div class="am-form-group" style="margin-bottom:0">
+                             <label for="" class="am-u-sm-3  mod-info-bdshoujitxt num num-zt">借款名称</label>
+                             <div class="am-u-sm-9" style="margin-top:12px;">
+                                 <input class="am-radius"  align="bottom" type="text" id="borrow_names" value="{$minfo.address}">
+                             </div>
+                         </div>
+                    </li>
+					<li class="mod-info-listline" style="margin-top:1rem">
+                       <div class="am-form-group">
+                             <label for="" class="  mod-info-bdshoujitxt num num-zt" style="width:100%;float:left;">借款说明</label>
+                             <div class="" style="margin-top:12px;"style="width:100%;padding:0;margin-left:0;float:left;border:1px #ccc solid">
+							 <textarea name="borrow_info" class="am-radius" style="margin:0;width:100%;" id="borrow_info"  placeholder="请填写借款简介" rows="5" cols="35" onpropertychange="if(this.scrollHeight>10) this.style.posHeight=this.scrollHeight+5"></textarea>
+                                 <!-- <input class="am-radius"  align="bottom" type="text" id="address_" value="{$minfo.address}"> -->
+                             </div>
+                         </div>
+                    </li>
+
+                     <div class="am-u-sm-6 am-u-sm-centered mod-infon-tijiao" style="width:100%;">
+                      <!--<button type="submit" class="am-btn am-btn-block  am-radius am-btn-danger">保存</button>-->
+                         <!--<input id="up_head" class="am-btn am-btn-block  am-radius am-btn-danger" type="button" value="保存">-->
+						 <input type="hidden" id="borrow_type" name="'borrow_type" value="{borrow_type}" />
+                         <input class="am-btn am-btn-block  am-radius am-btn-danger" type="button" type="button" value="保存" onclick="cksubmit()" style="width:90%;margin:0 auto;font-size:18px;">
+                         <!--<input class="btn-style-4" type="reset" value="取消">-->
+                    </div>
+                </ul>
+
+            </div>
+
+            </form>
+<script>
+var sObj=document.getElementById('is_moneycollect')
+var maxLen=0
+for(var i=0;i<sObj.all.length;i++)
+maxLen=sObj.all[i].text.length>maxLen?sObj.all[i].text.length:maxLen
+
+for(var i=0;i<sObj.all.length;i++){
+var str=""
+ for(var j=0;j<(maxLen-sObj.all[i].text.length);j++) str+=" "
+sObj.all[i].text=str+sObj.all[i].text
+}
+</script>
+	<script >
+	$('#repayment_type_text').hide();
+	$('#is_pass_text').hide();
+	$('#is_moneycollect_text').hide();
+		$("#is_reward").change(function(){
+			var ch_val = $(this).val();
+			if(ch_val==1){
+				$('#repayment_type_text').show();
+			}else{
+				$('#repayment_type_text').hide();
+			}
+		});
+		$("#is_pass").change(function(){
+			var ch_val = $(this).val();
+			if(ch_val==1){
+				$('#is_pass_text').show();
+			}else{
+				$('#is_pass_text').hide();
+			}
+		});
+		$("#is_moneycollect").change(function(){
+			var ch_val = $(this).val();
+			if(ch_val==1){
+				$('#is_moneycollect_text').show();
+			}else{
+				$('#is_moneycollect_text').hide();
+			}
+		});
+
+
+	</script>
+	<script type="text/javascript">
+
+        function setError(tip){
+            layer.msg(tip,{icon:0});
+            return false;
+        }
+
+
+        function Seoks(tip){
+            layer.msg(tip,{icon:1});
+            setTimeout(window.location.href="__APP__/m/user/", 2000);
+            return true;
+        }
+
+        function makevar(v){	//获取内容值
+            var d={};
+            for(i=0;i<v.length;i++){
+                var id = v[i];
+                d[id] = $("#"+id).val();
+                if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+            }
+            return d;
+        }
+
+        function cksubmit(){
+            var borrow_type = {$borrow_type};//标种
+            var borrow_money = $("#borrow_money").val();//借款金额
+            var borrow_interest_rate = $("#borrow_interest_rate").val();//借款利率
+            var borrow_use = $("#borrow_use").val();//借款用途
+            var repayment_type = $("#repayment_type").val();//还款方式
+            if(repayment_type == '1'){ //代表按天还款
+                var borrow_duration = $("#borrow_day_times").val();//借款期限
+            }
+            if(repayment_type != 1){    //代表按天以外的还款
+                var borrow_duration = $("#borrow_duration").val();//借款期限
+            }
+            var borrow_min = $("#borrow_min").val();//最小投资额
+            var borrow_max = $("#borrow_max").val();//最大投资额
+            var borrow_time = $("#borrow_time").val();//借款募集期
+            var reward_type = $("#reward_type").val();//奖励类型
+            var reward_num = $("#reward_type_1_value").val();//按比例投标奖励
+            var borrow_name = $("#borrow_names").val();//标名称
+            var borrow_info = $("#borrow_info").val();//借款简介
+            var money_collect = $("#money_collect").val();//代收限制
+            var is_pass = $("#is_pass").val();
+            var password = $("#password").val();//定向标密码
+
+            if(borrow_money == "") 			return setError("借款金额不能为空！");
+            if(borrow_money<50) 			return setError("借款金额不能小于50元！");
+            if((borrow_min*2>borrow_max)&&(borrow_max>0)) 			return setError("最大投资金额不能小于最低投资金额的2倍！");
+            if(borrow_money%borrow_min!=0) 	return setError("借款金额必须是最低投资金额的整数倍！");
+            if(borrow_money>99999999) 		return setError("借款金额不能大于99999999元！");
+            if(borrow_interest_rate == "") 	return setError("借款利率不能为空！");
+            if(borrow_use == "") 				return setError("借款用途不能为空！");
+            if($('#borrow_duration').val() == "" && typeof miao=="undefined") 		return setError("借款期限不能为空！");
+            if(borrow_min == "") 				return setError("最低投资金额不能为空！");
+            if(borrow_time == "") 			return setError("借款有效时间不能为空！");
+            if(repayment_type == "" && typeof miao=="undefined") 			return setError("还款方式不能为空！");
+            if(borrow_name == "") 			return setError("借款标题不能为空！");
+            if(borrow_info == "") 			return setError("借款内容不能为空！");
+            if($('#is_reward').val() == 1 && $('input[name=reward_type_1_value]').val() > 0 ) {
+                var reward_value = $('input[name=reward_type_1_value]').val();
+                if( reward_value > 0 && reward_value < 0.1) {
+                    return setError("奖励比例不能小于0.1%！");
+                }
+                if( reward_value > 6) {
+                    return setError("奖励比例不能大于6%！");
+                }
+            }
+            if( $('#is_pass:checked').val() > 0 && $('#password').val() == '' ) {
+                return setError("定向标密码不能为空！");
+            }
+
+            $.ajax({
+                 cache: false,
+                 url: "__URL__/save",
+                 data:{
+                    "borrow_type":borrow_type,
+                    "borrow_money":borrow_money,
+                    "borrow_interest_rate":borrow_interest_rate,
+                    "borrow_use":borrow_use,
+                    "repayment_type":repayment_type,
+                    "borrow_duration":borrow_duration,
+                    "borrow_min":borrow_min,
+                    "borrow_max":borrow_max,
+                    "borrow_time":borrow_time,
+                    "reward_type":reward_type,
+                    "reward_num":reward_num,
+                    "borrow_name":borrow_name,
+                    "borrow_info":borrow_info,
+                    "money_collect":money_collect,
+                    "is_pass":is_pass,
+                    "password":password
+                 },
+                 type:"post",
+                 async: true,
+                 datatype:"json",
+                 timeout: 2000,
+                 success:function(d){
+
+                 var data = eval('('+d+')');
+
+                 if(data.status == 0){
+                     return setError(data.message);
+                 }else{
+                     return Seoks("恭喜您借款成功!");
+                }
+                 }
+             })
+        }
+
+
+        function huankuanfangshi(){
+
+            var obj = document.getElementById('repayment_type'); //selectid
+            var tian = document.getElementById('tian');
+            var yue = document.getElementById('yue');
+            var index = obj.selectedIndex; // 选中索引
+            var value = obj.options[index].value; // 选中值
+            //alert(index);
+            if(value == 1){
+                $("#yue").hide();
+                $("#tian").show();
+                //$("#yue").removeAttr("id");
+            }else{
+                //$(".form_con_01 clearfix").attr('id',"yue");
+                $("#tian").hide();
+                $("#yue").show();
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>

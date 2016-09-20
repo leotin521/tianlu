@@ -1,0 +1,30 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">登录方式管理</div>
+<div class="page_tab"><span data="tab_1" class="active">QQ登录</span><span data="tab_2">新浪微博</span><span data="tab_4">COOKIE_KEY</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/save" onsubmit="return subcheck();" enctype="multipart/form-data">
+	<div id="tab_1">
+		<dl class="lineD"><dt>是否启用：</dt><dd><htmlA:radio id="login[qq][enable]" value="key|qq_config.enable" default="1|是,0|否" /></dd></dl>
+		<dl class="lineD"><dt>APP_ID：</dt><dd><htmlA:input id="login[qq][id]" value="{$qq_config.id}" /></dd></dl>
+		<dl class="lineD"><dt>APP_KEY：</dt><dd><htmlA:input id="login[qq][key]" value="{$qq_config.key}"/></dd></dl>
+	</div>
+	<div id="tab_2" style="display:none">
+		<dl class="lineD"><dt>是否启用：</dt><dd><htmlA:radio id="login[sina][enable]" value="key|sina_config.enable" default="1|是,0|否" /></dd></dl>
+		<dl class="lineD"><dt>WB_AKEY：</dt><dd><htmlA:input id="login[sina][akey]" value="{$sina_config.akey}" /></dd></dl>
+		<dl class="lineD"><dt>WB_SKEY：</dt><dd><htmlA:input id="login[sina][skey]" value="{$sina_config.skey}"/></dd></dl>
+	</div><!--tab2-->
+
+	<div id="tab_4" style="display:none">
+		<dl class="lineD"><dt>cookie加密密钥：</dt><dd><htmlA:input id="login[cookie][key]" value="{$cookie_config.key}" tip="尽量复杂" /></dd></dl>
+	</div><!--tab2-->
+	<div class="page_btm">
+	  <input type="submit" class="btn_b" value="确定" /><span style="color:#CCCCCC">(所有方式修改提交一次即可)</span>
+	</div>
+	</form>
+</div>
+
+</div>
+<include file="Public:_footer" />

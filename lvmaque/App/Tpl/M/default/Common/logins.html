@@ -1,0 +1,126 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>用户登录</title>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.min.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>用户登录</h1>
+        <a href="javascript:;" onclick="window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="mod-logo">
+        <img src="__ROOT__/Style/NewWeChat/images/icon-logo.png" style="width:30%;height:30%;" class="am-image" alt="">
+    </div>
+    <div class="am-container">
+        <form class="am-form am-form-horizontal form-login" id="myform">
+            <div class="am-form-group">
+                <label class="am-u-sm-3 am-form-label">用户名</label>
+                <div class="am-u-sm-9">
+                    <input type="text" class="am-radius" id="user_name" name="user_name" required="required"/>
+                </div>
+            </div>
+            <div class="am-form-group">
+                <label  class="am-u-sm-3 am-form-label">密码</label>
+                <div class="am-u-sm-9">
+                    <input type="password" class="am-radius" id="user_pass" name="user_pass" required="required"/>
+                </div>
+            </div>
+           
+            <div class="am-form-group">
+                <div class="am-u-sm-6 am-text-center">
+                   <a class="am-text-sm" href="javascript:;" onclick="setpasss();">找回密码</a>
+                </div>  
+                <div class="am-u-sm-6 am-text-center">
+
+                        <a class="am-text-sm" href="__URL__/register">用户注册</a>
+
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="am-radius am-margin-bottom-lg am-text-xl am-btn am-btn-danger am-btn-block num num-lt" id="logins">登 &nbsp; 录</a>
+        </form>
+    </div>
+
+    <script language="javascript">
+        function setpasss(){
+            var name = $("#user_name").val();
+            if(name == ""){
+                $().toastmessage('showErrorToast', '请输入用户名!');
+                return false;
+            }
+
+            $.ajax({
+                type:"POST",
+                url:"__URL__/ischeckuser",
+                data:{"user_name": name},
+                dataType:"json",
+                success:function(d){
+                    if(d.status == 0){
+                        $().toastmessage('showErrorToast', d.message);
+                        return false;
+                    }else{
+                        window.location.href="__URL__/getpass"+"?name="+name;
+                    }
+                }
+            });
+        }
+
+    </script>
+
+
+    <script type="text/javascript">
+        $(function(){
+            $("#logins").click(function(){
+                var user_name = $.trim($("#user_name").val());
+                var user_pass = $.trim($("#user_pass").val());
+
+                if(user_name == ''){
+                    $().toastmessage('showErrorToast', '请输入用户名!');
+                    return false;
+                }
+                if(user_pass == ''){
+                    $().toastmessage('showErrorToast', '请输入密码!');
+                    return false;
+                }
+
+                $.ajax({
+                    type:"POST",
+                    url:"__URL__/actlogin",
+                    data:$("#myform").serialize(),
+                    dataType:"json",
+                    timeout:"5000",
+
+                    success:function(d){
+                        //alert(d.status);
+                        if(d.status == 0){
+                            //return setError(d.message);
+                            $().toastmessage('showErrorToast',d.message);
+                            return false;
+                        }else{
+                            $("#loading").show();
+                            setTimeout("location.href='__APP__/m/user'", 500 )
+                        }
+                    }
+                });
+            })
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>借款协议-{$glo.web_name}</title>
+<style>
+*{margin:0 padding:0;}
+ .Lending_Agreement{width:900px;margin:0 auto;height:auto!important;height:1000px;min-height:1000px;padding:30px 50px;font-size:14px;position:relative;background:#ffffff;}
+.Lending_Agreement p{line-height:20px;}
+.Lending_Agreement table{width: 900px;text-align: center;}
+.Lending_Agreement table tr td{border: 1px solid #ccc;}
+.Lending_Agreement h1{font-size:32px;}
+.Lending_Agreement h2{font-size:18px;}
+.Lending_Agreement h3{font-size:18px;}
+.Lending_Agreement a{text-decoration: none;}
+.hetongzhang {position: absolute; right: 20px; bottom: 40px;}
+</style>
+<script type="text/javascript" language="javascript">
+    function printht(){
+        window.print();
+    } 
+</script>
+</head>
+<body bgcolor="f2f2f2">
+  <div class="Lending_Agreement">
+        <div style="float:right; padding-right:10px;">
+          <a href="###" onclick="printht();" target="_self" style="color: #E67714;">【打印合同】</a> 
+        </div>
+        <if condition="!empty($article_html)">
+            {$article_html}
+            <else/>
+            非法请求
+        </if>
+  </div>
+</body>
+</html>

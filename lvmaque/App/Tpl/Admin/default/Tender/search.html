@@ -1,0 +1,69 @@
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<script type="text/javascript">
+    var searchName = "搜索/筛选投标";
+</script>
+<div id="search_div" style="display:none">
+    <div class="page_tit"><script type="text/javascript">document.write(searchName);</script> [ <a href="javascript:void(0);" onclick="dosearch();">隐藏</a> ]</div>
+    <div class="form2">
+        <form method="get" action="__URL__/{$xaction}">
+            <dl class="lineD">
+                <dt>会员名：</dt>
+                <dd>
+                    <input name="user_name" style="width:190px" id="user_name" type="text" value="{$search.user_name}">
+                    <span>不填则不限制</span>
+                </dd>
+            </dl>
+            
+            <dl class="lineD">
+                <dt>真实姓名：</dt>
+                <dd>
+                    <input name="real_name" style="width:190px" id="real_name" type="text" value="{$search.real_name}">
+                    <span>不填则不限制</span>
+                </dd>
+            </dl>
+            
+            <dl class="lineD">
+                <dt>标种类型：</dt>
+                <dd>
+                      <htmlA:select datakey="borrow_type" id="borrow_type" value="key|search.borrow_type" style="width:190px"/>
+                    <span>不选则不限制</span>
+                </dd>
+            </dl>
+            
+            <dl class="lineD">
+                <dt>投标方式：</dt>
+                <dd>
+                   <htmlA:select datakey="isauto" id="isauto" value="key|search.isauto" style="width:80px"/>
+                    <span>不选则不限制</span>
+                </dd>
+            </dl>
+            
+            <dl class="lineD">
+                <dt>投资金额：</dt>
+                <dd>
+                    <htmlA:select datakey="bj" id="bj" value="key|search.bj" style="width:80px"/>
+                    <htmlA:input style="width:100px" id="money" value="{$search.money}"/>
+                    <span>不填则不限制</span>
+                </dd>
+            </dl>
+
+            <dl class="lineD">
+                <dt>投资时间(开始)：</dt>
+                <dd>
+                    <htmlA:timer id="startdate" name="startdate" tip='只选开始时间则查询从开始时间往后所有' arg="{maxDate:'#F{$dp.$D(\\\\'end_time\\\\')||\\\\'2020-10-01\\\\'}',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$search.start_time|mydate='Y-m-d H:i:s',###}"/>
+                </dd>
+            </dl>
+            
+            <dl class="lineD">
+                <dt>投资时间(结束)：</dt>
+                <dd>
+                    <htmlA:timer id="enddate" name="enddate"  tip='只选结束时间则查询从结束时间往前所有' arg="{minDate:'#F{$dp.$D(\\\\'start_time\\\\')}',maxDate:'2020-10-01',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}" class="Wdate" value="{$search.end_time|mydate='Y-m-d H:i:s',###}"/>
+                </dd>
+            </dl>
+
+            <div class="page_btm">
+                <input type="submit" class="btn_b" value="确定" />
+            </div>
+        </form>
+    </div>
+</div>

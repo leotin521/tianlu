@@ -1,0 +1,80 @@
+<div id="pagerContainer" class="rel" style="padding-bottom: 30px;">
+    <table class="table-style-2 table-style-4">
+        <tbody><tr>
+            <th width="200">项目名称</th>
+            <th width="100">利率</th>
+            <th width="100">未还/总期数</th>
+            <!--<th width="190">待收本金/待收利息</th>-->
+            <th width="130">转让本金</th>
+            <th width="130">转让时间</th>
+            <th width="110">操作</th>
+        </tr>
+
+        <volist name="list.data" id="vo">
+            <tr>
+                <td><a target="_blank" href="/debt/detail/id/{$vo.id}" title="{$vo.borrow_name}">{$vo.borrow_name|cnsubstr=###,10}</a></td>
+                <td><if condition="$vo['debt_interest_rate'] gt 0">{$vo.debt_interest_rate}<else/>{$vo.borrow_interest_rate}</if>%</td>
+                <td>{$vo.total|bcsub=$vo['has_pay']}期/{$vo.total}期</td>
+                <!--<td>￥{$vo.investor_capital}/￥{$vo.investor_interest}</td>-->
+                <td class="user-deal-record-time">￥{$vo.money|default=0}</td>
+                <td class="user-deal-record-time">{$vo.addtime|date="Y-m-d H:i",###}</td>
+                <if condition="$vo.status eq 2">
+                    <td><a href="javascript:void(0)"  class="btn-style-1" onclick="cancelhtml('{$vo.invest_id}')">撤销</a></td>
+                    <else />
+                    <td>审核中</td>
+                </if>
+            </tr>
+        </volist>
+
+        </tbody>
+    </table>
+    <empty name="list.data">
+        <div class="list-value-none-style">暂无转让中债权</div>
+    </empty>
+    <div data="fragment-2" id="pager" style="float: right; text-align: right; width: 500px; padding-right: 0px;" class="yahoo2 ajaxpagebar">{$list.page}</div>
+</div>
+
+<script type="text/javascript">
+$('.ajaxpagebar a').click(function(){
+    try{    
+        var geturl = $(this).attr('href');
+        var id = $(this).parent().attr('data');
+        var x={};
+        $.ajax({
+            url: geturl,
+            data: x,
+            timeout: 5000,
+            cache: false,
+            type: "get",
+            dataType: "json",
+            success: function (d, s, r) {
+                  if(d) $("#"+id).html(d.html);//更新客户端竞拍信息 作个判断，避免报错
+            }
+        });
+    }catch(e){};
+    return false;
+})
+
+function cancelhtml(id)
+{
+	layer.confirm('您确定要取消债权吗？', {icon: 3}, function(index){
+	    layer.close(index);
+	    $.ajax({
+            url: "__URL__/cancelhtml",
+            data: {"invest_id" : id},
+            timeout: 5000,
+            cache: false,
+            type: "get",
+            dataType: "json",
+            success: function (d, s, r) {
+                if(d.code == 10000) {
+                    $("#pagerContainer2").html(d.html);//更新客户端竞拍信息 作个判断，避免报错
+                }else{
+                	layer.msg(d.message, {icon: 2});
+                	return false;
+                }
+            }
+        });
+	});
+}
+</script>

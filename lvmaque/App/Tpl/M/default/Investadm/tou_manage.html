@@ -1,0 +1,125 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>投资管理</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <style>
+      
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>投资管理</h1>
+        <a href="__URL__/investadmlist" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+
+   	<div class="mod-invest-manage">
+    	<div class="mod-invest-managetop am-container">
+        	<ul class="am-nav am-avg-sm-3 title" style="position:relative;height:4rem;">
+                <li class="am-dropdown" data-am-dropdown >
+					  <button class="am-btn am-btn-block am-dropdown-toggle" data-am-dropdown-toggle>产品类型 <span class="am-icon-caret-down"></span></button>
+					  <ul class="am-dropdown-content">
+						<php>foreach($searchCnf['production'] as $key=>$v){</php>
+                        <php>if($key==$searchUrl['production']['cur']){</php>
+                        <li><a data-value="{$key}" class="selected"><i class="am-icon-check"></i>{$v}</a></li>
+                        <php>}else{</php>
+                        <li><a data-value="{$key}" href="__URL__/tou_manage.html?production={$key}&guarantors=0&k={$key}">{$v}</a></li>
+                        <php>}</php>
+                        <php>}</php>
+					  </ul>
+                 </li>
+                 <li class="am-dropdown mod-managelist2" data-am-dropdown>
+					  <button class="am-btn am-btn-block am-dropdown-toggle" data-am-dropdown-toggle>投资方式 <span class="am-icon-caret-down"></span></button>
+					  <ul class="am-dropdown-content">
+						 <php>foreach($searchCnf['t'] as $key=>$v){</php>
+                         <php>if($key==$searchUrl['t']['cur']){</php>
+                         <li><a data-value="{$key}" class="selected"><i class="am-icon-check"></i>{$v}</a></li>
+                         <php>}else{</php>
+                         <li><a data-value="{$key}" href="__URL__/tou_manage.html?type_list=search&{$searchUrl.t.url}&t={$key}">{$v}</a></li>
+                         <php>}</php>
+                         <php>}</php>
+					  </ul>
+                </li>
+                 <li class="am-dropdown" data-am-dropdown>
+					 <button class="am-btn am-btn-block am-dropdown-toggle" data-am-dropdown-toggle>还款状态 <span class="am-icon-caret-down"></span></button>
+					  <ul class="am-dropdown-content">
+						 <php>foreach($searchCnf['k'] as $key=>$v){</php>
+                         <php>if($key==$searchUrl['k']['cur']){</php>
+                         <li><a data-value="{$key}" class="selected"><i class="am-icon-check"></i>{$v}</a></li>
+                         <php>}else{</php>
+                         <li><a data-value="{$key}" href="__URL__/tou_manage.html?type_list=search&{$searchUrl.k.url}&k={$key}">{$v}</a></li>
+                         <php>}</php>
+                         <php>}</php>
+					  </ul>
+                </li>
+
+            </ul>
+ 
+              
+        </div>
+
+        <volist name="list" id="vo">
+            <a href="__URL__/huan_info?id={$vo.i_id}" title="">
+            <div class="mod-invest-zr mod-invest-zrone">
+                <div class="mod-invest-zrxx">
+                    <div class="mod-invest-zrtitle num num-lt">{$vo.borrow_name|cnsubstr=###,20}<span class="am-icon-chevron-right mod-weizhi"></span></div>
+                    <div class="mod-invest-zrnr" style="margin-left:-10px;">
+                        <ul class="am-avg-sm-4 zrnrone">
+                          <li class="zrnronet am-text-left">在投金额</li>
+                          <li class="zrnronec">年化收益</li>
+                          <li class="zrnronec">投资时间</li>
+                          <li class="zrnronec">到期时间</li>
+                        </ul>
+
+                            <ul class="am-avg-sm-4 zrnrtwo num num-zt">
+                              <li class="zrnronet am-text-left">{$vo.investor_capital}</li>
+                              <li class="zrnronec"><font color="#fa4343">{$vo.borrow_interest_rate}%</font></li>
+                              <li class="zrnronec">{$vo.invest_time|mydate="Y-m-d",###}</li>
+                              <li class="zrnronec">{$vo.deadline|mydate="Y-m-d",###}</li>
+                            </ul>
+                            <div class="danbao num num-yt am-text-left ">{$vo.danbao|cnsubstr=###,12}</div>
+
+
+                    </div>
+                </div>
+            </div>
+            </a>
+        </volist>
+		<span style="margin: 0 0 0 12%;">{$page}</span>
+        <div class="pager-content table-style-footer-1">
+            <div><if condition="empty($list)">暂无记录<eles/>{$pagebar}</if></div>
+        </div>
+    </div>
+                <script>
+                        $( function(){
+                                var timer;
+                             $('.title li').mouseover(function(){
+                                     var index=$(this).index();
+                                 timer=setTimeout(function(){
+                                      $('.ll ul').eq(index).slideDown().siblings().slideUp();
+                                 },300)
+
+                             }).mouseout(function(){
+                                     clearInterval(timer);
+                                 })
+
+
+                            
+
+                        })
+
+                </script>
+    </body>
+
+</html>

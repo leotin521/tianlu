@@ -1,0 +1,99 @@
+<style type="text/css">
+.divList { height: 35px; line-height: 35px; text-align: left;  border-bottom:1px solid #ededed; vertical-align: middle; width: 680px;  color: Gray; float: left; }
+.content a { font-size: 12px; color: #092fa9; }
+.tdTilte { width: 90px; color: Gray; text-align:right; }
+.tdMoneyShow { color: #005B9F; text-indent: 15px; width: 180px;padding-left:52px;  }
+.tdDes { color: Gray; }
+a.ctl{color:#666;}
+a.ctl:hover{ text-decoration:underline}
+.dv_header_8{background-image: url();}
+.dv_account_0{margin-top:10px;}
+</style>
+<div style="width: 100%;  height: auto; padding-bottom:50px">
+
+ <div style="width: 100%; overflow: hidden; padding-top: 20px;">
+		<table style=" border:1px solid #dedede;width: 700px; margin-left:8px; height:25px;" cellpadding="0" cellspacing="0">
+		<tbody><tr style=" background-color:#ececec; font-weight:bold; height:25px; ">
+			<td style="width:90px; text-align:center;">项 目</td>
+			 <td style="width:120px; text-align:center">金 额</td>
+			  <td style="padding-left:160px;">说 明</td>
+		</tr>
+		<tr>
+		<td colspan="3">
+	<table style="width: 785px; float: left; margin: 0px; display: inline; margin-left: 20px; padding: 0px; border-collapse: collapse; text-align: left;" id="formTb" cellpadding="0" cellspacing="0">
+		<tbody><tr class="divList">
+			<td class="tdTilte">
+				发标中借入：
+			</td>
+			<td class="tdMoneyShow">
+				￥{$mx.borrow.2.money|default="0.00"}
+				/
+				{$mx.borrow.2.num|default=0}标
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx2').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">
+				（目前正在投标中，尚未确定借入的金额）
+			</td>
+		</tr>
+		<tr class="divList">
+			<td class="tdTilte">
+				偿还中借入：
+			</td>
+			<td class="tdMoneyShow">
+				￥{$mx.borrow.6.money|default="0.00"}
+				 /
+				{$mx.borrow.6.num|default=0}标
+				
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx3').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">
+				（目前已经借入，正在偿还的借款）
+			</td>
+		</tr>
+		<tr class="divList">
+			<td class="tdTilte">
+				还清的借入：
+			</td>
+			<td class="tdMoneyShow">
+				￥{$mx.borrow.7.money|default="0.00"}
+				 /
+				{$mx.borrow.7.num|default=0}标
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx8').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">
+				（已经成功借入并按时完成还款的借款）
+			</td>
+		</tr>
+		<tr class="divList" style="background-image: none; border-bottom:none;">
+			<td class="tdTilte">
+				逾期的借入：
+			</td>
+			<td class="tdMoneyShow">
+				￥{$mx.tj.expiredMoney|default="0.00"}
+				 /
+				{$mx.tj.expiredNum|default=0}期
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx4').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">
+				（已经借入并逾期未还的）
+			</td>
+		</tr>
+		<tr class="divList">
+			<td class="tdTilte">
+				累计借入金额：
+			</td>
+			<td class="tdMoneyShow">
+				￥{$mx.tj.jkze|default="0.00"}
+			</td>
+			<td class="tdDes">
+				（注册至今，您累计借入的总额）
+			</td>
+		</tr>
+	</tbody></table>
+	</td>
+	</tr>
+	</tbody></table>
+</div>
+	</td></tr>
+</tbody></table>
+</div>

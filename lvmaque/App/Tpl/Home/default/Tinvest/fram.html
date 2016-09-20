@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery左右图片自动滚动特效 - 站长素材</title>
+<link href="__ROOT__/Style/N/css/zzsc.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div class="device">
+<h2><a href="javascript:;" class="pre">上一组</a><a href="javascript:;" class="next">下一组</a></h2>
+<div class="scroll">
+<ul>
+ <php>$i=0;foreach(unserialize($vo['borrow_img']) as $v){ $i++;</php>
+	<li>
+		<a href="__ROOT__/<php>echo $v['img'];</php>" target="_Blank"><img src="__ROOT__/<php>echo get_thumb_pic($v['img']);</php>"></a>
+		<a href="__ROOT__/<php>echo $v['img'];</php>" target="_Blank" class="link"><php>echo $v['info'];</php></a>
+	</li>
+<php>}</php>
+
+</ul>
+</div>
+</div>
+<script src="__ROOT__/Style/Common/js/jquery.min.js"></script>
+<script>
+$(function(){
+	var $number = Math.ceil($('.scroll ul li').length/4); //获取滚动几屏个数
+	var margin = 10; //设置图片间距
+	var $w = $('.scroll li').width() + margin; // 一屏图片的宽度
+	var $width = $w*$number*2; //设置ul宽度
+	var pre = $('.device .pre');
+	var next = $('.device .next');
+	if($number ==1||$number ==0){pre.hide();next.hide();}
+	$('.scroll ul').width($width);
+	var num = 0;
+	function autoscroll(){
+		num++;
+		if($number ==1){return false}
+		if(num ==$number){
+			num = 0;	
+		}
+		var distance = -2*$w * num;
+		$('.scroll ul').stop().animate({left:distance});
+	}
+	var scrollChange = setInterval(autoscroll,8000);
+	//鼠标悬停，暂停滚动
+	$(".scroll ul,.pre,.next").mouseover(function(){ 
+		$('.scroll ul').stop()
+		clearInterval(scrollChange);
+	});
+	// 鼠标移走，滚动继续
+	$('.scroll ul,.pre,.next').mouseout(function(){ 
+		scrollChange = setInterval(autoscroll,8000);
+	});
+	
+	//下一组
+	next.click(function(){
+		num++;
+		if(num >= $number){num = 0}
+		var leftdis = -2*$w * num;
+		$('.scroll ul').stop().animate({left:leftdis});
+	});
+	//上一组
+	pre.click(function(){
+		num--;
+		if(num < 0){num = $number-1}
+		var rightdis = -2*$w * num;
+		$('.scroll ul').stop().animate({left:rightdis});
+	});
+	
+});
+</script>
+</body>
+</html>

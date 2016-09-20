@@ -1,0 +1,186 @@
+
+<include file="default:Public:_header_common"/>
+            <style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style></head>
+<body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"></div>
+    </div>
+    <div class="user-main clearfix">
+                                      <include file="default:Public:_left"/>
+
+ <!--我的优惠券begin-->
+        <div class="user-con">
+            <div class="user-box-1 user-bounty">
+                <div class="user-box-title-1 clearfix">
+                    <h2>邀请奖励<!--<a name="inviteAnchor" id="inviteAnchor">&nbsp;</a>--></h2>
+                    <div class="user-box-title-more">
+                        <a href="__ROOT__/member/promotion/coupon/"> 
+                            <span class="icon-style-1 user-nav-award-manage-1"></span> <strong>查看我的优惠券</strong>
+                        </a>
+                    </div>
+                </div>
+                <div class="user-box-con-1">
+                    <div class="user-generalize clearfix">
+                        <dl class="user-generalize-QRcode rel">
+                            <dt>通过社交网站邀请好友</dt>
+                            <dd>
+                                    <div class="user-generalize-QRcode-img  bdsharebuttonbox">
+                                          <p class="iShare-d">
+                                               <a href="###" class="iShare-sinaweibo bds_tsina" title="新浪微博" target="_blank" data-cmd="tsina">新浪微博</a>
+                                               <a href="###" class="iShare-qqkongjian bds_qzone" title="QQ空间" target="_blank" data-cmd="qzone">QQ空间</a>
+                                               <a href="###" class="iShare-qqweibo bds_tqq" title="QQ微博" target="_blank" data-cmd="tqq">QQ微博</a>
+                                               <a href="###" style="margin-right:0;" class="iShare-renren bds_renren" title="人人网" target="_blank" data-cmd="renren">人人网</a>
+                                           </p>
+
+                                    </div>
+                                     <div class="user-generalize-txt">通过社交网站每成功邀请一位好友投资您可获<strong>{$yq['num']*$yq['money']}</strong>元优惠券，上不封顶！</div>
+                         </dd>
+                        </dl>
+                        <dl class="user-generalize-link rel">
+                            <dt>复制邀请链接发给好友</dt>
+                            <dd>
+                                <div class="user-generalize-link-form">
+                                    <span class="btn-style-3 allbgcolor" id="generalize">复制链接</span>
+                                </div>
+                                <div class="user-generalize-txt">复制链接发给好友,每成功邀请一位好友投资,您可获<strong>{$yq['num']*$yq['money']}</strong>元优惠券，上不封顶！</div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <!-- //pager-content -->
+                </div>
+                <div class="user-box-title-1 clearfix">
+                    <h2>邀请列表<a name="inviteList" id="inviteList">&nbsp;</a></h2>
+                </div>
+                <div class="user-box-con-1">
+                    <div id="pagerContainer" class="rel">
+                        <table class="table-style-2 table-style-4">
+                        	<tbody><tr>
+                        		<th width="150">邀请用户</th>
+                        		<th width="180">用户注册时间</th>
+                        		<th width="150">用户状态</th>
+                        		<th width="150">邀请奖励</th>
+                        		<th width="100">是否生效</th>
+                        	</tr>
+                            
+                                <volist name="user_list" id="vo">
+                                <tr>
+                                    <td>{$vo.user_name}</td>
+                                    <td class="user-deal-record-time">{$vo.reg_time|date="Y-m-d",###}<br>
+                                    </td>
+                                    <td>已注册</td>
+                                    <td class="table-style-3-font-1">
+                                        <strong>{$vo.money}</strong>元
+                                    </td>
+                                    <td><if condition="$vo.be gt 0">已生效<else/>未生效</if></td>
+                                </tr>
+                                </volist>
+                           
+                        	</tbody>
+                        </table>
+                        <empty name="user_list">
+                        <div class="list-value-none-style">暂无邀请记录</div>
+                        </empty>
+                         
+                        
+                    </div>
+                    <div class="table-style-footer" style="display: block;">{$page}</div>
+                    <div class="mgt"></div>
+                    <div class="form-warm-prompt-1 clearfix">
+                        <span class="form-warm-prompt-title">温馨提示：</span> 
+                        <span class="form-warm-prompt-con">
+                            <div class="bottom-notice"> 
+                            <strong>1.  邀请奖励注意事项：</strong>
+                                <li>邀请奖励优惠券，只有被邀请人注册并投资后（不包括投资债权），奖励的优惠券才生效；</li>
+                                <li>邀请奖励无上限，邀请越多，奖励越多；</li>
+                                <li>请不要随意邀请您不熟悉的人，避免给别人带来不必要的困扰；</li>
+                                2.  使用过程中遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--我的优惠券end-->
+<include file="default:Public:_footer" group="Home"/>
+
+
+
+<script id="promptTmpl" type="text/x-dot-template">
+    <div class="ps1-close">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2>
+        </div>
+        <div class="state-prompt-txt-{{?it[2]}}duigou{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2>
+                
+                您可以<a href="__ROOT__/member/promotion/" target="_blank" class="state-a-line">[返回邀请奖励]</a>
+            </div>
+        </div>
+    </div>
+</script>
+<div id="generalizePop" style="display:none;">
+    <div class="ps1-close">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>复制邀请链接</h2>
+        </div>
+        <div class="generalizePop_con">
+            <textarea id="copyText">100元做投资人，注册就送{$money}元！10-15%年化收益，网上理财赚翻天！从此告别死工资，速速注册吧！{$spread_url}</textarea>
+            <div class="generalizePop_con_fuzhi clearfix">
+                <a href="javascript:;" id="copyBtn" type="submit" class="btn-style-3 allbgcolor" title="点击复制邀请链接">复制邀请链接</a>
+            </div>
+            <div id="generalizePop_error" class="generalizePop_error tac " style="display:none;"><span class="generalize_icon">&nbsp;</span><span class="em mgt"></span></div>
+        </div>
+    </div>
+</div>
+<script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/jquery.zclip.min.js"></script>
+<script src="__ROOT__/Style/M/js/invite.js"></script>
+<script>
+
+$(function(){
+    var inviteData={
+		copy:{
+            path: '__ROOT__/Style/H/js/ZeroClipboard.swf', 
+            shareLink: '100元起投！年化收益12%-15%，全额本息担保，注册即送50元，快来 ### 注册吧！'
+        },
+		pager:{
+			pageInfo:{"pn":1,"rn":10},
+			tmpl:'invite_list'
+		},
+		ajaxHostUrl:'###',
+		loadImgPath:'javascript:void(0)',
+        inviteurl:'###'
+	};
+
+    itz.invite.init(inviteData);
+});
+</script>
+<script type="text/javascript" src="__ROOT__/Style/M/iShare.js" charset="utf-8"></script>
+ <script>
+      var  spread_url  ='{$spread_url}';
+      var  money = '{$money}';
+      var  invest_money = '100';
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": invest_money+"元做投资人，注册就送"+money+"元！10-15%年化收益，网上理财赚翻天！从此告别死工资，速速注册吧！"+spread_url ,
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "0",
+            "bdSize": "32"
+        },
+        "share": {}
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' +  ( - new Date() / 36e5)];
+</script>
+
+<div id="title_show" style="position: absolute; border: 1px solid rgb(230, 230, 230); background-color: rgb(255, 255, 255); line-height: 18px; font-size: 12px; padding: 10px; left: 346px; z-index: 10000; display: none; top: 302px; background-position: initial initial; background-repeat: initial initial;">您已设置支付密码 <a href="###" style="color:rgb(20,104,236)">点击修改</a><div id="title_sanjiao" style="position: absolute; height: 10px; width: 14px; z-index: 10001; top: -10px; left: 77px;"><span class="sanjiao sanjiao_ddd1" style="color: rgb(230, 230, 230);">◆</span><span class="sanjiao sanjiao_fff2">◆</span></div></div></body></html>

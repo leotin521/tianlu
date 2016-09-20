@@ -1,0 +1,75 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<script type="text/javascript">
+	var delUrl = '__URL__/doDel';
+	var addUrl = '__URL__/add';
+	var editUrl = '__URL__/edit';
+	var isSearchHidden = 1;
+	var searchName = "搜索提现";
+</script>
+<div class="so_main">
+  <div class="page_tit">待提现列表</div>
+<!--搜索-->
+  <include file="search" />
+<!--搜索-->
+
+  <div class="Toolbar_inbox">
+  	<div class="page right">{$pagebar}</div>
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索提现" style="search_action" />
+
+  </div>
+	<div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th style="width:30px;">
+        <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+        <label for="checkbox"></label>
+    </th>
+    <th class="line_l">ID</th>
+    <th class="line_l">会员名</th>
+	<th class="line_l">真实姓名</th>
+    <th class="line_l">提现金额</th>
+	<th class="line_l">提现手续费</th>
+	<th class="line_l">应到账金额</th>
+    <th class="line_l">提现时间</th>
+    <th class="line_l">提现状态</th>
+    <th class="line_l">处理人</th>
+    <th class="line_l">处理时间</th>
+    <th class="line_l">处理说明</th>
+   <th class="line_l">操作</th>
+  </tr>
+  <volist id="vo" name="list">
+      <tr overstyle='on' id="list_{$vo.id}">
+        <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+        <td>{$vo.id}</td>
+        <td><htmlA:user id="vo.uid" uname="vo.user_name" /></td>
+		<td>{$vo.real_name}</td>
+        <td>{$vo.withdraw_money|default=0}元</td>
+		 <td>{$vo.second_fee|default=0}元</td>
+		 <td><if condition="$vo['withdraw_status'] eq 3">
+		 0
+		 <else/>
+		 {$vo['success_money']}
+		</if>元</td>
+        <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+        <td><if condition="$vo.withdraw_status eq 0">待审核<elseif condition="$vo.withdraw_status eq 1"/>审核通过,处理中<elseif condition="$vo.withdraw_status eq 2"/>已提现<elseif condition="$vo.withdraw_status eq 3"/>审核未通过</if></td>
+        <td>{$vo.deal_user|default="无"}</td>
+        <td><if condition="$vo.deal_time eq 0">无<else/>{$vo.deal_time|date="Y-m-d H:i:s",###}</if></td>
+        <td>{$vo.deal_info|default="无"}</td>
+		<td> <htmlA:tixian id="vo.id" uname="vo.user_name" /></td>
+      </tr>
+  </volist>
+  </table>
+  </div>
+ 
+  
+  
+  <div class="Toolbar_inbox">
+  	<div class="page right">{$pagebar}</div>
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索提现" style="search_action" />
+  </div>
+</div>
+
+
+<include file="Public:_footer" />

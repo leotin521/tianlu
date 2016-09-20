@@ -1,0 +1,352 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>灵活宝详情页</title>
+    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/invest.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <!-- 灵活宝独用 -->
+    <header>
+        <h1>灵活宝</h1>
+        <a href="__APP__/m/invest" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="page-loan page-agility">
+        <div class="loan-info">
+            <div class="countdown">
+                <input id="hid" type="hidden" value="{$bao.lefttime}" />
+                进行时间：<span class="num num-md am-text-top" id="loan_time"></span>
+                <!--<span class="num num-sm" id="times_day"></span> 天-->
+                <!--<span class="num num-sm" id="times_hour"></span> 时-->
+                <!--<span class="num num-sm" id="times_minute"></span> 分-->
+                <!--<span class="num num-sm" id="second"></span> 秒-->
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-6">
+                    <div class="field">
+                        剩余可投
+                    </div>
+                    <div class="data">
+                        <span class="num num-md">{$bao.remain_money|number_format=0,'.',','}</span>元
+                    </div>
+                </div>
+                <div class="am-u-sm-6">
+                    <div class="field">
+                        年化收益
+                    </div>
+                    <div class="data">
+                        <span class="num num-md">{$bao.interest_rate|default="0"}</span>%
+                    </div>
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-6">
+                    <div class="field">
+                        计划金额
+                    </div>
+                    <div class="data">
+                        <span class="num num-md">{$bao.funds|default="0"}</span>元
+                    </div>
+                </div>
+                <div class="am-u-sm-6">
+                    <div class="field">
+                        封存期限
+                    </div>
+                    <div class="data">
+                        <span class="num num-md">{$bao.term|default="0"}</span>天
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="" class="am-form am-form-horizontal bg-white agiligy-form">
+        <div class="am-container am-margin-top-lg">
+            <div class="am-g ">
+                <div class="am-u-sm-10 am-u-sm-offset-1">
+                    <div class="agility-oper">
+                        <div class="am-g am-form-group">
+                            <label for="" class="am-u-sm-4 am-form-label am-text-right am-text-middle">请输入金额</label>
+                            <div class="am-u-sm-8">
+                                <input class="am-form-field am-radius" placeholder="起投为50元，或50元的整倍数" id="invest_money" type="text">
+                            </div>
+                        </div>
+                        <div class="am-g am-form-group">
+                            <label for="" class="am-u-sm-6 am-form-label am-text-right am-text-middle am-text-danger">起投金额为50元</label>
+                            <div class="am-u-sm-6">
+                                <input class="am-btn am-btn-danger am-radius am-btn-xl" id="btn-buy" type="button" value="立即认购" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="agility-ad">
+            <img src="__ROOT__/Style/NewWeChat/images/invest/img-agility.jpg" class="am-img-responsive" alt="">
+        </div>
+        <!-- 购买弹窗 -->
+        <div class="am-modal mod-confirm modal-confirm-pay" tabindex="-1" id="modal-confirm">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">温馨提示
+                    <a href="javascript: void(0)" class="btn btn-do" onclick="Invest();">确定</a>
+                    <a href="javascript: void(0)" class="btn btn-cancel" onclick="nos();" data-am-modal-close>取消</a>
+                </div>
+                <div class="am-modal-bd ">
+                    <ul>
+                        <li>账户余额：{$user_money.money|getMoneyFormt=###}</li>
+                        <li>支付金额：<span class="am-text-success">800元</span></li>
+                        <li>预计收益：<span class="am-text-danger">6.57万</span></li>
+                        <li>封存期限：10天</li>
+                        <li>支付密码：<input class="am-radius" type="password" id="pay_pass"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <!-- 购买框提示 仅在灵活宝页面需要 -->
+    <script>
+    $(function(){
+        var $modal = $('#modal-confirm');
+
+        $('#btn-buy').on('click', function(e) {
+            var invest_money = $('#invest_money').val();
+            var min_money = {$bao.start_funds};
+
+            if(invest_money == ''){
+                $().toastmessage('showErrorToast', "金额不允许为空！");
+                return false;
+            }else if(invest_money < min_money){
+                $().toastmessage('showErrorToast', "最低购买金额不小于50！");
+                return false;
+            }else if(invest_money){
+
+            }
+            var $target = $(e.target);
+            $modal.modal('toggle');
+        });
+    });
+
+    /*ajax提交*/
+    function Invest()
+        {
+        var bao_id = {$bao.id|default=0};
+        var money = $('#invest_money').val();
+        var pay_pass = $("#pay_pass").val();
+        var min_money = {$bao.start_funds};
+
+        if(pay_pass == ''){
+            $().toastmessage('showErrorToast', "请输入支付密码！");
+            return false;
+        }
+        if(money == 0){
+            $().toastmessage('showErrorToast', "请输入转入金额！");
+            return false;
+        }
+        if(money%min_money){
+            $().toastmessage('showErrorToast', "请输入起投金额的整数倍！");
+            return false;
+        }
+
+        $.ajax({
+            url: "__URL__/investMoney",
+            type: "post",
+            dataType: "json",
+            data: {"money":money,"bao_id":bao_id,"pay_pass":pay_pass},
+            success: function(d) {
+//                alert(d);
+                if(d.status==1){
+                    $().toastmessage('showSuccessToast', d.message);
+                    setTimeout("windowReload()", 3000)
+                }
+                else// 错误提示
+                {
+                    $().toastmessage('showErrorToast', d.message);
+                    return false;
+                }
+            }
+        })
+    }
+
+    </script>
+    <script type="text/javascript"  language="javascript">
+        var seconds;
+        var investStatus = {$bao.status};
+        var timer = null;
+        function setLeftTime() {
+            seconds = parseInt($("#hid").val(), 10);
+            if(seconds<0){
+                seconds = seconds*-1;
+                timer = setInterval(showSecondsSub, 1000);
+            }else{
+                timer = setInterval(showSeconds, 1000);
+            }
+
+        }
+
+        function showSeconds() {
+            var day1 = Math.floor(seconds / (60 * 60 * 24));
+            var hour = Math.floor((seconds - day1 * 24 * 60 * 60) / 3600);
+            var minute = Math.floor((seconds - day1 * 24 * 60 * 60 - hour * 3600) / 60);
+            var second = Math.floor(seconds - day1 * 24 * 60 * 60 - hour * 3600 - minute * 60);
+            if (day1 < 0) {
+                clearInterval(timer);
+                $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+            } else if (investStatus > 1) {
+                clearInterval(timer);
+                $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+            } else {
+                $("#loan_time").html("<span>" + day1 + "</span>天<span>" + hour + "</span>时<span>" + minute + "</span>分<span>" + second + "</span>秒");
+            }
+            seconds++;
+        }
+        function showSecondsSub() {
+            var day1 = Math.floor(seconds / (60 * 60 * 24));
+            var hour = Math.floor((seconds - day1 * 24 * 60 * 60) / 3600);
+            var minute = Math.floor((seconds - day1 * 24 * 60 * 60 - hour * 3600) / 60);
+            var second = Math.floor(seconds - day1 * 24 * 60 * 60 - hour * 3600 - minute * 60);
+            if (day1 < 0) {
+                clearInterval(timer);
+                $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+            } else if (investStatus > 1) {
+                clearInterval(timer);
+                $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+            } else {
+                $("#loan_time").html("<span>" + day1 + "</span>天<span>" + hour + "</span>时<span>" + minute + "</span>分<span>" + second + "</span>秒");
+            }
+            seconds--;
+        }
+        if (investStatus >= 1) {
+            $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+        } else {
+            setLeftTime();
+        }
+        setLeftTime();
+    </script>
+    <script type="text/javascript">
+        var min_money  = {$bao.start_funds|default=0};
+        var max_money =  {$bao['funds']-$bao['raise_funds']|default=0};
+        var accounts = {$user_money.money|default=0};
+        var interest_rate = {$bao.interest_rate|default=0};
+        var day = {$bao.day|default=0};
+        jQuery(document).ready(function($) {
+            $('#investBtn').click(function(){
+                var error = $('#submit_error');
+                var money = parseInt($('#money').val());
+                if(isNaN(money)){
+                    error.html('请输入投资金额！');
+                    return false;
+                }else {
+                    error.html('');
+                }
+                var remainMoney = $('#remain_invest_money').attr('data');
+                if( parseFloat(remainMoney) < money ) {
+                    var msg = '投资金额不能大于剩余金额！';
+                    error.html(msg);
+                    return false;
+                }else {
+                    error.html('');
+                }
+                if(money%min_money || money < min_money) {
+                    var msg = '请输入起投金额'+min_money+'的整数倍！';
+                    error.html(msg);
+                    return false;
+                }else{
+                    error.html('');
+                }
+                if(money > accounts){
+                    var needMoney = Math.ceil(money - accounts);
+                    $('#needMoney').html(needMoney+'元');
+                } else {
+                    $('#needMoney').html('0元');
+                }
+                if( !$(this).hasClass('btn-bg-gray')) {
+                    $('.theme-lhb-fuk').fadeIn(100);
+                    $('.theme-lhb').slideDown(200);
+                }else {
+                    window.location.href='{$unlogin_home}';
+                }
+            })
+            $('.theme-lhb-poptit .close').click(function(){
+                $('.theme-lhb-fuk').fadeOut(100);
+                $('.theme-lhb').slideUp(200);
+            })
+
+            $('.theme-login').click(function(){
+                <empty name="bao">
+                alert("该项目已结束");
+                return false;
+                </empty>
+                var in_money = $("#in_money").val();
+                // $("#money").val(in_money);
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+            })
+            $('.theme-poptit .close').click(function(){
+                $('.theme-popover-mask').fadeOut(100);
+                $('.theme-popover').slideUp(200);
+            })
+
+            $("#money").blur(function(){
+                var error = $('#submit_error');
+                var money = parseInt($('#money').val());
+                if(isNaN(money)){
+                    error.html('请输入投资金额！');
+                    return false;
+                }else {
+                    error.html('');
+                }
+                if(money%min_money) {
+                    error.html('请输入起投金额的整数倍！');
+                    return false;
+                }else{
+                    error.html('');
+                }
+            });
+
+        })
+
+        function summy(){
+            var money = $("#money").val()
+            if(money == 0 ) money = min_money;
+            $(".imoney").html(money+"元");
+            var accountMoney = $('#accountMoney').attr('data');
+            if( parseInt(money) < parseFloat(accountMoney) ) {
+                $('.lhb_fuk_chongz').parent().remove();
+            }
+            var interest = Math.floor(money * interest_rate/365 * day)/100;
+            $(".ims").html(Number(money)+Number(interest)+'元');
+            $(".is").html(interest+'元');
+            var needMoney =  parseFloat(money) - parseFloat(accountMoney);
+            if( needMoney > 0 ) {
+                $('#need_msg').css('display', 'block');
+                $('#pay_msg').css('display', 'none');
+            } else {
+                $('#need_msg').css('display', 'none');
+                $('#pay_msg').css('display', 'block');
+                $('#pay_balance').html(Math.abs(needMoney));
+            }
+        }
+        function windowReload() {
+            location.reload();
+        }
+    </script>
+
+</body>
+
+</html>

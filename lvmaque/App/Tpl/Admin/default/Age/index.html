@@ -1,0 +1,76 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+<style type="text/css">
+.list input[type=text]{
+	color: #333333;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+}
+</style>
+<div class="page_tit">会员级别管理</div>
+<div class="page_tab"><span data="tab_1" class="active">会员级别管理</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/save" onsubmit="return subcheck();" enctype="multipart/form-data">
+	<div id="tab_1">
+	  <div class="Toolbar_inbox">
+		<div class="page right">{$pagebar}</div>
+		<htmlA:commonBtn type="jsfun" action="addone();" value="添加一个级别" />
+	  </div>
+	  <div class="list">
+	  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+		<th style="width:30px;">
+			<input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+			<label for="checkbox"></label>
+		</th>
+		<th class="line_l">序号</th>
+		<th class="line_l">年龄名称</th>
+		<th class="line_l">开始年龄</th>
+		<th class="line_l">结束年龄</th>
+		<th class="line_l">操作</th>
+	  </tr>
+	  <volist id="vo" name="leve">
+		  <tr overstyle='on' id="list_{$key}">
+			<td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$key}"></td>
+			<td>{$key}</td>
+			<td><input type="text" style="width:100px" name="leve[{$key}][name]" value="{$vo.name}" /></td>
+			<td><input type="text" style="width:100px" name="leve[{$key}][start]" value="{$vo.start}" /></td>
+			<td><input type="text" style="width:100px" name="leve[{$key}][end]" value="{$vo.end}" /></td>
+			<td>
+				<a href="javascript:void(0);" onclick="delx({$key});">删除</a>  
+			</td>
+		  </tr>
+	  </volist>
+	  </table>
+		</div>
+	</div><!--tab1-->
+
+	<div class="page_btm"><input type="submit" class="btn_b" value="确定" /><span style="color:#CCCCCC">(判断方式是[ >=开始积分,<结束积分 ]所有方式修改提交一次即可)</span>
+	</div>
+	</form>
+</div>
+
+</div>
+
+<script type="text/javascript">
+var xss=parseInt({$key})||0;
+function addone(){
+	xss++;
+	var htmladd = '<tr overstyle="on" id="list_'+xss+'">';
+		htmladd += '<td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="'+xss+'"></td>';
+		htmladd += '<td>'+xss+'</td>';
+		htmladd += '<td><input type="text" style="width:100px" name="leve['+xss+'][name]" value="" /></td>';
+		htmladd += '<td><input type="text" style="width:100px" name="leve['+xss+'][start]" value="" /></td>';
+		htmladd += '<td><input type="text" style="width:100px" name="leve['+xss+'][end]" value="" /></td>';
+		htmladd += '<td><a href="javascript:void(0);" onclick="delx('+xss+');">删除</a></td>';
+		htmladd += '</tr>';	
+	$(htmladd).appendTo("#area_list");
+}
+function delx(id){
+	if(confirm("删除后不可恢复，并且删除完要确定保存后才会生产，确定要删除吗?")) $("#list_"+id).remove();
+}
+</script>
+<include file="Public:_footer" />

@@ -1,0 +1,173 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>用户名</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>{$useri['user_name']}</h1>
+        <a href="__APP__/m/letter" class="btn btn-message"><img src="__ROOT__/Style/NewWeChat/images/member/icon-msg.png" alt="" style="margin-right:1rem;"></a>
+    </header>
+    <div class="mod-baner-data">
+        <div class="field am-text-center num num-sm">
+            账户总资产(元)
+        </div>
+        <div class="num num-lg am-text-center">{$total}</div>
+    </div>
+    <!-- 投资、借款按钮 -->
+    <div class="cap-nav am-cf">
+        <div class="cap-unit am-vertical-align">
+            <img src="__ROOT__/Style/NewWeChat/images/icon-compound.png" height="50" width="50" alt="" style="margin-left:3%">
+            <span class="figcaption am-vertical-align-middle num num-yt" style="margin-left:4%;"> 
+                待收收益
+                <br>
+                <span class="am-text-danger">{$interest}</span> 元
+            </span>
+        </div>
+        <div class="cap-unit  am-vertical-align">
+            <img src="__ROOT__/Style/NewWeChat/images/icon-dollar.png" height="50" width="50" alt="" style="margin-left:3%">
+            <span class="figcaption am-vertical-align-middle num num-yt" > 
+                累计收益
+                <br>
+                <span class="am-text-danger">{$income}</span> 元
+            </span>
+        </div>
+        <div id="zhifu" style="width:100%;height:100%;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;z-index:1;background-color:rgba(0,40,50,0.7);display: none;">
+            <div style="margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;width: 300px;height: 100px;background: #ffffff;z-index:1;">
+                <div style="width:100%;height:20px;background: #d2e0ee;">
+                    <a href="javascript:void(0);" onclick="paylist(1);" style="float: right; margin-right:10px;line-height: 20px;">ｘ</a>
+                </div>
+                <div style="width: 50%;height:80px;float: left;">
+                    <a href="__APP__/m/charge/index?pay=1" style="margin-left:12%;line-height: 80px;color:#33A5FC;borde:1px solid red;"><img src="__ROOT__/Style/NewWeChat/images/qitazhifu.png" style="width:28px;height: 28px;" alt=""/>&nbsp;其他充值方式</a>
+                </div>
+                <div style="width: 50%;height:80px;float:right;">
+                    <!--<a href="__APP__/m/charge/index/pay=2" style="margin-left:20%;line-height: 80px;color:#51C332;"><img src="__ROOT__/Style/NewWeChat/images/watchzhifu.png" style="width:28px;height: 30px;" alt=""/>&nbsp;微信支付</a>-->
+                    <a href="javascript:void(0);" onclick="jiance();" style="margin-left:20%;line-height: 80px;color:#51C332;"><img src="__ROOT__/Style/NewWeChat/images/watchzhifu.png" style="width:28px;height: 30px;" alt=""/>&nbsp;微信支付</a>
+                </div>
+            </div>
+        </div>
+        <div class="oper-unit  am-vertical-align">
+            <div class="am-g">
+                <div class="am-u-sm-6" style="width:40%;margin-left:5%;margin-top:5%;">
+                    <a href="__APP__/m/charge/index" class="am-btn am-radius am-btn-block am-btn-danger am-btn-xl">我要充值</a>
+                    <!--<a href="javascript:void(0);" class="am-btn am-radius am-btn-block am-btn-danger am-btn-xl" onclick="paylist();">我要充值</a>-->
+                </div>
+                <div class="am-u-sm-6" style="width:40%;margin-right:5%;margin-top:5%;">
+					<a href="javascript:void(0);" onclick="yanzhen();" class="am-btn am-radius am-btn-block am-btn-danger am-btn-xl" >我要提现</a>
+                </div>
+            </div>
+        </div>
+        <div class="member-item">
+            <ul class="am-list">
+                <li>
+                    <a href="__APP__/m/user/userinfo"><div class="con"> <i class="am-icon-chevron-right"></i> </div>
+                        <div class="field num num-zt"><i class="am-icon-user am-text-danger" style="margin-right:5px;"></i> 帐号信息</div></a>
+                </li>
+                <li>
+                    <a href="__APP__/m/user/jiaoyijilv"><div class="con"> <i class="am-icon-chevron-right"></i> </div>
+                        <div class="field num num-zt"><i class="am-icon-file-text-o am-text-danger" style="margin-right:5px;"></i> 交易记录</div></a>
+                </li>
+                <li>
+                   <a href="__APP__/m/rewardadm/index"><div class="con"> <i class="am-icon-chevron-right"></i> </div>
+                        <div class="field num num-zt"><i class="am-icon-gift am-text-danger" style="margin-right:5px;"></i> 奖励管理</div></a>
+                </li>
+                <li>
+                    <a href="__APP__/m/investadm/investadmlist"><div class="con"> <i class="am-icon-chevron-right"></i> </div>
+                        <div class="field num num-zt"><i class="am-icon-tags am-text-danger" style="margin-right:5px;"></i> 投资管理</div></a>
+                </li>
+                <div class="am-container" style="margin-top:5%; ">
+                <a href="javascript:void(0);" onclick="loginout();" class="am-btn am-radius am-btn-block am-btn-danger am-btn-xl">退出账号</a>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="block-90"></div>
+
+    <include file="Pub:user" />
+	<script>
+
+
+		var t = 3;
+		function settimesf5(){
+			t -=1;
+			if(t == 0){
+				window.location.href="__APP__/m/index/";
+			}
+			setTimeout("settimesf5()", 500 )
+		}
+		
+		function loginout(){
+
+			if(confirm("确定要要退出吗")){
+				$.post("__APP__/m/common/actlogout?action=logout",function(msg){
+				//alert(msg);
+					if(msg==1){
+						settimesf5();
+						$().toastmessage('showSuccessToast',"注销成功");
+					}
+				});
+			}
+		}
+
+        function paylist(d){
+            if(d == 1){
+                $("#zhifu").hide();
+            }else{
+                $("#zhifu").show();
+            }
+
+        }
+	</script>
+	 <script>
+        function yanzhen(){
+            //alert(111)
+            var phone_status = {$phone_status};
+            var id_status = {$id_status};
+            if(phone_status == 0){
+                $().toastmessage('showErrorToast', '请先进行手机认证~');
+                return false;
+            }else if(id_status == 0){
+                $().toastmessage('showErrorToast', '请先进行实名认证~');
+                return false;
+            }else{
+                window.location.href = "__APP__/m/charge/withdrawals";
+            }
+        }
+         function jiance(){
+             $.ajax({
+                 url:"__APP__/m/Pay/wetch_app",
+                 type:"post",
+                 data:{"watch":"wetch"},
+                 datatype:"json",
+                 timeout:"4000",
+                 beforeSend: function () {
+                     layer.msg("验证支付环境...");
+                 },
+                 success: function(d){
+                     if(d.status == 1){
+                         window.location.href="__APP__/m/charge/index/pay=2";
+                     }else{
+                         layer.msg("X 环境不支持!");
+                     }
+                 }
+             });
+         }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<include file="Public:_header_common" />
+<title>我的账户-- {$glo.web_name}</title>
+<script type="text/javascript" src="__ROOT__/Style/Js/ajaxfileupload.js"></script>
+<include file="default:Public:_header_main" group="Home"/>
+
+<div style="height:300px; width:100%">
+
+</div>
+<script type="text/javascript">
+var mbTest = /^(13|14|15|18)[0-9]{9}$/;
+var timer = null;
+var leftsecond = 60; //倒计时
+var msg = "";
+var closeAction = function (){
+	window.location.href="__APP__/index";
+}
+
+var apppath = "__APP__";
+
+function jfun_setpass() {
+	var pass1 = $('#pass').val();
+	var pass2 = $('#repass').val();
+	if ($.trim(pass1) == '' || pass1.length<6) {
+		layer.msg('请输入新密码,且新密码的长度不要小于6位',{icon:2});
+		return false;
+	}
+	if ($.trim(pass2) != $.trim(pass1)) {
+		layer.msg('新密码与重复密码必须相同',{icon:2});
+		return false;
+	}
+	layer.msg('提交中...',{icon:6});
+	$.ajax({
+		url: "__URL__/dosetnewpass/",
+		type: "post",
+		dataType: "json",
+		data: {"pass":pass1},
+		success: function(result) {
+			if (result.status == 0) {
+				layer.msg('修改失败，请重试',{icon:2});
+				return false;
+			}
+			else {
+				alert("修改成功，点击确定后跳转到登陆界面");
+				window.location.href="__APP__/member/common/login/";
+			}
+		}
+	});
+}
+</script>
+<include file="default:Public:_footer" group="Home" />

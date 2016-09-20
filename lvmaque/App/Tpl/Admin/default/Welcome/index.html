@@ -1,0 +1,189 @@
+<include file="../Public/_header" />
+<style type="text/css">
+.quxiantu{ margin-top:30px;}
+.qleft{ float:left; width:50%; text-align:left;}
+.qright{ float:right; width:50%; text-align:right;}
+
+.ssx a{height:30px; line-height:30px}
+.lf{
+    float:left;
+    width:43%; border:1px solid #c7d8ea; margin: 10px;
+}
+.lf h6{
+    border-bottom: 1px solid #c7d8ea;
+    color: #3a6ea5;
+    height: 26px;
+    line-height: 28px;
+    padding: 0 10px;
+    font-size: 13px;
+}
+.lf .content{
+    padding: 9px 10px;
+    line-height: 22px;
+}
+.lf .content a{
+    color:red;
+    
+}
+@media screen and (max-width:1280px){
+    .lf{
+        width:43%!important;
+
+ }
+    .content2{
+        height:98px!important;
+    }
+
+}
+@media screen and (max-width:2560px){
+
+    .lf{
+        width:43%!important;
+    }
+
+}
+</style>
+<script type="text/javascript" src="__ROOT__/Style/Js/highcharts.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/Js/exporting.js"></script>
+<div class="so_main">
+  <div class="page_tit">欢迎页</div>
+  <!--列表模块-->
+  <div class="Toolbar_inbox">
+    <div class="page right">
+	当前时间<span id="clock"></span>
+    </div>
+    <a href="javascript:;" class="btn_a"><span>欢迎登录</span></a></div>
+<script>
+function changeClock()
+{
+	var d = new Date();
+	document.getElementById("clock").innerHTML = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+}
+window.setInterval(changeClock, 1000);
+</script>  
+<div class="lf 1fII">
+    <h6>个人信息</h6>
+    <div class="content content2" style="height:98px;">
+        您好，{$user.user_name}
+        <br />
+        所属角色：{$user.groupname} 
+        <br />
+        上次登录时间：{$user.last_log_time|date='Y-m-d H:i:s',###}
+        <br />
+        上次登录IP：{$user.last_log_ip}   
+    </div>
+</div>
+<div class="lf 1fII">
+    <h6>系统信息</h6>
+	 <div class="content content2" style="overflow: hidden;height:98px;">
+     <div style="float: left;">
+        版本：{$str}
+     </div>
+    <div style="float: right;">
+        操作系统：{$service.service_name}
+     </div>
+<div style="clear:both;"></div>
+	<div style="float: left;">
+       服务器软件：{$service.service}
+     </div>
+    <div style="float: left;">
+        MySQL 版本：{$service.mysql}
+     </div>
+     <br />
+	 <div style="float: left;">
+      服务器协议：{$Think.SERVER.SERVER_PROTOCOL}
+     </div>
+    <div style="float: left;">
+      服务器名称：{$Think.SERVER.SERVER_NAME}
+     </div>
+     <br />
+	 <div style="float: left;">
+      PHP运行方式：<?php echo strtoupper(php_sapi_name())?>
+     </div>
+    <div style="float: left;">
+      PHP版本：<?php echo PHP_VERSION?>
+     </div>
+	<br />
+	 </div>
+</div>
+    <div style="clear: both"></div>
+<div class="lf 1fII">
+    <h6>待审核工作</h6>
+    <div class="content" style="overflow: hidden;height:192px;">
+    <!-- 散标 开始 -->
+    <if condition="$version['single'] eq 1">
+     <div style="float: left; width:50%;">
+       散标等待初审的[<if condition="$row.borrow_1 gt 0"><a href="__APP__/admin/borrow/waitverify.html" >&nbsp;{$row.borrow_1}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+    <div style="float: right; width:50%;">
+        散标等待复审的[<if condition="$row.borrow_2 gt 0"><a href="__APP__/admin/borrow/waitverify2.html">&nbsp;{$row.borrow_2}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+     <div style="float: left;width:50%;">
+        散标预发布的[<if condition="$row.borrow_3 gt 0"><a href="__APP__/admin/borrow/prerelease.html">&nbsp;{$row.borrow_3}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+     <div style="float: left;width:50%;">
+        额度申请等待审核的[<if condition="$row.limit_a gt 0"><a href="__APP__/admin/members/infowait.html">&nbsp;{$row.limit_a}&nbsp;</a><else /> 0&nbsp;</if>]个 
+     </div>
+     </if>
+        <div style="clear:both;"></div>
+     <!-- 散标 结束 -->
+     <!-- 企业直投 开始 -->
+     <if condition="$version['business'] eq 1">
+     <div>
+     <?php echo BorrowModel::get_borrow_type(6);?>标等待复审的[<if condition="$row.borrow_bus gt 0"><a href="__APP__/admin/tborrow/waitreview.html">&nbsp;{$row.borrow_bus}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+     <div>
+     <?php echo BorrowModel::get_borrow_type(6);?>标预发布的[<if condition="$row.borrow_pre gt 0"><a href="__APP__/admin/tborrow/prerelease.html">&nbsp;{$row.borrow_pre}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+     </if>
+     <!-- 企业直投 结束 -->
+     <!-- 定投宝 开始 -->
+     <if condition="$version['fund'] eq 1">
+     <div>
+     <?php echo BorrowModel::get_borrow_type(7);?>标预发布的[<if condition="$row.borrow_fund gt 0"><a href="__APP__/admin/fund/prerelease.html">&nbsp;{$row.borrow_fund}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+     </if>
+     <!-- 定投宝 结束 -->
+     <if condition="$id5_enable eq 0">
+	 <div>
+         等待实名认证的[<if condition="$row.real_a gt 0"><a href="__APP__/admin/memberid/index?status=3">&nbsp;{$row.real_a}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+     </if>
+     <if condition="$is_manual eq 1">
+     <div>   
+        等待手机认证的[<if condition="$row.mobile_a gt 0"><a href="__APP__/admin/verifyphone/index?status=3">&nbsp;{$row.mobile_a}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+     </if>
+     <div> 
+        上传资料等待审核的[<if condition="$row.data_up gt 0"><a href="__APP__/admin/memberdata/index?status=0">&nbsp;{$row.data_up}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+     <div>   
+        等待审核提现[<if condition="$row.withdraw gt 0"><a href="__APP__/admin/Withdrawlogwait/index.html">&nbsp;{$row.withdraw}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+     <div>   
+        等待审核的借款会员[<if condition="$row.loan gt 0"><a href="__APP__/admin/loaninfo/index?status=1">&nbsp;{$row.loan}&nbsp;</a><else /> 0&nbsp;</if>]个
+     </div>
+    </div>
+</div>
+<div class="lf 1fII">
+    <h6>开发团队</h6>
+    <div class="content" style='height:192px;'>
+        版权所有：绿麻雀（北京）科技有限公司
+        <br />
+        总 策 划：王伟
+        <br />
+        开发与支持团队：范叶磊、宋绍锐、张继立、赵辉、赵忠祥
+        <br />    
+        UI 设计：耿杰、都威、李慧、张朝建、张芯慈
+		<br />    
+        软件测试：辛叶叶 王德义
+        <br />
+        系统版本： <?php echo VERSION;?>
+        <br />
+        官方网站：<a href="http://www.lvmaque.com/" target="_blank">http://www.lvmaque.com/</a>
+        <br />    
+        网贷点评网：<a href="http://www.wangdaidp.com/" target="_blank">http://www.wangdaidp.com/</a>
+    </div>
+</div>
+</div>
+<include file="Public:_footer" />

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>意见反馈</title>
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+		<link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+        <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+        <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+	</head>
+	<body class="bg-white">
+		<header>
+			<h1>意见反馈</h1>
+			<a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+		</header>
+	    <form class="am-form am-form-horizontal am-margin-top form-withdraw">
+			 <div class="am-form-group">
+				<div class="am-container">
+						<textarea name="content_text" class="am-radius content_text" id="content_text" placeholder="请填写下您宝贵的意见或反馈" rows="10" cols="35" onpropertychange="if(this.scrollHeight>10) this.style.posHeight=this.scrollHeight+5" ></textarea>
+					
+				</div>
+            </div>
+			<div class="am-container am-margin-top">
+				<a  onClick="sub()" class="am-btn am-radius am-btn-xl am-btn-block am-btn-danger">提交</a>
+			</div>
+		</form>
+	<!-- detail star -->
+
+	
+		
+	<!-- detail end -->
+
+    <script type="text/javascript">
+        function sub(){
+            var nums = /^\d*$/;
+            var content = $("#content_text").val();
+            if(content == ''){
+                $().toastmessage('showErrorToast', '请填写反馈意见');
+                return false;
+            }else if(nums.test(content)){
+                $().toastmessage('showErrorToast', '请认真填写反馈内容');
+                return false;
+            }else if(content.length<6){
+                $().toastmessage('showErrorToast', '字符不能小于6个');
+                return false;
+            }
+
+
+            $.ajax({
+
+                cache:false,
+                url:"__APP__/m/qita/backinfo",
+                type:"post",
+                async:false,
+                datatype:"json",
+                data:{"content":content},
+                success:function(d){
+                    var data = eval('('+d+')');
+                    if(data.status == 1){
+                        $().toastmessage('showSuccessToast', data.message);
+                        return true;
+                    }else{
+                        $().toastmessage('showErrorToast', data.message);
+                        return false;
+                    }
+                }
+            })
+
+        }
+    </script>
+	
+	</body>
+</html>

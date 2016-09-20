@@ -1,0 +1,281 @@
+<include file="default:Public:_header_common" />
+<style type="text/css">
+    .sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1
+                                                                       { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color:
+    #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color:
+    #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position:
+    absolute;left: 0px;top: 2px;z-index: 1;}
+    .user-box-con input {width: 150px; height: 22px; line-height: 22px; padding-left: 5px;border: 1px solid #aaa;}
+    .error {padding-left: 10px; color: #F00;display: inline-block; width: 180px;line-height: 30px;}
+</style>
+</head><body>
+<include file="default:Public:_header_main" />
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"> </div>
+    </div>
+    <div class="user-main clearfix"> <include file="default:Public:_left" />
+        <div class="user-con">
+            <div class="user-box-1 user-bounty">
+                <div class="user-box-title-1 clearfix">
+                    <h2> 发送红包 </h2>
+                </div>
+                <div class="user-box-con clearfix">
+                    <div class="user-bounty-show clearfix">
+                        <table class="table-style-5-thead">
+                            <tbody>
+                            <tr>
+                                <td style="padding-left: 20px;">红包金额</td>
+                                <td width="200"><input type="text" name="bonus_money" value="" onkeyup="checkFloatType(this)" /> </td>
+                                <td>
+                                    <span class="btn-style-3" id="generalize">生成红包链接</span>
+                                    <span class="error"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="user-box-title-1 clearfix">
+                    <h2> <a id="coupontop" name="coupontop"> &nbsp; </a> 红包记录 </h2>
+                    <div class="user-box-title-more"> </div>
+                </div>
+                <div class="user-box-con-2">
+                    <div class="total-dt clearfix">
+                        <div class="classify-selected-1-a" style="width:665px;">
+                            <dl class="classify-selected-1 clearfix">
+                                <dt style="width:82px; margin-right:0px;"> 红包类型 </dt>
+                                <dd> <a  href="?status=1"
+                                    <if condition="$status eq 1"> class="selected"</if>
+                                    >
+                                    已生成 </a> <a href="?status=4"
+                                    <if condition="$status eq 4"> class="selected"</if>
+                                    >
+                                    已抢到 </a> <a href="?status=3"
+                                    <if condition="$status eq 3"> class="selected"</if>
+                                    >
+                                    过期未领取 </a> </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="rel">
+                        <div class="table-style-5">
+                            <table class="table-style-5-thead">
+                                <thead>
+                                <tr>
+                                    <th width="200" class="tac"> 红包金额 </th>
+                                    <if condition="$status eq 1">
+                                        <th width="180" class="tac"> 生成时间 </th>
+                                        <th width="135" style="padding:0 37px" class="tac"> 过期时间 </th>
+                                    <elseif condition="$status eq 4"/>
+                                        <th width="180" class="tac"> 领取时间 </th>
+                                        <th width="135" style="padding:0 37px" class="tac"> 来源 </th>
+                                    <elseif condition="$status eq 3"/>
+                                        <th width="180" class="tac"> 过期时间 </th>
+                                        <th width="135" style="padding:0 37px" class="tac"> 状态 </th>
+                                    </if>
+                                    <th width="170" class="tac"> 生成链接 </th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <div id="pagerContainer" style="border-bottom:1px solid #eaeaea;"> </div>
+                        </div>
+                        <if condition="count($bonus_items.data) eq 0">
+                            <div class="list-value-none-style"> 暂没有任何数据 </div>
+                            <else />
+                            <div id="pagerContainer" style="border-bottom:1px solid #eaeaea;">
+                                <volist name="bonus_items.data" id="vo">
+                                    <table class="table-style-5-tbody table-style-5-tbody-1">
+                                        <tbody>
+                                        <tr>
+                                            <td width="200" class="tac">
+                                                {$vo.bonus_money}
+                                            </td>
+                                            <if condition="$status eq 1">
+                                                <th width="180" class="tac"> {$vo.create_time} </th>
+                                                <th width="135" style="line-height:22px;text-align: center"> {$vo.validate_et|strtotime|date='Y-m-d',###} </th>
+                                                <td width="170" style="word-break:break-all;" class="tac"> <a href="javascript:;" class="J_copy_link" data="{$vo.share_url}">点击复制</a> </td>
+                                            <elseif condition="$status eq 4"/>
+                                                <th width="180" class="tac"> {$vo.take_time} </th>
+                                                <th width="135" style="line-height:22px;text-align: center"> {$vo.source_name} </th>
+                                                <td width="170" style="word-break:break-all;" class="tac"> <a href="javascript:;" class="J_copy_link" data="{$vo.share_url}">查看链接</a> </td>
+                                            <elseif condition="$status eq 3"/>
+                                                <th width="180" class="tac"> {$vo.validate_et|strtotime|date='Y-m-d',###} </th>
+                                                <th width="180" class="tac"> 未领取 </th>
+                                                <td width="170" style="word-break:break-all;" class="tac"> <a href="javascript:;" class="J_copy_link" data="{$vo.share_url}">查看链接</a> </td>
+                                            </if>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </volist>
+                            </div>
+                        </if>
+                    </div>
+                    <div class="table-style-footer-1" style="display: block;"> {$bonus_items.page} </div>
+                </div>
+                <div class="user-box-con-1">
+                    <div class="form-warm-prompt-1 clearfix"> <span class="form-warm-prompt-title"> 温馨提示： </span> <span class="form-warm-prompt-con">
+          <div class="bottom-notice"> <strong> 1. 红包使用规则： </strong>
+              <li> 发送的红包最大金额不能超过{$bonus_config_arr.max_money}元，最小金额不能小于{$bonus_config_arr.min_money}元； </li>
+              <li> 发送的红包后将从您的账户中扣除相应的金额，如果没有被领取，过期之后会自动返还到您的账户中。 </li>
+              2. 使用过程中遇到问题，请联系客服，
+              <?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?>
+          </div>
+          </span> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="generalizePop" style="display:none">
+    <div class="ps1-close">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>复制红包链接</h2>
+        </div>
+        <div class="generalizePop_con">
+            <textarea id="copyText">这是我给你们的红包，快来领取吧！</textarea>
+            <div class="generalizePop_con_fuzhi clearfix">
+                <a href="javascript:;" id="copy_btn" type="submit" class="btn-style-3" title="点击复制红包链接">复制红包链接</a>
+            </div>
+            <div id="generalizePop_error" class="generalizePop_error tac " style="display:none;"><span class="generalize_icon">&nbsp;</span><span class="em mgt"></span></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var spread_url = '';
+    $('.ps1-close').live('click', function() {
+        var id = $(this).parents(".ui-dialog-content").attr("id");
+        $("#" + id).dialog("close")
+    })
+    $('.J_btn').live('click', function() {
+        $('.ps1-close').trigger('click');
+    })
+    $('.J_copy_link').live('click', function() {
+    	$("#generalizePop_error").show().find(".em").text("").end().find(".generalize_icon").removeClass("icon-check");
+        spread_url = $(this).attr('data');
+        if($('#generalizePop').is(':visible') == false && $('#generalizePop').length > 0 ) {
+            var msg = '这是我给你们的红包，快来领取吧！';
+            $('#copyText').html(msg + spread_url);
+            $('#generalizePop').dialog({
+            	width: 537,
+            	dialogClass: "clearPop pop-style-1",
+            	modal:true,
+            	resizable:false,
+            	closeOnEscape:false,
+            	close: 243,
+            	show: {
+                    effect: "fadeIn",
+                    duration: 450
+                },
+                open:function(){
+                	$("#copy_btn").zclip({
+        	            path:"/Style/H/js/ZeroClipboard.swf",
+        	            copy:function(){return $('#copyText').val()},
+        	            afterCopy:function(){
+        	            	$("#generalizePop_error").show().find(".em").text("复制成功").end().find(".generalize_icon").removeClass("icon-tanhao").addClass("icon-check");
+        	            }
+        	        })
+                }
+            });
+            return false;
+        }
+    })
+
+   /*  function dialog() {
+        $("#generalizePop").dialog({
+            dialogClass: "clearPop pop-style-1",
+            bgiframe: !0,
+            modal: !0,
+            resizable: !1,
+            closeOnEscape: !1,
+            show: {
+                effect: "fadeIn",
+                duration: 450
+            },
+            open: function() {
+                cpStatic && (ele = $("#generalizePop_error"), $("#copyBtn").zclip({
+                    path: copy.path,
+                    copy: function() {
+                        return $("#copyText").val()
+                    },
+                    afterCopy: function() {
+                        ele.show().find(".em").text("复制成功").end().find(".generalize_icon").removeClass("icon-tanhao").addClass("icon-check")
+                    }
+                }), cpStatic = !1), $("#generalizePop_error").hide()
+            },
+            width: 537,
+            close: 243
+        })
+    }
+	dialog(); */
+
+</script>
+<include file="default:Public:_footer" group="Home"/>
+<script id="promptTmpl" type="text/x-dot-template">
+    < div class = "ps1-close" > × < /div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2 > </div>
+        <div class="state-prompt-txt-{{?it[3]}}duigou{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2 > {
+                { = it[2]
+                }
+                }您可以 < a href = "/newuser/main/coupon"target = "_blank"class = "state-a-line" > [返回我的优惠券] < /a>
+            </div > </div>
+    </div >
+</script>
+<script type="text/javascript">
+    var domain = '<php> echo DOMAIN;</php>'
+    var errorContent = $('.error');
+    var bonusConfig = eval('({$bonus_config})');
+    $('#generalize').click( function() {
+        var bonus_money = $('input[name=bonus_money]').val();
+        if(  bonus_money == '' ) {
+        	layer.msg('请输入红包金额！', {icon: 0});
+            return false;
+        }else if ( bonus_money < bonusConfig.min_money ) {
+        	layer.msg('红包金额不能低于'+ bonusConfig.min_money +'元！', {icon: 5});
+        	return false;
+        }else if( bonus_money > bonusConfig.max_money ) {
+            layer.msg('红包金额不能超过'+bonusConfig.max_money +'元！', {icon: 5});
+            return false;
+        }
+        else {
+            errorContent.html('');
+            $.ajax({
+                type: "POST",
+                url: "{:U('/Member/bonus/send')}",
+                data: "bonus_money="+bonus_money,
+                success: function(data){
+                    var data = eval('('+data+')');
+                    if(data.status == 1) {
+                        //弹框文本框复制
+                        var codeUrl = domain + '/b/' + data.link_code;
+                        layer.alert('您的红包已生成！', {icon: 6}, function(index){
+						    layer.close(index);
+						    window.location.reload();
+						});
+                    }else {
+                        errorContent.html(data.msg);
+                    }
+                }
+            })
+        }
+    })
+
+    function checkFloatType(t) {
+        var num = t.value;
+        var re=/^\d{0,20}(\.)\d*$/;
+        if(!re.test(num)){
+            isNaN(parseFloat(num))?t.value='':t.value=parseFloat(num);
+        }
+    }
+
+</script>
+<script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+<script src="/Style/M/js/common.js?v=2015020628"></script>
+<script src="__ROOT__/Style/M/js/jquery.zclip.min.js"></script>
+</body>
+</html>

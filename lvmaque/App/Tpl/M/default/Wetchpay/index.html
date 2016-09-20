@@ -1,0 +1,100 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>微信充值</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: "$appid", // 必填，公众号的唯一标识
+            timestamp: "$timestamp", // 必填，生成签名的时间戳
+            nonceStr: "$nonceStr", // 必填，生成签名的随机串
+            signature: "$signature",// 必填，签名，见附录1
+            jsApiList: [
+                'chooseWXPay',
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+        wx.error(function(res){
+            alert(res);
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+        });
+
+        //调用微信JS api 支付
+        function onBridgeReady(){
+            WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest',
+            <?php echo $jsApiParameters; ?>
+
+        ),
+            function(res){
+                WeixinJSBridge.log(res.err_msg);
+                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+
+                }
+            };
+        }
+    </script>
+</head>
+<script>
+    var  bank_num = "{$banks.bank_num}";
+</script>
+<body class="page-bg-white">
+<header>
+    <h1 style="background: #008000;">我要充值</h1>
+    <a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+</header>
+
+<div class="mod-manage-toubiaonr">
+    <div class="loading" id="loading"></div>
+    <form class="am-form am-form-horizontal">
+        <div class="am-form-group">
+            <label  class="am-u-sm-6 am-text-left am-form-label mod-managelabel">金额：</label>
+            <div class="am-u-sm-6 am-text-right mod-manage-lijizr2 ">
+                <input class="pay_t am-radius" id="account_money" name="account_money" required="required" type="text" placeholder="请输入充值金额" autofocus="autofocus" onblur="NumberCheck(this)" value="{$ac}" disabled='disabled'/>
+            </div>
+        </div>
+
+        <div class="am-form-group mod-manage-btn">
+            <div class="am-container">
+                <input type="button" class="am-btn am-btn-block  am-radius am-btn-danger am-btn-xl" onclick="callpay();" value="微信支付" style="background: green;border-color:green;"/>
+            </div>
+        </div>
+
+    </form>
+</div>
+<script>
+    //微信支付
+    function callpay()
+    {
+
+        if (typeof WeixinJSBridge == "undefined"){
+            //alert(111);
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        }else{
+            //alert(222);
+            onBridgeReady();
+        }
+    }
+
+</script>
+</body>
+</html>

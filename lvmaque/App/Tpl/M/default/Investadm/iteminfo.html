@@ -1,0 +1,193 @@
+<!doctype html>
+<html class="no-js">
+<!--投资管理-回款项目详情页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>详细信息</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.hiAlerts-min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>详细信息</h1>
+        <a href="javascript:window.history.go(-1);" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+   	
+   <div class="mod-invest">
+   		<div class="mod-invest-tongji">
+        	<ul class="am-avg-sm-2">
+              <li>{$vo.batch_no}</li>
+              <li class="am-text-right"><a href="__APP__/m/agreement/flexible?id={$vo.batch_no}" style="color:#fff;">投资协议</a></li>
+            </ul>
+   		<div class="mod-invest-keyong">已赚收益(元)</div>
+        <div class="mod-invest-jifen">{$vo.record_money}</div>
+        
+        </div>
+   </div>
+   <div class="mod-invest-nr">
+   		<div class="mod-invest-nrtj">
+            <ul class="am-avg-sm-3">
+                <li><span>在投金额</span></li>
+                <li class="investline"><span>封存期限</span></li>
+                <li><span>年化收益</span></li>
+            </ul>
+            
+            <ul class="am-avg-sm-3 num num-md">
+                <li>{$vo.money}</li>
+                <li class="investline">{$vo.term}天</li>
+                <li><font color="#ff5555">{$vo.interest_rate}%</font></li>
+            </ul>
+        </div>
+        
+        <div class="mod-invest-riqi">
+        	<ul class="am-avg-sm-2">
+                <li><span>投资日期：{$vo.add_time}</span></li>
+                <li><span>起息日期：{$vo.e_time}</span></li>
+            </ul>
+            
+            <ul class="am-avg-sm-2">
+                <li>结清日期：{$vo.deadline}</li>
+                <li>还款方式：{$vo.deadline}</li>
+            </ul>
+            <ul class="am-avg-sm-2">
+                <li>收益分配方式：{$vo.fenpei_style}</li>
+                <li></li>
+            </ul>
+        </div>
+        
+        <div class="mod-invest-jilu">
+        	<ul>
+            <a href="__URL__/shouyijilu?batch={$vo.batch_no}"><li><i class="am-icon-chevron-right"></i><span><img src="__ROOT__/Style/NewWeChat/images/member/icon-hk.png" alt="" border="0" /></span><span class="mod-investment-tt">收益记录</span></li></a>
+                <a href="__URL__/shouyijilu?batch={$vo.batch_no}"><li><i class="am-icon-chevron-right"></i><span><img src="__ROOT__/Style/NewWeChat/images/member/icon-hk2.png" alt="" border="0" /></span><span class="mod-investment-tt">赎回记录</span><i class=""></i></li></a>
+            </ul>
+        </div>
+        
+        <div class="mod-invest-shuhui" style="margin-top:">
+            <button type="button" class="am-btn am-btn-danger am-btn-block am-radius am-btn-lg" id="mod-investbtn">提前赎回</button></div>
+           <div class="mod-invest-tishi">2015年07月10号后，可随时一次性或部分赎回本息<br/>部分赎回后剩余金额不得小于50元</div>
+   </div>
+   
+   <!---提前赎回弹出框-->
+    <form action="" class="bg-white agiligy-form">
+       <div class="am-modal invest-modal" tabindex="-1" id="invest-modal">
+                <div class="am-modal-dialog">
+                    <div class="am-modal-hd">提前赎回
+                        <a href="javascript: void(0)" class="btn btn-do" onclick="ok_shuhui();">确定</a>
+                        <a href="javascript: void(0)" class="btn btn-cancel" data-am-modal-close>取消</a>
+                    </div>
+
+                    <div class="am-modal-bd ">
+                        <div class="am-panel-bd mod-investtxt num num-sm">
+                                可赎回金额：<font color="#fa4343">{$bao.money}元</font><br/>
+                                <!--赎回金额：<input class="" placeholder="" type="text">-->
+                                赎回金额：<input onKeyUp="moneyFiter(this,event,'0.07')" id="bufenid"  style="height:25px;line-height:25px;width:100px;">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </form>
+        <!---------------------->
+    
+        
+    <!--赎回提示-->
+    <script>
+
+    var batch = '{$vo.batch_no}';
+
+    $(function(){
+        var $modal = $('#invest-modal');
+        $('#mod-investbtn').on('click', function(e) {
+            var $target = $(e.target);
+            if (($target).hasClass('js-modal-open')) {
+                $modal.modal();
+            } else if (($target).hasClass('js-modal-close')) {
+                $modal.modal('close');
+            } else {
+                $modal.modal('toggle');
+            }
+        });
+    });
+
+    function ok_shuhui(){
+        //alert(111);
+        var redeemMoney = $("#bufenid").val();  //赎回金额
+        if(redeemMoney==null||redeemMoney=='' || redeemMoney==0){
+            //$.jBox.tip("赎回金额不能为空！","fail");
+//            layer.msg("赎回金额不能为空！",{icon:0});
+//            return ;
+            $().toastmessage('showErrorToast', "赎回金额不能为空!");
+            return false;
+        }
+//        hiConfirm("你本次赎回金额为"+redeemMoney+"元，确定要赎回吗？", "友情提醒", function(r) {
+
+        if(confirm("你本次赎回金额为"+redeemMoney+"元，确定要赎回吗？")){
+//                alert(111);
+//                return false;
+                var minInvestAmount ="{$bao_info.start_funds}";
+                var favailableamount ="{$bao.money}";
+
+                if(redeemMoney!=null&&redeemMoney!=''){
+                    if(redeemMoney==0){
+                        //$.jBox.tip("赎回金额不能小于等于0！","fail");
+                        layer.msg("赎回金额不能小于等于0！",{icon:0});
+                        return ;
+                    }else if(Number(redeemMoney)<Number(favailableamount)&&((Number(favailableamount)-Number(minInvestAmount))<Number(redeemMoney))){
+                        //$.jBox.tip("剩余本金不低于起投金额"+minInvestAmount+"元","fail");
+                        layer.msg("剩余本金不低于起投金额"+minInvestAmount+"元",{icon:0});
+                        return ;
+                    }
+
+                }
+
+                if(Number(redeemMoney)>Number(favailableamount)){
+                    //$.jBox.tip("赎回金额不能大于可赎回金额！","fail");
+                    layer.msg("赎回金额不能大于可赎回金额！",{icon:0});
+                    return;
+                }
+                if(Number(redeemMoney)<0){
+                    //$.jBox.tip("赎回金额不能小于0元！","fail");
+                    layer.msg("赎回金额不能小于0元！",{icon:0});
+                    return;
+                }
+                //$.jBox.tip("提交中......",'loading');
+//                layer.msg("提交中......",{icon:6});
+                $().toastmessage('showSuccessToast', '提交中......');
+                $.post("{:U('redeemSave')}",{batch:batch,fredeemamount:redeemMoney}, function(result){
+                    var obj = eval(result);
+                    if(obj[0]==1){
+                        //$.jBox.tip(obj[1]);
+                        //layer.msg(obj[1],{icon:2});
+                        $().toastmessage('showSuccessToast', obj[1]);
+                        document.location.reload();
+                    }else{
+                        //$.jBox.tip(obj[1],"fail");
+                        //layer.msg(obj[1],{icon:2});
+                        $().toastmessage('showErrorToast', obj[1]);
+                        return false;
+                    }
+
+                })
+
+            return ;
+        }else{
+//            alert(222);
+        }
+    }
+
+    </script>
+
+</body>
+
+</html>

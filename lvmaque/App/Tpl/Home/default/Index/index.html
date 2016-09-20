@@ -1,0 +1,688 @@
+<include file="Public:_header_common" />
+<title>{$glo.index_title}</title>
+<meta name="keywords" content="{$glo.web_keywords}" />
+<meta name="description" content="{$glo.web_descript}" />
+<meta property="wb:webmaster" content="37afd1196b6d28b7" />
+<script  type="text/javascript" src="__ROOT__/Style/H/js/index.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/H/js/common.js" language="javascript"></script>
+<script type="text/javascript" src="__ROOT__/Style/H/js/jquery.kinMaxShow-1.0.min.js"></script>
+<meta property="qc:admins" content="305051165722621627674116375" />
+<meta property="wb:webmaster" content="d0d120bc5ee656d7" />
+
+<link rel="stylesheet" href="__ROOT__/Style/H/css/registerstyle.css" />
+<script type="text/javascript">
+    var imgpath="__ROOT__/Style/M/";
+    var curpath="__URL__";
+</script>
+<script type="text/javascript" src="__ROOT__/Style/M/js/login.js"></script>
+
+
+<!-- ------------------------首页二维码 开始----------------- -->
+<script type="text/javascript" src="__ROOT__/Style/H/js/jquery.floatDiv.js"></script>
+<style>
+#rt-div{width:150px; height:150px; background:url(__ROOT__/Style/H/images/QRcode.jpg) no-repeat;z-index:999;}
+/* 根据需求设置浮动层大小，当然浮动层里还可以布局更细布局 */
+#n{margin:10px auto; width:920px; border:1px solid #CCC;font-size:12px; line-height:30px;}
+#n a{ padding:0 4px; color:#333}
+</style>
+<script type="text/javascript">
+$(function(){
+	$("#rt-div").floatdiv({right:"0",top:"200px",zIndex:"9"});//设置浮动层靠右距离为0，靠上距离50px 根据需求调整
+});
+</script>
+<!-- ------------------------首页二维码 结束---------------- -->
+<style type="text/css">
+    .index_proC span {font-size: 15px;color:#FFF;font-weight: normal;}
+    #loan_time span{ font-size: 22px; color: #f6ff00; margin-right: 8px; margin-left: 8px; font-weight: bold;}
+</style>
+<script type="text/javascript">
+function LoginSubmit() {
+	layer.msg("登录中...",{icon:6});
+	$.ajax({
+		url: "__APP__/member/common/actlogin",
+		data: {"sUserName": $("#uname").val(),"sPassword": $("#upass").val(),"sVerCode": $("#vcode").val(),"Keep":$("#loginstate").val()},
+		timeout: 5000,
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==0){
+					layer.msg(d.message,{icon:2});
+					return false;
+				}else{
+					window.location.href="/";
+				}
+			}
+		}
+	});
+}
+
+function jfun_dogetpass(){
+	var ux = $("#emailname").val();
+	if(ux==""){
+		layer.msg('请输入用户名或者邮箱！', {icon: 0});
+		return;
+	}
+	layer.msg("邮件发送中...",{icon:6});
+	$.ajax({
+		url: "__APP__/member/common/dogetpass/",
+		data: {"u":ux},
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==1){
+					layer.msg("发送成功，请去邮箱查收",{icon:1});
+				}else{
+					layer.msg("发送失败，请重试",{icon:2});
+					return false;
+				}
+			}
+		}
+	});
+
+}
+</script>
+<script type="text/javascript">
+$(function(){
+
+	$("#kinMaxShow").kinMaxShow({
+			//设置焦点图高度(单位:像素) 必须设置 否则使用默认值 500
+			height:297,
+            intervalTime:4, //间隔时间
+			//设置焦点图 按钮效果
+			button:{
+			    //设置按钮上面不显示数字索引(默认也是不显示索引)
+                            showIndex:false,
+			    //按钮常规下 样式设置 ，css写法，类似jQuery的 $('xxx').css({key:value,……})中css写法。
+			    //【友情提示：可以设置透明度哦 不用区分浏览器 统一为 opacity，CSS3属性也支持哦 如：设置按钮圆角、投影等，只不过IE8及以下不支持】
+				normal:{background:'url(/Style/H/images/focus.png) no-repeat -18px 0',marginRight:'8px',border:'0',right:'55%',bottom:'20px'},
+				//当前焦点图按钮样式 设置，写法同上
+				focus:{background:'url(/Style/H/images/focus.png) no-repeat 0 0',border:'0'}
+			},
+			//焦点图切换回调，每张图片淡入、淡出都会调用。并且传入2个参数(index,action)。index 当前图片索引 0为第一张图片，action 切入 或是 切出 值:fadeIn或fadeOut
+			//函数内 this指向 当前图片容器对象 可用来操作里面元素。本例中的焦点图动画主要就是靠callback实现的。
+			callback:function(index,action){
+				switch(index){
+					case 0 :
+							if(action=='fadeIn'){
+								$(this).find('.sub_1_1').animate({left:'70px'},600)
+								$(this).find('.sub_1_2').animate({top:'60px'},600)
+
+							}else{
+								$(this).find('.sub_1_1').animate({left:'110px'},600)
+								$(this).find('.sub_1_2').animate({top:'120px'},600)
+
+							};
+							break;
+
+					case 1 :
+							if(action=='fadeIn'){
+								$(this).find('.sub_2_1').animate({left:'-100px'},600)
+								$(this).find('.sub_2_2').animate({top:'60px'},600)
+							}else{
+								$(this).find('.sub_2_1').animate({left:'-160px'},600)
+								$(this).find('.sub_2_2').animate({top:'20px'},600)
+							};
+							break;
+
+					case 2 :
+							if(action=='fadeIn'){
+								$(this).find('.sub_3_1').animate({right:'350px'},600)
+								$(this).find('.sub_3_2').animate({left:'180px'},600)
+							}else{
+								$(this).find('.sub_3_1').animate({right:'180px'},600)
+								$(this).find('.sub_3_2').animate({left:'30px'},600)
+							};
+							break;
+				}
+			}
+		});
+});
+
+</script>
+<include file="Public:_header_main" />
+<div class="slider">
+    <div id="kinMaxShow">
+        <volist name=":get_ad(2)" id="va">
+            <div> <a href="{$va.url}"><img src="__ROOT__/{$va.img}" /></a> </div>
+        </volist>
+    </div>
+
+    <if condition="$UID gt '0'">
+        
+    <else/>
+        <div class="slider_r">
+            <div class="form">
+        <form action="" name="login-form" method="post" onsubmit="return false;">
+        在线登录<span>没有账号<a href="">【立即注册】</a></span>
+      <div class="ptop15" style="height:33px; width:240px;">
+        <div  id="dvUser"></div>
+      </div>
+      <p style="width:278px;position:relative;">
+      <php>if(isset($user_name)){</php>
+        <input type="text" id="txtUser" class="login_text" value="{$user_name}" data="{$user_name}" title="{$user_name}">
+      <php>}else{</php>
+        <input type="text" id="txtUser" class="login_text"  value="" data="手机/邮箱/用户名" style="float:left;margin-left:0;">
+      <php>}</php>
+          <div id="dvUser2" style="position:absolute;right:55px;top:55px;"></div>
+      </p>
+      <p style="position: absolute;top: 125px;right: 20px;z-index: 11;"><input type="text" class="login_pass" id="txtPwdyc" value="密码" /></p>
+      <p style="width:278px;position:relative;top:8px;"><input type="password" class="login_pass" id="txtPwd"  style="color:#000;width:276px;float:left;margin-left:0;"/>
+            <div id="dvPwd2" style="position:absolute;right:55px;top:115px;"></div>
+      </p>
+      <p style="line-height:36px;position:relative;"><input type="text" class="login_check" id="txtCode" maxlength="4" style="color:#000;float:left;"/>
+        <a href="javascript:document.getElementById('imVcode').onclick();"><img  src="/Member/common/verify"  onclick="this.src=this.src+'?t='+Math.random()" id="imVcode" alt="点击换一个校验码"  style=" width: 115px; height:36px;border: 1px solid #ccc;float:left;"/></a>
+       
+            <!--<div id="dvCode2" style="position:absolute;right:55px;top:185px;"></div>-->
+      </p>
+        
+                <div style="clear: both;"></div>
+                <input type="image" src="__ROOT__/Style/H/images/login_submit.jpg" class="login_submit" onkeydown="keyLogin();"  onclick="LoginSubmit(this);" id="btnReg" style="height:40px;"/>
+                <p style="width:100%;height:40px;margin:0;">
+                   
+                    <span style="display:block;height:10px;float:right;position:relative;">
+                        <if condition="$loginconfig['sina']['enable'] eq '1'">&nbsp;&nbsp;<a href="__APP__/member/oauth/sina/" style="float:left;display:block;position:absolute;top:-1px;right:0px;height:10px;">
+                        <img src="__ROOT__/Style/H/images/sina_n.png" /></a></if>
+                        <if condition="$loginconfig['qq']['enable'] eq '1'"><a href="__APP__/member/oauth/qq/" style="float:right;display:inline-block;position:absolute;top:-1px;right:14px;"><img src="__ROOT__/Style/H/images/qq_n.png" />&nbsp;&nbsp;</a></if></span>
+
+                </p>
+            </form>
+            <script type="text/javascript">
+                SetDefaultTitle("txtUser");
+                $('#txtUser').focus( function() {
+                    if( $(this).val() == '手机/邮箱/用户名' ) {
+                        $(this).val('');
+                    }
+                })
+                $(document).ready(function(){
+                    $("#txtPwdyc").focus(function(){
+                        $("#txtPwdyc").hide();
+                        $("#txtPwd").show();
+                        $("#txtPwd").focus();
+                    });
+                    $("#txtPwd").blur(function(){
+                        var $txtPwd_obj=$('#txtPwd');
+                        if($txtPwd_obj.val()==''){
+                            $("#txtPwdyc").show();
+                        }
+                    });
+                });
+            </script>
+        </div>
+        </div>
+    </if>
+</div>
+<script type="text/jscript">
+            $("#m1").attr("class", "dv_header_4");
+            $("#a1").attr("class", "a_h_o");
+            $("#m7").attr("class", "dv_header_2");
+            $("#a7").attr("class", "a_h_m");
+            $("#b1").css("display", "none");
+</script>
+<script type="text/javascript">
+    function keyLogin(){
+        if (event.keyCode==13) {
+            document.getElementById("btnReg").click(); //调用登录按钮的登录事件
+        }
+    }
+</script>
+
+<div class="index_box cllearfix">
+    <div class="index_boxL whitebg">
+        <ul>
+            <li>
+                <h1>关于我们</h1>
+                <p>10%-12%的年化收益</p>
+            </li>
+        </ul>
+    </div>
+    <div class="index_boxR whitebg">
+        <h2>数据播报</h2>
+        <p>实现借款<span>{$count_invest.invest_uid_count|number_format=0,'.',','}</span>人</p>
+        <p>投资完成<span>{$count_invest.invest_count|number_format=0,'.',','}</span>笔</p>
+        <p>累计收益<span>{$count_invest.interest_sum|number_format=0,'.',','}</span><if condition="$count_invest['interest_sum_unit']">万</if>元</p>
+        <p>实现借款<span>{$list.17.money|number_format=0,'.',','}</span>元</p>
+
+    </div>
+</div>
+
+<div class="index_con">
+    <div class="index_conSon">
+        <a href="/bangzhu/new.html" class="index_sdk1"></a>
+        <h2>新手指南</h2>
+        <p>您身边触手可及的理财好平台帮助他人，获得可靠高收益，安全交易。</p>
+    </div>
+    <div class="index_conSonL">
+        <img src="/Style/N/images/con_00.png" alt="">
+    </div>
+    <div class="index_conSon">
+        <a href="/bangzhu/safe.html" class="index_sdk2"></a>
+        <h2>安全保障</h2>
+        <p>100%本息保障，所有项目担保公司全额垫付，银行级别的信息安全系统。</p>
+    </div>
+    <div class="index_conSonL">
+        <img src="/Style/N/images/con_00.png" alt="">
+    </div>
+    <div class="index_conSon">
+        <a href="/invest/index.html" class="index_sdk3"></a>
+        <h2>收益稳健</h2>
+        <p>50元起投，高于银行数倍的年化利率，0手续费，足不出户即可稳赚收益。</p>
+    </div>
+    <div class="index_conSonL">
+        <img src="/Style/N/images/con_00.png" alt="">
+    </div>
+    <div class="index_conSon">
+        <a href="/borrow/index.html" class="index_sdk4"></a>
+        <h2>一站借款</h2>
+        <p>无抵押信用借款，24小时放款，并且提前还款可减免多种费用。</p>
+    </div>
+</div>
+
+<if condition="!empty($bao)">
+<div class="index_pro">
+    <div class="index_proT"><span><?php echo AgilityBehavior::$THE_SPIRIT;?>（{$bao.id}期）</span> <a href="__APP__/Agility/main/index.html">了解详情</a></div>
+    <div class="index_proC">
+        <if condition="$bao.lefttime lt 0">
+        抢购倒计时&nbsp;:
+        <else/>
+        进行时间 &nbsp;:&nbsp;
+        </if>
+
+        <span id="loan_time"><span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒</span>
+        <img src="/Style/N/images/index_time.png" alt="">
+        <em style="margin-right: 22px;">剩余可投<span style="color: #f6ff00;font-size: 18px;">{$bao.remain_money|number_format=0,'.',','}</span>元</em></div>
+    <div class="index_proC1">
+        <p class="index_first">年化收益&nbsp;:&nbsp;<span>{$bao.interest_rate|default=0}</span>%</p>
+        <p class="index_sec">计划金额&nbsp;:&nbsp;<span>{$bao.funds|number_format=0,'.',','}</span>元</p>
+        <p class="index_three">封存期限&nbsp;:&nbsp;<span>{$bao.term}</span>天</p>
+    </div>
+    <div class="index_proB">
+        <if condition="$bao.status eq 1 and $bao.lefttime lt 0">
+            <a href="javascript:void(0);" style="background-color:#ce4c4c">敬请等待</a>
+        <elseif condition="$bao.status eq 1 and $bao.lefttime gt 0" />
+            <a href="__APP__/Agility/main/index.html">立即投资</a>
+        <elseif  condition="$bao.status eq 2"/>
+            <a href="__APP__/Agility/main/index.html" style="background-color:#ce4c4c">抢光了</a>
+        <else/>
+            <a href="__APP__/Agility/main/index.html" style="background-color:#ce4c4c">暂无数据</a>
+        </if>
+    </div>
+</div>
+</if>
+
+<if condition="!empty($dingbao_items['tBorrow_items'])">
+<div class="index_set clearfix">
+    <h2 class="allbgcolor"><?php echo BorrowModel::get_borrow_type(7);?> <a href="__APP__/fund/index.html">更多&gt;&gt;</a></h2>
+    <volist name="dingbao_items.tBorrow_items" id="vb">
+        <div class="index_setSon">
+            <div class="index_setSonL">
+                <div class="index_setSonLL">
+                    <h3>{$vb.borrow_interest_rate}%
+                          <if condition="$vb.borrow_duration eq '1'">
+                             <else/>
+                               - {$vb.shouyi}%
+                             </if></h3>
+                    <p>年化利率</p>
+                </div>
+                <div class="index_setSonLR">
+                    <h3>{$vb.borrow_duration}{$vb.duration_unit}</h3>
+                    <p>期限</p>
+                </div>
+            </div>
+            <div class="index_setSonR">
+                <h3><span style="display:inline-block;position:relative;top:-2px">{:getIco($vb)}</span><?php echo BorrowModel::get_borrow_type(7);?>（<a href="{$vb.id|getInvestUrl=$vb['borrow_type']}" title="{$vb.borrow_name}">{$vb.borrow_name|cnsubstr=###,50}</a>）</h3>
+                <div class="index_setSonRL">
+                    <p>当前进度&nbsp;:&nbsp; <span class="progress"><span class="precent" style="width:{$vb.progress|intval}%"></span></span>{$vb.progress|intval}%</p>
+                    <p>项目金额&nbsp;:&nbsp;{$vb.borrow_money|getMoneyFormt=###}元 <em>已加人数&nbsp;:&nbsp;{$vb.borrow_times}</em></p>
+                </div>
+                <div class="index_setSonRR">
+                    <if condition="$vb['borrow_status'] eq 2">
+                        <a href="{$vb.id|getFundUrl=###}"><img src="__ROOT__/Style/N/images/index_join.png" alt="立即投标"></a>
+                    <elseif condition="$vb['borrow_status'] eq -1" />
+                        <a href="{$vb.id|getFundUrl=###}"><img src="__ROOT__/Style/H/images/status/dingtoubao_yugao.png" alt="敬请期待"></a>
+                    <else/>
+                        <a href="{$vb.id|getFundUrl=###}"><img src="__ROOT__/Style/N/images/index_str01.png" alt="了解详情"></a>
+                    </if>
+                </div>
+            </div>
+        </div>
+    </volist>
+</div>
+</if>
+
+<!----------------------------企业直投开始 ------------------------------->
+<if condition="$transfer_items['tBorrow_items']">
+<div class="index_str clearfix">
+    <h2 class="allbgcolor"><?php echo BorrowModel::get_borrow_type(6);?><a href="__APP__/tinvest/index.html">更多&gt;&gt;</a></h2>
+    <volist name="transfer_items.tBorrow_items" id="vb" key="k">
+        <div class="index_strSon">
+            <h3><span style="display:inline-block;position:relative;top:-2px">{:getIco($vb)}</span><a href="{$vb.id|getInvestUrl=$vb['borrow_type']}" title="{$vb.borrow_name}">{$vb.borrow_name|cnsubstr=###,20}</a></h3>
+            <div class="index_strSonB">
+                <div class="index_strSonBL">
+                    <a  href="{$vb.id|getInvestUrl=$vb['borrow_type']}">
+                        <if condition="$vb['b_img'] eq ''"><img  src="__ROOT__/Style/H/images/new/default.jpg" />
+                            <else/>
+                            <img  src="__ROOT__/{$vb.b_img}"  complete="complete"/></if>
+                    </a>
+                </div>
+                <div class="index_strSonBR">
+                    <div class="index_strSonBRL">
+                        <h4>{$vb.borrow_interest_rate}%</h4>
+                        <p>年化利率</p>
+                        <p>
+                            <span style="background: url('__ROOT__/Style/H/images/progressbar_mid.png') repeat;display: block;height: 50px;line-height: 51px;text-align: center;width: 51px; font-size:14px;margin-left:15px; background-position:-<php>echo
+bcmul(intval($vb['progress']),51);</php>px 0"><em>{$vb.progress|intval}%</em></span>
+                        </p>
+                    </div>
+                    <div class="index_strSonBRR">
+                        <h4>{$vb.borrow_duration}{$vb.duration_unit}</h4>
+                        <p>期限</p>
+                        <p><em>{$vb.borrow_money|getMoneyFormt=###}元</em></p>
+                        <p>融资金额</p>
+                    </div>
+                    <div class="index_strSonBRB">
+                        <if condition="$vb['borrow_status'] eq 2">
+                            <a href="{$vb.id|getInvestUrl=$vb['borrow_type']}"><img src="/Style/N/images/index_str00.png" alt=""></a>
+                        <elseif condition="$vb['borrow_status'] eq -1" />
+                            <a href="{$vb.id|getInvestUrl=$vb['borrow_type']}"><img src="/Style/H/images/status/zhitou_yugao.png" alt=""></a>
+                        <else/>
+                            <a href="{$vb.id|getInvestUrl=$vb['borrow_type']}"><img src="/Style/H/images/status/zhitou-yjjs.png" /></a>
+                        </if>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <if condition="$k%2">
+            <div class="index_strSonC"></div>
+        </if>
+    </volist>
+</div>
+</if>
+<!---------------------------------------- 企业直投结束 ------------------------------------------>
+
+<!---------------------------------------- 散标开始 --------------------------------------------->
+<if condition="$listBorrow['list']">
+<div class="index_sca clearfix">
+    <h2 class="allbgcolor">散标投资 <a href="__APP__/invest/index.html">更多&gt;&gt;</a></h2>
+    <volist name="listBorrow.list" id="vb" key="k">
+    <div class="index_scaSon">
+        <h3><a href="{$vb.id|getInvestUrl=$vb['borrow_type']}" title="{$vb.borrow_name}">{:getIco($vb)}{$vb.borrow_name|cnsubstr=###,30}</a></h3>
+        <div class="index_scaSonS">
+            <h4>{$vb.borrow_money|getMoneyFormt=###}元</h4>
+            <p>投资总额</p>
+        </div>
+        <div class="index_scaSonSc"><img src="/Style/N/images/index_scaS.png" alt=""></div>
+        <div class="index_scaSonS">
+            <h4>{$vb.borrow_interest_rate}%</h4>
+            <p>年化收益</p>
+        </div>
+        <div class="index_scaSonSc"><img src="/Style/N/images/index_scaS.png" alt=""></div>
+        <div class="index_scaSonS">
+            <h4>{$vb.need|getMoneyFormt=###}元</h4>
+            <p>可投金额</p>
+        </div>
+        <div class="index_scaSonSc"><img src="/Style/N/images/index_scaS.png" alt=""></div>
+        <div class="index_scaSonS">
+            <h4>{$vb.borrow_duration}{$vb.duration_unit}</h4>
+            <p>投资期限</p>
+        </div>
+        <div class="index_scaSonS index_scaSonSL">
+            <span style="background: url('__ROOT__/Style/H/images/progressbar_detail.png') repeat;display: block;font-size: 16px;height: 74px;line-height: 75px;float: left;text-align: center;width: 75px; margin-left:13px; background-position:-<php>echo
+bcmul(intval($vb['progress']),75);</php>px 0"><em>{$vb.progress|intval}%</em></span>
+        </div>
+        <div class="index_scaSonSR">
+            <p>项目进度&nbsp;:&nbsp;{$vb.progress|intval}%</p>
+            <p>
+                <if condition="$vb.borrow_status eq 3"> <a href="javascript:;">
+                        <img src="__ROOT__/Style/H/images/status/sanbiao-yjlb.png" /></a>
+                        <elseif condition="$vb.borrow_status eq -1"/>
+                        <a href="{$vb.id|getInvestUrl=###}"><img src="__ROOT__/Style/H/images/status/sanbiao_yugao.png"  /></a>
+                        <elseif condition="$vb.borrow_status eq 4"/>
+                        <a href="javascript:;"><img src="__ROOT__/Style/H/images/status/sanbiao-zzfs.png" /></a>
+                        <elseif condition="$vb.borrow_status eq 6"/>
+                        <a href="javascript:;"><img  src="__ROOT__/Style/H/images/status/index_scaIn.png"  /></a>
+                        <elseif condition="$vb.borrow_status gt 6"/>
+                        <a href="{$vb.id|getInvestUrl=###}"><img src="__ROOT__/Style/H/images/status/sanbiao-yjwc.png"  /></a>
+                        <else/>
+                        <a href="{$vb.id|getInvestUrl=###}"><img src="__ROOT__/Style/H/images/status/index_scal.png" /></a>
+                    </if>
+            </p>
+        </div>
+    </div>
+    </volist>
+</div>
+</if>
+
+<!------------------------------------- 网站公告 ------------------------------------------------>
+<div class="index_an clearfix">
+    <div class="index_anS">
+        <h2 class="allbgcolor">网站公告 <a href="/gonggao/index.html">更多&gt;&gt;</a></h2>
+        <ul class="clearfix">
+            <php>foreach($noticeList['list'] as $kx => $vn){</php>
+            <li><img src="/Style/N/images/index_anS1.png" alt="" style="vertical-align: top;"><a href="{$vn.arturl}" title="{$vn.title}" >{$vn.title|cnsubstr=###,18}</a><span>{$vn.art_time|date="Y-m-d",###}</span></li>
+            <php>};$noticeList=NULL;</php>
+            <!--<li><img src="/Style/N/images/index_anS1.png" alt=""><a href="" class="anS_active">银行系P2P不断上马，传统金融线上忙转型</a><span>2014.12.12</span></li>-->
+        </ul>
+    </div>
+    <div class="index_anSC"></div>
+    <div class="index_anS">
+        <h2 class="allbgcolor">行业新闻 <a href="/news/index.html">更多&gt;&gt;</a></h2>
+        <ul class="clearfix">
+            <php>$xlist = getArticleList(array("type_id"=>2,"pagesize"=>6)); foreach($xlist['list'] as $kx => $va){</php>
+            <li><img src="/Style/N/images/index_anS2.png" alt="" style="vertical-align: top;"><a href="{$va.arturl}" title="{$va.title}">{$va.title|cnsubstr=###,18}</a><span>{$va.art_time|date="Y-m-d",###}</span></li>
+            <php>};$xlist=NULL;</php>
+            <!--<li><img src="/Style/N/images/index_anS2.png" alt=""><a href="" class="anS_active">银行系P2P不断上马，传统金融线上忙转型</a><span>2014.12.12</span></li>-->
+        </ul>
+    </div>
+</div>
+<div class="index_an clearfix">
+    <div class="friend_link allbgcolor">友情链接</div>
+    <div style="background-color:#f9f3f0;width:100%;height:130px;">
+        <div style="width:1000px; margin:0 auto;">
+            <div class="ipartners" >
+                <div  style="float:left;" id="ipreview1">
+                    <div id="spec-n51">
+                    <div class="spec-button1 spec-left" id="spec-left1" style="cursor: default;padding-left: 17px;">
+                        <img id="imgLeft" src="__ROOT__/Style/H/images/scroll_left.gif" style="margin-left:-275px;">
+                    </div>
+                        <div id="ispec-list1" class="bot051">
+                            <div class="bot061">
+                                <ul class="ilist-h bot071">
+                                    <volist name=":get_home_friend(1,1)" id="vf" k="key">
+                                        <li id="display{$key}">
+                                            <a href="{$vf.link_href}" title="{$vf.link_txt}" rel="img_group" target="_blank">
+                                                <if condition="strpos($vf['link_img'], '/')">
+                                                    <img alt="{$vf.link_txt}" title="{$vf.link_txt}" src="__ROOT__/{$vf.link_img}">
+                                                    <else/>
+                                                    <span>{$vf.link_txt}</span>
+                                                </if>
+                                            </a>
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </div>
+                        </div>
+                    <div class="spec-button1" id="spec-right" style="cursor: default; margin-left:130px;">
+                        <img id="imgRight" src="__ROOT__/Style/H/images/scroll_right.gif">
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+<if condition="$wechat eq 1 ">
+<!-- 二维码悬浮框  开始 -->
+<div id="rt-div"></div>
+<!-- 二维码悬浮框  结束 -->
+</if>
+<input id="hid" type="hidden" value="{$bao.lefttime}" />
+
+<script type="text/javascript">
+        var lilenth = $(".ilist-h li").length+1;
+        $(".ilist-h").css("width", lilenth * 166);
+        var leftpos = 0;
+        var leftcount = 0;
+
+        $("#imgLeft").attr("src", "__ROOT__/Style/H/images/scroll_left.gif");
+        $("#spec-left1").css("cursor", "default");
+
+        if (lilenth > 1) {
+            $(function() {
+                $("#spec-right").click(function() {
+                    if (leftcount >= 0) {
+                        $("#imgLeft").attr("src", "__ROOT__/Style/H/images/scroll_left.gif");
+                        $("#spec-left1").css("cursor", "pointer");
+                    }
+                    if (lilenth - leftcount < 3) {
+                        $("#imgRight").attr("src", "__ROOT__/Style/H/images/scroll_right.gif");
+                        $("#spec-right").css("cursor", "default");
+                    }
+                    else {
+                        leftpos = leftpos - 166;
+                        leftcount = leftcount + 1;
+                        $(".ilist-h").animate({ left: leftpos }, "slow");
+                        if (lilenth - leftcount < 2) {
+                            $("#imgRight").attr("src", "__ROOT__/Style/H/images/scroll_right.gif");
+                            $("#spec-right").css("cursor", "default");
+                        }
+                    }
+
+                });
+            });
+
+
+            $(function() {
+                $("#spec-left1").click(function() {
+                    if (lilenth - leftcount > 2) {
+                        $("#imgRight").attr("src", "__ROOT__/Style/H/images/scroll_right.gif");
+                        $("#spec-right").css("cursor", "pointer");
+                    }
+
+                    if (leftcount < 1) {
+                        $("#imgLeft").attr("src", "__ROOT__/Style/H/images/scroll_left.gif");
+                        $("#spec-left1").css("cursor", "default");
+                    }
+                    else {
+                        leftpos = leftpos + 166;
+                        leftcount = leftcount - 1;
+                        $(".ilist-h").animate({ left: leftpos }, "slow");
+                        if (leftcount < 1) {
+                            $("#imgLeft").attr("src", "__ROOT__/Style/H/images/scroll_left.gif");
+                            $("#spec-left1").css("cursor", "default");
+                        }
+                    }
+
+                }
+                )
+            })
+        }
+        else {
+            $("#imgRight").attr("src", "__ROOT__/Style/H/images/scroll_right.gif");
+            $("#spec-right").css("cursor", "default");
+        }
+        $(function() {
+            var width = $("#preview").width();
+            $("#ispec-list1").css("width", 730).css("margin-right", 8);
+
+        });
+
+        $(function() {
+            $("#ispec-list1 img").bind("mouseover", function() {
+                $(this).css({
+                    "border": "0px solid #FFFFFF",
+                    "padding": "0px"
+                });
+            }).bind("mouseout", function() {
+                $(this).css({
+                    "border": "0px solid #ccc",
+                    "padding": "0px"
+                });
+            });
+        })
+
+
+
+</script>
+
+<script type="text/javascript">
+$(function() {
+    $(".borrowlistl").bind("mouseover", function(){
+        $(this).css("background", "#f8f8f8");
+    })
+
+    $(".borrowlistl").bind("mouseout", function(){
+        $(this).css("background", "#fff");
+    })
+
+    $(".changecolor").bind("mouseover", function(){
+        $(this).css("background", "#f8f8f8");
+        $(this).css("color", "#007EB9");
+    })
+
+    $(".changecolor").bind("mouseout", function(){
+        $(this).css("background", "#fff");
+        $(this).css("color", "#737272");
+    })
+});
+</script>
+<script type="text/javascript">
+    var seconds;
+    var investStatus = {$bao.status|default=0};
+    var timer=null;
+    function setLeftTime() {
+        seconds = parseInt($("#hid").val(), 10);
+        if(seconds<0){
+            seconds = seconds*-1;
+            timer = setInterval(showSecondsSub,1000);
+        }else{
+            timer = setInterval(showSeconds,1000);
+        }
+
+    }
+
+    function showSeconds() {
+        var day1 = Math.floor(seconds / (60 * 60 * 24));
+        var hour = Math.floor((seconds - day1 * 24 * 60 * 60) / 3600);
+        var minute = Math.floor((seconds - day1 * 24 * 60 * 60 - hour * 3600) / 60);
+        var second = Math.floor(seconds - day1 * 24 * 60 * 60 - hour * 3600 - minute * 60);
+        if (day1 < 0) {
+            clearInterval(timer);
+            $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+        } else if (investStatus > 1) {
+            clearInterval(timer);
+            $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+        } else {
+            $("#loan_time").html("<span>"+day1+"</span>天<span>"+hour+"</span>时<span>"+minute+"</span>分<span>"+second+"</span>秒");
+        }
+        seconds++;
+    }
+    function showSecondsSub() {
+
+        var day1 = Math.floor(seconds / (60 * 60 * 24));
+        var hour = Math.floor((seconds - day1 * 24 * 60 * 60) / 3600);
+        var minute = Math.floor((seconds - day1 * 24 * 60 * 60 - hour * 3600) / 60);
+        var second = Math.floor(seconds - day1 * 24 * 60 * 60 - hour * 3600 - minute * 60);
+        if (day1 < 0) {
+            clearInterval(timer);
+            $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+        } else if (investStatus > 1) {
+            clearInterval(timer);
+            $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+        } else {
+            $("#loan_time").html("<span>"+day1+"</span>天<span>"+hour+"</span>时<span>"+minute+"</span>分<span>"+second+"</span>秒");
+        }
+        seconds--;
+    }
+    if (investStatus >= 1) {
+        $("#loan_time").html("<span>00</span>天<span>00</span>时<span>00</span>分<span>00</span>秒");
+    }else{
+        setLeftTime();
+    }
+
+    setLeftTime();
+</script>
+<include file="Public:_footer" />

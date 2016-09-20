@@ -1,0 +1,442 @@
+<include file="default:Public:_header_common" group="Home" />
+<title>新用户注册-- {$glo.web_name}</title>
+<include file="default:Public:_header_main" group="Home"/>
+<link rel="stylesheet" href="__ROOT__/Style/H/css/registerreset.css" />
+<link rel="stylesheet" href="__ROOT__/Style/H/css/registerstyle.css" />
+<script type="text/javascript">
+var imgpath="__ROOT__/Style/M/";
+var curpath="__URL__";
+</script>
+<script type="text/javascript" src="__ROOT__/Style/M/js/reg.js"></script>
+<style>
+.register_nav li.space2 { color: #fff; }
+.register_title { color: #333; }
+.msg{
+	height: 38px;  position: absolute;  margin-top: 127px;
+}
+button {padding: 0px;}
+.demo{width:300px;margin:40px auto;}
+/* mailBox */
+#mailBox{background:#fff;border:1px solid #ddd;padding:3px 5px 5px;position:absolute;z-index:9999;display:none;-webkit-box-shadow:0px 2px 7px rgba(0, 0, 0, 0.35);-moz-box-shadow:0px 2px 7px rgba(0, 0, 0, 0.35);}
+#mailBox p{width:100%;margin:0;padding:0;height:20px;line-height:20px;clear:both;font-size:12px;color:#ccc;cursor:default;}
+#mailBox ul{padding:0;margin:0;}
+#mailBox li{font-size:12px;height:22px;line-height:22px;color:#939393;font-family:'Tahoma';list-style:none;cursor:pointer;overflow:hidden;}
+#mailBox .cmail{color:#000;background:#e8f4fc;}
+.btn {cursor: pointer;}
+/* 验证弹框样式 */
+.code-style-input {
+	width: 342px;
+	height: 190px;
+	background: #fff;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin-top:-95px;
+	margin-left:-171px;
+}
+.zctc-top {
+	width: 342px;
+	height: 40px;
+	background: #E25353;
+}
+.zctc-bottom {
+	width: 342px;
+	height: 100px;
+	overflow: hidden;
+	padding: 25px 0;
+}
+.zctc-top input.close {
+	float: right;
+	background-color: #E25353;
+	background: url(/Style/M/images/button/qrtcclose_03.png) no-repeat;
+	width: 22px;
+	height: 22px;
+	margin: 10px 10px 0 0;
+	cursor: pointer;
+	border: 0px;
+}
+.bot-con {
+	margin: 0 auto;
+	width: 280px;
+}
+
+.con-yz input.txt {
+	width: 102px;
+	height: 40px;
+	border: 1px solid #ddd;
+	font-size: 14px;
+	line-height: 42px;
+	border-radius: 3px;
+	padding: 0 10px;
+	float: left;
+	margin:0 15px;
+}
+.blue_btn {
+	display: block;
+	width: 146px;
+	height: 42px;
+	background: #E25353;
+	color: #fff;
+	font-size: 16px;
+	border-radius: 3px;
+	text-align: center;
+	line-height: 42px;
+	margin: 15px auto;
+	cursor: pointer;
+
+}
+.blue_btnI:hover{
+	color:#ffc600;
+}
+.fixed{
+	width:100%;
+	height:100%;
+	background: url(/Style/M/images/tc.png) repeat center center;
+	position:fixed;
+	top:0;
+	left:0;
+
+}
+
+
+</style>
+<div class="register_main">
+  <div class="register_form">
+    <div class="register_navsuccess"></div>
+    <div style="width:700px; margin:70px auto 148px; text-align:center; float:left; margin-left:150px;">
+    <if condition="$is_manual eq 0 ">
+      <div class="ft22 clear register_title h40 alignl" style="padding-left:185px;">请填写手机或邮箱进行验证后完成注册！</div>
+      <div class="ft16 clear h40 yellow alignl" style="padding-left:185px;">为了你的账户安全，请进行手机或者邮箱验证！</div>
+      <div class="clear h40"></div>
+      <div id=qh_conn0 >
+        <div style="width:600px; margin-left:100px;">
+          <table width="600" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="161" height="40" align="right"><span class="require"><b>手机号码：</b></span></td>
+              <td width="289"><input type="text" id="txt_phone" class="register_email rad5" style="color:#969696;"/></td>
+              <td width="150"><div id="dvPhone" class="dv_r_4_3" style="display:none"></div><div id="sendSMSTip" class="dv_r_4_3" style="display:none;"> <a href="javascript:;" id="btnSendMsg" style="color:#51a679;">获取验证码</a></div></td>
+
+			</tr>
+
+            <tr height="20">
+              <td colspan="3">&nbsp;</td>
+            </tr>
+			  <tr id="register_smsCode" style="display:none">
+				  <td width="161" height="40" align="right"><span class="require"><b>验证码：</b></span></td>
+				  <td  width="310"><input type="text" onkeyup="value=this.value.replace(/\D+/g,&quot;&quot;)" id="txt_smsCode" class="register_smsCode rad5" style="margin-right: 1px;width: 102px;height: 36px;border: solid 1px #ccc;line-height: 36px; text-indent: 1em;">
+				  <span style="font-size:12px;" class="spTip" id="sendSMSTip"></span></td></tr>
+
+          </table>
+        </div>
+        <div style="width:600px; float:left; margin-top:20px;">
+          <input type="image" src="__ROOT__/Style/H/images/xiayibu.jpg" class="xiayibu" onclick=";" />
+          <input type="image" src="__ROOT__/Style/H/images/tiaoguo.jpg" class="tiaoguo" onclick="skipphone();"/>
+        </div>
+        <div class="yanzhengtab">
+          <ul class="">
+            <li class="" id="nav1" onclick=javascript:qiehuan(1)>您也可以&nbsp;<span class="blue">使用邮箱验证</span></li>
+          </ul>
+        </div>
+      </div>
+      <div id=qh_conn1 style="display:none;">
+        <div style="width:600px; margin-left:100px;">
+          <table width="600" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="161" height="40" align="right"><span class="require"><b>电子邮件地址：</b></span></td>
+              <td width="289"><input type="text" id="txt_email" class="register_email rad5" style="color:#969696;"  onfocus="if(this.value=='请输入电子邮件地址') {this.value='';}" onblur="if(this.value=='') {this.value='请输入电子邮件地址';}" /></td>
+              <td width="150"><div id="sendSMSTip" class="dv_r_4_3"> </div></td>
+            </tr>
+            <tr height="20">
+              <td colspan="3">&nbsp;</td>
+            </tr>
+          </table>
+        </div>
+        <div style="width:600px; float:left; margin-top:20px;">
+          <input type="image"  src="__ROOT__/Style/H/images/xiayibu.jpg" class="xiayibu" onclick="sendValidEmail();" />
+          <input type="image" src="__ROOT__/Style/H/images/tiaoguo.jpg" class="tiaoguo" onclick="skipphone();"/>
+        </div>
+        <div class="yanzhengtab">
+          <ul>
+            <li class="current" id="nav0" onclick=javascript:qiehuan(0)>您也可以&nbsp;<span class="blue">使用手机验证</span></li>
+          </ul>
+        </div>
+      </div>
+      <else />
+      <div class="ft22 clear register_title h40 alignl" style="padding-left:185px;">请填写邮箱进行验证后完成注册！</div>
+      <div class="ft16 clear h40 yellow alignl" style="padding-left:185px;">为了你的账户安全，请进行邮箱验证！</div>
+      <div class="clear h40"></div>
+      <div id=qh_conn2>
+        <div style="width:600px; margin-left:100px;">
+          <table width="600" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="161" height="40" align="right"><span class="require"><b>电子邮件地址：</b></span></td>
+              <td width="289"><input type="text" id="txt_email" class="register_email rad5" style="color:#969696;"  onfocus="if(this.value=='请输入电子邮件地址') {this.value='';}" onblur="if(this.value=='') {this.value='请输入电子邮件地址';}" /></td>
+              <td width="150"><div id="sendSMSTip" class="dv_r_4_3"> </div></td>
+            </tr>
+          </table>
+        </div>
+        <div style="width:600px; float:left; margin-top:20px;">
+          <input type="image"  src="__ROOT__/Style/H/images/xiayibu.jpg" class="xiayibu" onclick="sendValidEmail();" />
+          <input type="image" src="__ROOT__/Style/H/images/tiaoguo.jpg" class="tiaoguo" onclick="skipphone();"/>
+        </div>
+       </div>
+      </if>
+    </div>
+  </div>
+</div>
+<script language="JavaScript">
+	javascript:window.history.forward(1);
+</script>
+<SCRIPT language=javascript>
+	function qiehuan(num){
+		for(var id = 0;id<=2;id++)
+		{
+			if(id==num)
+			{
+				document.getElementById("qh_conn"+id).style.display="block";
+				document.getElementById("nav"+id).className = "current";
+			}
+			else
+			{
+				document.getElementById("qh_conn"+id).style.display="none";
+				document.getElementById("nav"+id).className = "";
+			}
+		}
+	}
+</SCRIPT>
+<script type="text/javascript">
+var mbTest = /^(1)[0-9]{10}$/;
+var timer = null;
+var leftsecond = 60; //倒计时
+var msg = "";
+var flag=true;
+function resendMobileValidSMSCode(phone) {
+
+	var mobile = $("#txt_phone").val();
+	var code = $("#txtCode").val();
+	if (mbTest.test(mobile)) {
+        var ss;
+		$.ajax({
+			url: "__URL__/sendphone/",
+			type: "post",
+			dataType: "json",
+			data: {"cellphone":mobile,"code": code},
+			success: function(d) {
+				leftsecond = 120;
+				if (d.status == '3') {
+					$("#zctc-error").html('验证码不能为空');
+					$("#zctc-error").show();
+					return false;
+				} else if (d.status == '4') {
+					$("#zctc-error").html('验证码错误');
+					$("#zctc-error").show();
+					ss=$('#imVcode').attr('src');
+					$('#imVcode').attr('src',ss+'?t='+Math.random());
+					return false;
+				} else if(d.status == 1) {
+					$("#txt_phone").attr("disabled", true);
+					$("#register_smsCode").show(1000);
+					$("#sendSMSTip").html("");
+					clearInterval(timer);
+					timer = setInterval(setLeftTime, 1000, "1");
+					dialogClose($('.fixed'))
+//					$('#sendSMSTip').html("验证码已发送，请注意查收");
+					$("#sendSMSTip").eq(0).show().html('<a href="javascript:;"  id="btnSendMsg" style="color:#51a679;">验证码已发送，请注意查收</a>')
+					$('#txt_smsCode').val('');
+				}
+				else if (d.status == 2) {
+					$('#sendSMSTip').html("该手机号码已被其它用户使用！");
+					$("#txt_phone").removeAttr("disabled");
+
+				}
+				else {
+					msg = "校验码发送失败,请重试！";
+					$("#sendSMSTip").html(msg);
+				}
+			}
+		});
+		return true;
+	}
+	else {
+
+		$("#sendSMSTip").eq(0).show().html('<a href="javascript:;"  id="btnSendMsg" style="color:#51a679;">手机号码有误！</a>')
+//		$("#btnSendMsg").html("手机号码有误！");
+		return false;
+	}
+}
+
+$('#txt_phone').keyup(function(){
+	var txt = "#txt_phone";
+//	var pat = /^[0-9]{11}$/;
+	var str = $(txt).val();
+	if (str.length==11) {
+		$("#sendSMSTip").eq(0).hide()
+		BlurPhone()
+	}else{
+	   $("#dvPhone").hide();
+		$("#sendSMSTip").hide();
+
+	}
+})
+
+function setLeftTime() {
+	msg = "请注意查收，";
+	var second = Math.floor(leftsecond);
+	$(".spTip").eq(0).html(msg + second + "秒后可重发");
+	leftsecond--;
+	if (leftsecond < 1) {
+		$(".spTip").eq(0).html("现在可重新发送！");
+		clearInterval(timer);
+		try {
+			$('#sendSMSTip').html("<a href='javascript:;' id='btnSendMsg' onclick='zhezhao()' style='color:#51a679;'>获取验证码</a>");
+			flag=false;
+			$("#txt_phone").removeAttr("disabled");
+		} catch (E) { }
+		return;
+	}
+}
+function setMobile() {
+	var code = $('#txt_smsCode').val();
+	if (code== ""){
+		$('#btnSendMsg').text("请先获取验证码");
+		return;
+	}
+
+	$.ajax({
+		url: "__URL__/validatephone",
+		type: "post",
+		dataType: "json",
+		data: {"code":code},
+		success: function(d) {
+			if (d.status==1) {
+				window.location.href="/member/Verify/register3/";
+			}
+			else{
+				clearInterval(timer);
+				$(".spTip").html(d.message);
+				$("#sendSMSTip").eq(0).show().html('<a href="javascript:;"  id="btnSendMsg" onclick="zhezhao()" style="color:#51a679;">请重新获取验证码</a>')
+			}
+		}
+	});
+}
+function skipphone() {
+	$.ajax({
+		url: "__URL__/skipphone",
+		type: "post",
+		dataType: "json",
+		success: function(d) {
+			if (d.status==1) {
+				window.location.href="/member/Verify/register3/";
+			}
+			else {
+				$(".spTip").html(d.message);
+			}
+		}
+	});
+}
+function sendValidEmail(){
+		var email = $("#txt_email").val();
+		if(email==""){
+			layer.msg('邮箱地址不能为空！',{icon:0});
+			return;
+		}else{
+			var emailreg = new RegExp("^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)+$", "i");
+			if(!emailreg.test(email)){
+				layer.msg('请输入正确的邮箱地址！',{icon:2});
+				return;
+			}else{
+				AsyncEmail(email);
+			}
+		}
+
+	}
+function AsyncEmail(email) {
+	layer.msg('正在检测电子邮件地址...',{icon:3});
+	$.ajax({
+            type: "post",
+            async: false,
+			dataType: "json",
+            url: "__URL__/ckemail/",
+            data: {"Email":email},
+            success: function (d, s, r) {
+              	if(d){
+					if(d.status==1){
+						send_email(email);
+					}else{
+						layer.msg('邮箱已经在本站注册！',{icon:2});
+						return;
+					}
+				}
+			}
+        });
+	}
+function send_email(email){
+		layer.msg('邮件发送中...',{icon:16});
+        $.ajax({
+            url: "__URL__/emailvsend/",
+			data: {"email":email},
+            timeout: 8000,
+			cache: false,
+			type: "post",
+			dataType: "json",
+            success: function (d, s, r) {
+					if(d.status==1){
+						window.location.href="/member/verify/register4"
+					}else{
+						layer.msg(d.message,{icon:2});
+					}
+            }
+        });
+	}
+function reset_sendSMSTip(){
+		$("#sendSMSTip").eq(0).show().html('<a href="javascript:;"  id="btnSendMsg" onclick="zhezhao()" style="color:#51a679;">获取验证码</a>')
+		}
+
+function zhezhao(){
+    var ss;
+	 if(!flag){
+		 $("#txtCode").val('');
+		$("#zctc-error").html('');
+		$("#zctc-error").hide();
+		ss=$('#imVcode').attr('src');
+		$('#imVcode').attr('src',ss+'?t='+Math.random());
+	}
+	$('.fixed').show()
+
+
+}
+
+$(function(){
+	$('.blue_btn').click(function(){
+		resendMobileValidSMSCode()
+	})
+  	$('.xiayibu').click(function(){
+		if($('#txt_phone').val()==''){
+			$("#sendSMSTip").eq(0).show().html('<a href="javascript:;"  id="btnSendMsg"  style="color:#51a679;">请输入手机号</a>')
+		}else if($('#txt_phone').val().match(mbTest)){
+			setMobile()
+		}else{
+			$("#sendSMSTip").eq(0).show().html('<a href="javascript:;"  id="btnSendMsg"  style="color:#51a679;">请输入正确的手机号</a>')}
+	})
+})
+
+
+
+</script>
+<include file="default:Public:_footer" group="Home" />
+
+<div class="fixed" style="display:none;">
+<div class="code-style-input">
+	<div class="zctc-top"><input type="button" onclick="dialogClose($('.fixed'))" class="close"></div>
+	<div class="zctc-bottom">
+		<div class="bot-con">
+			<div class="con-yz"><input class="txt" id="txtCode">
+				<img src='__URL__/verify'  alt="点击换一个校验码" id="imVcode" style="height:40px;width:90px;" onclick="this.src = this.src + '?t=' + Math.random()" />
+				<span class="refresh" onclick="javascript:refreshImageAuthCode()" title="点击刷新"></span>
+			</div>
+
+			<span id="zctc-error" style="color: red;height:10px;display: none;margin:0 15px;"><p id="imageAuthCodeError"></p></span>
+			<a class="blue_btn blue_btnI" >确认发送</a>
+		</div>
+	</div>
+</div></div>

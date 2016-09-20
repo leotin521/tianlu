@@ -1,0 +1,885 @@
+<include file="Public:_header_common" />
+		<title>{$vo.borrow_name}-我要投资-{$glo.web_name}</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keywords" content="{$glo.web_keywords}" />
+		<meta name="description" content="{$glo.web_descript}" />
+	<style>
+.v_out{width:748px;margin:20px auto;overflow:hidden;}
+.v_show{width:330px;overflow:hidden;position:relative;height:280px;float:left}
+.v_cont{ width:500px;position:absolute;left:0px;top:0px;}
+.v_cont ul{float:left;text-align:center;line-height:50px;}
+.v_cont ul li{width:310px;height:150px;float:left;margin-top:7px;}
+.v_cont ul li img{margin-top:50px;}
+/*---圆圈---*/
+.v_out_p{position:relative;overflow:visible}
+/*---切换---*/
+.prev,.next{float:left;padding:105px 9px 0}
+
+.next a{background:#f00 }
+.prev,.prev a,.next,.next a{width:21px;height:28px; display:block}
+
+</style>
+<script>
+var ROOT_PATH="__ROOT__";
+</script>
+<script src="__ROOT__/Style/fancybox/jwin.js" type="text/javascript" charset="utf-8"></script>
+<link href="__ROOT__/Style/fancybox/projectsp.css" rel="stylesheet" type="text/css" charset="utf-8">
+<link href="__ROOT__/Style/fancybox/tdetail.css" rel="stylesheet" type="text/css" charset="utf-8">
+<script src="__ROOT__/Style/fancybox/jquery.mousewheel-3.0.4.pack.js" type="text/javascript" charset="utf-8"></script>
+<script src="__ROOT__/Style/fancybox/jquery.fancybox-1.3.4-mod.js" type="text/javascript" charset="utf-8"></script>
+<link href="__ROOT__/Style/fancybox/jquery.fancybox-1.3.4-mod.css" rel="stylesheet" type="text/css" charset="utf-8" media="screen">
+<script type="text/javascript" src="__ROOT__/Style/H/js/common.js" language="javascript"></script>
+<script type="text/javascript">
+var Transfer_invest_url = "__APP__/tinvest";
+</script>
+<script>
+<!--
+$(document).ready(function() {
+	$("a[rel=img_group]").fancybox({
+		'transitionIn'		: 'none',
+		'transitionOut'		: 'none',
+		'titlePosition' 	: 'over',
+		'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+			return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+		}
+	});
+})
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(name,cursel,n){
+for(i=1;i<=n;i++){
+var menu=document.getElementById(name+i);
+var con=document.getElementById("con_"+name+"_"+i);
+menu.className=i==cursel?"hover":"";
+con.style.display=i==cursel?"block":"none";
+}
+}
+function addFriend(type){
+	var uid = {$minfo.uid};
+	$.ajax({
+		url: "__URL__/addfriend",
+		data: {"fuid":uid,"type":type},
+		timeout: 5000,
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if (d.status == 1) {
+					layer.msg(d.message, {icon: 1});
+				}else{
+					layer.msg(d.message, {icon: 2});
+					return false;
+				}
+			}
+		}
+	});
+}
+function changeDIV(num){
+	for(var id = 1;id<=8;id++)
+		{
+			if(id==num)
+			{
+				$("#detail_menu_"+id).attr('style','display: block');
+				$("#li_menu_"+id).addClass('now');
+			}
+			else
+			{
+				$("#detail_menu_"+id).attr('style','display: none');
+				$("#li_menu_"+id).removeClass();
+			}
+		}
+}
+//-->
+</script>
+<script type="text/javascript">
+	function showht(){
+		var status = '{$invid}';
+		if(status=="no"){
+			layer.msg("您未投此标",{icon:0});
+		}else if(status=="login"){
+			layer.msg("请先登陆",{icon:0});
+		}else{
+			window.location.href="__APP__/member/agreement/downfile?id="+status;
+		}
+	}
+</script>
+<style type="text/css">
+.e_hytx dd.e_bb p {
+	width: 270px
+}
+.e_hytx dt {
+	height: 210px
+}
+.e_hytx dt p.e_r a {
+	height: 40px;
+	margin-left: 0px
+}
+.pdxd {
+	padding: 20px
+}
+.ellipsis a {
+	cursor: pointer;
+	text-decoration: none;
+	color: #666
+}
+.ellipsis a:hover {
+	cursor: pointer;
+	text-decoration: none;
+	color: #333
+}
+.ellipsis {
+	overflow: hidden;
+	height: 180px;
+}
+.ellipsis:before {
+	content: "";
+	float: left;
+	width: 5px;
+	height: 180px;
+}
+.ellipsis > *:first-child {
+	float: right;
+	width: 100%;
+	margin-left: -5px;
+}
+.ellipsis:after {
+	content: "\02026";
+	box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	float: right;
+	position: relative;
+	top: -15px;
+	left: 100%;
+	width: 3em;
+	margin-left: -3em;
+	padding-right: 5px;
+	text-align: right;
+	background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
+	background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+	background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+	background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+	background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+}
+ .dw_paihang02{text-align: right;margin-right: 40px;margin-top: 25px;}
+ .dw_paihang03{text-align: right;margin-right: 40px;margin-top: 25px;}
+ .dw_paihang04{text-align: right;margin-right: 40px;margin-top: 25px;}
+ .dw_paihang05{text-align: right;margin-right: 40px;margin-top: 20px;padding-bottom: 10px;}
+  #J_conutTan2{display:none;position: absolute;width: 180px;margin-left: 805px;border: 1px solid #ccc;background: #fff;padding-top: 10px;}
+	#J_conutTan2 table{width: 100%;font-size: 12px;}
+	#J_conutTan2 table tr td{font-size: 12px;text-align:right;line-height: 25px;}
+	#J_conutTan2 table tr td input{border: 1px solid #ccc;margin-right: 5px;width: 80px;}   
+</style>
+<script type="text/javascript" src="/Style/H/js/dwlib.js"></script><!-- `mxl 20150210` -->
+<include file="Public:_header_main" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/H/css/tdetail.css" />
+<div class="smbhs_min">
+  <div class="smbhs_MM">
+  <script type="text/javascript">
+      function plusTimes(id,num){
+          var cnum = parseInt($("#tnum_"+id).val());
+          cnum += parseInt(num);
+          $("#tnum_"+id).val(cnum+'元');
+      }
+      function minusTimes(id, num){
+          var cnum = parseInt($("#tnum_"+id).val());
+          cnum=(cnum-parseInt(num))>0?(cnum-parseInt(num)):parseInt(num);
+          $("#tnum_"+id).val(cnum+'元');
+      }
+      $('.J_validate').blur( function() {
+          var per = parseInt($('#minInvest').html());
+          var investNum = $(this).val();
+          if( isNaN(investNum) ) {
+              var numLength = investNum.length;
+              var num = investNum.substr(0 , numLength-1);
+              if( isNaN(num) ) {
+                  $('#msg').html("投资金额有误");
+                  $('#J_transfer').attr('disabled', 'disabled');
+              }
+          }else {
+              num = investNum;
+          }
+          if( num%per>1 ) {
+              $('#msg').html("投资金额为最小投资金额的整数倍");
+              $('#J_transfer').attr('disabled', 'disabled');
+          }
+          if( !isNaN(num) && num%per == 0 ) {
+              $('#msg').html("&nbsp;");
+              $('#J_transfer').attr('disabled', 'false');
+          }
+
+      })
+  </script>
+    <!--列表结束-->
+    <div style="clear:both"></div>
+    <div id="smbhs_xq_qtitle"> <a hreff="#smbhs_fly1" class="on"></a> <a hreff="#smbhs_fly2"></a> <a hreff="#smbhs_fly3"></a> <a hreff="#smbhs_fly4"></a> <a hreff="#smbhs_fly5"></a> <a hreff="#smbhs_fly6"></a> <a hreff="#smbhs_fly7"></a> <a hreff="#smbhs_fly8"></a> </div>
+    <div  id='smbhs_fly1'></div>
+    <div  id='smbhs_fly2'></div>
+    <div  id='smbhs_fly3'></div>
+    <div  id='smbhs_fly4'></div>
+    <div  id='smbhs_fly5'></div>
+    <div  id='smbhs_fly6'></div>
+    <div  id='smbhs_fly7'></div>
+    <div  id='smbhs_fly8'></div>
+  </div>
+</div>
+<!--页面层容器结束--> 
+<script type="text/javascript" language="javascript">
+dw.scrollNav('#smbhs_xq_qtitle');
+$(document).ready(function() {
+	$("a[rel=img_group]").fancybox({
+		'transitionIn'		: 'none',
+		'transitionOut'		: 'none',
+		'titlePosition' 	: 'over',
+		'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+			return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+		}
+	});
+	ajax_show(1);
+});
+function ajax_show(p)
+{
+   $.get("__URL__/investRecord?borrow_id={$borrow_id}&p="+p, function(data){
+      $("#investrecord").html(data);
+   });
+   $(".pages a").removeClass('current');
+   $(".pages a").eq(p).addClass("current");
+}
+//DIV隐显
+bindpage();
+function refreshComment(){
+	var geturl = "/tinvest/tdetail?type=commentlist&id={$vo.id}&p=1";//`mxl 20150213`
+	
+	var id = "scomment";
+	var x={};
+	
+	$.ajax({
+		url: geturl,
+		data: x,
+		timeout: 5000,
+		cache: false,
+		type: "get",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){ 
+				$("#"+id).html(d.html);
+			}
+		}
+	});
+}
+function bindpage(){
+	$('.ajaxpagebar a').click(function(){
+		try{	
+			var geturl = $(this).attr('href');
+			var id = $(this).parent().attr('data');
+			var x={};
+			$.ajax({
+				url: geturl,
+				data: x,
+				timeout: 5000,
+				cache: false,
+				type: "get",
+				dataType: "json",
+				success: function (d, s, r) {
+					if(d) $("#"+id).html(d.html);//更新客户端竞拍信息 作个判断，避免报错
+				}
+			});
+		}catch(e){};
+		return false;
+	})
+}
+function addComment(){
+	var tid = {$vo.id|default=0};
+	
+	var cm = $("#comments").val();
+	if(cm=="") {
+		layer.msg("留言内容不能为空！",{icon:0});
+		return false;
+	}
+	layer.msg("提交中...",{icon:6});
+	$.ajax({
+		url: "__URL__/addcomment",
+		data: {"comment":cm,"tid":tid},
+		timeout: 5000,
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==1){
+					refreshComment();
+					layer.msg("留言成功！",{icon:1});
+					$("#comments").val('');
+				}else{
+					layer.msg(d.message,{icon:2});
+					return false;
+				}
+			}
+		}
+	});
+}
+</script> 
+		<div id="fina" class="fina">
+			<div class="f_con_t" style="background:#FFF;">
+            <p class="f_con_text <if condition="$vo['is_xinshou'] eq 1">xinshou_bg2</if>" title="{$vo.borrow_name}"  style="color:#656565;"><span style="display:inline-block;position:relative;top:-2px">{:getIco($vo)}</span>{$vo.borrow_name|cnsubstr=###,22} </p>
+            <style type="text/css">
+				 #J_conutTan2{display:none;position: absolute;width: 180px;margin-left: 805px;border: 1px solid #ccc;background: #fff;padding-top: 10px;}
+				 #J_conutTan2 table{width: 100%;font-size: 12px;}
+				 #J_conutTan2 table tr td{font-size: 12px;text-align:right;line-height: 25px;padding: 0px;border: 0px;}
+				 #J_conutTan2 table tr td input{border: 1px solid #ccc;margin-right: 5px;width: 80px;}  
+            </style>           
+
+				<a href="/tools/id/1.html" target="_blank" id="J_contJisuanqi1">
+					<div class="f_con_img fIcon" style="background-position:-31px -149px;"></div>
+				</a>
+				<div id="J_conutTan2">
+                                    
+		            <table>
+		                <tr>
+		                    <td width="70" >投资金额：</td>
+		                    <td width="100"><input type="text" id="qcMoney" onkeyup="quickCount()" placeholder="输入金额" /></td>
+		                </tr>
+		                <tr>
+		                    <td>利息：</td>
+		                    <td style="text-align:left"><span id="interest">0.00</span>元&nbsp;</td>
+		                </tr>
+		                <tr>
+		                    <td>奖金：</td>
+		                    <td style="text-align:left"><span id="reward_money">0.00</span>元&nbsp;</td>
+		                </tr>
+		                <tr>
+		                    <td>总收益：</td>
+		                    <td style="text-align:left" ><span id="total_interest">0.00</span>元&nbsp;</td>
+		                </tr>
+		            </table>
+                                                    <script type="text/javascript">
+                                                            function quickCount(){
+                                                                var borrow_id     = {$vo.id};
+                                                                var qcMoney = $("#qcMoney").val()
+                                                                    $.ajax({
+                                                                            url: "__APP__/tool/quickCountRate",
+                                                                            type: "GET",
+                                                                            dataType: "json",
+                                                                            data: {"borrow_id":borrow_id,"money":qcMoney},
+                                                                            success: function(d) {
+                                                                                $("#interest").html(d.interest);
+                                                                                $("#reward_money").html(d.reward_money);
+                                                                                $("#total_interest").html(d.total_interest);
+                                                                            }
+                                                                     });
+                                                            }
+                                                    </script>
+		        </div>
+		          <script type="text/javascript">
+		            var oconutTan2=document.getElementById('J_conutTan2');
+		            var ocontJisuanqi1=document.getElementById('J_contJisuanqi1');
+		            var timer=null;
+
+		            ocontJisuanqi1.onmouseover=function(){
+		                clearTimeout(timer);
+		                oconutTan2.style.display='block';
+		            }
+		            ocontJisuanqi1.onmouseout=function(){
+		                timer=setTimeout(function(){
+		                 oconutTan2.style.display='none';
+		                },300);                   
+		            }
+		            oconutTan2.onmouseover=function(){
+		                clearTimeout(timer);
+		                oconutTan2.style.display='block';
+		            }
+		            oconutTan2.onmouseout=function(){
+		                timer=setTimeout(function(){
+		                 oconutTan2.style.display='none';
+		                },300);                   
+		            }
+		          </script>
+			</div>
+			<!-- f_main_l start -->
+			<div class="f_main_l">
+				<div class="t_con">
+					<div class="t_con_div">
+						<ul>
+							<li class="t_con_text" style="min-width: 160px;text-align:center">
+								<p class="t_con_mgn">年化收益</p>
+								<p class="t_con_mgn" style="color:#e25353;"><span class="ft24 bold">{$vo.borrow_interest_rate}</span><span class="ft14">%</span></p>
+							</li>
+							<li class="t_con_text" style="min-width: 160px;text-align:center">
+								<p class="t_con_mgn t_con_pad">融资金额</p>
+								<p class="t_con_mgn t_con_pad" style="color:#e25353;">
+								<span  class="ft24 bold">{$vo.borrow_money|getMoneyFormt=###}</span>元</p>
+							</li>
+							<li class="t_con_text" style="min-width: 160px;text-align:center">
+								<p class="t_con_mgn t_con_pad">投资期限</p>
+								<p class="t_con_mgn t_con_pad"><span class="ft24 bold">{$vo.borrow_duration}</span>{$vo['time_type']}</p>
+							</li>
+							<li class="t_con_text t_con_text_nbor" style="min-width: 160px;text-align:center">
+								<p class="t_con_mgn t_con_pad">还款方式</p>
+								<p class="t_con_mgn t_con_pad"><span class="ft22 bold">{$vo['repayment_type']}</span></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="b_con">
+					<div class="b_l_con b_l_wh b_l_bor">
+						<ul>
+							<li>担保机构： {$vo['danbao_html']}</li>
+							<li>★100%本息保障</li>
+							<li>★立即投资可获得{$day}天收益</li>
+							<li>★ 每投资10万可获得利息{$rge}元</li>
+						</ul>
+					</div>
+					<div class="b_r b_per b_l_wh">
+						<span style="background: url('__ROOT__/Style/H/images/progressbar_detail.png') no-repeat;display: block;font-size: 16px;height: 74px;line-height: 75px;float: left;margin-top: 30px;text-align: center;width: 75px; margin-left:13px; background-position:-<php>echo 	
+bcmul(intval($vo['progress']),75.00);</php>px 0"><em>{$vo.progress|intval}%</em></span>
+						<ul class="details">
+							<li>已投金额：{$vo['has_borrow']}元</li>
+							<li>剩余可投：{$vo['need']}元</li>
+                            <if condition="$vo.borrow_status eq -1">
+                                <li class="red">上线时间：{$vo.add_time|mydate="Y-m-d H:i",###}</li>
+                                <else/>
+                                <li>开始时间：{$vo.add_time|mydate="Y-m-d H:i",###}</li>
+                            </if>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- end f_main_l -->
+			<!-- f_main_r start -->
+			<div class="f_main_r">
+				<div class="r_main">
+					<span class="mybal">我的可用余额：</span>
+					<div class="bal">
+						<span id="" class="bal_c">
+							<span style="font-size:22px;font-weight:bold;float:left;">
+										<if condition="session('u_id') ==''">
+											<a style="color:#e25353;font-size:16px;font-weight: 400;cursor: pointer;" href='{$unlogin_home}'>[登陆]</a><span style="color:#656565;font-size:16px;">可查看</span>
+											<else/>
+								{$investInfo['account_money']|getMoneyFormt=###}元</if></span></span>
+						<a href="__APP__/member/charge/" class="rec">充值</a>
+                        <div class="clear h15"></div>
+						<span class="put"><span style="font-size:12px;">起投{$vo['borrow_min']}元,限投{$vo['borrow_max']|maxInvest=$vo['need']}元</span></span>
+						<input type="text" id="tnum_{$vo.id}"  class="tzInput" placeholder="请输入{$vo['borrow_min']}的整数倍"/>
+						<if condition="$vo['borrow_status'] eq 7">
+		                  <input type="submit" class="tzButton" style="background:#9D9D9D;border: 0 solid" value="已完成"/>
+		                <elseif condition="$vo['borrow_status'] eq 6"/>
+		                  <input type="submit" class="tzButton" style="background:#9D9D9D;border: 0 solid" value="还款中"/>
+		                <elseif condition="$vo['borrow_status'] eq 3"/>
+		                  <input type="submit" class="tzButton" style="background:#9D9D9D;border: 0 solid" value="已流标"/>
+                        <elseif condition="$vo['borrow_status'] eq 4"/>
+                            <input type="submit" class="tzButton" style="background:#9D9D9D;border: 0 solid" value="复审中"/>
+                        <elseif condition="$vo['borrow_status'] eq -1"/>
+                            <input type="submit" class="tzButton" style="background:#9D9D9D;border: 0 solid" value="敬请期待"/>
+		                <else/>
+						  <if condition="session('u_id') !='' and ($vo['has_borrow']-$vo['borrow_money'] neq 0)">
+		                  <input type="submit" class="tzButton" id="J_transfer" onclick="Transfer({$vo.id})" value="立即投资"/>
+						  <else/>
+						  <a href="{$unlogin_home}"><input type="submit" style="background:#9D9D9D;border: 0 solid" class="tzButton" value="请先登录"/></a>
+						  </if>
+		                </if>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end final -->
+		<!-- proAndRz start -->
+		<div class="proAndRz">
+			<div class="pro p_wh">
+				<p class="pro_title allbgcolor">项目详情</p>
+                <span class="none">{$vo.rate_type}</span>
+				<div class="ckxqd5">
+					<p class="pro_cont" style="display:block">{$vo.borrow_breif|cnsubstr=###,300}</p>
+					<p class="pro_cont bannerTextMore5" style="display:none">{$vo.borrow_breif}</p>
+				</div>
+				<div class="dw_paihang05">
+			    	<if condition="$vo['breif_count'] lt 300" >
+            
+		            <else/>            
+		                <a href="javascript:;" style="color:#EC5353" >展开</a> 
+		            </if>          
+			    </div>
+			</div>
+			<div class="fin p_wh">
+				<p class="pro_title allbgcolor">认证图片</p>
+				<if condition="$UID gt '0'">
+			
+                <div id="spec-n5">
+                      <div class="spec-button spec-left" id="spec-left" style="cursor: default;"> <img id="imgLeft" src="__ROOT__/Style/H/images/left_g.gif"></div>
+                      <div id="spec-list" class="bot05">
+                        <div class="bot06">
+                          <ul class="list-h bot07">
+                          <php>$i=0;foreach(unserialize($vo['borrow_img']) as $v){ $i++;</php>
+                                <li><a title="<php>echo $v['info'];</php>" rel="img_group" href="__ROOT__/<php>echo $v['img'];</php>"><img src="__ROOT__/<php>echo get_thumb_pic($v['img']);</php>"></a>
+                                </li>
+                            <php>}</php>
+                              <if condition="count(unserialize($vo['borrow_img']))%2">
+                                  <li></li>
+                              </if>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="spec-button spec-right" id="spec-right" style="cursor: default;">  <img id="imgRight" src="__ROOT__/Style/H/images/right_g.gif"></div>
+                    </div>
+
+                    <script type="text/javascript">
+                        var nextBtn = true;
+                    var lilenth = $(".list-h li").length+1;
+                    $(".list-h").css("width", lilenth * 80);
+                    var leftpos = 0;
+                    var leftcount = 0;
+                    $("#spec-left").css("cursor", "default");
+                    
+                    if (lilenth > 1) {
+                      $(function() { //右边点击时
+                        $("#spec-right").click(function() {
+                            if( nextBtn == true ) {
+//                                nextBtn = false;
+                                var wrapper = $('.list-h');
+                                var liLen = wrapper.find('li').length;
+                                var liWidth = wrapper.find('li').width();
+                                if( liLen%2 ) liLen += 1;
+                                //只能向右滑动 = 总宽度 - 右边的宽度,4为刚开始显示4张，这里写死了，没有写活
+                                var rightLength = (liLen - 4)/2;
+                                if( parseInt($('.list-h').css('left')) == -rightLength*liWidth ) {
+                                    return false;
+                                }
+                                else {
+                                    leftpos = leftpos - 168;
+                                    leftcount = leftcount + 1;
+                                    $(".list-h").animate({ left: leftpos }, 600, function() {
+//                                        nextBtn = true;
+                                    });
+                                }
+                            }
+
+                        });
+
+                      });
+                      $(function() {
+                        $("#spec-left").click(function() {
+                          if (lilenth - leftcount > 2) {
+                                  $("#spec-right").css("cursor", "pointer");
+                          }
+                    
+                          if (leftcount < 1) {
+                                  $("#spec-left").css("cursor", "default");
+                          }
+                          else {
+                            leftpos = leftpos + 168;
+                            leftcount = leftcount - 1;
+                            $(".list-h").animate({ left: leftpos }, "slow");
+                            if (leftcount < 1) {
+                              $("#spec-left").css("cursor", "default");
+                            }
+                          }
+                        }
+                        )
+                      })
+                    }
+                    else {
+                      $("#spec-right").css("cursor", "default");
+                    }
+                    $(function() {
+                      var width = $("#preview").width();
+                      $("#spec-list").css("width", 336).css("margin-right", 0);
+                    });
+                    </script>
+
+				<else/>
+		          <div style="padding:15px; 200px; font-size:14px;">
+		          	你需要<a href="/member/common/login/" style="color: #03C; font-weight:bolder">登录</a>才能查看此信息
+		          </div>
+           		</if>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div style="clear:both;"></div>
+		<!-- end proAndRz -->
+		<!-- loan start -->
+		<div class="loan">
+			<p class="loan_title allbgcolor">借款信息</p>
+			<ul class="loan_main">
+				<li class="loan_con">
+					<p class="loan_con_title">借款人信息</p>
+					<div class="ckxqd2">
+						<span class="loan_cont" style="display:block">{$vo.borrow_capital|cnsubstr=###,110}</span>
+						<span class="loan_cont bannerTextMore2" style="display:none">{$vo.borrow_capital}</span>
+					</div>
+					<div class="dw_paihang02">
+			            <if condition="$vo['capital_count'] lt 110" >
+            
+			            <else/>            
+			                <a href="javascript:;" style="color:#EC5353" >展开</a> 
+			            </if>               
+			        </div>
+				</li>
+				<li class="loan_con">
+					<p class="loan_con_title">资金用途</p>
+					<div class="ckxqd3">
+						<span class="loan_cont" style="display:block">{$vo.borrow_use|cnsubstr=###,110}</span>
+						<span class="loan_cont bannerTextMore3" style="display:none">{$vo.borrow_use}</span>
+					</div>
+					<div class="dw_paihang03">
+			            <if condition="$vo['use_count'] lt 110" >
+            
+			            <else/>            
+			                <a href="javascript:;" style="color:#EC5353" >展开</a> 
+			            </if>             
+			        </div>
+				</li>
+				<li class="loan_con">
+					<p class="loan_con_title">风险控制</p>
+					<div class="ckxqd4">
+						<ul class="loan_cont" style="display:block">{$vo.borrow_risk|cnsubstr=###,110}</ul>
+						<ul class="loan_cont bannerTextMore4" style="display:none">{$vo.borrow_risk}</ul>
+					</div>
+					<div class="dw_paihang04">
+			            <if condition="$vo['risk_count'] lt 110" >
+            
+			            <else/>            
+			                <a href="javascript:;" style="color:#EC5353" >展开</a> 
+			            </if>              
+			        </div>
+				</li>
+			</ul>
+			<script type="text/javascript">              
+            $('.dw_paihang02 a').click(function(){
+	            var index=$(this).index();          
+	            $('.ckxqd2').children().toggle();
+            	if($('.ckxqd2').find('.bannerTextMore2').is(":hidden")==true){
+                      $('.dw_paihang02 a').html('展开');  
+                }else{
+                      $('.dw_paihang02 a').html('收起');  
+                }; 
+            }); 
+
+            $('.dw_paihang03 a').click(function(){
+	            var index=$(this).index();          
+	            $('.ckxqd3').children().toggle();
+            	if($('.ckxqd3').find('.bannerTextMore3').is(":hidden")==true){
+                      $('.dw_paihang03 a').html('展开');  
+                }else{
+                      $('.dw_paihang03 a').html('收起');  
+                }; 
+            }); 
+
+            $('.dw_paihang04 a').click(function(){
+	            var index=$(this).index();          
+	            $('.ckxqd4').children().toggle();
+	            if($('.ckxqd4').find('.bannerTextMore4').is(":hidden")==true){
+                      $('.dw_paihang04 a').html('展开');  
+                }else{
+                      $('.dw_paihang04 a').html('收起');  
+                }; 
+            
+            }); 
+
+            $('.dw_paihang05 a').click(function(){
+	            var index=$(this).index();          
+	            $('.ckxqd5').children().toggle();
+	            if($('.ckxqd5').find('.bannerTextMore5').is(":hidden")==true){
+                      $('.dw_paihang05 a').html('展开');  
+                }else{
+                      $('.dw_paihang05 a').html('收起');  
+                }; 
+            
+            }); 
+        </script>
+			<p class="loan_title award allbgcolor">投标有奖<a href="__APP__/tinvest/reward?id={$borrow_id}"  target="_Blank"><font style="float: right;color: #fff;font-size: 14px;padding-right: 25px;">查看规则</font></a></p>
+			<ul class="award_main">
+				<li class="ad_wh">
+					<a href="__APP__/tinvest/reward?id={$borrow_id}#yima" target="_blank">
+						<img src="__ROOT__/Style/N/images/award0.png" width="304" height="134" alt=""/>
+						<ul class="ad_con_pos ad_con_pos1">
+	                        <if condition="!empty($special_award[5])">
+	                            <li class="ad_con_text">{$special_award[5]['user_name']}</li>
+	                            <li class="ad_con_text">{$special_award[5]['add_time']|date="Y-m-d",###}</li>
+	                            <li class="ad_con_text">获得<span style="color:#e25353;">{$special_award.5.money}</span>元优惠券</li>
+	                            <else/>
+	                            <li class="ad_con_text_no"><img src="/Style/N/images/baozangxiang.png" /></li>
+	                            <li class="ad_con_text_no">快来赢取奖励吧！</li>
+	                        </if>
+						</ul>
+					</a>
+				</li>
+                <li class="ad_wh ad_pad">
+                    <a href="__APP__/tinvest/reward?id={$borrow_id}#yichui" target="_blank">
+                        <img src="__ROOT__/Style/N/images/award1.png" width="304" height="134" alt=""/>
+	                    <ul class="ad_con_pos ad_con_pos2">
+	                        <if condition="!empty($special_award[6])">
+	                            <li class="ad_con_text">{$special_award[6]['user_name']}</li>
+	                            <li class="ad_con_text">{$special_award[6]['add_time']|date="Y-m-d",###}</li>
+	                            <li class="ad_con_text">获得<span style="color:#e25353;">{$special_award.6.money}</span>元优惠券</li>
+	                            <else/>
+	                            <li class="ad_con_text_no"><img src="/Style/N/images/baozangxiang.png" /></li>
+	                            <li class="ad_con_text_no">快来赢取奖励吧！</li>
+	                        </if>
+	                    </ul>
+                    </a>
+                </li>
+                <li class="ad_wh">
+                    <a href="__APP__/tinvest/reward?id={$borrow_id}#yiming" target="_blank">
+                        <img src="__ROOT__/Style/N/images/award2.png" width="304" height="134" alt=""/>
+	                    <ul class="ad_con_pos ad_con_pos3">
+	                        <if condition="!empty($special_award[7])">
+	                            <li class="ad_con_text">{$special_award[7]['user_name']}</li>
+	                            <li class="ad_con_text">{$special_award[7]['add_time']|date="Y-m-d",###}</li>
+	                            <li class="ad_con_text">获得<span style="color:#e25353;">{$special_award.7.money}</span>元优惠券</li>
+	                            <else/>
+	                            <li class="ad_con_text_no"><img src="/Style/N/images/baozangxiang.png" /></li>
+	                            <li class="ad_con_text_no">快来赢取奖励吧！</li>
+	                        </if>
+	                    </ul>
+                    </a>
+                </li>
+			</ul>
+			<p class="loan_title award allbgcolor" style="margin-top:40px;margin-bottom:10px;">投资记录</p>
+			<div class="loan_rec">
+				<table width="1000px" style="border-collapse:collapse;text-align:center;background:#FFF;">	
+                    <thead>
+                        <tr>
+                            <td width="200px" height="48px" align="center">投标人</td>
+                            <td width="200px" height="48px" align="center">当前利率</td>
+                            <td width="200px" height="48px" align="center">投标时间</td>
+                            <td width="200px" height="48px" align="center">购买金额</td>
+                            <td width="200px" height="48px" align="center">购买方式</td>
+                            <if condition="$is_mobile eq 1">
+                            <td width="200px" height="48px" align="center">投资来源</td>
+                            </if>
+                        </tr>
+                    </thead>
+					<tbody id="investrecord"></tbody>
+				</table>
+				<div class="loan_rec_bt">
+					<div class="l_bt_div">{$page}</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:_footer" />
+<script type="text/javascript">
+         $(".loan_rec thead tr th:last").css("border-right","0px");
+  
+		 $(function(){
+
+				/*======next======*/
+				$(".next a").click(function(){ nextscroll() });
+
+				function nextscroll(){
+
+						var vcon = $(".v_cont ");
+						var offset = ($(".v_cont li").width())*-1;
+						
+						vcon.stop().animate({left:offset},"slow",function(){
+
+							 var firstItem = $(".v_cont ul li").first();
+							 vcon.find("ul").append(firstItem);
+							 $(this).css("left","0px");
+
+							 circle()
+							
+						});  
+					
+				};
+
+
+				function circle(){
+					  
+						var currentItem = $(".v_cont ul li").first();
+						var currentIndex = currentItem.attr("index");
+
+						$(".circle li").removeClass("circle-cur");
+						$(".circle li").eq(currentIndex).addClass("circle-cur");
+						
+				}
+
+				//setInterval(nextscroll,2000)
+				 
+				/*======prev======*/
+				$(".prev a").click(function(){
+
+						var vcon = $(".v_cont ");
+						var offset = ($(".v_cont li").width()*-1);
+
+						var lastItem = $(".v_cont ul li").last();
+						vcon.find("ul").prepend(lastItem);
+						vcon.css("left",offset);
+						vcon.animate({left:"0px"},"slow",function(){
+							 circle()
+						})
+
+				 });
+
+			   /*======btn====circle======*/
+				 var animateEnd = 1;
+
+				$(".circle li").click(function(){
+
+					   if(animateEnd==0){return;}
+
+					   $(this).addClass("circle-cur").siblings().removeClass("circle-cur");
+					
+						var nextindex = $(this).index();
+						var currentindex = $(".v_cont li").first().attr("index");
+						var curr = $(".v_cont li").first().clone();
+						
+						if(nextindex > currentindex){
+
+								for (var i = 0; i < nextindex - currentindex; i++) {
+									 
+									 var firstItem = $(".v_cont li").first();
+									 $(".v_cont ul").append(firstItem); 
+										
+								}
+
+								$(".v_cont ul").prepend(curr);
+
+								var offset = ($(".v_cont li").width())*-1;
+
+								if(animateEnd==1){
+
+									animateEnd=0;	
+									$(".v_cont").stop().animate({left:offset},"slow",function(){
+
+											$(".v_cont ul li").first().remove();
+											$(".v_cont").css("left","0px");
+											animateEnd=1;
+
+									}); 
+
+								} 
+
+						}else{
+
+								var curt = $(".v_cont li").last().clone();
+
+								for (var i = 0; i < currentindex - nextindex; i++) {
+									 var lastItem = $(".v_cont li").last();
+									 $(".v_cont ul").prepend(lastItem);
+								}
+
+								$(".v_cont ul").append(curt);
+
+								var offset = ($(".v_cont li").width())*-1;
+
+								$(".v_cont").css("left",offset);
+										
+
+								  if(animateEnd==1){
+
+										animateEnd=0;	
+										$(".v_cont").stop().animate({left:"0px"},"slow",function(){
+											
+											$(".v_cont ul li").last().remove();
+											animateEnd=1;
+										  
+										}); 
+
+									} 
+							
+							}
+
+				});
+
+		 })
+  
+</script>

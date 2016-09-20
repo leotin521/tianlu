@@ -1,0 +1,34 @@
+/* CSS Document */
+body{font-size:14px; background:#fff;}
+ul{margin:0px; padding:0px; list-style:none;}
+a{ text-decoration:none;}
+
+/*banner图片列表*/
+.bannerupload {border-collapse:collapse;border:1px solid #ccc;}
+.bannerupload .title{background:#e7e7e7;color:#333; height:35px; font-size:13px;padding-left:8px;color:#000;}
+.bannerupload td{padding-left:5px;}
+.bannerupload input{border:1px solid #e5e5e5;margin-left:8px;}
+.bannerupload .inputs{width:360px;}
+.bannerupload .inputss{width:500px;  }
+.submit{background:url(../images/woyaozhuce.gif) no-repeat center center; width:70px; height:30px; border:0px; color:#fff;}
+
+.banner{margin-top:10px;border:1px solid #ccc;}
+.banner .title{font-size:13px; padding:8px; background:#e7e7e7; margin:0px; color:#000;}
+.banner ul{ list-style:none;}
+.banner li{float:left;width:30%;padding:8px 0px;  margin:0px;text-align:center;  }
+.banner li a { font-size:12px; color:#555}
+.banner  img{ margin:0px;padding:0px; width:300px; height:127px;}
+.banner .imgpath{margin-bottom:8px;}
+.clear{ clear:both;height:0px;}
+
+
+.adverlist{margin-top:10px;border:1px solid #ccc;}
+.adverlist .title{font-size:13px; padding:8px; background:#f2f2f2; margin:0px;color:#000;}
+.adverlist  .tdalign{ text-align:center; height:25px;padding:8px 0px;}
+.adverlist li{padding:8px; line-height:20px; height:20px; float:none; text-align:left;  border-bottom:1px dashed #d5d5d5;}
+.avarlist li:last-child{border:0px;}
+.adverlist .inputs{width:360px; border:1px solid #e5e5e5; line-height:20px; height:20px;}
+.adverlist label{width:100px; float:left;}
+.adverlist .advercontent{padding:8px;}
+.adverlist .subt{margin-left:350px;}
+

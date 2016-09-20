@@ -1,0 +1,100 @@
+<include file="Public:_header_common" />
+        <title>{$glo.index_title}</title>
+        <meta name="keywords" content="{$glo.web_keywords}" />
+        <meta name="description" content="{$glo.web_descript}" />
+<style type="text/css">
+    .ul_scre li a.list_active {
+        margin-top: 22px;
+    }
+</style>
+<script type="text/javascript" src="__ROOT__/Style/H/js/common.js" language="javascript"></script>
+<script type="text/javascript">
+        var Transfer_invest_url = "__APP__/fund";
+</script>
+<include file="Public:_header_main" />
+<tagLib name="htmlA" />
+<script type="text/javascript">
+var url = window.location.href;
+if(url)var allargs = url.split("?")[1];
+if(allargs)var tab1= allargs.split("=")[1];
+if(tab1)var tab= tab1.split("&")[0];
+ 
+$(function(){
+    if(tab==9){
+        $('#a1').addClass("show_style");
+    }
+    if(tab==4){
+        $('#a2').addClass("show_style");
+        $('#a1').removeClass("show_style");
+    }
+    if(tab==6){
+        $('#a3').addClass("show_style");
+        $('#a1').removeClass("show_style");
+    };
+    if(tab==7){
+        $('#a4').addClass("show_style");
+        $('#a1').removeClass("show_style");
+    };
+    if(tab==10){
+        $('#a5').addClass("show_style");
+        $('#a1').removeClass("show_style");
+        $('#black').attr('style','display:block');
+        $('#con').attr('style','display:none');
+    };
+});
+ 
+</script>
+        <div class="list_box clearfix">
+            <ul class="list_boxUl allbgcolor">
+               <ul class="list_boxUl">
+                  <volist name="navigate" id="vo">
+                        <li><a href="{$vo.type_url}" <if condition="$vo['id'] eq 50 ">class="list_cur"</if> >{$vo.type_name}</a></li>
+                    </volist>
+            </ul>
+            </ul>
+            <div class="list3_sh clearfix">
+                <div class="list_shSon"><p>已加入用户</p><h2>{$invest_num|getMoneyFormt=###}人</h2></div>
+                <div class="list_shSon list_shSon1"><p>累计总金额</p><h2>{$invest_total|getMoneyFormt=###}元</h2></div>
+                <div class="list_shSon list_shSon2"><p>为用户赚取</p><h2>{$invest_interest|getMoneyFormt=###}元</h2></div>
+            </div>
+        </div>
+        <div class="index_sca">
+                <h2 class="allbgcolor">投资列表</h2>       
+                <volist name="list.tBorrow_items" id="vb">           
+                    <div class="index_setSon">
+                        <div class="index_setSonL">
+                            <div class="index_setSonLL">
+                                <h3>{$vb.borrow_interest_rate}%
+                                    <if condition="$vb.borrow_duration eq '1'"><else/>~{$vb.shouyi}%</if></h3>
+                                <p>年化利率</p>
+                            </div>
+                            <div class="index_setSonLR">
+                                <h3>{$vb.borrow_duration}{$vb.duration_unit}</h3>
+                                <p>期限</p>
+                            </div>
+                        </div>
+                        <div class="index_setSonR">
+                            <h3><span style="display:inline-block;position:relative;top:-2px">{:getIco($vb)}</span><a href="{$vb.id|getFundUrl=###}" title="{$vb.borrow_name}"><?php echo BorrowModel::get_borrow_type(7);?>（{$vb.borrow_name|cnsubstr=###,50}）</a></h3>
+                            <div class="index_setSonRL">
+                                <p>当前进度&nbsp;:&nbsp; <span class="progress"><span class="precent" style="width:{$vb.progress|intval}%"></span></span>{$vb.progress|intval}%</p>
+                                    <p>项目金额&nbsp;:&nbsp;￥{$vb.borrow_money|getMoneyFormt=###}元 <em>投资次数&nbsp;:&nbsp;{$vb.borrow_times}</em></p>
+                                </div>
+                                <div class="index_setSonRR">
+                                       <if condition="$vb['borrow_status'] eq 2">
+                                           <a href="{$vb.id|getInvestUrl=7}"><img src="__ROOT__/Style/N/images/index_join.png" alt="立即投标"></a>
+                                       <elseif condition="$vb['borrow_status'] eq -1" />
+                                           <a href="{$vb.id|getInvestUrl=7}"><img src="__ROOT__/Style/H/images/status/dingtoubao_yugao.png" alt="敬请期待"></a>
+                                        <else/>
+                                           <a href="{$vb.id|getInvestUrl=7}"><img src="__ROOT__/Style/H/images/status/dingtoubao_detail.png" alt="了解详情"></a>
+                                       </if>
+                                </div>
+                            </div>
+                        </div>
+                </volist>
+                <div class="list1_page">
+                     {$list.page}
+                </div>
+        </div>
+    <include file="Public:_footer" />    
+        
+            

@@ -1,0 +1,106 @@
+/*首页单独样式开始*/
+/* banner */
+
+#banner-flexslider {margin-bottom: 0;}
+#banner-flexslider .am-control-nav{bottom: .5em;}
+#banner-flexslider .am-control-nav li a.am-active{background-color: #FA4343;}
+#banner-flexslider .am-control-nav li a{background-color: #fff;box-shadow: none;}
+
+.cap-nav{margin-left: -1px;padding: 1em 0;}
+.cap-nav .cap-unit:first-child{border-right: 1px solid #ddd;}
+.cap-unit{text-align: center;width: 50%;float: left;}
+.cap-unit img{margin: 0 .5em;vertical-align: middle;}
+.cap-unit  .figcaption a{padding-left: .5em;color: #333333;font-size: 2rem;}
+
+/*首页标*/
+.mod-loan{text-align: center;}
+.mod-loan .tit a{color: #5b5b5b;font: 20px/50px "Microsoft Yahei";}
+.mod-loan .rate span{display: inline-block;color: #fa4343;}
+.mod-loan .rate .percent{vertical-align: bottom;font-size: 2rem;}
+
+.mod-loan .caption{font: 2rem/1 "Microsoft Yahei";color: #999999;}
+.loan-fields{padding: 2rem 0;}
+.loan-fields .data{color: #333333;font-size: 1.2rem;line-height: 2rem;}
+.loan-fields .data .num-md{color: #333;}
+
+.loan-fields .am-u-sm-4{position: relative;border-right: 1px solid #ccc;}
+.loan-fields .am-u-sm-4:last-child{border-right:none;}
+
+.mod-loan .data-safe{margin: 1rem 0;}
+.mod-loan .btn-buy{font-size: 2rem;color: #fff;}
+/*首页单独样式结束*/
+
+
+
+/*我要投资  投资页面通用*/
+.invest-item {padding: .5rem ;}
+.invest-item a{display: block;}
+.invest-item .fields {position: relative;}
+.invest-item .fields .rate{width: 25%;float: left;}
+.invest-item .fields .duration{width: 35%;float: left;text-align: center;}
+.invest-item .fields .progress{width: 30%;float: left;}
+.invest-item .fields .num{color: #595959 d4360f;font-size: 18px;font-weight: 700;}
+.invest-item .fields .num.error{color: #d4360f;font-size: 18px;font-weight: 700;}
+.invest-item .tit{font-size: 1.6rem;color: #333;line-height: 2;font-weight: 700;}
+.invest-item a:hover .tit,.invest-item a:hover .duration .c-blue{color: #FA4343;}
+.invest-item a:active .tit.invest-item a:active .duration .c-blue{color: #FA4343;}
+.invest-item .progress-layout{margin: -2em auto 0;}
+.invest-item .tag{position: absolute;right: 0rem;top: -3rem;width: 56px;height: 56px;line-height: 38px;font-size: 12px;color: #fff; text-align: center; }
+.invest-item .tag .rotate45{margin-top: 0px;margin-right: -6px;width:73px;}
+.rotate45{-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);}
+.invest-item .tag-hot{background: url(../images/invest/tag-hot-bg.png) no-repeat;}
+.invest-item .tag-disabled{background: url(../images/invest/tag-disabled-bg.png) no-repeat;}
+
+.am-list .invest-item{padding:0 1rem}
+/*投资记录*/
+.mod-investor-history{margin: 1em 0;}
+.mod-investor-history .history-item{border-bottom-width: 3px;}
+.mod-investor-history .history-item .user{font-size: 2rem;color: #333;}
+.mod-investor-history .history-item .time{font-size: 1rem;color: #666;}
+.mod-investor-history .money{float: right;padding-right: 1em;line-height: 60px;font-size: 1.2rem;}
+
+
+/*投资列表页   散标、定投宝、债权、理财通用*/
+.invest-list li{padding:0}
+
+/*投资详情页   散标、定投宝、债权、理财通用*/
+
+.page-loan .loan-info{text-align: center; padding-top: 20px;background-color: #FC4949;color: #fff;}
+.page-loan .loan-info .num{color: #fff;}
+
+.loan-info .tit{font-size: 1.6rem; line-height: 2;}
+
+.loan-info .num-lg{line-height: 1.5;}
+.loan-info .am-progress{margin: 0 30px;border-radius: 1rem}
+.loan-info .am-progress-bar{background-color: #BC0606;border-radius: 1rem}
+.loan-info .field{line-height: 2;}
+.loan-info .am-g{padding: 10px 0;}
+
+.loan-list{margin: 1em 0;}
+.loan-list li >a {padding: 0;} 
+.loan-list li{padding: .5em;}
+.loan-list li:nth-child(6){margin-bottom: 8px;}
+.loan-list li .con{float: right;color: #666;line-height: 2.9rem;}
+.loan-list li .field{font-size: 1.8rem;line-height: 3rem;color: #333;}
+
+
+/*底部按钮、计算器*/
+.page-loan-oper{text-align: center;background-color: #fff;padding: .5em 1em;}
+.page-loan-oper .icon-calc{font-size: 3rem;color: #FF7A29;}
+.page-loan-oper .btn-buy{font-size: 2rem;line-height: 1.5;border-radius: 10px}
+
+
+/*付款模块*/
+.mod-pay .hd{padding: 10px 0;}
+.mod-pay .hd .total{float: right;line-height: 2.5rem;}
+.mod-pay .hd .tit{font-size: 2rem;color: #333;line-height: 2.5rem;}
+.coupons-list{padding: 0 1rem 0 1rem;} 
+.coupons-list .am-checkbox{padding:0}
+.mod-pay .btn-buy{margin: 2rem 0;font-size: 2rem;}
+
+
+/*灵活宝 agility 详情页单独样式*/
+
+.loan-info .am-icon-clock-o{padding-right: 10px;}
+form.agiligy-form{overflow: hidden;}
+.agility-ad {padding-bottom: 2rem;}

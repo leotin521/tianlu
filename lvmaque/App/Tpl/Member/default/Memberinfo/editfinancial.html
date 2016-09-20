@@ -1,0 +1,294 @@
+<tagLib name="htmlA" />
+<table cellspacing="0" cellpadding="0" id="formTb" style="width: 100%; float: left; margin: 0px;padding: 0px; border-collapse: collapse; text-align: left;">
+	<tbody><tr class="trBg">
+		<td class="tdTitle">
+			月均收入：
+		</td>
+		<td class="tdContent">
+				<input type="hidden" id="tid" name="tid" value="{$apply_type}" />
+				<htmlA:input id="fin_monthin" value="{$vo.fin_monthin}" addstr='onkeyup="NumberCheck(this);"' class="text2" tip="请填写数字，如：0.00"/>
+				<div id="dvfin_monthin" class="inline"></div>
+
+		</td>
+		<td id="dv_monthin" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			收入构成描述：
+		</td>
+		<td style="height: 100px;" class="tdContent">
+			<htmlA:text style="height:80px;width:423px;" id="fin_incomedes" value="{$vo.fin_incomedes}" class="textarea1"/>
+			<div id="dvfin_incomedes" style="display:inline-block;position:relative;top:-30px;" class="inline"></div>
+		</td>
+		<td  class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			月均支出：
+		</td>
+		<td class="tdContent">
+				<htmlA:input id="fin_monthout" value="{$vo.fin_monthout}" class="text2"/>
+				<div id="dvfin_monthout" class="inline">请填写数字，如：0.00</div>
+		</td>
+		<td id="dv_monthout" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			支出构成描述：
+		</td>
+		<td style="height: 100px;" class="tdContent">
+			<htmlA:text style="height:80px;width:423px;" id="fin_outdes" value="{$vo.fin_outdes}" class="textarea1"/>
+			<div id="dvfin_outdes" style="display:inline-block;position:relative;top:-30px;"></div>
+		</td>
+		<td  class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			住房条件：
+		</td>
+		<td class="tdContent">
+			<htmlA:radio id="fin_house" default="有商品房|有商品房,有其他（非商品房）|有其他（非商品房）,无房|无房" value="key|vo.fin_house" />
+		</td>
+		<td id="dv_house" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			房产价值：
+		</td>
+		<td class="tdContent">
+				<htmlA:input id="fin_housevalue" value="{$vo.fin_housevalue}" class="text2"/>
+				<div id="dvfin_housevalue" class="inline">请填写数字，如：0.00</div>
+		</td>
+		<td id="dv_housevalue" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			是否购车：
+		</td>
+		<td class="tdContent">
+			<htmlA:radio id="fin_car" default="已购车|已购车,未购车|未购车" value="key|vo.fin_car" />
+		</td>
+		<td id="dv_car" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			车辆价值：
+		</td>
+		<td class="tdContent">
+				<htmlA:input id="fin_carvalue" value="{$vo.fin_carvalue}" class="text2" tip="未购车：0.00"/>
+				<div id="dvfin_carvalue" class="inline"></div>
+		</td>
+		<td id="dv_carvalue" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			参股企业名称：
+		</td>
+		<td class="tdContent">
+				<htmlA:input id="fin_stockcompany" value="{$vo.fin_stockcompany}" class="text2" tip="选填"/>
+		</td>
+		<td id="dvfin_stockcompany" class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td class="tdTitle">
+			参股企业出资额：
+		</td>
+		<td class="tdContent">
+				<htmlA:input id="fin_stockcompanyvalue" value="{$vo.fin_stockcompanyvalue}" class="text2" tip="选填"/>
+				<div id="dvfin_stockcompanyvalue" class="inline"></div>
+		</td>
+		<td id="dvfin_stockcompanyvalue" class="tdTip">
+		</td>
+	</tr>
+	<tr class="trBg">
+		<td class="tdTitle">
+			其他资产描述：
+		</td>
+		<td style="height: 100px;" class="tdContent">
+			<htmlA:text style="height:80px;width:423px;" id="fin_otheremark" value="{$vo.fin_otheremark}" class="textarea1"/>
+			<div id="dvfin_otheremark" style="display:inline-block;position:relative;top:-30px;"></div>
+		</td>
+		<td class="tdTip">
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;
+			
+		</td>
+		<td style="height: 50px;">
+			<input class="btn-style-3 allbgcolor" type="button" style="margin-top: 5px; cursor: pointer; margin-right:13px;" onmouseout="this.style.filter = 'alpha(opacity=100)'" onmousemove="this.style.filter = 'alpha(opacity=60)'; this.style.cursor='hand' " onclick="goback();" value="上一步">
+			<?php if($apply_type > 0){ ?>
+			<input class="btn-style-3 allbgcolor" type="button" style="margin-top: 5px; cursor: pointer;" onmouseout="this.style.filter = 'alpha(opacity=100)'" onmousemove="this.style.filter = 'alpha(opacity=60)'; this.style.cursor='hand' " onclick="editfinancial();" value="提交审核">
+			<php>}else{</php>
+			<input class="btn-style-3 allbgcolor" type="button" style="margin-top: 5px; cursor: pointer;" onmouseout="this.style.filter = 'alpha(opacity=100)'" onmousemove="this.style.filter = 'alpha(opacity=60)'; this.style.cursor='hand' " onclick="editfinancial();" value="下一步">
+			<php>}</php>
+		</td>
+		<td id="xx" class="tdTip">
+		</td>
+	</tr>
+</tbody></table>
+<script>
+$("#fin_incomedes").blur( function () { 
+	if($("#fin_incomedes").val()==''){
+		$("#dvfin_incomedes").html("<font style='color:red;'>不能为空！</font>");
+	}else{
+		$("#dvfin_incomedes").html('');
+	}
+} );
+$("#fin_outdes").blur( function () { 
+	if($("#fin_outdes").val()==''){
+		$("#dvfin_outdes").html("<font style='color:red;'>不能为空！</font>");
+	}else{
+		$("#dvfin_outdes").html('');
+	}
+} ); 
+$("#fin_otheremark").blur( function () { 
+	if($("#fin_otheremark").val()==''){
+		$("#dvfin_otheremark").html("<font style='color:red;'>不能为空！</font>");
+	}else{
+		$("#dvfin_otheremark").html('');
+	}
+} );
+</script>
+<script type="text/javascript">
+var fg = true;
+var flg = true;
+var flo = true;
+var flog = true;
+$("#fin_monthin").blur( function () { 
+	c1 = $("#fin_monthin").val(); 
+	if(!(/^(([1-9]{1}[0-9]{0,})|([0-9]{1,}\.[0-9]{1,2}))$/.test(c1))){
+		fg=false;
+		$("#tip_fin_monthin").html("<font style='color:red;'>请输入正确的金额！</font>");
+	}else{
+		fg=true;
+		$("#tip_fin_monthin").html('');
+	}
+} );
+$("#fin_monthout").blur( function () { 
+	c2 = $("#fin_monthout").val(); 
+	if(!(/^(([1-9]{1}[0-9]{0,})|([0-9]{1,}\.[0-9]{1,2}))$/.test(c2))){
+		flg=false;
+		$("#dvfin_monthout").html("<font style='color:red;'>请输入正确的金额！</font>");
+	}else{
+		flg=true;
+		$("#dvfin_monthout").html('');
+	}
+} );
+$('input[name=fin_house]').click( function() {
+    var isHasHouse = $("input[name=fin_house]:checked").val();
+    if( isHasHouse == '无房' ) {
+        $("#fin_housevalue").val("0.00").attr('disabled','disabled');
+        flog=true;
+        $("#dvfin_housevalue").html('');
+    } else {
+        $("#fin_housevalue").val('').attr('disabled',false);
+    }
+})
+$("#fin_housevalue").blur( function () {
+    var isHasHouse = $("input[name=fin_house]:checked").val();
+    if( isHasHouse != '无房' ) {
+        c3 = $("#fin_housevalue").val();
+        if(!(/^(([1-9]{1}[0-9]{0,})|([0-9]{1,}\.[0-9]{1,2}))$/.test(c3))){
+            flog=false;
+            $("#dvfin_housevalue").html("<font style='color:red;'>请输入正确的金额！</font>");
+        }else{
+            flog=true;
+            $("#dvfin_housevalue").html('');
+        }
+    }
+} );
+//是否购车选择
+$('input[name=fin_car]').click( function() {
+    var isHasCar = $("input[name=fin_car]:checked").val();
+    if( isHasCar == '未购车' ) {
+        $("#fin_carvalue").val("0.00").attr('disabled','disabled');
+        flo=true;
+        $("#tip_fin_carvalue").html('');
+    } else {
+        $("#fin_carvalue").val('').attr('disabled',false);
+    }
+})
+$("#fin_carvalue").blur( function () { 
+	c4 = $("#fin_carvalue").val();
+	if(!(/^(([1-9]{1}[0-9]{0,})|([0-9]{1,}\.[0-9]{1,2}))$/.test(c4))){
+		flo=false;
+		$("#tip_fin_carvalue").html("<font style='color:red;'>请输入正确的金额！</font>");
+	}else{
+		flo=true;
+		$("#tip_fin_carvalue").html('未购车：0.00');
+	}
+} );
+
+function editfinancial(){	//保存
+	if(fg===false || flg===false || flog===false || flo===false){
+		layer.msg('请正确填写资料信息，可以提高通过几率！', {icon: 0});
+		return false;
+	}
+	p = makevar(['fin_monthin','fin_incomedes','fin_monthout','fin_outdes','fin_house','fin_housevalue','fin_car','fin_carvalue','fin_otheremark']);
+	p['_tps'] = "post";
+	var mxs = true;
+	var tid = $("#tid").val();
+	p['tid'] = tid;
+	$.each(p,function(i){
+		if(typeof p[i] == "undefined"){
+			mxs=false;
+			return false;
+		}
+	});
+	if(mxs===false){
+		layer.msg('所有项目都不能为空！', {icon: 0});
+	  	return;
+	}
+	p['fin_stockcompany'] = $("#fin_stockcompany").val();
+	p['fin_stockcompanyvalue'] = $("#fin_stockcompanyvalue").val();
+	layer.msg('提交中...', {icon: 16});
+	$.ajax({
+		url: "__URL__/editfinancial/",
+		data: p,
+		timeout: 5000,
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==1){
+					if(tid=='2'){
+						layer.alert('已提交，等待管理员审核', {icon: 1}, function(index){
+						    layer.close(index);
+						    setTimeout('window.location.href="/member/"',1000);
+						});
+					}else{
+						setTimeout('window.location.href="/member/memberinfo/index_index?ckid=4";',1000);
+					}
+				}
+				else  {
+					layer.msg(d.message, {icon: 2});
+					return false;
+				}
+			}
+		}
+	});
+}
+function makevar(v){	//获取内容值
+	var d={};
+	for(i=0;i<v.length;i++){
+		var id = v[i];
+		d[id] = $("#"+id).val();
+		if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+	}
+	return d;
+}
+function goback(){	//上一步
+	check(2);
+}
+</script>

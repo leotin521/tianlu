@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>app广告</title>
+<include file="Public:js_ueditor" />
+<link href="__ROOT__/Style/newmobile/css/app.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__ROOT__/Style/newmobile/js/jquery.js"> </script>
+</head>
+
+<body>
+
+<form action="__URL__/doadvertising" method="post" name="form1" >
+    <input type="hidden" name="updateid" value="{$updateid}">
+   <div  class="adverlist">   
+              <div class="title"> 添加广告</div>
+			  
+		  <ul >  
+		        <li> <label> 标题：</label><input type="text" name="title" class="inputs" value="{$row.title}">   </li>
+		        <li> <label> 发布时间：</label><input type="text" name="add_time" class="inputs" value="{$row.add_time}">   </li>
+			    <li> <label> 外部图片：</label><input type="file" name="pic" class="inputs">   </li>
+				<li> <label> 新闻公告选择：</label><input type="text" name="art_id" class="inputs" value="{$row.art_id}">   </li>
+		  </ul>
+		  
+		<div  class="advercontent">  
+		  
+		<textarea name="borrow_info" id="borrow_info" type="text/plain"  style="width:780px;height:360px;"  >{$row.content}</textarea>   
+
+		 </div>   
+	 <div class="clear"> </div>
+	 
+	   <div class="subt"> <input type="submit" class="submit" value="提交">  </div>
+	 
+   </div>
+ 
+ </form>   
+   
+   
+</body>
+
+<include file="Public:borrow_method_ueditor" />
+</html>

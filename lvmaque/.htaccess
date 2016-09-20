@@ -1,0 +1,25 @@
+#
+# .htaccess
+# 
+#
+# 为了正常启用URL Rewrite，请将apache配置文件中“LoadModule rewrite_module modules/mod_rewrite.so”
+# 前的注释去掉，并将apache的DocumentRoot开启AllowOverride
+# 
+# 如下所示为apache下httpd.conf的代码片段：
+# <Directory "YourDocumentRoot">
+#   Options Indexes FollowSymLinks ExecCGI Includes
+#   AllowOverride All
+#   Order allow,deny
+#   Allow from all
+# </Directory>
+#
+ 
+# 是否开启URL Rewrite.
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [L,E=PATH_INFO:$1]
+#RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+# 非法链接
+RewriteRule ^/?([a-zA-Z0-9]+)$                                index.php?app=home&mod=Public&act=error404 [L]

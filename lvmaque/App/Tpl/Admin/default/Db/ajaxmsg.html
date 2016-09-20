@@ -1,0 +1,94 @@
+<tagLib name="htmlA" />
+<div class="so_main">
+    <div class="page_tit">{$title}</div>
+    <div class="form2">
+        <form method="get" action="{$url}" id="forms">
+            <volist name="gets" id="vo">
+                <input type="hidden"  id='{$key}'  name='{$key}' value='{:text($vo)}'/>
+             </volist>
+                <div id="tab_1">
+                    <dl class="lineD">
+                        <dt style="width:100px;">验证码：</dt>
+                        <dd style="margin-left: 100px;">
+                            <htmlA:input id="verify_card" value="" tip="*" style="width:80px;"/>
+                            <span  id="sendSMSTip"><a href="javascript:void(0)" onclick="sendMobileValidSMSCode()">获取验证码</a></span>
+                             <span class="spTip" ></span>
+                        </dd>
+                    </dl>
+                </div><!--tab1-->
+                <div class="page_btm">
+                    <input type="button" onclick="subcheck();" class="btn_b" value="确定" />
+                </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var cansub = true;
+    function subcheck() {
+        var verify_card=$("#verify_card").val();
+        if (!cansub) {
+            alert("请不要重复提交，如网速慢，请等待！");
+            return false;
+        }
+        if (verify_card == "") {
+            ui.error("请填写验证码");
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "__URL__/vercard",
+            data: "vcard="+verify_card,
+            dataType: "json",
+            success: function(d){
+                if(d.status==1){
+                       if(confirm('确定要操作吗？\r\n操作会覆盖掉以前的信息，请先做好备份！')){
+                         $("#forms").submit();
+                       }else{
+                          return false;
+                       }
+                }else{
+                    ui.error(d.message);
+                     return false;
+                } 
+            }
+         });
+         cansub = false;
+    }
+     //倒计时
+    function setLeftTime() {
+            var second = Math.floor(leftsecond);
+            $(".spTip").html( second + "秒后可重发");
+            leftsecond--;
+            if (leftsecond < 1) {
+                                $("#spTip").html("现在可重新发送！");
+                                clearInterval(timer);
+                                try {
+                                    $("#sendSMSTip").html('<a href="javascript:;" onclick="sendMobileValidSMSCode()" id="btnSendMsg" style="color:#51a679;">重新获取验证码</a>');
+                                     $(".spTip").html('');
+                               } catch (E) { }
+                                return;
+            }
+    }
+    function sendMobileValidSMSCode(){
+          $('#sendSMSTip').html("短信发送中...");
+            $.ajax({
+                    url: "__URL__/sendMsg/",
+                    type: "post",
+                    dataType: "json",
+                    data: '',
+                    success: function(d) {
+                     //   alert(d)
+                            leftsecond = 20;
+                            if (d.status == 1) {
+                                    clearInterval(timer);
+                                    timer = setInterval(setLeftTime, 1000, "1");
+                            }else {
+                                    msg = "校验码发送失败,请重试";
+                                    $(".spTip").html(msg);
+                                    $("#sendSMSTip").html('<a href="javascript:;" onclick="sendMobileValidSMSCode()" id="btnSendMsg" style="color:#51a679;">重新获取验证码</a>');
+                            }
+                    }
+            });
+        
+    }
+</script>

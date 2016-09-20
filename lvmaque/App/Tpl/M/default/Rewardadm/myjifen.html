@@ -1,0 +1,150 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>投资积分</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>投资积分</h1>
+        <a href="javascript:window.history.go(-1);" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+   	
+   <div class="mod-myred-convert">
+   		<div class="mod-myred-convert-keyong">可用投资积分</div>
+        <div class="mod-myred-convert-jifen">{$datas_info.active_integral}</div>
+        <div class="mod-myred-convert-tongji">
+        	<ul class="am-avg-sm-2">
+              <li>累计获取积分<br><span>{$datas_info.integral}</span></li>
+              <li>已用投资积分<br><span>{$datas_info.integral_use}</span></li>
+            </ul>
+        </div>
+   </div>
+
+    <!-- 红包分享弹窗 -->
+    <div class="am-modal myred-modal" tabindex="-1" id="myred-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">立即兑换
+                <a href="javascript: void(0)" class="btn btn-cancel" data-am-modal-close>取消</a>
+                <a href="javascript: void(0)" class="btn btn-do" onclick="duihuans();">兑换</a>
+            </div>
+            <div class="am-modal-bd ">
+                <div class="am-panel-bd mod-myred-fenxiang num num-sm" id="messa">
+                   <span id="Nmoney"></span><span>元抵用卷</span><br />
+                   <span>积分（您拥有积分: <span id="jifen"></span>）</span><br />
+                    兑换数量 <input type="text" name="amount" id="amount" value="" style="width:100px;" />
+                    <input type="hidden" id="goods_id" value=""/>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+   <div class="am-tabs mod-record" data-am-tabs>    	
+        <ul class="am-tabs-nav am-nav am-nav-tabs am-g mod-tab-btn-group am-container am-margin-bottom">
+			<li class="am-u-sm-6 am-active"><a class="am-btn am-btn-block" href="javascript: void(0)">积分记录</a></li>
+			<li class="am-u-sm-6"><a class="am-btn am-btn-block" href="javascript: void(0)">积分兑换</a></li>
+		</ul>
+        <div class="am-tabs-bd">
+        	<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                <volist name="datas" id="vo">
+                     <div class="am-g mod-record-item">
+                        <div class="mod-recordleft boxes"><li class="box box-1 num num-um">{$vo.integral_log}</li></div>
+                        <div class="mod-recordright">
+                            <li class="txtone">类型：{$vo.affect_integral}</li>
+                            <li>时间：{$vo.add_time}</li>
+                            <li>详情：{$vo.info}</li>
+                        </div>
+                     </div>
+                </volist>
+                <span>{$pages}</span>
+            </div>
+            
+            <div class="am-tab-panel am-fade" id="tab2">
+                <volist name="duihuan" id="vos" >
+					 <div class="am-g mod-record-item"  onclick="tanchu({$vos.goodid});">
+                        <div class="mod-recordleft boxes"><li class="box box-1"><span class="num num-um">￥{$vos.money}</span><div class="box-inner-tit">投资抵用卷</div></li></div>
+                        <ul class="mod-recordright">
+                            <li class="txtone"><i class="am-icon-chevron-right"></i>抵用券</li>
+                            <li>{$vos.info}</li>
+                            <li>需要：<font color="#fc4949">{$vos.integral}积分</font></li>
+							 <input type="hidden" name="goodid" id="goodid" value="{$vos.goodid}" />
+                            <input type="hidden" name="money" id="money" value="{$vos.money}" />
+                            <input type="hidden" name="integral" id="integral" value="{$vos.integral}" />
+                            <input type="hidden" name="active_integral" id="active_integral" value="{$datas_info.active_integral}" />
+							
+                        </ul>
+                     </div>
+
+                </volist>
+            </div>
+          
+        </div>
+        
+    </div>
+    <script>
+
+        function tanchu(goodid){
+            var $modal = $('#myred-modal');
+            $modal.modal('toggle');
+            var ids = goodid;
+            $("#goods_id").val(ids);
+
+            $.ajax({        //点击兑换，展示兑换弹出框的兑换信息
+                url: "__URL__/redbao_select_info/",
+                data: {"goodid":ids},
+                cache: false,
+                type: "post",
+                dataType: "json",
+                success: function (d) {
+                    $("#Nmoney").html(d.redbao_info);
+                    $("#jifen").html(d.my_integral.integral);
+                }
+            });
+        }
+
+        function duihuans(){
+
+            var goodid = $("#goods_id").val();
+            var amount = $("#amount").val();
+            $.ajax({
+                url: "__URL__/ajaxcredit/",
+                data: {"goodid":goodid,"amount":amount},
+                cache: false,
+                type: "post",
+                dataType: "json",
+                success: function (d) {
+                    if(d.status == 1){
+                        return setOk(d.message);
+                    }else{
+                        return setError(d.message);
+                    }
+                }
+            });
+        }
+
+        function setError(tip){
+            layer.msg(tip,{icon:2});
+            return false;
+        }
+
+        function setOk(tip){
+            layer.msg(tip,{icon:1});
+			 window.location.reload();
+            //window.location.href="__URL__/debt_1";
+        }
+    </script>
+</body>
+
+</html>

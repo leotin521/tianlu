@@ -1,0 +1,52 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<script type="text/javascript">
+    var isSearchHidden = 1;
+</script>
+<div class="so_main">
+    <div class="page_tit">还款明细</div>
+    <div class="Toolbar_inbox">
+        <div class="page right">{$pagebar}</div>
+        <htmlA:commonBtn type="back" action="" value="返回列表" style="search_action" />
+    </div>
+    <div class="list">
+        <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <!-- <th style="width:30px;">
+                    <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+                    <label for="checkbox"></label>
+                </th> -->
+                <th class="line_l">计划还款日期</th>
+                <th class="line_l">计划还款本金</th>
+                <th class="line_l">计划还款利息</th>
+                <th class="line_l">实还本息</th>
+                <th class="line_l">需还本息</th>
+                <th class="line_l">还款状态</th>
+                <th class="line_l">还款</th>
+            </tr>
+            <volist id="vo" name="list.list">
+                <tr overstyle='on' id="list_{$vo.bid}">
+                    <!-- <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.bid}"></td> -->
+                    <td>{$vo.deadline|date="Y-m-d",###}</td>
+                    <td>{$vo.capital}</td>
+                    <td>{$vo.interest}</td>
+                    <td><if condition="$vo['needpay'] eq 0">{$vo.paid}<else/>0</if></td>
+                    <td><if condition="$vo['needpay'] eq 0">0<else/>{$vo['needpay']+$vo['paid']}</if></td>
+                    <td>{$vo.status}</td>
+                    <td>
+                        <if condition="$vo['needpay'] eq 0">
+                            ---
+                        <else/>
+                            <a href="__URL__/repaymentoperation?bid={$vo.borrow_id}&sort_order={$vo.sort_order}&borrow_uid={$borrow_uid}">还款</a>
+                        </if>
+                    </td>
+                </tr>
+            </volist>
+        </table>
+    </div>
+    <div class="Toolbar_inbox">
+        <div class="page right">{$pagebar}</div>
+        <htmlA:commonBtn type="back" action="" value="返回列表" style="search_action" />
+    </div>
+</div>
+<include file="Public:_footer" />

@@ -1,0 +1,46 @@
+<include file="default:Public:_header"  group="Admin"/>
+<tagLib name="htmlA" />
+
+<div class="so_main">
+  <div class="page_tit">收益记录</div>
+  <div class="Toolbar_inbox" style="height:25px;">
+    <div class="page right">{$pagebar}</div>
+    <htmlA:commonBtn type="href" action="{:U('addItem')}" value="所有收益记录" />
+    <htmlA:commonBtn type="href" action="{:U('addItem')}" value="发放失败的记录" />
+    
+  </div>
+  <div class="list">
+    <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th style="width:30px;"> <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+          <label for="checkbox"></label>
+        </th>
+        <th class="line_l">ID</th>
+        <th class="line_l">订单号</th>
+        <th class="line_l">用户名</th>
+        <th class="line_l">收入金额</th>
+        <th class="line_l">收益日期</th>
+        <th class="line_l">状态</th>
+        <th class="line_l">执行日期</th>
+        <th class="line_l">操作</th>
+      </tr>
+        <tr overstyle='on' id="list_{$vo.id}">
+          <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+          <td>1</td>
+          <td>RJ01122122</td>
+          <td>zhangfeng</td>
+          <td>10.62元</td>
+          <td>2014-11-24</td>
+          <td><font color="#37620e">成功</font></td>
+          <td>2014-11-25</td>
+          <td><a href="__URL__/edit?id={$vo['id']}">[编辑]</a>&nbsp; <if condition="$vo['invest_num'] eq 0"><a href="javascript:void(0);" onclick="del({$vo['id']});">[删除]{$invest_num}</a>&nbsp;</if> <a href="/admin/tborrow/doinvest?borrow_id={$vo.id}">[投资人记录]</a> </td>
+        </tr>
+
+    </table>
+  </div>
+  <div class="Toolbar_inbox" style="height:25px;">
+    <div class="page right">{$pagebar}</div>
+
+  </div>
+</div>
+<include file="default:Public:_footer" group="Admin" />

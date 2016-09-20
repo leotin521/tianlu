@@ -1,0 +1,325 @@
+<include file="default:Public:_header_common"/>
+            <style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style><style id="poshytip-css-tip-yellow" type="text/css">div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellow td.tip-right{background-position:100% 0;}div.tip-yellow td.tip-bottom{background-position:100% 100%;}div.tip-yellow td.tip-left{background-position:0 100%;}div.tip-yellow div.tip-inner{background-position:-10px -10px;}div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}</style></head>
+<body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+<div class="user-banner">
+<div class="user-abstract"></div>
+</div>
+<div class="user-main clearfix">
+      <include file="default:Public:_left"/>
+
+ <!--债权转让-认购记录页begin-->
+<div class="user-con">
+<div class="user-box-1 user-debt">
+<div class="user-box-title-1 clearfix">
+<h2>债权转让/认购记录</h2>
+</div>
+<script>
+    window.onload=function(){
+        check(1);
+    }
+</script>
+<div class="user-box-con-2">
+<dl id="tabs" class="classify-selected clearfix">
+	<dt>交易类型</dt>
+	<dd id="rotate">
+        <ul class="classify-selected-list clearfix">
+            <li><a  href="#" onClick="check(1)" class="selected" _conid ="my_page1" id="mx1" >可转让债权</a></li>
+            <li><a href="###"  onclick="check(2)" _conid="my_page2" class="" id="mx2">转让中债权</a></li>
+            <li><a href="###"  onclick="check(3)" _conid="my_page3" class="" id="mx3">已转让债权</a></li>
+            <li><a href="###"  onclick="check(4)" _conid="my_page4" class="" id="mx4">已认购债权</a></li>
+        </ul>
+	</dd>
+</dl>
+<div id="my_page1" style="display: block;">
+	<div id="pagerContainer1" class="rel"><center style="font-size: 14px;color: green;">数据加载中...</center></div>
+	<div id="pagination1" class="table-style-footer"></div>
+</div>
+<div id="my_page2" style="display: none;">
+	<div id="pagerContainer2" class="rel"><center style="font-size: 14px;color: green;">数据加载中...</center></div>
+	<div id="pagination2" class="table-style-footer"></div>
+</div>
+<div id="my_page3" style="display: none;">
+	<div id="pagerContainer3" class="rel"><center style="font-size: 14px;color: green;">数据加载中...</center></div>
+	<div id="pagination3" class="table-style-footer"></div>
+</div>
+<div id="my_page4" style="display: none;">
+	<div id="pagerContainer4" class="rel"><center style="font-size: 14px;color: green;">数据加载中...</center></div>
+	<div id="pagination4" class="table-style-footer"></div>
+</div>
+<div class="form-warm-prompt-1 clearfix" style="padding-top: 20px;clear:both;overflow: hidden;">
+    <span class="form-warm-prompt-title">温馨提示：</span>
+    <span class="form-warm-prompt-con">
+    1.&nbsp;&nbsp;发起债权转让将放弃当期利息之后的本期及以后各期利息，同时从成交之日起，此债权权责由受让人承担；<br>
+    2.&nbsp;&nbsp;转让人通过折让金设置转让价格，只可以打折，手续费为成交份额的{$debt_fee_rate}%；<br>
+    3.&nbsp;&nbsp;所有产品可多次转让；<br>
+    4.&nbsp;&nbsp;还款日前5天不可以转让债权；<br>
+    5.&nbsp;&nbsp;债权一次性转让，转让份额（剩余本金部分）/认购份额最低10元，按整数倍递增；<br>
+    6.&nbsp;&nbsp;转让有效期为提出申请起{$debt_duration}个自然日，有效期内被认购的部分即时成交，债权在未有人购买时可随时取消；<br>
+    7.&nbsp;&nbsp;逾期的借款标不可以转让；<br>
+    8.&nbsp;&nbsp;债权未完成转让的，超过转让期的，剩余债权归转让人所有；<br>
+    9.&nbsp;&nbsp;折让金定价区间：负的本债权转让份额未收的利息&lt;= 折让金&lt;=本债权转让份额已收到的利息；<br>
+    10.&nbsp;&nbsp;若不设置折让金，则系统默认上次付息日到申请日的利息归转让人所有；<br>
+    11.&nbsp;&nbsp;债权转让如果已经有承接人，则不能撤销转让；<br>
+    12.&nbsp;&nbsp;当期提前还款时，不能转让债权；使用体验金时，不能转让债权；<br>
+    13.&nbsp;&nbsp;债权转让过程中遇到问题，请联系客服，<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?>。
+    </span>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<!--债权转让-认购记录页end-->
+<include file="default:Public:_footer" group="Home"/>
+<script id="debtTmpl" type="text/x-dot-template">
+    <div class="ps1-close closeBtn">×</div>
+    <div class="ps1-con ps2-con cf{{? it.status===2}} debt_prompt_2{{?}}">
+        <div class="ps1-title">
+            <h2>转让债权</h2>
+        </div>
+        <div class="options-step mgt">
+            <div class="options-step-con clearfix">
+                <span{{? it.status<4}} class="options-step-current"{{?}}>
+                    设置转让金额
+                    <strong>1</strong>
+                </span>
+                <span{{? it.status>1}} class="options-step-current"{{?}}>
+                    设置折让金
+                    <strong>2</strong>
+                </span>
+                <span{{? it.status>2}} class="options-step-current"{{?}}>
+                    转让信息确认
+                    <strong>3</strong>
+                </span>
+            </div>
+        </div>
+        <div class="debt-prompt-con clearfix">
+        	<div class="debt-prompt-object-txt">
+            	<h3>转让项目</h3>
+                <ul>
+                	<li>{{=it.borrowInfo.name}}</li>
+                    <li>还款方式：{{=it.borrowInfo.style_cn}}</li>
+                    <li>年化收益：{{=it.borrowInfo.apr}}%</li>
+                    <li>已收收益：{{=it.repayment_yesinterest}}元</li>
+                    <li>未收收益：{{=it.wait_interest}}元</li>
+                    <li>投资日期：{{=it.invest_time}}</li>
+                    <li>到期日期：{{=it.repayment_time}}</li>
+                </ul>
+            </div>
+            {{? it.status===1}}
+            <div class="debt-prompt-form">
+            	<dl>
+                	<dt>设置转让金额</dt>
+                    <dd class="debt-prompt-form-con">
+                    	<input id="transferMoney" type="text" class="input-text-style-readonly" autocomplete="off" /><label>元</label>
+                        <span class="sliderBarH" id="sliderBarH1"></span>
+                    </dd>
+                    <dd class="debt-prompt-form-txt"><span>转让手续费 <strong class="feeCon">0</strong> 元</span><br/>转让手续费是您转让金额的千分之五</dd>
+                    <dd class="debt-prompt-form-btn clearfix rel">
+                        <p id="stepError1" class="form-style-1-error abs" style="top:-24px;left:0"></p>
+                    	<input id="next1" type="submit" class="btn-style-3 allbgcolor" value="下一步"/>
+                        <input type="reset" class="btn-style-4 closeBtn" style="width:82px;"  value="取消"/>
+                    </dd>
+                </dl>
+            </div>
+            {{?? it.status===2}}
+            <div class="debt-prompt-form">
+            	<dl>
+                	<dt>设置折让金</dt>
+                    <dd class="debt-prompt-form-con">
+                    	<input id="transferMoney2" type="text" class="input-text-style-1" autocomplete="off" /><label>元</label><p id="transferMoneyError2" class="form-style-1-error"></p>
+                        <span id="sliderBarH2" class="sliderBarH"></span>
+                    </dd>
+                    <dd class="debt-prompt-form-txt" style="margin-top:22px"><span>转让后年化收益 <strong class="green654">0.00%</strong></span><p>转让后收入：<span class="sellerVal">xxx</span>元<br/>转让后收入 = 转让金额 - 手续费 - 折让金</p></dd>
+                    <dd class="debt-prompt-form-txt" style="margin-top:20px;"><span>认购方年化收益 <strong class="gray333">0.00%</strong></span><p id="aprTip">您设置的折让金偏低，转让概率可能会小</p></dd>
+                    <dd class="debt-prompt-form-btn clearfix" style="margin-top:25px;>
+                        <p id="stepError2" class="form-style-1-error"></p>
+                    	<input id="next2" type="submit" class="btn-style-3 allbgcolor" value="下一步"/>
+                        <input type="reset" class="btn-style-4 closeBtn" style="width:82px;" value="取消"/>
+                    </dd>
+                </dl>
+            </div>
+            {{??}}
+            <div class="debt-prompt-form">
+            	<dl>
+                	<dt>转让信息确认</dt>
+                    <dd class="debt-prompt-form-txt">
+                    	<ul>
+                            <li><span class="debt-prompt-name">转让金额</span><span class="debt-prompt-value"><strong>{{=itz.numFormat(it.transferVal)}}</strong> 元</span></li>
+                            <li><span class="debt-prompt-name">手&nbsp; 续&nbsp;费</span><span class="debt-prompt-value"><strong>{{=it.feeVal}}</strong> 元</span></li>
+                            <li><span class="debt-prompt-name">折&nbsp; 让&nbsp;金</span><span class="debt-prompt-value"><strong>{{=it.discount}}</strong> 元</span></li>
+                            <li><span class="debt-prompt-name">转让后收入</span><span class="debt-prompt-value"><strong>{{=it.sellerVal}}</strong> 元</span></li>
+                            <li><span class="debt-prompt-name">预计收益</span><span class="debt-prompt-value"><strong>{{=it.expectedRate}}</strong></span></li>
+                        </ul>
+                    </dd>
+                    <dd class="debt-prompt-form-con rel" style="margin-top:10px; margin-bottom:0;">
+                    	<h3>支付密码</h3>
+                    	<input id="payPwd" type="password" class="input-text-style-1" style="width:120px;" autocomplete="off" />
+                        <span id="payError" class="form-style-1-error"></span>
+                    </dd>
+                    <dd class="debt-prompt-form-btn clearfix rel" style="margin-top:49px;">
+                        <p id="stepError3" class="form-style-1-error abs" style="top:-20px;left:0"></p>
+                    	<input id="next3" type="submit" class="btn-style-3 allbgcolor" value="确认提交"/>
+                        <input type="reset" class="btn-style-4 closeBtn" style="width:94px;" value="取消"/>
+                    </dd>
+                </dl>
+            </div>
+            {{?}}
+        </div>
+    </div>
+</script>
+<script id="cancelDebtTmpl" type="text/x-dot-template">
+    <div class="ps1-close closeBtn">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>取消债权</h2>
+        </div>
+        <div class="debt-prompt-con clearfix">
+        	<div class="debt-prompt-object-txt">
+            	<h3>转让项目</h3>
+                <ul>
+                	<li>{{=it.borrowInfo.name}}</li>
+					<li>还款方式：{{=it.style_cn}}</li>
+                    <li>年化收益：{{=it.borrowInfo.apr}}%</li>
+                    <li>已收收益：{{=it.repayment_yesinterest}}元</li>
+                    <li>未收收益：{{=it.wait_interest}}元</li>
+                    <li>投资日期：{{=it.invest_time}}</li>
+                    <li>到期日期：{{=it.repayment_time}}</li>
+                </ul>
+            </div>
+            <div class="debt-prompt-form">
+            	<dl>
+                	<dt>转让信息确认</dt>
+                    <dd class="debt-prompt-form-txt">
+                    	<ul>
+                            <li><span class="debt-prompt-name">转让金额</span><span class="debt-prompt-value"><strong>{{=itz.numFormat(it.money)}}</strong> 元</span></li>
+                            <li><span class="debt-prompt-name">手&nbsp; 续&nbsp;费</span><span class="debt-prompt-value"><strong>{{=it.feeVal}}</strong> 元</span></li>
+                            <li><span class="debt-prompt-name">折&nbsp; 让&nbsp;金</span><span class="debt-prompt-value"><strong>{{=it.discount}}</strong> 元</span></li>
+                            <li><span class="debt-prompt-name">转让后收入</span><span class="debt-prompt-value"><strong>{{=it.sellerVal}}</strong> 元</span></li>
+                            <li><span class="debt-prompt-name">预计收益</span><span class="debt-prompt-value"><strong>{{=it.expectedRate}}%</strong></span></li>
+                            <li><span class="debt-prompt-name">转让进度</span><span class="debt-prompt-value"><strong>{{=(it.sold_money*100/it.money).toFixed(2)}}%</strong></span></li>
+                        </ul>
+                    </dd>
+                    <dd class="debt-prompt-form-con" style="margin-top:10px;">
+                    	<h3>支付密码</h3>
+                    	<input id="payPwdCancel" type="password" class="input-text-style-1" style="width:120px;" autocomplete="off" />
+                        <p id="payErrorCancel" class="form-style-1-error"></p>
+                    </dd>
+                    <dd class="debt-prompt-form-btn clearfix" style="margin-top:0;">
+                        <p id="errorCancel" class="form-style-1-error"></p>
+                    	<input id="cancelBtn" type="submit" class="btn-style-3 allbgcolor" value="确认提交"/>
+                        <input type="reset" class="btn-style-4 closeBtn" value="取消"/>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="promptTmpl" type="text/x-dot-template">
+    <div class="ps1-close closeBtn">×</div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2>
+        </div>
+        <div class="state-prompt-txt-{{?it[3]}}duigou{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2>
+                {{=it[2]}}
+                您可以<a href="__ROOT__/member/" class="state-a-line">[返回我的账户]</a>
+            </div>
+        </div>
+    </div>
+</script>
+<script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/debt.js"></script>
+
+<script>
+$(function(){
+    var url1 = "<?php echo $_SERVER['SERVER_NAME'];?>" + "__URL__/change/";
+    var debtData={
+        pager1:{pageInfo:{"pn":1,"rn":10}},
+        pager2:{pageInfo:{"pn":1,"rn":10}},
+        pager3:{pageInfo:{"pn":1,"rn":10}},
+        pager4:{pageInfo:{"pn":1,"rn":10}},
+        ajaxHostUrl1:url1,//可转让债权的ajax url
+        //ajaxHostUrl2:'###',//转让中债权的ajax url
+        //ajaxHostUrl3:'###',//已转让债权分页ajax的url
+        //ajaxHostUrl4:'###',//已认购债权分页ajax的url
+        loadImgPath:'javascript:void(0)',//loading图片地址
+        //tipAjaxUrl:'###',//tips的ajax请求地址
+        //debtReqAjax:'###',//转让债权前，请求的必要数据
+        //baseUrl:'###',
+        //collectionUrl:'###',
+        //tip4AjaxUrl:'###'
+    };
+
+    itz.debt.init(debtData);
+});
+</script>
+
+<script>
+    function check (m) {
+        var me=parseInt(m);
+//        $('#mx' + me).parent().addClass('ui-tabs-selected').siblings().removeClass('ui-tabs-selected');
+        switch (me)
+        {
+            case 1:
+                $.ajax({
+                    url:"__URL__/change",   //可转债权
+                    success: function (data) {
+                        $("#pagerContainer1").html(data);
+                    }
+                });
+                break;
+            case 2:
+                $.ajax({
+                    url:"__URL__/onbonds",   //进行中债权
+                    dataType: "json",
+                    success: function (data) {
+                        $("#pagerContainer2").html(data.html);
+                    }
+                });
+                break;
+            case 3:
+                $.ajax({
+                    url:"__URL__/successclaims", //已转让债权
+                    dataType: "json",
+                    success: function (data) {
+                        $("#pagerContainer3").html(data.html);
+                    }
+                });
+                break;
+            case 4:
+                $.ajax({
+                    url:"__URL__/buydebt", //已认购债权
+                    dataType: "json",
+                    success: function (data) {
+                        $("#pagerContainer4").html(data.html);
+                    }
+                });
+                break;
+            case 5:
+                $.ajax({
+                    url:"",    //回收中债权
+                    success: function (data) {
+                        $("#content").html(data.html);
+                    }
+                });
+                break;
+            case 6:
+                $.ajax({
+                    url:"",    //已撤销债权
+                    success: function (data) {
+                        $("#content").html(data.html);
+                    }
+                });
+                break;
+        }
+    }
+</script>
+
+</body></html>

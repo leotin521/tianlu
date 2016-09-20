@@ -1,0 +1,129 @@
+<include file="Public:js_ueditor" />
+<include file="Public:_header" />
+<style type="text/css">
+.quxiantu { margin-top:30px; }
+.qleft { float:left; width:50%; text-align:left; }
+.qright { float:right; width:50%; text-align:right; }
+.ssx a { height:30px; line-height:30px }
+.lf { float:left; width:48%; border:1px solid #c7d8ea; margin: 10px; }
+.lf h6 { border-bottom: 1px solid #c7d8ea; color: #3a6ea5; height: 26px; line-height: 28px; padding: 0 10px; font-size: 13px; }
+.lf .content { padding: 9px 10px; line-height: 22px; }
+.lf .content a { color:red; font-weight:bold; }
+</style>
+<tagLib name="htmlA" />
+<div class="so_main">
+  <div class="page_tit"> 百度云消息推送</div>
+  <!--列表模块-->
+  <div class="lf" style="float:none">
+    <h6>信息推送</h6>
+    <div class="form2">
+      <div id="tab_1">
+        <dl class="lineD">
+          <dt>标题：</dt>
+          <dd>
+            <htmlA:input id="title"  tip="*"/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>消息内容：</dt>
+          <dd>
+            <htmlA:text id="description"  tip="*"/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>公告ID：</dt>
+          <dd>
+            <htmlA:input id="noticeid"  tip="*"/>
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>发送选择：</dt>
+          <dd>
+           <!-- <htmlA:input id="noticetitle"  tip="*"/>--->
+			  <input type="checkbox" name="msgmobile"  value="1">安卓&nbsp;&nbsp;<input type="checkbox" name="msgmobile" value="2" >ios&nbsp;&nbsp;<input type="radio" value="2" name="mobilemodle">生产模式 &nbsp;&nbsp;
+			  <input type="radio" name="mobilemodle" value="1"  checked="checked" >开发模式
+          </dd>
+        </dl>
+        
+      </div>
+    </div>
+    <div class="content" style="padding-left:200px;">
+      <input type="submit" class="btn_b" value="确定"  onclick="push();" />
+    </div>
+  </div>
+  <div style="margin-left:10px;">返回信息：<span id="flag"></span></div>
+  <!------------------------------------------->
+  <div id="out" style="width: 670px; height: 200px; margin: 0 auto; float:left; margin-left:10px; border:1px solid #ccc;"></div>
+  <!------------------------------------------->
+</div>
+<script type="text/javascript">
+function push() {
+	 
+	var title = $('#title').val();
+	var description = $('#description').val();
+	var noticeid = $('#noticeid').val();
+	var noticetitle = $('#noticetitle').val();
+    var mobilemodle=$('input[name="mobilemodle"]:checked').val();
+    var str="";
+	$('input[name="msgmobile"]:checked').each(function(){ 
+    str+=$(this).val()+','; 
+  }); 
+
+    if($.trim(str)==''){
+	  $.jBox.tip('发送对象不能为空');
+	  return ;
+	
+	}
+ 
+	
+	if ($.trim(title) == '') {
+		$.jBox.tip("请输入标题");
+		return;
+	}
+     
+	
+	if ($.trim(description) == '') {
+		$.jBox.tip("请输入消息内容");
+		return;
+	}
+
+	
+
+	if ($.trim(noticeid) == '') {
+		$.jBox.tip("请输入公告id");
+		return;
+	}
+     /**
+	if ($.trim(noticetitle) == '') {
+		$.jBox.tip("请输入公告标题");
+		return;
+	}
+	**/
+   
+   
+
+	$.ajax({
+		url: "__URL__/push_androidoriso/",
+		type: "post",
+		dataType: "json",
+		data: {"title":title,"description":description,"noticeid":noticeid,"noticetitle":noticetitle,"mobilemodle":mobilemodle,"msgmobile":str},
+		success: function(result) {
+			 // alert(result.message);
+			if (result.status == "0") {
+				$('#out').html(result.message);
+				$('#flag').html("发送失败");
+                
+			}
+			else {
+				$('#out').html(result.message);
+				$('#flag').html("发送成功");
+                
+			}
+		},
+		complete:function(XMLHttpRequest, textStatus){
+				
+		}
+	});
+}
+</script>
+<include file="Public:_footer" />

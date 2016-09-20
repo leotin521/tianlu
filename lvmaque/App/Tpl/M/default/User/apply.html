@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>额度申请</title>
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/email.css" rel="stylesheet" />
+        <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+        <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+        <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+	</head>
+	<body>
+<header>
+        <h1>申请额度</h1>
+		<a href="javascript:window.history.go(-1);" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+	
+<div style="height:2rem"></div>
+<form class="am-form am-form-horizontal">
+		<div class="am-form-group">
+			<label for="" class="am-u-sm-3 am-form-label am-text-left">申请金额</label>
+			<div class="am-u-sm-9">
+				<input type="text" name="re_money" id="re_money" onblur="NumberCheck(this)" required="required"  placeholder="请输入申请金额" autofocus="autofocus"  />
+			</div>
+		</div>
+		<div class="am-form-group">
+			<label for="" class="am-u-sm-3 am-form-label am-text-left">申请说明</label>
+				<div class="am-u-sm-9">
+					<input type="text" name="content_text" id="content_text" placeholder="请填写借款简介">
+				</div>
+			</div>
+			<div class="approve_rz_03 clearfix">
+			<!-- <input type="button" value="提交审核" onclick="sub();" class="com_bgcolor" /> -->
+			<a href="javascript:;" class="am-btn am-radius am-btn-block am-btn-danger num num-sm" onclick="sub();" >提交审核</a>
+		</div>	
+</form>
+	<!-- email_content end -->
+
+    <script type="text/javascript">
+        function NumberCheck(t){ //匹配数字
+            var num = t.value;
+            var re=/^\d*$/;
+            if(!re.test(num)){
+                isNaN(parseInt(num))?t.value=0:t.value=parseInt(num);
+            }
+        }
+
+       function sub(){
+            var money = $("#re_money").val();
+            var info = $("#content_text").val();
+
+                if(money == '' || money == 0) {
+                    $().toastmessage('showErrorToast', '申请金额不能为空~');
+                    return false;
+                }
+
+               if(info == '') {
+                   $().toastmessage('showErrorToast', '借款简介不能为空~');
+                   return false;
+               }
+
+                $.ajax({
+                    cache: false,
+                    url: "__URL__/apply_add",
+                    type:"post",
+                    async: false,
+                    datatype:"json",
+                    timeout: 2000,
+                    data:{"apply_money":money,"apply_info":info},
+                    success:function(d){
+                        var data = eval('('+d+')');
+                        //alert(data.status);
+                        if(data.status == 1){
+                            $().toastmessage('showSuccessToast',data.message);
+                        }else if(data.status == 0){
+                            $().toastmessage('showErrorToast',data.message);
+                            return false;
+                        }
+                    }
+                })
+            }
+    </script>
+	</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="format-detection" content="email=no" />
+		<title>项目介绍</title>
+		
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+		<link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+		<script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+		<script src="__ROOT__/Style/H/js/jquery.swipebox.js"></script>
+	</head>
+	<body class="bg-white">
+	    <header>
+        <h1>项目介绍</h1>
+			<a href="javascript:window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+		</header>
+		<div class="am-container">
+			<div class="am-margin-top">
+				<h3 style="border-bottom:1px #ccc solid">项目详情</h3>
+				<p>{$list['borrow_breif']}</p>
+			</div>
+
+			<div class="am-margin-top">
+				<h3 style="border-bottom:1px #ccc solid">借款人信息</h3>
+				<p>{$list['borrow_capital']}</p>
+			</div>
+			
+			<div class="am-margin-top">
+				<h3 style="border-bottom:1px #ccc solid">资金用途</h3>
+				<p>{$list['borrow_use']}</p>
+			</div>
+			
+			<div class="am-margin-top">
+				<h3 style="border-bottom:1px #ccc solid">风险控制</h3>
+				<p>{$list['borrow_risk']}</p>
+			</div>
+			
+			<php>if($list['updata']!=''){</php>
+			<div class="am-margin-top ">
+				<h3 style="border-bottom:1px #ccc solid;">认证图片</h3>
+				<p></p>
+			</div>
+			
+			<section id="exemple" class="am-margin-top">
+				<div class="wrap small-width">
+					<div id="try"></div>
+					<ul id="box-container" style="padding:0">
+						<php>$i=0;foreach(unserialize($list['borrow_img']) as $v){ $i++;</php>
+						<li class="box">
+							<a href="__ROOT__/<php>echo $v['img'];</php>"  class="swipebox"  title="<php>echo $v['info'];</php>">
+								<img  alt="<php>echo $v['info'];</php>" src="__ROOT__/<php>echo get_thumb_pic($v['img']);</php>">
+							</a>
+						</li>
+						<php>}</php>
+					</ul>
+				</div>
+			</section>
+			<php>}</php>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$( '.swipebox' ).swipebox();
+					$( '.swipebox-video' ).swipebox();
+					$( '#gallery' ).click( function( e ) {
+						e.preventDefault();
+						$.swipebox( [
+							{ href : 'http://swipebox.csag.co/mages/image-1.jpg', title : 'My Caption' },
+							{ href : 'http://swipebox.csag.co/images/image-2.jpg', title : 'My Second Caption' }
+						] );
+					} );
+
+				});
+			</script>
+		</div>
+	</body>
+</html>

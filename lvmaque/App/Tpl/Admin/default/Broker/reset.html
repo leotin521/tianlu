@@ -1,0 +1,68 @@
+
+<link href="__ROOT__/Style/A/css/style.css" rel="stylesheet" type="text/css">
+<link href="__ROOT__/Style/A/js/tbox/box.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__ROOT__/Style/Common/js/jquery.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/A/js/common.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/A/js/tbox/box.js"></script>
+<form method="post" action="__URL__/resetact" onsubmit="return check();" enctype="multipart/form-data" >
+<div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th style="width:30px;">
+        
+    </th>
+    <th class="line_l">ID</th>
+    <th class="line_l">团队长账号</th>
+    <th class="line_l">真实姓名</th>
+    
+    <th class="line_l">是否禁用</th>
+    <th class="line_l">身份证号</th>
+    <th class="line_l">qq</th>
+    <th class="line_l">电话</th>
+    <th class="line_l" style="display:none">是不是客服</th>
+	<th class="line_l">添加时间</th>
+    </tr>
+  	<php>$_REQUEST['p'] = isset($_REQUEST['p'])?$_REQUEST['p']:0; $cpage = (intval($_REQUEST['p'])<=1)?0:intval($_REQUEST['p']); $j=($cpage*C('ADMIN_PAGE_SIZE') + 1);</php>
+  <volist id="vo" name="admin_list">
+      <tr overstyle='on' id="list_{$vo.id}">
+        <td><input type="radio" name="setradio" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+        <td>{$vo.id}<!--<php>echo $j;</php>--></td>
+        <td><span id="name_{$vo['id']}">{$vo.user_name}</span></td>
+        <td><span id="real_name_{$vo['id']}">{$vo.real_name}</span></td>
+		
+		<td><if condition="$vo.is_ban eq 1"><font color="#FF0000" id="is_ban_{$vo['id']}">禁用</font><else/><font color="#009900" id="is_ban_{$vo['id']}">正常</font></if></td>
+ 		<td><span id="card_{$vo['id']}">{$vo.card}</span></td>
+ 		<td><span id="qq_{$vo['id']}">{$vo.qq}</span></td>
+ 		<td><span id="phone_{$vo['id']}">{$vo.phone}</span></td>
+		<td style="display:none"><if condition="$vo.is_kf eq 1"><font color="#FF0000" id="is_kf_{$vo['id']}">是</font><else/><font color="#009900" id="is_kf_{$vo['id']}">否</font></if></td>
+		<td>{$vo.add_time|date="Y-m-d H:i:s",###}<span id="word_{$vo['id']}" style=" display:none;">{$vo.user_word}</span><div style=" display:none;"><span id="photo_{$vo['id']}"><img src="__ROOT__/{$vo.photo}" width="100" height="100" /></span><span id="sex_{$vo['id']}">{$vo.sex}</span><span id="email_{$vo['id']}">{$vo.email}</span><span id="province_{$vo['id']}">{$vo.province}</span><span id="city_{$vo['id']}">{$vo.city}</span><span id="area_{$vo['id']}">{$vo.area}</span><span id="address_{$vo['id']}">{$vo.address}</span><span id="content_{$vo['id']}">{$vo.content}</span></div></td>
+        
+      </tr>
+	<php>$j++;</php>
+  </volist>
+  </table>
+
+  </div>
+  <div class="Toolbar_inbox" style="width:700px; height:18px; text-align:right">
+  	<div class="page right">{$pagebar}</div>
+	
+  </div>
+  <input type="hidden" value="{$jingjirenid}"  name="jingjirenid" />
+  <input type="submit" value="提交"  id="btnSubmit"  />
+  </form>
+  <script type="text/javascript" language="javascript">
+ /*------判断radio是否有选中，获取选中的值--------*/
+	function check(){
+		 
+		 	
+			var list= $('input:radio[name="setradio"]:checked').val();
+			if(list==null){
+				alert("重置失败，数据错误!");
+				return false;
+			}
+			else{
+				return true;
+			}			
+		
+	 };
+</script>

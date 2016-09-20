@@ -1,0 +1,600 @@
+<include file="default:Public:_header_common"/>
+<style type="text/css">
+.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}
+.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}
+.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}
+.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}
+.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style><style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}
+.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}
+.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}
+.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}
+.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}
+</style><style id="poshytip-css-tip-yellow" type="text/css">
+div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}
+div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}
+div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellow td.tip-right{background-position:100% 0;}
+div.tip-yellow td.tip-bottom{background-position:100% 100%;}div.tip-yellow td.tip-left{background-position:0 100%;}div.tip-yellow div.tip-inner{background-position:-10px -10px;}
+div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}
+/*top结束*/
+.d_wrap{width: 100%; height: 80px; border-bottom: 1px solid #d5d5d5;}
+.d_wrapM{width: 1000px; height: 80px; line-height: 80px;margin: auto;}
+.d_wrapM a.d-logo{ float: left; display: block; position: relative; top: 19px;}
+.d_wrapM ul{float: right;}
+</style>
+
+</head>
+<body>
+<script src="__ROOT__/Style/M/js/guide.js"></script>
+<link href="__ROOT__/Style/M/css/lanrenzhijia.css"  rel="stylesheet"/>
+<div id="guide-step" style="height:0;">
+    <!--<div style="margin-top:270px;height:10px;line-height:99em;overflow:hidden;" id="stepflow03">第二步骤</div>-->
+    <!--<div style="margin-top:530px;height:10px;line-height:99em;overflow:hidden;" id="stepflow04">第三步骤</div>-->
+    <!--<div class="tipSwitch"></div>-->
+</div>
+<script type="text/javascript">
+    var tipVisible = GetCookie("tipVisible");
+    var neverShow = GetCookie("neverShow");
+	var guide = "<?php echo session('new_guide'); ?>";
+    if(tipVisible != "no" && neverShow != "no" && parseInt(guide)==1){
+        showSearchTip();
+        setSearchTip();
+    }
+</script>
+<include file="default:Public:_header_main" />
+<div class="user-page">
+    <div class="user-main clearfix">
+		<include file="default:Public:_left"/>
+
+        <div class="user-con">
+            <!-----------  消息通知隐藏，如需需要打开注释即可 -------------->
+			<!--<ul class="user-inform" id="User_inform">
+				<li class="user-inform-message">
+					<span class="user-inform-con">{$unread_msg}</span>
+					<span data="__URL__/tipMsg" onclick="updateSpan($(this),'#tip_msg');" class="user-inform-know" style="cursor:pointer;">我知道了</span>
+				</li>
+			</ul>-->
+            <div class="user-box user-account-info">
+                <div class="user-box-con clearfix">
+                    <dl class="user-account-balance">
+	<dt><span class="fs-m" style="text-indent:41px;">可用余额</span><span class="pro_tips-1" _title="投资人可自由支配的金额"></span></dt>
+                        <dd><span class="fmt_money">{$minfo['account_money'] + $minfo['back_money']}</span>
+                            <a href="__ROOT__/member/charge/" class="btn-style-5 allbgcolor">充值</a>
+                            <a href="__ROOT__/member/withdraw/" class="btn-style-5 allbgcolor">提现</a>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><span class="fs-m">资产总计</span><span class="pro_tips-1" _title="可用余额 + 冻结资金 + 待收本金 + 待收利息 "></span></dt>
+                        <dd><span class="fmt_money">{$minfo['account_money'] + $minfo['back_money'] + $minfo['money_freeze'] + $minfo['money_collect'] + $agility_money}</span>
+                        </dd>
+                    </dl>
+                    <dl class="user-current-month-earnings">
+                        <dt><span class="fs-m">累计收益</span><span class="pro_tips-1" _title="累计已获得的投资收益"></span></dt>
+                        <dd>
+                            <span class="y fmt_money">{$minfo['income'] + $agility_interest}</span>
+                        </dd>
+                    </dl>
+                    <dl style="border-right:none;">
+                        <dt style="_width:170px; _overflow: hidden;"><span class="fs-m">待收收益</span><span class="pro_tips-1" _title="未到期项目待支付的收益总和"></span></dt>
+                        <dd>
+                            <span class="fmt_money">{$wait}</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="user-box-2">
+                <div class="user-box-title-1 clearfix">
+                	<h2>还款走势</h2>
+                   
+                </div>
+                <div id="conLine" class="user-box-con-2">
+                    <div class="classify-selected-1-a " style="float:none; width:764px;">
+                        <dl class="classify-selected-1 clearfix rel" id="tabs">
+                            <dt><strong class="dark">还款类型</strong></dt>
+                            <dd>
+                                <div class="classify-selected-1-click">
+                                <a href="###" _conid="conLine1" _type="3">全部</a>
+                                <a href="###" _conid="conLine2" _type="1">收益</a>
+                                <a href="###" _conid="conLine2" _type="2" class="selected">本金</a>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div id="container" style="min-width: 310px; height: 240px; margin: 0 auto"></div>
+				</div>
+                <div class="user-box-title-1 clearfix">
+                    <h2>还款计划</h2>
+                    <div class="user-box-title-more">
+                        <a href="__ROOT__/member/tendout//">
+                            <strong>查看更多还款计划</strong>
+                        </a>
+                    </div>
+                </div>
+                <div id="conTrade_1" class="user-box-con-2 user-transact" style="_height:281px">
+                    <table class="table-style-2" style="*height:281px;">
+                        <tbody id="userTransactHtml_1"> 
+						</tbody>
+                    </table>
+                </div>
+                <div class="user-box-title-1 clearfix">
+                	<h2>交易记录</h2>
+                    <div class="user-box-title-more">
+                    	<a href="__ROOT__/member/tendout/trade/">
+                            <strong>查看更多交易记录</strong>
+                        </a>
+                    </div>
+                </div>
+                <div id="conTrade" class="user-box-con-2 user-transact" style="_height:281px">
+                    <div class="classify-selected-1-a" style="width:764px;">
+                        <dl class="classify-selected-1 clearfix">
+                            <dt><strong class="dark">交易类型</strong></dt>
+                            <dd>
+                                <div class="classify-selected-1-click">
+                                    <a href="###" data-id="" class="selected" onClick="onTabClick($(this));">全部</a>
+                                    <a href="###1" data-id="1" onClick="onTabClick($(this));">充值</a>
+                                    <a href="###2" data-id="2" onClick="onTabClick($(this));">提现</a>
+                                    <a href="###3" data-id="3" onClick="onTabClick($(this));">投资</a>
+                                    <a href="###4" data-id="4" onClick="onTabClick($(this));">收益</a>
+                                    <a href="###5" data-id="5" onClick="onTabClick($(this));">回收本金</a>
+                                <div class="classify-selected-1-click">
+                            </div></div></dd>
+                        </dl>
+                    </div>
+					<div id="flash_table"></div>
+                    <table class="table-style-2">
+                    	<tbody id="userTransactHtml">
+						</tbody>
+               		</table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script id="userTransactl" type="text/x-dot-template">
+	  <tr class="">
+		<th width="132">时间</th>
+        <th width="150">交易类型</th>
+        <th width="210" style="text-indent:23px;">交易详情</th>
+        <th width="80" style="text-align:right">金额</th>
+        <th width="136" style="text-align:right; padding-right:18px;">余额</th>
+	  </tr>
+      {{? it == 0}}
+		<tr>
+			<td colspan="5" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >登录状态已过期，请您重新 <a href="/member/common/login/" style="color:#3181d8">登录</a></td>
+		</tr>
+	  {{?? it[0] == ""}}
+		<tr>
+			<td colspan="5" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >{{=it[1]}}</td>
+		</tr>
+	  {{??}}
+		  {{~it :value:index}}
+		  <tr>
+			<td class="user-deal-record-time">{{=String((new Date(Number(value.addtime)*1000)).Format("yyyy-MM-dd"))}}<br/><span>{{=String((new Date(Number(value.addtime)*1000)).Format("hh:mm:ss"))}}</span></td>
+			<td>{{=value.type_cn}}</td>
+			<td><span class="icon-xiala detail_info" _transid={{=value.mlgid}} _type={{=value.type}} _cid={{=value.target_uid}}></span><span title="{{=value.detail_cn}}">{{=( value.detail_cn && value.detail_cn.length>12?value.detail_cn.slice(0,12)+'...': value.detail_cn?value.detail_cn:"")}}</span></td>
+			<td class="user-deal-record-money">{{? value.direction == 1}}<strong>{{=value.money}}</strong>{{?? value.direction == 2}}-{{=value.money}}{{?}}</td>
+			<td style="text-align:right; padding-right:18px;">{{=value.use_money}}</td>
+		  </tr>
+		  {{~}}
+	  {{?}}
+      {{? it[0] != 0}}
+	  <tr>
+		<td colspan="5" style="text-align:right; padding-right:18px; color:#999; border:none; height:15px; line-height:15px; padding-top:20px;">首页展示最近 {{=index+1}} 条交易记录</td>
+      </tr>
+      {{?}}
+</script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/H/js/globalfunc.js"></script>
+<script id="userTransactl_1" type="text/x-dot-template">
+      <tr class="">
+        <th width="196" class="tal pdl-20" >项目名称</th>
+        <th width="70" class="tac" style="padding-left:0px">类型</th>
+        <th width="97" class="tar" style="padding-right:18px; padding-left:0px;" >还款金额</th>
+        <th width="117" class="tac">预计还款时间</th>
+        <th width="117" class="tac">实际还款时间</th>
+        <th width="90" class="tac">支付状态</th>
+      </tr>
+      {{? it == 0}}
+        <tr>
+            <td colspan="6" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >登录状态已过期，请您重新 <a href="/member/common/login/" style="color:#3181d8">登录</a></td>
+        </tr>
+      {{?? it[0] == ""}}
+        <tr>
+            <td colspan="6" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >{{=it[1]}}</td>
+        </tr>
+      {{??}}
+          {{~it :value:index}}
+            <tr>
+                <td class="tal pdl-20">
+                    <span><a target="_blank" href="{{=value.borrow_url}}">{{=(value.name.length > 20 ? value.name.substring(0,20)+"..." : value.name )}}</a></span>
+                </td>
+                <td class="tac" style="padding-left:0px">{{=value.type}}</td>
+                <td class="tar ffa" style="padding-right:18px; padding-left:0px;">{{=value.expectedMoney}}元</td>
+                <td class="tac">{{=String((new Date(Number(value.expectedTime)*1000)).Format("yyyy-MM-dd"))}}</td>
+                <td class="tac ffa">{{=(value.actualTime > 0) ? String((new Date(Number(value.actualTime)*1000)).Format("yyyy-MM-dd")) : "-"}}</td>
+                <td class="tac {{=(value.actualTime > 0) ? 'color-fbf' : ''}}">{{=(value.actualTime > 0) ? "已" : "未"}}支付</td>
+            </tr>
+          {{~}}
+      {{?}}
+      {{? it[0] != 0}}
+      <tr>
+        <td colspan="6" style="text-align:right; padding-right:18px; color:#999; border:none; height:15px; line-height:15px; padding-top:20px;">首页展示最近 {{=index+1}} 条还款记录</td>
+      </tr>
+      {{?}}
+</script>
+<script id="detailInfo" type="text/x-dot-template">
+	<div>交易序号：{{=it.transid}}</div><div>交易类型：{{=it.type}}</div><div>交易对方：{{=it.name}}</div>
+</script>
+<script>
+Highcharts.setOptions({
+	global: {
+	useUTC: true //开启UTC
+	}
+});
+</script>
+<script>
+$(function(){
+    //highcharts插件
+    var zz = zz || {};
+	zz.userIndex = {},
+		zz.userIndex.init = function (indexData) {
+
+			this.creatChart(indexData, 3)
+			this.bindEvents(indexData)
+		},
+		zz.userIndex.bindEvents = function (userIndexData) {
+			this.lineChartMonthSwitch(userIndexData)
+		},
+		zz.userIndex.lineChartMonthSwitch = function (userIndexData) {
+
+			var that = this,
+				$container = $("#container");
+			$("#conLine .classify-selected-1-click a").click(function () {
+				var $this = $(this);
+				if ($this.hasClass("selected")) return !1;
+				$("#conLine .classify-selected-1-click a").removeClass("selected"),
+					$this.addClass("selected");
+				var type = parseInt($this.attr("_type"));
+				$.ajax({
+					url: userIndexData.lineUrl,
+					type: "GET",
+					dataType: "json",
+					data: {
+						type: type
+					},
+					beforeSend: function () {
+						$container.html('<img src="' + userIndexData.loadImgPath + '" style="margin:120px 45%"/>')
+					},
+					success: function (data) {
+						if (0 === data.code) {
+							var d = data.data;
+							that.creatChart(d, type)
+						} else $container.html('<span style="display: inline-block; width: 199px; margin: 100px 35%;">网络出错啦，请重试</span>')
+					},
+					error: function () {
+					},
+					complete: function () {
+					}
+				})
+			})
+		},
+		zz.userIndex.creatChart = function (userIndexData, type) {
+			var iIsnull = function (data) {
+				return data && data.length > 0 ? !1 : !0
+			};
+			if (iIsnull(userIndexData.line1) && iIsnull(userIndexData.line2)) {
+				$("#container").addClass("user-jilu0");
+				return $("#container img").remove(); //`mxl 20150310`hide
+			}
+			void 0;
+			var line1Option = {
+				credits: {
+					enabled: !1
+				},
+				chart: {
+					renderTo: "container"
+				},
+				title: {
+					text: ""
+				},
+				xAxis: {
+					type: "datetime",
+					minRange: 2592e6,
+					minTickInterval: 2592e6,
+					labels: {
+						style: {
+							color: "#bfbfbf"
+						},
+						formatter: function () {
+							return Highcharts.dateFormat("%y年%w月", this.value)
+						},
+						x: -5,
+						y: 20
+					}
+				},
+				yAxis: {
+					title: {
+						text: ""
+					},
+					labels: {
+						style: {
+							color: "#bfbfbf"
+						},
+						formatter: function () {
+							return Highcharts.numberFormat(this.value, 0, ".") + "元"
+						},
+						y: -2
+					},
+					gridLineWidth: 0,
+					lineWidth: 1,
+					tickWidth: 1,
+					min: 0
+				},
+				tooltip: {
+					formatter: function () {
+						return Highcharts.dateFormat("%y年%w月", this.x) + "<br/>" + this.series.name + '<span style="color:#fe6e00">' + Highcharts.numberFormat(this.y, 2, ".") + "</span>元"
+					}
+				},
+				legend: {
+					enabled: !0,
+					layout: "horizontal",
+					align: "center",
+					verticalAlign: "top",
+					x: 270,
+					y: -3,
+					borderWidth: 0,
+					symbolWidth: 30,
+					itemStyle: {
+						cursor: "default"
+					}
+				},
+				plotOptions: {
+					line: {
+						point: {
+							events: {
+								click: function () {
+									!this.y > 0 || (location.href = "/member/borrowin?year=" + new Date(this.x).getFullYear() + "&month=" + (new Date(this.x).getMonth() + 1))
+								}
+							}
+						},
+						events: {
+							legendItemClick: function () {
+								return !1
+							}
+						}
+					},
+					series: {
+						lineWidth: 2
+					}
+				},
+				series: userIndexData.series //`mxl 20150310`
+			};
+			Highcharts.dateFormats = {
+				w: function (timestamp) {
+					var date = new Date(timestamp),
+						month = date.getMonth() + 1;
+					return month;
+				}
+			},
+				new Highcharts.Chart(line1Option)
+		},
+
+		zz.timer = {},
+		zz.timer.init = function () {
+			$.datepicker.setDefaults({changeMonth: true, showButtonPanel: true});
+			$(".pairtimer").each(function () {
+				var ostart = $(this).find(".startone"),
+					oend = $(this).find(".endone");
+				ostart.datepicker({
+					onClose: function (n) {
+						oend.datepicker("option", "minDate", n);
+						if (isBlank(n)) {
+							ostart.trigger("change");
+							return;
+						}
+					}
+				});
+				oend.datepicker({
+					onClose: function (n) {
+						ostart.datepicker("option", "maxDate", n);
+						if (isBlank(n)) {
+							oend.trigger("change");
+							return;
+						}
+					}
+				});
+			});
+		},
+		zz.userAction = {},
+		zz.userAction.init = function (userData) {
+
+			userData.data = (isBlank(userData.data) === true) ? {} : userData.data;
+			userData.txt_plus = (isBlank(userData.txt_plus) === true) ? "'记录'" : userData.txt_plus;
+			userData.txt_prev = (isBlank(userData.txt_prev) === true) ? "暂时无" : userData.txt_prev;
+			userData.txt_default = (isBlank(userData.txt_default) === true) ? "任何记录" : userData.txt_default;
+			userData.transfer_type = (isBlank(userData.transfer_type) === true) ? "GET" : userData.transfer_type;
+			userData.loading_gif_id = (isBlank(userData.loading_gif_id) === true) ? "#lodingGif_1" : userData.loading_gif_id;
+			var ajaxFun, transactionData = {},
+				pageFn = doT.template(document.getElementById(userData.temp_id).text, void 0),
+				transactionAjax = function (txt) {
+					//`mxl 20150317`
+					var i, val, n = 0, params = "";
+					for (i in userData.attr) {
+						val = $(userData.tabs[userData.attr[i].tab].obj).filter("." + userData.tabs[userData.attr[i].tab].cur).attr(userData.attr[i].key);
+						if (typeof(val) !== "undefined" && isBlank(val) === false) {
+							params += i + "=" + val + "&";
+						}
+					}
+					for (i in userData.timer) {
+						val = calTime($(userData.timer[i]).find(".startone").val(), $(userData.timer[i]).find(".endone").val());
+						if (val !== false) {
+							params += i + "=" + val + "&";
+						}
+					}
+					for (i in userData.select) {
+						val = $(userData.select[i]).val();
+						if (typeof(val) !== "undefined" && isBlank(val) === false) {
+							params += i + "=" + val + "&";
+						}
+					}
+					for (i in userData.sort) {
+						val = $(userData.sort[i]).attr("_sort");
+						if (typeof(val) !== "undefined" && isBlank(val) === false) {
+							params += "sort=" + i + "," + val + "&";
+						}
+					}
+					for (i in userData.param) {
+						params += i + "=" + userData.param[i] + "&";
+					}
+					//`mxl 20150317`
+					ajaxFun = $.ajax({
+						url: userData.url, //必填
+						type: userData.transfer_type,
+						dataType: "json",
+						data: params,
+						success: function (data) {
+							var dataValue;
+							0 == data.code ? (transactionData = data.data, dataValue = data.data.length > 0 ? data.data : ["", userData.txt_prev + (txt ? txt + eval(userData.txt_plus) : userData.txt_default)]) : dataValue = 0,
+								$(userData.disp_id).html(pageFn(dataValue)),
+							$(userData.loading_gif_id).length > 0 && $(userData.loading_gif_id).remove();
+							var repaySum = $('#repayList').attr('data-sum');
+							if (repaySum == 'undefined') {
+								repaySum = '0.00';
+							}
+							$(".ffA").html(repaySum);
+							for (var i in userData.sort) {
+								$(userData.sort[i]).unbind("click");
+								$(userData.sort[i]).bind("click", function () {
+									var s = $(this).attr("_sort");
+									$(".sortSomething").attr("_sort", "");
+									$(".sortSomething").find("span").attr("class", "sort_N");
+									s = (isBlank(s) === true) ? "ASC" : ((s === "ASC") ? "DESC" : "ASC");
+									$(this).attr("_sort", s);
+									$(this).find("span").attr("class", "sort_" + s);
+									ajaxFun.abort();
+									transactionAjax($(this).text());
+								});
+							}
+							for (var i in userData.pops) {
+								setPopAction(userData.pops[i]);
+							}
+							for (var i in userData.click) {
+								setClickAction(userData.click[i]);
+							}
+						}
+					})
+				};
+			for (var i in userData.select) {
+				$(userData.select[i]).unbind("change");
+				$(userData.select[i]).bind("change", function () {
+					ajaxFun.abort();
+					transactionAjax($(this).find("option:selected").text());
+				});
+			}
+			for (var i in userData.timer) {
+				$(userData.timer[i]).find("input").unbind("click");
+				$(userData.timer[i]).find("input").bind("click", function () {
+					$(this).val("");
+					$(this).attr("_time", "");
+				});
+				$(userData.timer[i]).find("input").unbind("change");
+				$(userData.timer[i]).find("input").bind("change", function () {
+					ajaxFun.abort();
+					transactionAjax("");
+				});
+			}
+			$(userData.flash).click(function (){
+				ajaxFun.abort();
+				transactionAjax($(this).attr("_text"));
+			})
+			transactionAjax("")
+		};
+	var indexData = {
+			lineUrl: "__URL__/dataLine/",//获得所有月数据
+			chartCategory : [Array],//x轴月份
+            tipTime: [],//日数据时间参数
+            nowcharttime: '2015',//当前年月
+			//GetLineDataByMonthUrl: '###',//获得日数据ajax
+			//infoListUrl : '###',
+			//transactionUrl : '###',
+			loadImgPath:'__ROOT__/Style/M/images/loading1.gif',
+			transaction_limit:4,
+			//protocolUrl: '###',
+            date : {
+                year : 2015,
+                month : 02,
+                day : 06
+            }
+		};
+        zz.userIndex.init(indexData);
+		var o=$("#conLine .classify-selected-1-click a[_type='3']");o.trigger("click");
+		
+		//还款表
+		var repayData={
+			transfer_type:"POST",
+			url:"__URL__/repaylist/",
+			temp_id:"userTransactl_1",
+			disp_id:"#userTransactHtml_1",
+			param:{
+				limit:4
+			}
+		};
+		zz.userAction.init(repayData);
+		
+		//交易记录表
+		var transData={
+			flash:"#flash_table",
+			url:"__URL__/translist/",
+			temp_id:"userTransactl",
+			disp_id:"#userTransactHtml",
+			tabs:{
+				trade:{
+					obj:"#conTrade .classify-selected-1-click a",
+					cur:"selected"
+				}
+			},
+			attr:{
+				type:{
+					tab:"trade",
+					key:"data-id"
+				}
+			},
+			param:{
+				limit:4
+			},
+			pops:{
+				detail:{
+					url:"/Member/Index/transferDetail/",
+					obj:".detail_info",
+					temp_id:"detailInfo",
+					attr:{
+						cid:"_cid",
+						type:"_type",
+						transid:"_transid"
+					}
+				}
+			}
+		};
+		zz.userAction.init(transData);
+});
+</script>
+<script type="text/javascript">
+    //初始化
+//    $(document).ready(function(){
+        $(".fmt_money").each(function(){ fmtMoney($(this)); });
+        $(".pro_tips-1").tip({ words_per_line: 1e3 });
+
+//    });
+</script>
+<script>
+    $(function(){
+        var guide = "<?php echo session('new_guide'); ?>";
+        if(parseInt(guide)==1){
+            showSearchTip();
+            setSearchTip();
+            SetCookie("tStatus",1);
+        }
+    })
+</script>
+<script type="text/javascript" src="__ROOT__/Style/Js/utils.js"></script>
+</body></html>

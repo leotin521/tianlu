@@ -1,0 +1,96 @@
+<style type="text/css">
+.content a { font-size: 12px; color: #092fa9; }
+.tdTilte { color: Gray; text-align:right; width:120px;  }
+.tdMoneyShow { color: #005B9F;  width:160px;}
+.tdDes { color: Gray; }
+
+.tb_list{ width:100%;}
+.tb_list td,.tb_list th{padding:10px;}
+.tb_list th{ background:#E8E8E8; text-align:left; text-indent: 5px;}
+.divList td{border-bottom:1px #DEDEDE solid; }
+
+a.ctl{color:#666;}
+a.ctl:hover{ text-decoration:underline}
+</style>
+
+<div style="border:1px #DEDEDE solid; margin:10px 20px;">
+	<table class="tb_list" border="0" cellpadding="0" cellspacing="0">                            
+		<tbody><tr>
+			<th style="width:80px; "></th>
+			<th style="width:50px; text-align:left;">项 目</th>
+			<th style="width:165px;">金 额</th>
+			<th>说 明</th> 
+		</tr>                        
+	</tbody></table>
+	
+	<div style="margin:0 30px;">
+		<table class="tb_list" border="0" cellpadding="0" cellspacing="0">                            
+		<tbody><tr class="divList">
+			<td class="tdTilte">竞标中的普通标投资：</td>
+			<td class="tdMoneyShow">
+				￥{$mx.invest.1.investor_capital|default="0.00"}/{$mx.invest.1.num|default="0"}标
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx2').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">（目前正在投标中，尚未确定投资的金额）</td>
+		</tr>
+		<tr class="divList">
+			<td class="tdTilte">回收中普通标投资：</td>
+			<td class="tdMoneyShow">
+				￥{$mx.invest.4.investor_capital|default="0.00"}/{$mx.invest.4.num|default="0"}标
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx3').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">（目前已经投资，正在回收中的普通标投资总额）</td>
+		</tr>
+		<tr class="divList">
+			<td class="tdTilte">收完的普通标投资：</td>
+			<td class="tdMoneyShow">
+				￥{$mx['invest']['5']['investor_capital'] + $mx['invest']['6']['investor_capital']}/{$mx['invest']['5']['num']+$mx['invest']['6']['num']}标
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx5').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">（已经全部收回的普通标投资的本金总额）</td>
+		</tr>
+		<tr  class="divList">
+			<td class="tdTilte">{$glo.web_name}代偿的投资：</td>
+			<td class="tdMoneyShow">
+				￥{$dc|default="0.00"}
+			</td>
+			<td class="tdDes">（逾期并由{$glo.web_name}代偿的投资）</td>
+		</tr>
+		<tr class="divList">
+			<td class="tdTilte">回收中的<?php echo BorrowModel::get_borrow_type(6);?>投资：</td>
+			<td class="tdMoneyShow">
+				￥{$mx.invest.8.investor_capital|default="0.00"}/{$mx.invest.8.num|default="0"}标
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx6').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">（目前已经投资，正在回收中的流转投资总额）</td>
+		</tr>
+		<tr class="divList">
+			<td class="tdTilte">收完的<?php echo BorrowModel::get_borrow_type(6);?>投资：</td>
+			<td class="tdMoneyShow">
+				￥{$mx.invest.9.investor_capital|default="0.00"}/{$mx.invest.9.num|default="0"}标
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx7').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">（已经全部收回的流转投资的本金总额）</td>
+		</tr>
+		<tr class="divList">
+			<td class="tdTilte">逾期的投资：</td>
+			<td class="tdMoneyShow">
+				￥{$mx.tj.expiredInvestMoney|default="0.00"}/{$mx.tj.expiredInvestNum|default=0}期
+				<span style="color:#666;">[</span><a href="javascript:;" onclick="$('#mx4').click();" class="ctl">列表</a><span style="color:#666;">]</span>
+			</td>
+			<td class="tdDes">（已经投资并逾期未收回的）</td>
+		</tr>
+        <tr>
+			<td class="tdTilte">
+				累计投资金额：
+			</td>
+			<td class="tdMoneyShow">
+				￥{$mx['tj']['borrowOut']|default="0.00"}
+			</td>
+			<td class="tdDes">
+				（注册至今，您累计投资的总额）
+			</td>
+		</tr>
+	</tbody></table>
+	</div>
+</div>

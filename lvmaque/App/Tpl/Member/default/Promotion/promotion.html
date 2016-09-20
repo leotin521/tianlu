@@ -1,0 +1,39 @@
+<style type="text/css">
+	 body { margin: 0; _height:100%;}
+	.divtitle { height: 30px; line-height: 30px; text-align: left; font-size: 12px; font-weight: bold; background-color: #F6F6F6; text-indent: 25px; margin-top: 8px; margin-bottom: 1PX; }
+	.colink { background-image: url(__ROOT__/Style/M/images/button/btnbg02.gif); width: 98px; font-weight: bold; display: inline-block; line-height: 29px; color: White; text-align: center; }
+	.dv_header_8 {background-image: url(); }
+</style>
+<script type="text/javascript">
+        var newTitle = '{$glo.web_name}提醒您：';
+        function copyToClipboard(obj) {
+            if (obj) {
+                var clipBoardContent = obj.value;
+                $(obj).select();
+                try {
+                    window.clipboardData.setData("Text", clipBoardContent);
+                    alert("您好，链接复制成功!", newTitle);
+                }
+                catch (e) {
+                    alert("您好，链接复制失败，请手动复制!");
+                }
+            }
+        }
+        $(function() {
+            $("#txt_links").click(function() { $(this).select(); });
+        });
+</script>
+<div style="text-align: left; margin-top: 20px;">
+  <div style="width: 708px; margin: 0 auto; line-height: 40px; height: 40px; border: #E5E5E5 solid 1px;
+		font-weight: bold; text-indent: 20px; font-size: 14px; color: #555555; background-color: #F6F6F6;"> 邀请好友成功投标（不包含<?php echo BorrowModel::get_borrow_type(3);?>、<?php echo BorrowModel::get_borrow_type(4);?>、天标交易），立即送您优惠券奖励，赶快行动吧。 </div>
+  <div style="height: 117px; width: 708px; margin: 0 auto; line-height: 40px; border: #E5E5E5 solid 1px;
+		border-top: none;">
+    <div style="margin-left: 35px; height: 25px; line-height: 25px; padding: 12px 0px;"> 您的邀请链接：
+      <input id="txt_links" readonly="readonly" class="text1" value="{:C('WEB_URL')}/member/common/register?invite={:session('u_id')}" type="text">
+      <a href="javascript:" class="colink" onclick="copyToClipboard($('#txt_links')[0]);"> 复制链接</a> </div>
+    <div style="margin-left: 125px; width: 460px; line-height: 20px; color: #666;"> 您可以通过QQ，MSN等IM工具或者微博与邮件把上面的链接告诉您的好友，邀请他们<br>
+      加入进来。 </div>
+  </div
+>
+</div>
+<div style="clear:both;"></div>

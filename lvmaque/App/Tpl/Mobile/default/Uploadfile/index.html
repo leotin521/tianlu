@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>客户端下载</title>
+<if condition="$ismobile eq 1">
+<link type="text/css" rel="stylesheet" href="__ROOT__/Style/upload/css/down_wap.css">
+</if>
+<if condition="$ismobile eq 0">
+<link type="text/css" rel="stylesheet" href="__ROOT__/Style/upload/css/down_page.css">
+</if>
+</head>
+<if condition="$ismobile eq 1">
+<body>
+</if>
+<if condition="$ismobile eq 0">
+<body style="background:url(__ROOT__/Style/upload/images/bj.jpg) no-repeat center 0 #1069ad">
+</if>
+<if condition="$ismobile eq 1">
+<div class="down_wap">
+  <div class="down_top">
+    <div class="top_text">&nbsp;</div>
+    <div class="dw_button"> 
+    <a href="{$list['applePath']}" class="iph">&nbsp;</a>
+    <a href="{$list['apkPath']}" class="and">&nbsp;</a>
+    </div>
+  </div>
+  <div class="dw_foot">&nbsp;</div>
+
+</div>
+</if>
+
+
+
+<if condition="$ismobile eq 0">
+<div class="down_page">
+  <div class="down_l">
+    <div class="wap_sy"><img src="{$list['zhanshiqPath']}"></div>
+    <div class="wap_lb"><img src="{$list['zhanshihPath']}"></div>
+  </div>
+  <div class="down_r">
+    <div class="erwm"><img src="{$list['ewmapkPath']}"></div>
+    <div class="down_a">
+      <a href="{$list['applePath']}" class="iph dp_button">&nbsp;</a>
+      <a href="{$list['apkPath']}" class="and dp_button">&nbsp;</a>
+    </div>
+    <div class="erwm"><img src="{$list['appewmapkPath']}"></div>
+  </div>
+  
+  
+</div>
+</if>
+</body>
+</html>

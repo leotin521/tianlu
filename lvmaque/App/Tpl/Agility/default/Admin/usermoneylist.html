@@ -1,0 +1,46 @@
+<include file="default:Public:_header"  group="Admin"/>
+<tagLib name="htmlA" />
+
+<div class="so_main">
+  <div class="page_tit">用户资金列表</div>
+  <div class="Toolbar_inbox" style="height:25px;">
+    <!-- <div class="page right">{$pagebar}</div> -->
+    
+  </div>
+  <div class="list">
+    <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th style="width:30px;"> <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+          <label for="checkbox"></label>
+        </th>
+        <th class="line_l">序号</th>
+        <th class="line_l">用户名</th>
+        <th class="line_l">投资<?php echo AgilityBehavior::$THE_SPIRIT;?>总额</th>
+        <th class="line_l">已赎回总额</th>
+        <th class="line_l">正在持有总额</th>
+        <th class="line_l">总共获得收益</th>
+
+
+      </tr>
+      <volist name="list" id="vo">
+        <tr overstyle='on' >
+          <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+          <td>{$key+1}</td>
+          <td>{$vo.user_name}</td>
+          <td>{$vo.total_money}元</td> 
+          <td>{$vo.out_money}元</td> 
+          <td>{$vo.money}元</td>
+          <td>{$vo.interest}元</td>
+          
+        </tr>
+        </volist>
+       
+
+    </table>
+  </div>
+  <div class="Toolbar_inbox" style="height:25px;">
+    <div class="page right">{$pagebar}</div>
+
+  </div>
+</div>
+<include file="default:Public:_footer" group="Admin" />

@@ -1,0 +1,267 @@
+<include file="Public:_header" />
+<link href="__ROOT__/Style/Swfupload/swfupload.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__ROOT__/Style/Swfupload/handlers.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/Swfupload/swfupload.js"></script>
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//swf上传图片
+		swfu = new SWFUpload(
+		{
+			// Backend Settings
+			upload_url: "__URL__/swfupload",
+			post_params: {"<php> echo session_name();</php>" : "<php> echo session_id();</php>", "dopost" : ""},
+
+			// File Upload Settings
+			file_size_limit : "2 MB",	// 2MB
+			file_types : "*.jpg; *.gif; *.png",
+			file_types_description : "选择 JPEG/GIF/PNG 格式图片",
+			file_upload_limit : "0",
+
+			file_queue_error_handler : fileQueueError,
+			file_dialog_complete_handler : fileDialogComplete,
+			upload_progress_handler : uploadProgress,
+			upload_error_handler : uploadError,
+			upload_success_handler : uploadSuccess,
+			upload_complete_handler : uploadComplete,
+
+			button_image_url : "__ROOT__/Style/Swfupload/images/SmallSpyGlassWithTransperancy_17x18.png",
+			button_placeholder_id : "spanButtonPlaceholder",
+			button_width: 250,
+			button_height: 18,
+			button_text : '<span class="button">选择本地图片 <span class="buttonSmall">(单图最大为 2 MB，支持多选)</span></span>',
+			button_text_style : '.button { font-family: "宋体", sans-serif; font-size: 12px; } .buttonSmall { font-size: 10pt; }',
+			button_text_top_padding: 0,
+			button_text_left_padding: 18,
+			button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+			button_cursor: SWFUpload.CURSOR.HAND,
+			
+			// Flash Settings
+			flash_url : "__ROOT__/Style/Swfupload/swfupload.swf",
+
+			custom_settings : {
+				upload_target : "divFileProgressContainer"
+			},
+			
+			// Debug Settings
+			debug: false
+		});
+		//swf上传图片
+	});
+
+</script>
+<script type="text/javascript">
+//swf上传后排序
+function rightPic(o){
+	 var o = $("#albCtok"+o);
+	 if( o.next().length > 0) {
+		  var tmp = o.clone();
+		  var oo = o.next();
+		  o.remove();
+		  oo.after(tmp);
+	 }else{
+		alert("已经是最后一个了"); 
+	 }
+}
+//swf上传后排序
+function leftPic(o){
+	 var o = $("#albCtok"+o);
+	 if( o.prev().length > 0) {
+		  var tmp = o.clone();
+		  var oo = o.prev();
+		  o.remove();
+		  oo.before(tmp);
+	 }else{
+		alert("已经是第一个了"); 
+	 }
+}
+//swf上传后删除图片start
+function delPic(id){
+	var imgpath = $("#albCtok"+id).find("input[type='hidden']").eq(0).val();
+	var datas = {'picpath':imgpath,'oid':id};
+	$.post("__URL__/swfupload?delpic", datas, picdelResponse,'json');
+}
+
+function picdelResponse(res){
+	var imgdiv = $("#albCtok"+res.data);
+		imgdiv.remove();
+		ui.success(res.info);
+		ui.box.close();
+}
+//swf上传后删除图片end
+</script>
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">
+    <?php if(isset($review)){?>
+    <?php echo BorrowModel::get_borrow_type(6);?>复审
+    <?php }else {?>
+    发布<?php echo BorrowModel::get_borrow_type(6);?>
+    <?php }?>
+</div>
+<div class="page_tab"><span data="tab_1" class="active">基本信息</span><span data="tab_4">借款方资料</span><span data="tab_5">借款方图片资料</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/doEdit" onsubmit="return subcheck();" enctype="multipart/form-data">
+	<input type="hidden" name="id" value="{$vo.id}"/>
+	<input type="hidden" name="progress" value="{$vo.progress}"/>
+	<div id="tab_1">
+	<!--<dl class="lineD">
+          <dt>是否设为推荐：</dt>
+          <dd>
+            <htmlA:radio id="is_tuijian" value="key|vo.is_tuijian" default="0|否,1|是" />
+          </dd>
+    </dl>-->
+	<!-- <dl class="lineD"><dt>是否允许普通会员投标：</dt><dd><htmlA:radio id="level_can" value="key|vo.level_can" default="1|否,0|是" tip="是否允许普通会员投此标"/></dd></dl> -->
+	<dl class="lineD"><dt>借款人：</dt><dd><span class="tip">{$vo.borrow_user.user_name}</span></dd></dl>
+	<dl class="lineD"><dt>借款标题：</dt><dd><htmlA:input id="borrow_name" value="{$vo.borrow_name}" tip="*"/></dd></dl>
+	<dl class="lineD"><dt>是否新手标：</dt><dd><if condition="$vo.is_xinshou eq 1">是<else />否</if></dd></dl>
+	<dl class="lineD"><dt>是否体验标：</dt><dd><if condition="$vo.is_taste eq 1">是<else />否</if></dd></dl>
+	<dl class="lineD"><dt>起投金额：</dt><dd>{$vo.per_transfer}元</dd></dl>
+	<dl class="lineD"><dt>借款金额：</dt><dd>{$vo.borrow_money}元</dd></dl>
+	<dl class="lineD"><dt>投标期限：</dt><dd>{$vo.collect_day}天</dd></dl>
+	<dl class="lineD"><dt>年化利率：</dt><dd>{$vo.borrow_interest_rate}%</dd></dl>
+	<!--<dl class="lineD"><dt>每月增加年利率（每月）：</dt><dd><htmlA:input id="increase_rate" value="{$vo.increase_rate}" tip="%"/></dd></dl>-->
+	<dl class="lineD"><dt>网站奖励：</dt><dd>{$vo.reward_num}%</dd></dl>
+	<dl class="lineD"><dt>借款期限：</dt><dd>{$vo.borrow_duration}{$vo.duration_unit}</dd></dl>
+	<!--<dl class="lineD"><dt>单人最大购买份数：</dt><dd><htmlA:input id="borrow_max" value="{$vo.borrow_max}" tip="0表示无限制"/></dd></dl>-->
+	<dl class="lineD"><dt>借款管理费：</dt><dd><htmlA:input  addstr='onkeyup="checkFloatType(this);"'  id="borrow_fee" value="{$vo.borrow_fee}" tip="元 平台收取的管理费用,如果不收取请填写0，如果为空，则按全局配置里的值进行计算获取。" /></dd></dl>
+	<!--<dl class="lineD"><dt>流转结束时间：</dt><dd><htmlA:input addstr='" onclick="WdatePicker();"' class="Wdate" id="deadline" value="{$vo.deadline|date='Y-m-d',###}" tip="不会在前台显示，此时间只用来计算会员可投月数"/></dd></dl>-->	
+	<if condition="$vo.borrow_status eq '-1' ">
+	<dl class="lineD"><dt>上线时间：</dt><dd><htmlA:timer id="online_time" tip='不填则默认为当前时间' arg="{minDate:'%y-%M-%d', dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$vo.online_time}"/></dd></dl>
+	</if>
+	</div><!--tab1-->
+	
+	<div id="tab_4" style="display:none">
+	<dl class="lineD" style="overflow:hidden"><dt>展示图片：</dt>
+		<dd>
+			<input type="file" id="imgfile" name="imgfile" style="float:left"/>
+			<span style="float:left"><div style="text-align:left; clear:both; overflow:hidden; width:230px; height:100px"><div id="imgDiv"></div><if condition="$vo.b_img eq ''">无缩略图<else/><img src="__ROOT__/{$vo.b_img}" width="100" height="100" /></if></div></span>
+		</dd>
+	</dl>
+	<dl class="lineD"><dt>借款方商业概述：</dt><dd><htmlA:text id="borrow_breif" value="{$vo.borrow_breif}" tip="*"/></dd></dl>
+	<dl class="lineD"><dt>借款方资产情况：</dt><dd><htmlA:text id="borrow_capital" value="{$vo.borrow_capital}" tip="*"/></dd></dl>
+	<dl class="lineD"><dt>借款方资金用途：</dt><dd><htmlA:text id="borrow_use" value="{$vo.borrow_use}" tip="*"/></dd></dl>
+	<dl class="lineD"><dt>风险控制措施：</dt><dd><htmlA:text id="borrow_risk" value="{$vo.borrow_risk}" tip="*"/></dd></dl>
+    <?php if(!empty($review) ):?>
+        <dl class="lineD">
+            <dt>是否通过：</dt>
+            <dd>
+                <input type="radio" name="borrow_status" value="5" id="borrow_status_0">
+                <label for="borrow_status_0">复审未通过</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="borrow_status" value="6" id="borrow_status_1">
+                <label for="borrow_status_1">复审通过，还款中</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            </dd>
+        </dl>
+        <dl class="lineD">
+            <dt>复审处理意见：</dt>
+            <dd>
+                <textarea name="deal_info_2" id="deal_info_2" class="areabox"></textarea><span id="tip_deal_info_2" class="tip">*</span>
+            </dd>
+        </dl>
+    <?php endif;?>
+	</div><!--tab1-->
+	
+	<div id="tab_5" style="display:none">
+		<dl class="lineD"><dt>商品图片：</dt>
+			<dd>
+			<div class="upload_back">
+				<span id="spanButtonPlaceholder"></span>
+			</div>
+			</dd>
+		</dl>
+		<dl class="lineD"><dt>图片预览：</dt>
+		<dd>
+		<table cellpadding="0" cellspacing="0" width="100%">
+		<tr id="handfield">
+		  <td colspan="4" class="bline" style="background:url(images/albviewbg.gif) #fff 0 20px no-repeat;">
+			<table width='100%' height='160' style="margin:0 0 20px 0">
+				<tr>
+					<td>
+						<div id="divFileProgressContainer" style="height:75px;"></div>
+						<div id="thumbnails">
+					<php>$x=1000;foreach($vo['borrow_img'] as $v){ $x--;</php>
+							<div class="albCt" id="albCtok<php>echo $x;</php>">
+								<img width="120" height="120" src="__ROOT__/<php>echo get_thumb_pic($v['img']);</php>"><a onclick="javascript:delPic(<php>echo $x;</php>)" href="javascript:;">[删除]</a><a onclick="javascript:leftPic(<php>echo $x;</php>)" href="javascript:;">[前移]</a><a onclick="javascript:rightPic(<php>echo $x;</php>)" href="javascript:;">[后移]</a><div style="margin-top:10px">注释：<input type="text" style="width:190px;" value="<php>echo $v['info'];</php>" name="picinfo[]"><input type="hidden" value="__ROOT__/<php>echo $v['img'];</php>" name="swfimglist[]"></div>
+							</div>				
+					<php> } </php>
+						</div>
+					</td>
+				</tr>
+			</table>
+		  </td>
+		</tr>
+		</table>
+		</dd></dl>
+	</div>
+	<div class="page_btm">
+	  <input type="submit" class="btn_b"   value="确定" />
+	</div>
+	</form>
+</div>
+
+</div>
+<script type="text/javascript">
+        function checkIntType(t) {
+               var num = t.value;
+                var re=/^\d*$/;
+                if(!re.test(num)){
+                        isNaN(parseInt(num))?t.value='':t.value=parseInt(num);
+                }
+    }
+    function checkFloatType(t) {
+                    var num = t.value;
+                    var re=/^\d{0,20}(\.)\d*$/;
+                    if(!re.test(num)){
+                        isNaN(parseFloat(num))?t.value='':t.value=parseFloat(num);
+                    }
+    }
+//获取会员用户名
+getusername();
+function getusername(){
+	var uid = $("#borrow_uid").val();
+	$(".userinfo").html("加载中...");
+
+	var datas = {'uid':uid};
+	$.post("__URL__/getusername", datas, uidResponse,'json');
+}
+
+function uidResponse(res){
+	$(".userinfo").html(res.uname);
+}
+
+function addone(){
+	var htmladd = '<dl class="lineD"><dt>资料名称：</dt>';
+		htmladd+= '<dd><input type="text" name="updata_name[]" value="" />&nbsp;&nbsp;更新时间:<input type="text" name="updata_time[]" onclick="WdatePicker();" class="Wdate" /></dd>';
+		htmladd+= '</dl>';
+	$(htmladd).appendTo("#tab_3");
+}
+
+var cansub = true;
+function subcheck(){
+	if(!cansub){
+		alert("请不要重复提交，如网速慢，请耐心等待！");
+		return false;	
+	}
+	var borrow_max = $('#borrow_max').val();
+	var borrow_name = $('#borrow_name').val();
+	var borrow_fee = $('#borrow_fee').val();
+	var transfer_total = $('#transfer_total').val();
+
+	if(borrow_name==''||borrow_name==0){
+		ui.error("请填写借款标题");
+		return false;
+	}
+	/*if( isNaN(borrow_max) ){
+		ui.error("单人最大购买份数限必须为数字");
+		return false;
+	}*/
+	if(isNaN(borrow_fee)){
+		ui.error("借款管理费填写有误！");
+		return false;
+	}
+	cansub = false;
+	return true;
+}
+</script>
+<include file="Public:_footer" />

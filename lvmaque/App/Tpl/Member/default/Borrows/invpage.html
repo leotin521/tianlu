@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)### -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<title>用户中心 - 借款管理 - 投资列表</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="__ROOT__/favicon.ico">
+<script type="text/javascript" src="__ROOT__/Style/Common/js/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Style/M/css/jquery-ui.min.css" />
+<link rel="stylesheet" href="__ROOT__/Style/M/css/min.user.css?v=2015020312">
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+
+<style type="text/css">
+	.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}
+	.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}
+	.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}
+	.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}
+	.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}
+</style>
+<style id="poshytip-css-tip-yellow" type="text/css">
+	div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}
+	div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}
+	div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}
+	div.tip-yellow td.tip-right{background-position:100% 0;}
+	div.tip-yellow td.tip-bottom{background-position:100% 100%;}
+	div.tip-yellow td.tip-left{background-position:0 100%;}
+	div.tip-yellow div.tip-inner{background-position:-10px -10px;}
+	div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}
+</style>
+<script type="text/javascript">
+	//初始化
+	$(document).ready(function(){
+		$(".fmt_money").each(function(){ fmtMoney($(this)); });
+	});
+</script> 
+</head><body>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-banner">
+        <div class="user-abstract"></div>
+    </div>
+    <div class="user-main clearfix">
+		<include file="default:Public:_left"/>
+        <div class="user-con user-deal-record">
+            <div class="user-box-1">
+                <div class="user-box-title-1 clearfix">
+                    <h2><a target="_blank" href="{$binfo['url']}">{$binfo['borrow_name']|cnsubstr=###,30}</a></h2>
+                </div>
+				<div id="flash_table"></div>
+                <div class="user-box-con-2">
+					<div class="classify-selected-1-time">
+						<dl class="classify-selected-1 clearfix">
+							<dt>借款金额</dt>
+							<dd class="fmt_money">{$binfo['borrow_money']}</dd>
+						</dl>
+						<dl class="classify-selected-1 clearfix">
+							<dt>已获投资</dt>
+							<dd>{$binfo['has_borrow']}元，共{$binfo['borrow_times']}笔</dd>
+						</dl>
+					</div>
+                    <table class="table-style-2">
+						<thead align="center" style="font-size:18px;"><strong>投资列表</strong></thead>
+						<tbody id="inv_list">
+						</tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/H/js/globalfunc.js"></script>
+<script id="invList" type="text/x-dot-template">
+	  {{? it == 0}}
+        <tr>
+            <td colspan="7" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >登录状态已过期，请您重新 <a href="/member/common/login/" style="color:#3181d8">登录</a></td>
+        </tr>
+      {{?? it[0] == ""}}
+        <tr>
+            <td colspan="7" style="text-align:center; font-size:14px; color:#999; height:100px; line-height:100px;" >{{=it[1]}}</td>
+        </tr>
+      {{??}}
+			<tr>
+				<th width="80" class="tal pdl-20">投资人</th>
+				<th width="100" class="tal pdl-20">投资金额</th>
+				<th width="100" class="tal pdl-20">投资日期</th>
+				<th width="60" class="tal pdl-20">投资期限</th>
+				<th width="80" class="tal pdl-20">应得利息</th>
+				<th width="80" class="tal pdl-20">投资奖励</th>
+				<th width="80" class="tal pdl-20">投资方式</th>
+			</tr>
+          {{~it.list :value:index}}
+            <tr>
+				<td>{{=value.user_name}}</td>
+				<td>{{=value.investor_capital}}</td>
+				<td>{{=(value.add_time > 0) ? String((new Date(Number(value.add_time)*1000)).Format("yyyy-MM-dd")) : "-"}}</td>
+				<td>{{=value.transfer_duration}}天</td>
+				<td>{{=value.investor_interest}}</td>
+				<td>{{=(value.reward_money > 0) ? value.reward_money : "-"}}</td>
+				<td>{{=(value.is_auto > 0) ? "自动" : "手动"}}</td>
+            </tr>
+          {{~}}
+			<tr>
+				<td colspan="7">
+					<div class="pager-content table-style-footer-1">
+                        <div class="pagination" id="pageline" _cur="current">
+							{{for (var i = 1, p = Math.ceil(it.allpage / it.perpage); p >= i; i++){}}
+								{{? i == it.curpage}}<a class="current">{{ }else{ }}<a _page={{=i}} onclick="onTabClick($(this));">{{?}}{{=i}}</a>&nbsp;&nbsp;
+							{{}}}
+							<b class="flag_yeshu" style="font-weight:normal;">共{{=p}}页，{{=it.allpage}}条记录</b>
+						</div>
+                    </div> 
+				</td>
+			</tr>
+      {{?}}
+</script>
+<script> 
+	//投资表
+	var invData={
+		flash:"#flash_table",
+		transfer_type:"GET",
+		url:"/Member/borrows/invList",
+		temp_id:"invList",
+		disp_id:"#inv_list",
+		param:{
+			perpage:10,
+			bid:{$binfo['id']}
+		},
+		tabs:{
+			page:{
+				obj:"#pageline a",
+				cur:"current"
+			}
+		},
+		attr:{
+			curpage:{
+				tab:"page",
+				key:"_page"
+			}
+		}
+	};
+	zz.userAction.init(invData);
+</script>
+</body></html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>定投宝详情页</title>
+    <link rel="icon" type="image/png" href="../i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/invest.css">
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/common.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+    <script>
+        var rooturl = "__URL__/";
+    </script>
+</head>
+
+<body>
+<!-- 散标、理财通用 -->
+    <header>
+        <h1>投标详情</h1>
+		<a href="__URL__/index" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="page-loan">
+        <div class="loan-info">
+            <div class="money">
+                <div class="field">融资金额（元）</div>
+                <div class="num num-lg">
+                    {$vo.borrow_money}
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-6">
+                    <div class="field">
+                        预期年化
+                    </div>
+                    <div class="data">
+                        <span class="num num-md">{$vo.borrow_interest_rate}</span>%
+                    </div>
+                </div>
+                <div class="am-u-sm-6">
+                    <div class="field">
+                        起投金额
+                    </div>
+                    <div class="data">
+                        <span class="num num-md">{$vo.borrow_min}</span>元
+                    </div>
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-progress">
+                    <div class="am-progress-bar"></div>
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-6">
+                    已融资:<span class="num num-sm">{$borrow_moneys}</span>%
+                </div>
+                <div class="am-u-sm-6">
+                    剩余：<span class="num num-sm">{$shenyu}</span>元
+                </div>
+            </div>
+        </div>
+        <div class="loan-list ">
+            <ul class="am-list ">
+                <li>
+                    <div class="con">
+                        {$vo.borrow_name|cnsubstr=###,15}
+                    </div>
+                    <div class="field">
+                        项目名称
+                    </div>
+                </li>
+                <li>
+                    <div class="con">
+                        100%本息保障
+                    </div>
+                    <div class="field">
+                        保障方式
+                    </div>
+                </li>
+                <li>
+                    <div class="con">
+                        <if condition="$vo.borrow_max eq 0">
+                            无限制
+                        <else />
+                            {$vo.borrow_max}
+                        </if>
+                    </div>
+                    <div class="field">
+                        单笔上限
+                    </div>
+                </li>
+                <li>
+                    <div class="con">
+                        {$vo.borrow_duration}<if condition="$vo.repayment_type eq 1">天
+                        <else/>
+                        个月</if>
+                    </div>
+                    <div class="field">
+                        借款期限
+                    </div>
+                </li>
+                <li>
+                    <div class="con">
+                        <if condition="$vo.repayment_type eq 1">
+                            按天到期还款
+                            <elseif condition="$vo.repayment_type eq 2" />
+                            按月分期还款
+                            <elseif condition="$vo.repayment_type eq 4" />
+                            每月还息到期还本
+                            <elseif condition="$vo.repayment_type eq 5" />
+                            一次性还款
+                            <elseif condition="$vo.repayment_type eq 6 && $vo.borrow_duration eq 1" />
+                            {$vo.infos|cnsubstr=###,15}
+                            <elseif condition="$vo.repayment_type eq 6" />
+                            利息复投
+                        </if>
+                    </div>
+                    <if condition="$vo.repayment_type eq 6 && $vo.borrow_duration eq 1">
+                        <div class="field">
+                            加入条件
+                        </div>
+                        <else />
+                        <div class="field">
+                            还款方式
+                        </div>
+                    </if>
+                </li>
+                <li>
+                    <div class="con">
+                        {$vo.add_time|date="Y-m-d H:i",###}
+                    </div>
+                    <div class="field">
+                        发布日期
+                    </div>
+                </li>
+                <li>
+                    <a href="__URL__/investRecord?borrow_id={$vo.id}">
+                    <div class="con">
+                        {$borrow_investor_num}人 <i class="am-icon-chevron-right"></i>
+                    </div>
+                    <div class="field">
+                        投标记录
+                    </div>
+                    </a>
+                </li>
+                <li>
+                      <a href="__URL__/info.html">
+                        <div class="con">
+                            <i class="am-icon-chevron-right"></i>
+                        </div>
+                        <div class="field">
+                            项目介绍
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-loan-oper">
+        <if condition="$vo.borrow_status eq 3">
+            <a href="javascript:;" class="am-btn am-btn-danger am-btn-block btn-buy" style="background:#bdbdbd;border:1px solid #bdbdbd">已流标</a>
+            <elseif condition="$vo.borrow_status eq 4"/>
+            <a href="javascript:;" class="am-btn am-btn-danger am-btn-block btn-buy" style="background:#bdbdbd;border:1px solid #bdbdbd">复审中</a>
+            <elseif condition="$vo.borrow_status eq 6"/>
+            <a href="javascript:;" class="am-btn am-btn-danger am-btn-block btn-buy" style="background:#bdbdbd;border:1px solid #bdbdbd">还款中</a>
+            <elseif condition="$vo.borrow_status gt 7"/>
+            <a href="javascript:;" class="am-btn am-btn-danger am-btn-block btn-buy" style="background:#bdbdbd;border:1px solid #bdbdbd">已完成</a>
+            <elseif condition="$uid eq ''"/>
+            <a href="__APP__/m/common/logins" class="am-btn am-btn-danger am-btn-block btn-buy" style="background:#bdbdbd;border:1px solid #bdbdbd">请先登陆</a>
+            <elseif condition="$is_xinshou eq 1"/>
+            <a href="__URL__/ajax_invest/id/{$vo.id}" class="am-btn am-btn-danger am-btn-block btn-buy">新手专享</a>
+            <elseif condition="$vo.borrow_status eq '-1'"/>
+            <a href="#" class="am-btn am-btn-danger am-btn-block btn-buy" style="background:#bdbdbd;border:1px solid #bdbdbd">敬请期待</a>
+            <else />
+            <a href="javascript:void(0);" onclick="tiaozhuan();" class="am-btn am-btn-danger am-btn-block btn-buy">立即投资</a>
+        </if>
+                <!--<a href="invest-detail-step2.html" class="am-btn am-btn-danger am-btn-block btn-buy">立即投资</a>-->
+           
+    </div>
+    <script type="text/javascript">
+        $(".am-progress-bar").width('{$borrow_moneys}%');
+        function setError(tip){
+            layer.msg(tip,{icon:0});
+            return false;
+        }
+
+        function tiaozhuan(){
+            var borrow_uid = {$borrow_uid};
+            var uid = {$uids};
+            if(borrow_uid == uid){
+                return setError("不能去投自己的标");
+            }else{
+                window.location.href="__URL__/ajax_invest/id/{$vo.id}";
+            }
+        }
+    </script>
+</body>
+
+</html>

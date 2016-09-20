@@ -1,0 +1,39 @@
+<!doctype html>
+<html class="no-js">
+<!--投资管理-资产详情页面-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>资产详情</title>
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+</head>
+
+<body>
+    <header>
+        <h1>资产详情</h1>
+        <a href="__URL__/jiaoyijilv" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+
+   	<div class="mod-asset">
+        <if condition="$list.type eq 2">
+    	    <li><h1>投资金额</h1><span>-{$list.money}</span></li>
+        <else />
+            <li><h1>投资金额</h1><span style="color: red;">+{$list.money}</span></li>
+        </if>
+        <li>项目编号<p>{$list.batch_no}</p></li>
+        <li>发生日期<p>{$list.add_time|date="Y-m-d H:i:s",###}</p></li>
+        <li>备注<p>{$list.remark}</p></li>
+    </div>
+   
+    
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+</body>
+
+</html>

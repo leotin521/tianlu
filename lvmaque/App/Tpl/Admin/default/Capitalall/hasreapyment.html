@@ -1,0 +1,59 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<script type="text/javascript">
+	var delUrl = '__URL__/doDel';
+	var addUrl = '__URL__/add';
+	var isSearchHidden = 1;
+</script>
+<div class="so_main">
+  <div class="page_tit">已还明细</div>
+<!--搜索/筛选会员-->
+  <include file="search" />
+<!--搜索/筛选会员-->
+
+  <div class="Toolbar_inbox">
+  <div class="page right">{$pagebar}</div>
+       <htmlA:commonBtn type="" action="__URL__/hasreapyment" value="直投已还明细"/>
+	   <htmlA:commonBtn type="href" action="__URL__/hasreapyment?{$query}" value="将当前条件下数据导出为Excel"/>
+	   <form name="sdf" id="sdf" action="__URL__/hasreapyment" method="get">
+		  <div class="Toolbar_inbox">
+			<span>从<htmlA:timer id="start_time" tip='(只选开始时间则查询从开始时间往后所有)' arg="{maxDate:'#F{$dp.$D(\\\\'end_time\\\\')||\\\\'2020-10-01\\\\'}',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}"  class="Wdate" value="{$search.start_time|mydate='Y-m-d H:i:s',###}"/>到<htmlA:timer id="end_time" tip='(只选结束时间则查询从结束时间往前所有)' arg="{minDate:'#F{$dp.$D(\\\\'start_time\\\\')}',maxDate:'2020-10-01',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true}" class="Wdate" value="{$search.end_time|mydate='Y-m-d H:i:s',###}"/></span>
+			<a href="javascript:;" onclick="javascript:document.forms.sdf.submit();" class="btn_a"><span>统计</span></a></div>
+		</form>
+  </div>
+  
+  <div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                  <th class="line_l">ID</th>
+                  <th class="line_l">借款人</th>
+                  <th class="line_l">标题</th>
+                  <th class="line_l">标类型</th>
+                  <th class="line_l">还款本金</th>
+                  <th class="line_l">还款利息</th>
+                  <th class="line_l">当前器数/总期数</th>
+                  <th class="line_l">还款时间</th>
+            </tr>
+            <volist id="vo" name="list">
+                <tr overstyle='on' id="list_{$vo.id}">
+                  <td>{$vo.id}</td>
+                  <td><htmlA:user id="vo.mid" uname="vo.user_name" /></td>
+                  <td><a href="{$vo.id|getTInvestUrl=###}" title="{$vo.borrow_name}" target="_blank">{$vo.borrow_name|cnsubstr=###,12}</a></td>
+                    <td>直投</td>
+                  <td>{$vo.receive_capital}</td>
+                  <td>{$vo.receive_interest}</td>
+                  <td>{$vo.sort_order}/{$vo.total}</td>
+                  <td>{$vo.repayment_time|date="Y-m-d H:i",###}</td>
+                </tr>
+            </volist>
+  </table>
+  </div>
+  
+  <div class="Toolbar_inbox">
+  	<div class="page right">{$pagebar}</div>
+    <htmlA:commonBtn type="" action="__URL__/hasreapyment" value="直投已还明细"/>
+  </div>
+</div>
+
+
+<include file="Public:_footer" />

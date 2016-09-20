@@ -1,0 +1,204 @@
+<include file="default:Public:_header_common" />
+<style type="text/css">
+    .sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1
+    { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color:
+    #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color:
+    #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position:
+    absolute;left: 0px;top: 2px;z-index: 1;}
+</style>
+</head><body>
+<include file="default:Public:_header_main" />
+<div class="user-page">
+<div class="user-banner">
+  <div class="user-abstract"> </div>
+</div>
+<div class="user-main clearfix"> <include file="default:Public:_left" />
+  <div class="user-con">
+    <div class="user-box-1 user-bounty">
+      <div class="user-box-title-1 clearfix">
+        <h2> 我的优惠券 </h2>
+        <div class="user-box-title-more"> <a href="/member/promotion"> <span class="icon-style-1 user-nav-award-manage-1"> </span> <strong> 邀请用户，获取推广奖励 </strong> </a> </div>
+      </div>
+      <div class="user-box-con clearfix">
+        <div class="user-bounty-show clearfix">
+          <dl class="user-current-month-earnings">
+            <dt> <span> 未使用优惠券 </span> </dt>
+            <dd> <span> <strong> {$n_num|default=0}张 </strong> </span> </dd>
+          </dl>
+          <dl class="user-current-month-earnings">
+            <dt> <span> 未使用优惠券总额 </span> </dt>
+            <dd> <span> <strong> {:intval($n_money)} </strong> . <i>
+              <php> $decimal = explode('.', $n_money); </php>
+              {$decimal['1']|default=0} </i> 元 </span> </dd>
+          </dl>
+          <dl>
+            <dt> <span> 已使用优惠券总额 </span> </dt>
+            <dd> <span class="y"> <strong> {:intval($y_money)} </strong> . <i>
+              <php> $decimal = explode('.', $n_money); </php>
+              {$decimal['1']|default=0} </i> 元 </span> </dd>
+          </dl>
+          <dl style="border-right: none;">
+            <dt> <span> 已过期优惠券 </span> </dt>
+            <dd> <span class="y"> <strong> {:intval($ex_money)} </strong> . <i>
+              <php> $decimal = explode('.', $ex_money); </php>
+              {$decimal['1']|default=0} </i> 元 </span> </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="user-box-title-1 clearfix">
+        <h2> <a id="coupontop" name="coupontop"> &nbsp; </a> 优惠券列表 </h2>
+        <div class="user-box-title-more"> <a href="/member/promotion/explog"> <span class="icon-style-1"> </span> <strong> 查看奖励记录 </strong> </a> </div>
+      </div>
+      <div class="user-box-con-2">
+        <div class="total-dt clearfix">
+          <div class="classify-selected-1-a" style="width:665px;">
+            <dl class="classify-selected-1 clearfix">
+              <dt style="width:82px; margin-right:0px;"> 优惠券状态 </dt>
+              <dd> <a  href="?status=1" 
+                <if condition="$status eq 1"> class="selected"</if>
+                >
+                未使用 </a> <a href="?status=4" 
+                <if condition="$status eq 4"> class="selected"</if>
+                >
+                已使用 </a> <a href="?status=3" 
+                <if condition="$status eq 3"> class="selected"</if>
+                >
+                已过期 </a> </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="rel">
+          <div class="table-style-5">
+            <table class="table-style-5-thead">
+              <thead>
+                <tr>
+                  <th width="200" class="tac"> 类型/面值 </th>
+                  <th width="180" class="tac"> 使用期限 </th>
+                  <th width="135" style="padding:0 37px" class="tac"> 使用规则 </th>
+                  <th class="tac"> 来源 </th>
+                </tr>
+              </thead>
+              <tbody class="thead-classify">
+                <tr>
+                  <td colspan="5" id="status-orderby" class="tal"><a href="javascript:void(0);" 
+                    <if condition="$order eq 7 or $order eq 8"> class="cur" </if>
+                    > <span class="fl"> 获得时间 </span> <span class="icon-up-<if condition="$order eq 7">shang
+                    <elseif condition="$order eq 8" />
+                    xia
+                    </if>
+                    "> </span> </a> <a href="javascript:void(0);"   
+                    <if condition="$order eq 3 or $order eq 4"> class="cur" </if>
+                    > <span class="fl"> 过期时间 </span> <span class="icon-up-<if condition="$order eq 3">shang
+                    <elseif condition="$order eq 4" />
+                    xia
+                    </if>
+                    "> </span> </a> <a href="javascript:void(0);" 
+                    <if condition="$order eq 5 or $order eq 6"> class="cur" </if>
+                    > <span class="fl" > 优惠券面额 </span> <span class="icon-up-<if condition="$order eq 5">shang
+                    <elseif condition="$order eq 6" />
+                    xia
+                    </if>
+                    "> </span> </a> </td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="pagerContainer" style="border-bottom:1px solid #eaeaea;"> </div>
+          </div>
+          <if condition="count($expand_list) eq 0">
+          <div class="list-value-none-style"> 您还没有可用的优惠券 </div>
+          <else />
+          <div id="pagerContainer" style="border-bottom:1px solid #eaeaea;">
+            <volist name="expand_list" id="vo">
+              <table class="table-style-5-tbody table-style-5-tbody-1">
+                <tbody>
+                  <tr>
+                    <td width="200" class="tac"><div class="<if condition="$status eq 1">icon-dixian
+                        <elseif condition="$status eq 4"/>
+                        icon-touzi
+                        <else/>
+                        icon-guoqi
+                        </if>
+                        icon-coupon-con rel"> <strong class="icon-coupon-money"> {$vo.money} </strong> <span class="icon-coupon-type"> 元 {$vo.coupon_type} </span> <span class="icon-coupon-txt"> 每满{$vo.invest_money}元抵{$vo.money}元 </span> </div></td>
+                    <td width="180" class="tac"> 过期时间：{$vo.expired_time|date="Y-m-d",###} </td>
+                    <td width="135" style="padding:10px 37px; line-height:22px;" class="tal"> 仅用于投资
+                        <!-- <if condition="$vo['is_taste'] eq 1"><br/>体验金额不可以提现,投资利息可以提现</if>  --><br>
+                      债权转让不可使用 <br>
+                    </td>
+                    <td width="170" style="word-break:break-all;" class="tac"> {$exp_type[$vo['type']]} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </volist>
+          </div>
+          </if>
+        </div>
+        <div class="table-style-footer-1" style="display: block;"> {$page} </div>
+      </div>
+      <div class="user-box-con-1">
+        <div class="form-warm-prompt-1 clearfix"> <span class="form-warm-prompt-title"> 温馨提示： </span> <span class="form-warm-prompt-con">
+          <div class="bottom-notice"> <strong> 1. 优惠券使用规则： </strong>
+            <li> 优惠券分为抵现券和体验券两种。</li>
+            <li> 抵现券使用后，抵现金额和所得利息都可以提现。</li>
+            <li> 体验券使用后，所得利息可以提现，体验金额不能提现。</li>
+            <li> 优惠券使用一次之后会失效，标未满流标时，使用的优惠券会返还给用户。</li>
+            <li> 投资需满足优惠券使用规则才可使用优惠券。 </li>
+            <li> 使用优惠券总额不能高于（或等于）投资金额。 </li>
+            <li> 奖励的优惠券会有有效期限制，请在优惠券生效后及时用于投资。 </li>
+            <li> 优惠券的使用，{$glo.web_name}根据使用效率最高及到期时间最近给出两种推荐策略，默认推荐前者，即使用效率最高。 </li>
+            <li> 优惠券不可以用于购买债权转让项目。</li>
+            <strong>2. 使用过程中遇到问题，请联系客服&nbsp; </strong>
+            <?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?>。
+          </div>
+          </span> </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script id="promptTmpl" type="text/x-dot-template">
+            < div class = "ps1-close" > × < /div>
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2 > </div>
+        <div class="state-prompt-txt-{{?it[3]}}duigou{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2 > {
+                { = it[2]
+                }
+            }您可以 < a href = "/newuser/main/coupon"target = "_blank"class = "state-a-line" > [返回我的优惠券] < /a>
+            </div > </div>
+    </div > 
+        </script>
+<script src="__ROOT__/Style/M/js/itz.common.min.js"></script>
+<script src="/Style/M/js/common.js?v=2015020628"></script>
+<script src="/Style/M/js/coupon.js?v=2015020628"></script>
+<script>
+            var order = '8',
+            status = '1',
+            borrow_type = 'all',
+            paramsUrl;
+            paramsUrl = '&order=' + (order ? order: '7') + '&status=' + (status ? status: '') + '&borrow_type=' + (borrow_type ? borrow_type: 'all');
+
+            $(function() {
+                var couponData = {
+                    pager: {
+                        pageInfo: {
+                            "pn": 1,
+                            "rn": 10
+                        },
+                        tmpl: 'coupon_list',
+                        tmpl_param: true
+                    },
+                    paramsUrl: paramsUrl,
+                    ajaxHostUrl: '/member/promotion/coupon',
+                    loadImgPath: 'loading1.gif',
+                    ajaxChangeUseTypeUrl: '/newuser/ajax/ChangeCouponUseType'
+                };
+
+                itz.coupon.init(couponData);
+
+            });
+        </script>
+</body>
+</html>

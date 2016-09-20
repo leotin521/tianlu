@@ -1,0 +1,130 @@
+<include file="default:Public:_header_common"/>
+            <style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style></head>
+<body>
+<include file="default:Public:_header_main"/>
+<div class="user-page user-msg-page">
+    <div class="user-main clearfix">
+                                      <include file="default:Public:_left"/>
+
+        <!--站内消息begin-->    
+        <div class="user-con" id="content">
+            <div class="user-box-1">
+                <div class="user-box-title-1 clearfix">
+                    <h2>站内信息</h2>
+                    <div class="user-box-title-more">
+                    	<strong class="yidu">
+							<a class="yidutips" href="#none">全部标记为已读</a>
+						</strong>
+                        <strong class="yidu"><a href="__ROOT__/member/remind/" style="padding:5px;">设置通知提醒</a></strong>                       
+                    </div>
+                </div>
+                <dl class="classify-selected clearfix" id="tabs">
+                    <dt>状态</dt>
+                    <dd>
+                        <ul class="classify-selected-list clearfix">
+                            <li>
+                            	<if condition="$status eq 1 ">
+                                	<a class="selected" href="__APP__/member/msg/index" >全部</a>
+                                <else /> 
+                                	<a href="__APP__/member/msg/index" >全部</a>
+                                </if>
+                            </li>
+                            <li>
+                            <if condition="$status eq 2 ">
+                                <a class="selected" href="__APP__/member/msg/index?status=unread" >未读</a>
+                            <else /> 
+                            	<a href="__APP__/member/msg/index?status=unread" >未读</a>
+                                </if>
+                            </li>
+                            <li>
+                            <if condition="$status eq 3 ">
+                                <a class="selected" href="__APP__/member/msg/index?status=read" >已读</a>
+                            <else /> 
+                            	<a href="__APP__/member/msg/index?status=read" >已读</a>
+                            </if>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>                 
+                <div class="user-box-con-1 user-hint" style="padding-top:0">
+                	<php>if(empty($list)){</php>
+                	暂时没有任何通知。
+                	<php>}else{</php>
+                	<volist name="list" id="vo">
+                	<php>if($vo['status']==0){</php>
+                		<dl class="" _msgid="{$vo.id}">
+                	<php>}else{</php>
+                		<dl class="">
+                	<php>}</php>
+                        <dt>系统通知<php>if($vo['status']==0){</php><span>未读</span><php>}else{ }</php></dt>
+                        <dd>
+                            <div class="user-hint-time">{$vo.send_time|date="Y-m-d H:i:s",###}</div>
+                            <div class="user-hint-intro">{$vo.title}</div>
+                            <div class="user-hint-con" style="display:none;">
+                                	亲爱的{$glo.web_name}用户，{$vo.msg}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="user-hint-intro" href="#" onclick="del({$vo.id})"><img  src='__ROOT__/Style/A/images/fzcg_xxx.gif' title="删除" style="padding-top: 6px;"/></a>
+                            </div>
+                            <span class="user-hint-show">展开&nbsp;&nbsp;<strong>∨</strong></span>
+                        </dd>
+                    </dl>
+                    </volist>
+                    <php>}</php>
+                          <div class="pager-content table-style-footer">{$pagebar}</div> 
+                </div>
+            </div>
+        </div>
+        	<!--站内消息end-->
+    </div>
+</div>
+<include file="default:Public:_footer" group="Home"/>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script>
+	function del(id){
+		layer.confirm('您确定要删除这条记录吗？', {icon: 3}, function(index){
+		    layer.close(index);
+		    $.post("__URL__/delmsg/",{'id':id},
+					function(msg) {
+						if (msg.status==1) {
+							layer.msg('删除成功！', {icon: 6});
+							setTimeout(window.location.reload(), 3000);
+						} else {
+							layer.msg(msg.message, {icon: 2});
+						}
+					},'json');
+		});
+	}
+</script>
+<script>
+$(function(){
+    var curMsgId = '';
+    if(curMsgId){
+        $.get("###",{message_id: curMsgId});
+        $('.user-hint-con:visible').parents('dl').removeAttr('_msgid').find('dt span').remove();
+    }
+    $(".user-hint dl").click(function(){
+        var $this = $(this),
+            hintCon = $this.find(".user-hint-con"),
+            show = $this.find(".user-hint-show"),
+            msgId = $this.attr('_msgId');
+        if(hintCon.is(":visible")){
+            hintCon.hide()
+            show.html("展开&nbsp;&nbsp;<strong>∨</strong>");
+            //$this.addClass('read');
+        }else{
+            hintCon.show()
+            show.html("收起&nbsp;&nbsp;<strong>∧</strong>");
+            if(msgId){
+                $.get("__URL__/changestatus/",{message_id: msgId});                
+                $this.removeAttr('_msgid').find('dt span').remove();
+            }            
+        }
+    }).hover(function(){ $(this).addClass("odd-line-1");},function(){ $(this).removeClass("odd-line-1");});
+});
+$(".yidutips").click( function () { 
+	$.get("__URL__/allread", function(msg){
+				if (msg.status==1) {
+					window.location.reload();
+				}
+			  },'json');
+});
+</script>
+</body></html>

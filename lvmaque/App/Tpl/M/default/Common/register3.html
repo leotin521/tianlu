@@ -1,0 +1,207 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>用户注册</title>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/amazeui.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/app.css">
+    <link rel="stylesheet" href="__ROOT__/Style/NewWeChat/css/member.css">
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/amazeui.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/app.js"></script>
+    <script type="text/javascript" src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>用户注册</h1>
+        <a href="javascript:;" onclick="window.history.go(-1)" class="btn btn-goback"><i class="am-icon-chevron-left"></i></a>
+    </header>
+    <div class="mod-logo">
+        <img src="__ROOT__/Style/NewWeChat/images/icon-logo.png" class="am-image" alt="">
+    </div>
+    <div class="am-container"> 
+        <if condition="$is_manual eq 0">
+        <div class="mod-tips am-margin-bottom am-text-center">
+            <a href="javascript:void(0);" id="infos" style="display: none;" class="am-text-danger ">我们已将短信验证码发送到：{$myphone}</a>
+        </div>
+		</if>
+        <form class="am-form am-form-horizontal form-login" id="myform">
+            <div class="am-form-group">
+                <div class="am-form-group">
+                    <label class="am-u-sm-3 am-form-label">验证码&nbsp;</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" style="width: 59%;float: left;margin: auto auto auto 0px;" class="am-radius" name="code" id="code" placeholder="请输入验证码" value=""/>
+                        <img  src="/admin/index/verify" style="margin: 4px; auto auto 5px;width:50px;height: 30px;" onclick="javascript:this.src='/admin/index/verify?'+new Date().getTime()" />
+                    </div>
+                </div>
+              <!--验证码：-->
+                    <!--<input type="text" class="am-radius " name="verify-input" id="code" maxlength="4" style="width:10%;" />-->
+                    <!--<img  src="/admin/index/verify" onclick="javascript:this.src='/admin/index/verify?'+new Date().getTime()" />-->
+                <label class="am-u-sm-3 am-form-label">手机验证码&nbsp;</label>
+                <div class="am-u-sm-9">
+                    <div class="am-cf input-width-btn">
+                        <div class="verify-input">
+                            <input type="text" class="am-radius " name="phone_code" id="phone_code"/>
+                            <input type="hidden" class="am-radius " name="user_name" value="{$myname}"/>
+                            <input type="hidden" class="am-radius " name="user_phone" value="{$myphone}"/>
+                        </div>
+                        <div class="get-verify-btn">
+                            <a href="javascript:void(0);" class="am-btn am-btn-danger am-radius am-btn-block " id="sendSMSTip">获取验证码</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <label class="am-u-sm-3 am-form-label">登录密码&nbsp;</label>
+                <div class="am-u-sm-9">
+                    <input type="password" class="am-radius" name="user_pass" id="user_pass" />
+                </div>
+            </div>
+            <div class="am-form-group">
+                <label class="am-u-sm-3 am-form-label">确认密码&nbsp;</label>
+                <div class="am-u-sm-9">
+                    <input type="password" class="am-radius" name="user_pass2" id="user_pass2" />
+                </div>
+            </div>
+			<empty name="tmp_invite_user">
+            <div class="am-form-group">
+                <label class="am-u-sm-3 am-form-label">推荐人&nbsp;</label>
+                <div class="am-u-sm-9">
+                    <input type="text" class="am-radius" name="recommend_id" id="recommend_id" />
+                </div>
+            </div>
+           </empty>
+            <a href="javascript:void(0);" class="am-radius am-margin-bottom-lg am-text-lg am-btn am-btn-danger am-btn-block" id="submit">完成注册</a>
+        </form>
+    </div>
+    <script>
+        var isInvite = $('#is_invite').val();
+        var timer = null;
+        var leftsecond = 60; //倒计时
+        var msg = "";
+        var sendSMSTip = $('#sendSMSTip'); //获取按钮id
+        var mobile = {$myphone};
+        var myname = "{$myname}";
+        $("#sendSMSTip").click(function(){
+            var code = $("#code").val();
+            if(code == ''){
+                $().toastmessage('showErrorToast', "请输入验证码！");
+                return false;
+            }
+            sendSMSTip.html("短信发送中...");
+            $.ajax({
+                url: "__URL__/sendphone/",
+                type: "post",
+                dataType: "json",
+                data: {"cellphone":mobile,"myname":myname,"code":code},
+                success: function(d) {
+                    leftsecond = 120;
+                    if (d.status == 1) {
+                        $("#infos").show();
+                        $("#register_smsCode").show(1000);
+                        $('#btnSendMsg').find('span').attr('onclick', '');
+                        $('.ym_post').css('background-color', '#aaa');
+                        clearInterval(timer);
+                        timer = setInterval(setLeftTime1, 1000, "1");
+                    }
+                    else if (d.status == 2) {
+                        $().toastmessage('showErrorToast', d.message);
+                        sendSMSTip.html("请重试~");
+                        return false;
+                    }
+                    else if (d.status == 3){
+                        $().toastmessage('showErrorToast', d.message);
+                        sendSMSTip.html("请重试~");
+                        return false;
+                    }
+                    else {
+                        msg = "发送失败,请重试";
+                        sendSMSTip.html(msg);
+                        sendSMSTip.css('font-size', '13px');
+                    }
+                }
+            });
+        })
+        function setLeftTime1() {
+
+            var second = Math.floor(leftsecond);
+                sendSMSTip.eq(0).html(msg + second + "秒");
+            leftsecond--;
+            if (leftsecond < 1) {
+                sendSMSTip.eq(0).html("重新获取验证码");
+                sendSMSTip.css('font-size', '13px');
+                clearInterval(timer);
+                $('.ym_post').css('background-color', '#57aa73');
+                $("#btnSendMsg").html(' <span style="font-size:16px;" class="spTip" id="sendSMSTip" onclick="resendMobileValidSMSCode()">重新发送</span></a>');
+                try {
+
+                } catch (E) { }
+                return;
+            }
+        }
+    </script>
+
+    <script>
+        $(function(){
+            $("#submit").click(function(){
+
+//                var user_phone = {$myphone}//手机号码
+//                var user_name =  {$myname}//用户名
+
+
+                var phone_code =$.trim($("#phone_code").val());//手机验证码
+                var user_pass =  $.trim($("#user_pass").val());//密码
+                var user_pass2 =  $.trim($("#user_pass2").val());//确认密码
+                var recommend_id =  $.trim($("#recommend_id").val());//推荐人
+
+
+                if(phone_code == ''){
+                    $().toastmessage('showErrorToast', "请输入验证码！");
+                    return false;
+                }
+                if(user_pass == ''){
+                    $().toastmessage('showErrorToast', "请输入密码！");
+                    return false;
+                }
+                if(user_pass2 == ''){
+                    $().toastmessage('showErrorToast',"请输入确认密码!");
+                    return false;
+                }
+                if(user_pass != user_pass2){
+                    $().toastmessage('showErrorToast', "确认密码不正确，请修改");
+                    return false;
+                }
+
+                $.ajax({
+                    url: "__URL__/regaction/",
+                    data: $("#myform").serialize(),
+                    timeout: 1500,
+                    //cache: false,
+                    type: "post",
+                    dataType: "json",
+                    success: function (d) {
+                        if(d.status==0){
+                            $().toastmessage('showErrorToast', d.message);
+                            return false;
+                        }else{
+                            $("#loading").show();
+                            setTimeout(window.location.href="__APP__/m/user", 500 )
+                        }
+                    }
+                });
+
+            })
+        })
+    </script>
+</body>
+
+</html>

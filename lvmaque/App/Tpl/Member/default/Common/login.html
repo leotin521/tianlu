@@ -1,0 +1,90 @@
+<include file="default:Public:_header_common" group="Home" />
+<title>用户登录-- {$glo.web_name}</title>
+<include file="default:Public:_header_main" group="Home"/>
+<!--<link rel="stylesheet" href="__ROOT__/Style/H/css/registerreset.css" />-->
+<link rel="stylesheet" href="__ROOT__/Style/H/css/registerstyle.css" />
+<script type="text/javascript">
+    var imgpath="__ROOT__/Style/M/";
+    var curpath="__URL__";
+</script>
+<script type="text/javascript" src="__ROOT__/Style/M/js/login.js"></script>
+<div class="login_main" id="login_main">
+  <div class="login_form">
+    <div class="form">
+        <form action="" name="login-form" method="post" onsubmit="return false;">
+      <div class="ptop15" style="height:33px; width:240px;">
+        <div  id="dvUser"></div>
+      </div>
+      <p style="width:278px;position:relative;">
+      <php>if(isset($user_name)){</php>
+      	<input type="text" id="txtUser" class="login_text" value="{$user_name}" data="{$user_name}" title="{$user_name}">
+      <php>}else{</php>
+      	<input type="text" id="txtUser" class="login_text"  value="" data="手机/邮箱/用户名" style="float:left;margin-left:0;">
+      <php>}</php>
+          <div id="dvUser2" style="position:absolute;right:55px;top:55px;"></div>
+      </p>
+      <p style="position: absolute;top: 105px;right: 92px;z-index: 11;"><input type="text" class="login_pass" id="txtPwdyc" value="密码" /></p>
+      <p style="width:278px;position:relative;"><input type="password" class="login_pass" id="txtPwd"  style="color:#000;width:276px;float:left;margin-left:0;"/>
+            <div id="dvPwd2" style="position:absolute;right:55px;top:115px;"></div>
+      </p>
+      <p style="line-height:36px;position:relative;"><input type="text" class="login_check" id="txtCode" maxlength="4" style="color:#000;float:left;"/>
+        <img  src="__URL__/verify"  onclick="this.src=this.src+'?t='+Math.random()" id="imVcode" alt="点击换一个校验码"  style=" width: 115px; height:36px;border: 1px solid #ccc;float:left;"/>
+        <a href="javascript:document.getElementById('imVcode').onclick();">&nbsp;&nbsp;刷新</a>
+            <!--<div id="dvCode2" style="position:absolute;right:55px;top:185px;"></div>-->
+      </p>
+        <p style="display:block;width:100%;">
+                    <label for="txtRemember" style="float:left;color:#000;">
+                <input type="checkbox" id="txtRemember""<php>if(isset($user_name)){</php> checked <php> }else{ } </php> >&nbsp;记住用户名
+            </label>
+        	<a href="__APP__/member/common/getPassWord.html" style="float:right;">忘记密码</a>
+        </p>
+                <div style="clear: both;"></div>
+                <input type="image" src="__ROOT__/Style/H/images/login_submit.jpg" class="login_submit" onkeydown="keyLogin();"  onclick="LoginSubmit(this);" id="btnReg" style="height:40px;"/>
+                <p style="width:100%;height:40px;margin:0;">
+                    <a href="__APP__/member/common/register/" style="float:left;">在线注册</a>
+                    <span style="display:block;height:10px;float:right;position:relative;">
+                        <if condition="$loginconfig['sina']['enable'] eq '1'">&nbsp;&nbsp;<a href="__APP__/member/oauth/sina/" style="float:left;display:block;position:absolute;top:-1px;right:0px;height:10px;">
+                        <img src="__ROOT__/Style/H/images/sina_n.png" /></a></if>
+                        <if condition="$loginconfig['qq']['enable'] eq '1'"><a href="__APP__/member/oauth/qq/" style="float:right;display:inline-block;position:absolute;top:-1px;right:14px;"><img src="__ROOT__/Style/H/images/qq_n.png" />&nbsp;&nbsp;</a></if></span>
+
+                </p>
+            </form>
+            <script type="text/javascript">
+                SetDefaultTitle("txtUser");
+                $('#txtUser').focus( function() {
+                    if( $(this).val() == '手机/邮箱/用户名' ) {
+                        $(this).val('');
+                    }
+                })
+                $(document).ready(function(){
+                    $("#txtPwdyc").focus(function(){
+                        $("#txtPwdyc").hide();
+                        $("#txtPwd").show();
+                        $("#txtPwd").focus();
+                    });
+                    $("#txtPwd").blur(function(){
+                        var $txtPwd_obj=$('#txtPwd');
+                        if($txtPwd_obj.val()==''){
+                            $("#txtPwdyc").show();
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<script type="text/jscript">
+            $("#m1").attr("class", "dv_header_4");
+            $("#a1").attr("class", "a_h_o");
+            $("#m7").attr("class", "dv_header_2");
+            $("#a7").attr("class", "a_h_m");
+            $("#b1").css("display", "none");
+</script>
+<script type="text/javascript">
+    function keyLogin(){
+        if (event.keyCode==13) {
+            document.getElementById("btnReg").click(); //调用登录按钮的登录事件
+        }
+    }
+</script>
+<include file="default:Public:_footer" group="Home" />

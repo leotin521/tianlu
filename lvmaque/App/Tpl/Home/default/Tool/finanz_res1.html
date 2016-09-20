@@ -1,0 +1,66 @@
+      
+            
+                  <table style="border-bottom: 5px solid #E7E9EB;width:100%;">
+                    <tr style="border-bottom: 1px solid #E7E9EB;">
+                      <th width="10%"><p>借款标号</p></th>
+                      <th width="10%"><p>用户名</p></th>
+                      <th width="27%"><p>借款标题</p></th>
+                      <th width="15%"><p>借款金额</p></th>
+                      <th width="13%"><p>截止时间</p></th>
+                      <th width="25%"><p>备注</p></th>
+                    </tr>
+                    <if condition=" ($tendlately eq null) OR ($tendlately eq array()) ">
+                    <tr style="border-bottom: 1px solid #E7E9EB;">
+                      <td colspan="6"><p class="red">无相关记录</p></td>
+                    </tr>
+                    <else />
+                    <volist name="tendlately" id="vs">
+                    <tr style="border-bottom: 1px solid #E7E9EB;">
+                      <td><p><a href="{$vs.borrow_id|getInvestUrl=###}" title="{$vs.borrow_name}">{$vs.borrow_id}</a> </p></td>
+                      <td><p>{$vs.user_name|hidecard=###,5} </p></td>
+                      <td><p><a href="{$vs.borrow_id|getInvestUrl=###}" title="{$vs.borrow_name}">{$vs.borrow_name|cnsubstr=###,10}</a></p></td>
+                      <td><p class="red">￥{$vs.capital_all} </p></td>
+                      <td><p>{$vs.deadline|date="Y-m-d",###} </p></td>
+                      <td><p class="red"><if condition=" $vs.repayment_time gt 0 ">{$vs.repayment_time|date="Y-m-d H:i:s",###} 已还款 <else /></if></p></td>
+                    </tr>
+                    </volist>
+                	</if>
+                  </table>
+                  <div  class="pages" style=" width:99%">{$page}</div>
+             
+                <script type="text/javascript">
+		            $('.pages a').click(function(){
+		            	try{	
+		            		var geturl = $(this).attr('href');
+		                    $.ajax({
+		                        url: geturl,
+		                        data: {},
+		                        timeout: 5000,
+		                        cache: false,
+		                        type: "get",
+		                        dataType: "json",
+		                        success: function (d, s, r) {
+		                          	if(d) $("#finanz_detail").html(d.html);
+		                        }
+		                    });
+		            	}catch(e){};
+		            	return false;
+		            });
+		            $(".sub_skip").click(function(){    
+		                try{    
+		                    var geturl = $(this).attr("before")+$(this).siblings(".jumpto").val();
+		                    $.ajax({
+		                        url: geturl,
+		                        data: {},
+		                        timeout: 5000,
+		                        cache: false,
+		                        type: "get",
+		                        dataType: "json",
+		                        success: function (d, s, r) {
+		                          	if(d) $("#finanz_detail").html(d.html);
+		                        }
+		                    });
+		                }catch(e){};
+		                return false;
+		            });
+                </script>

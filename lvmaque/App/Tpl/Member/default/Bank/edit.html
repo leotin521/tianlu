@@ -1,0 +1,285 @@
+<include file="default:Public:_header_common"/>
+            <style type="text/css">.sanjiao {font-size: 14px;font-family: 宋体, sans-serif;height: 8px;}.sanjiao_ddd1 { position: absolute;left: 0px;top: 0px;z-index: 1;}.sanjiao_fff2 {color: #fff;position: absolute;left: 0px;top: 2px;z-index: 2;}.sanjiao_fff3 {color: #fff;position: absolute;left: 0px;top: 0px;z-index: 2;}.sanjiao_ddd4 {position: absolute;left: 0px;top: 2px;z-index: 1;}</style><style id="poshytip-css-tip-yellow" type="text/css">div.tip-yellow{visibility:hidden;position:absolute;top:0;left:0;}div.tip-yellow table.tip-table, div.tip-yellow table.tip-table td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;vertical-align:middle;}div.tip-yellow td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellow td.tip-right{background-position:100% 0;}div.tip-yellow td.tip-bottom{background-position:100% 100%;}div.tip-yellow td.tip-left{background-position:0 100%;}div.tip-yellow div.tip-inner{background-position:-10px -10px;}div.tip-yellow div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}</style></head>
+<body>
+<script>
+    var session_temp ="<php> echo session_name();</php>";
+    var picid ="<php> echo session_id();</php>";
+var timer = null;
+var leftsecond = 60; //倒计时
+var msg = "";
+function sel(aid,bid) {
+	var pid=$("#"+aid).val();
+	$.ajax({
+		url:"__URL__/sele",
+		type:"post",
+		data:{"pid":pid},
+		success:function(e){
+			var o=eval("("+e+")");
+			var str="<option value=''>请选择</option>";
+			for(var a in o){
+				str=str+"<option value='"+o[a].id+"'>"+o[a].name+"</option>";
+			}
+			$("#"+bid).html(str);
+		}
+	})
+}
+//获取手机验证码
+function get_code(){
+	$.ajax({
+		url: "__URL__/getcode/",
+		type: "post",
+		dataType: "json",
+		data: {},
+		success: function(d) {
+			leftsecond = 60;
+			$(".yuyin-channel").removeAttr("style");	//显示
+			if (d.status == 1) {
+				msg = " √ 发送成功，如未收到";
+				clearInterval(timer);
+				timer = setInterval(setLeftTime1, 1000, "1");
+				$("#sendSmsBtn").removeAttr("onclick");	//发送时间内，不能再次发送
+			}else {
+				msg = " × 校验码发送失败,请重试";
+				$("#safeErr").html(msg);
+			}
+		}
+	});
+}
+function setLeftTime1() {
+	var second = Math.floor(leftsecond);
+	$("#safeErr").eq(0).html( msg + second + "秒后可重发");
+	leftsecond--;
+	if (leftsecond < 1) {
+		$("#safeErr").eq(0).html("现在可重新发送~");
+		clearInterval(timer);
+		$("#sendSmsBtn").attr("onclick","get_code();");	//发送时间截止，添加发送事件
+		/*try {
+			$("#mobile").attr("disabled",false);	//恢复手机号输入
+		} catch (E) { }*/
+		return;
+	}
+}
+
+$(function() {
+    $("#addBankSubmit1").click(function() {
+    	var is_manual = "<php> echo $is_manual; </php>";
+    	var reg = new RegExp("[0-9]{15,19}$", "i");
+    	var vcode = null;
+        if ($("#bank").val()=="") {
+        	$("#error").html('请输入银行~');return;
+        }
+        if ($("#cardNum").val().length < 1) {
+        	$("#error").html('请输入卡号~');return;
+        }
+        if (!reg.test($("#cardNum").val())) {
+        	$("#error").html('请输入正确的卡号~');return;
+        }
+        if ($("#branchh").val().length < 1) {
+        	$("#error").html('请输入开户行~');return;
+        }
+        if(!(/^[\u4e00-\u9fa5]+$/.test($("#branchh").val()))){
+        	$("#error").html('开户行只能是中文~');return;
+        }
+        if (is_manual=="0"){
+        	if ($("#sms_vcode").val()=="") {
+            	$("#error").html('请输入验证码~');return;
+            } 
+        	vcode = $("#sms_vcode").val();
+        }
+        if ($("#province").val()=="") {
+        	$("#error").html('请选择开户城市~');return;
+        }
+        if ($("#city").val()=="") {
+        	$("#error").html('请选择开户城市~');return;
+        }
+        $.ajax({
+        	url: "__URL__/doedit",
+            type: "post",
+            dataType: "json",
+            data: {
+            	bank_name: $("#bank").val(), bank_num: $("#cardNum").val(), bank_id: $("#bank_id").val(), 
+                bank_province: $("#province").val(),bank_city: $("#city").val(),
+                bank_address: $("#branchh").val(), vcode: vcode
+            },
+            success: function(d) {
+            	if (d.status == 1) {
+            		window.location.href="__APP__/member/bank/index";
+            	}else if (d.status == 0) {
+            		$("#error").html(d.message);return;
+            	}
+            }
+        });
+    });
+});
+</script>
+<include file="default:Public:_header_main"/>
+<div class="user-page">
+    <div class="user-main clearfix">
+                                      <include file="default:Public:_left"/>
+
+    	<!--提现页面begin-->
+        <div class="user-con user-drawings">
+            <div class="user-box-1">
+            	<div class="user-box-title-1 clearfix">
+                	<h2>银行卡信息</h2>
+                </div>
+                <div class="user-box-con-1">
+                  <div id="addBankCard">
+                        <form novalidate="novalidate">
+                        <div class="clearfix">
+                       <dl class="user-drawings-bank clearfix" style="padding-bottom: 0px;margin: 0;">
+                        <dt>编辑银行卡</dt>  
+                       </dl>
+                            <ul class="form-style-1-field ">
+                                <li class="form-style-1-item">
+                                    <label class="form-style-2-label">持卡人</label>
+                                    <span class="form-style-1-value">{$voinfo.real_name}</span>
+                                </li>
+                                <li class="form-style-1-item">
+                                    <label class="form-style-2-label">银行</label>   
+                                      <select name="bank" id="bank" class="valid">	
+                                      	<foreach name="bank_list" item="data" key="key">
+	                                      	<if condition="$vobank.bank_name eq $key ">
+	                                        	<option value="{$key}" selected="selected" >{$data}</option>
+	                                        <else />
+	                                        	<option value="{$key}">{$data}</option>
+	                                        </if>
+                                        </foreach>
+									</select>                            
+								</li>
+                                <li class="form-style-1-item">
+                                    <div class="cardZoom">
+                                    <b id="cardFmt"></b>
+                                    <label class="form-style-2-label">卡号</label>
+                                    <input id="cardNum" name="account" type="text" value="{$vobank.bank_num}" class="input-text-style-1 form-style-1-value" autocomplete="off"><span class="form-style-1-error"></span>
+									
+                                    </div>
+                                </li>
+                                <li class="form-style-1-item">
+                                    <label class="form-style-2-label">开户城市</label>
+                                    <select id="province" name="province" onchange="sel('province','city')">
+                                    	<option>请选择</option>
+                                    	<volist name="province" id="pro">
+                                    		<if condition="$vobank.bank_province eq $pro.id ">
+                                    			<option value="{$pro.id}" selected="selected" >{$pro.name}</option>
+                                    		<else />
+                                    			<option value="{$pro.id}">{$pro.name}</option>
+                                    		</if>
+										</volist>
+                                    </select>
+                                    <select id="city" name="city" onchange="sel('city','')">
+                                        <option value="">请选择</option>
+                                        <foreach name="city" item="ci">
+                                        	<if condition="$vobank.bank_city eq $ci.id ">
+                                        		<option value="{$ci.id}" selected="selected" >{$ci.name}</option>
+                                        	<else />	
+                                        		<option value="{$ci.id}" >{$ci.name}</option>
+                                        	</if>
+										</foreach>
+                                    </select>
+                                    <span class="form-style-1-error" style="float:none;margin-left:10px"></span>
+                                </li>
+                                <li class="form-style-1-item">
+                                    <label class="form-style-2-label">开户行</label>
+                                    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input id="branchh" name="branchh" type="text" value="{$vobank.bank_address}" class="input-text-style-1 form-style-1-value ui-autocomplete-input" autocomplete="off">
+									<span class="form-style-1-error" id="branch_err"></span>
+                                </li>
+                                <!--短信验证 开始-->
+                                <if condition="($is_manual eq 0) AND ($edit_bank eq 1) ">
+                                <li class="form-style-1-item">
+                                    <label class="form-style-2-label">手机号码</label>
+                                        <span class="form-style-phone-value">{$mobile|hidecard=###,2}</span>
+                                        <span class="form-style-1-other" style="width:auto">
+                                        	<input id="sendSmsBtn" type="button" value="获取验证码" onclick="get_code()" class="btn-style-1 sms-channel">
+                                        </span>
+                                        <span class="form-style-1-error"></span>
+                                </li>
+                                <li class="form-style-phoneyu-item yuyin-channel" style="display: none;">
+                                	<label class="form-style-2-label">&nbsp;</label>
+                                	<span class="form-style-1-error" id="safeErr"></span>
+                                </li>
+                                <li class="form-style-1-item">
+                                    <label class="form-style-2-label">短信验证码</label>
+                                    <span class="form-style-1-value" style=" width: 350px; ">
+                                        <input id="sms_vcode" name="sms_vcode" type="text" class="input-text-style-1 form-style-1-value">
+                                    </span>
+                                </li>
+                                <else />
+                                </if>
+                                <!--短信验证 结束-->
+								<li class="form-style-1-item">
+                                    <label class="form-style-2-label"></label>
+                                    <p id="bankMPA" class="bankMP bankMPspe">温馨提示：为确保您的资金划转安全高效，{$glo.web_name}建议您完善开户行信息。 </p><p class="bankMP">请您务必填写开户城市的银行支行，如：工商银行北京苏州街支行。</p>
+                                </li>
+                            </ul>
+                            <div class="form-style-2-submit">
+                            	<input id="bank_id" type="hidden" value="{$id}" />
+                            	<if condition="$edit_bank eq 1 ">
+                                <input id="addBankSubmit1" type="button" class="btn-style-3 allbgcolor" value="修改">
+                                <input id="cancelAddBank" type="reset" class="btn-style-4" value="取消">
+                                <else />
+                                <input type="button" class="btn-style-3 allbgcolor" value="禁止修改">
+                                <input id="cancelAddBank" type="reset" class="btn-style-4" value="返回">
+                                </if>
+                                <input name="user_id" type="hidden" value="13994">
+                                <span id="error" class="form-style-1-error"></span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="union_bank_id" id="union_bank_id" value="">
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+
+    	<!--银行充值end-->
+    	
+    </div>
+</div>
+
+<include file="default:Public:_footer" group="Home"/>
+
+<script id="cardTmpl" type="text/x-dot-template">
+    <span class="user-drawings-bank-num">{{=it[0]}}</span>
+    <img src="{{=it[1]}}" width="143" height="38"/>
+    <span class="icon-duigou"></span>
+</script>  
+<script id="promptTmp2" type="text/x-dot-template">
+    <div class="ps1-con ps2-con cf">
+        <div class="ps1-title">
+            <h2>{{=it[0]}}</h2>
+        </div>
+        <div class="state-prompt-txt-{{?it[3]}}{{?it[3]==1}}duigou{{??}}tanhao{{?}}{{??}}cuowu{{?}} clearfix">
+            <div class="state-prompt-style">
+                <h2>{{=it[1]}}</h2>
+                {{=it[2]}}
+            </div>
+        </div>
+    </div>
+</script>
+<script src="__ROOT__/Style/M/js/common.js"></script>
+<script src="__ROOT__/Style/M/js/withdraw.js"></script>
+<script src="__ROOT__/Style/M/js/authpop.js"></script>
+<script>
+$(function(){
+    var withdrawData = {
+            addBankUrl:'###',
+            edtBankUrl:'###',
+            updBankUrl:'###',
+            delBankUrl:'###', 
+            postUrl:'###',
+            account:{use_money:10.00,
+            withdraw_free:0.00,
+            invested_money:0.00,
+            con_lowest_withdraw:50},
+            checkBankUrl:'###',
+            getAreaUrl:'###',
+            getSmsVcodeUrl : '###'//获取手机验证码接口
+	};
+    itz.withdraw.init(withdrawData);
+	//itz.authpop({target:['dom','#withdrawSubmit'],csspath:'',title:'提现前请您完成以下认证'});
+}());
+</script><ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all" id="ui-id-1" tabindex="0" style="display: none;"></ul><div class="tip-yellow"><div class="tip-inner tip-bg-image"></div><div class="tip-arrow tip-arrow-top tip-arrow-right tip-arrow-bottom tip-arrow-left"></div></div>
+</body></html>

@@ -1,0 +1,421 @@
+<include file="Public:_header" />
+<script type="text/javascript">
+	var delUrl = '__URL__/doDelete';
+</script>
+<script type="text/javascript" src="__ROOT__/Style/Common/js/area.js" language="javascript"></script>
+
+<div class="so_main">
+  <div class="page_tit">{$position}</div>
+
+
+  <!-------- 添加编辑友情链接 -------->
+  <div id="addAttr_div" style="display:none;">
+  	<div class="page_tit">添加经纪人 [ <a href="javascript:void(0);" onclick="addAdminUser();">隐藏</a> ]</div>
+	
+	<div class="form2">
+	<form method="post" action="__URL__/addAdmin" onsubmit="return addNewAdmin();" enctype="multipart/form-data">
+    <!-- <input type="hidden" name="u_group_id" value="26"/> --><!-- `mxl:team20150116`hide -->
+	<input type="hidden" name="u_group_id" value="{$ainfo['r_member']}"/><!-- `mxl:team20150116` -->
+    <input type="hidden" name="area_id" value="1"/>
+    <input type="hidden" name="is_kf" value="0"/>
+    <dl class="lineD">
+      <dt>团队长：</dt>
+      <dd>
+        <select name="parent" id="parent">
+            <option value="0" selected="selected">--请选择--</option>
+            <volist id="vt" name="teamlist">
+            <option value="{$vt.id}">{$vt.user_name}</option>
+            </volist>            
+         </select>
+        
+      </dd>
+    </dl>
+    <dl class="lineD">
+      <dt>经纪人用户名：</dt>
+      <dd>
+        <input name="user_name" class="input" id="user_name" type="text" value="">
+        <span>经纪人登录时的用户名</span>
+      </dd>
+    </dl>
+	
+    <dl class="lineD">
+      <dt>密码：</dt>
+      <dd>
+        <input name="user_pass" class="input" id="user_pass" type="text" value="">
+        <span id="pass_tip">登录员登录时的密码,请注意大小写。</span>
+      </dd>
+    </dl>
+	
+    <dl class="lineD">
+      <dt>真实姓名：</dt>
+      <dd>
+        <input name="real_name" class="input" id="real_name" type="text" value="">
+        <span>经纪人的真实姓名</span>
+      </dd>
+    </dl>
+	
+    <dl class="lineD">
+      <dt>QQ：</dt>
+      <dd>
+        <input name="qq" class="input" id="qq" type="text" value="">
+        <span>QQ</span>
+      </dd>
+    </dl>
+	
+    <dl class="lineD">
+      <dt>电话：</dt>
+      <dd>
+        <input name="phone" class="input" id="phone" type="text" value="">
+        <span>客服电话</span>
+      </dd>
+    </dl>
+    <!-- <dl class="lineD" style="overflow:hidden"><dt>相片：</dt>
+		<dd>
+			<input type="file" id="photo" name="photo" class="input" style="float:left"/>
+			<span style="float:left"><div style="text-align:left; clear:both; overflow:hidden; width:230px; height:100px"><div id="imgDiv"></div><span id="xiangpian"></span></div></span>
+		</dd>
+	</dl> -->
+	<dl class="lineD">
+      <dt>性别：</dt>
+      <dd style="overflow:hidden;">
+	  	<input type="radio" name="sex" id="shi" value="1" /><label for="yes">男</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" id="fou" value="0" checked="checked" /><label for="no">女</label>
+        <!-- <span>禁用后此经纪人不能登录</span> -->
+      </dd>
+    </dl>
+    <dl class="lineD">
+      <dt>身份证号码：</dt>
+      <dd>
+        <input name="card" class="input" id="card" type="text" value="">
+        <span>身份证号码</span>
+      </dd>
+    </dl>
+    <dl class="lineD">
+      <dt>邮箱：</dt>
+      <dd>
+        <input name="email" class="input" id="email" type="text" value="">
+        <span>邮箱</span>
+      </dd>
+    </dl>
+    <dl class="lineD">
+      <dt>省市：</dt>
+      <dd>
+        <select name="province" id="province" class="sel_fs"><option>请选择</option></select>&#12288;（省/直辖市）&#12288;<select name="city" id="city" class="sel_fs"><option>请选择</option></select>&#12288;市&#12288;<select name="area" id="area" class="sel_fs"><option>请选择</option></select>&#12288;区
+        <span>省市</span>
+      </dd>
+    </dl>
+    <dl class="lineD">
+      <dt>联系地址：</dt>
+      <dd>
+        <input name="address" class="input" id="address" type="text" value="">
+        <span>联系地址</span>
+      </dd>
+    </dl>
+    <dl class="lineD">
+      <dt>描述：</dt>
+      <dd>
+        <textarea name="content" id="content" cols="48" rows="4"></textarea>
+
+        <span>描述</span>
+      </dd>
+    </dl>
+    <!--<dl class="lineD">
+      <dt>所属用户组：</dt>
+      <dd>
+	  	<select name="u_group_id" class="input" id="u_group_id">
+	  	<volist key="k" name="group_list" id="vo">
+		<option value="{$vo.group_id}">{$vo.groupname}</option>
+		</volist>
+		</select>
+        <span>不同的用户组对应不同的权限</span>
+      </dd>
+    </dl>
+
+    <dl class="lineD">
+      <dt>所属子站：</dt>
+      <dd>
+	  	<select name="area_id" class="input" id="u_area_id">
+        <option value="1">主站</option>
+		</select>
+        <span>主要是针对文章管理和客服,其他类型的经纪人可以随便选</span>
+      </dd>
+    </dl>-->
+	
+    <dl class="lineD">
+      <dt>是否禁用：</dt>
+      <dd style="overflow:hidden;">
+	  	<input type="radio" name="is_ban" id="yes" value="1" /><label for="yes">是</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="is_ban" id="no" value="0" checked="checked" /><label for="no">否</label>
+        <span>禁用后此经纪人不能登录</span>
+      </dd>
+    </dl>
+	
+    <!--<dl class="lineD">
+      <dt>是不是客服：</dt>
+      <dd style="overflow:hidden;">
+	  	<input type="radio" name="is_kf" id="yesx" value="1" /><label for="yesx">是</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="is_kf" id="nox" value="0" checked="checked" /><label for="nox">否</label>
+        <span>客服会出现在会员选择客服的列表，其他的不会</span>
+      </dd>
+    </dl>-->
+	
+	 <dl class="lineD">
+      <dt>密码口令：</dt>
+      <dd>
+        <input name="user_word" class="input" id="user_word" type="text" value="">
+        <span>经纪人密码口令设置后，在后台登录时只有写对口令才能进入后台（可填写文字、字母或数字，如：客服1号）</span>
+      </dd>
+    </dl>
+		 
+    <div class="page_btm">
+	  <input type="hidden" name="uid" id="uid" value="" disabled="disabled" />
+      <input type="submit" class="btn_b" id="showwait" onclick="addNewAdmin();" value="添加" />
+    </div>
+	</form>
+  </div>
+  </div>
+  
+<div class="suggestion_wrap" id="suggestion_wrap" style="display:none">
+	<div class="suggestion_box">
+		<ul id="suggestion_con">
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+//hover
+function csshove(obj){
+	$(obj).addClass("lihover"); 
+}
+function cssout(obj){
+	$(obj).removeClass("lihover"); 
+}
+function clic(obj){
+	var id = $(obj).attr("data"); 
+	$("#game_name").val($(obj).html());
+	$("#suggestion_wrap").hide();
+}
+
+</script>
+ <script type="text/javascript">
+ function addNewAdmin(){
+ 	var is_edit = !$("#uid").attr("disabled");
+ 	var name=$("#user_name").val();
+ 	var pass=$("#user_pass").val();
+	var word=$("#user_word").val();
+	
+	if(name==""){
+		ui.error('经纪人用户名不能为空');
+		$("#user_name").focus();
+		return false;
+	}else if(pass == "" && is_edit == false){
+		ui.error('经纪人密码不能为空');
+		$("#user_pass").focus();
+		return false;
+	}else if(word == "" && is_edit == false){
+		ui.error('经纪人密码口令不能为空');
+		$("#user_word").focus();
+		return false;
+	}else{
+		return true;
+	}
+}
+
+var isSearchHidden = 1;
+function addAdminUser() {
+
+	if(isSearchHidden == 1) {
+		$("#addAttr_div").slideDown("fast");
+		$(".addAttr_action").html("添加完毕");
+		isSearchHidden = 0;
+	}else {
+		$("#addAttr_div").slideUp("fast");
+		$(".addAttr_action").html("添加经纪人");
+		isSearchHidden = 1;
+	}
+}
+</script> 
+  
+<!--添加经纪人-->
+  <div class="Toolbar_inbox">
+  	<!-- <div class="page right">{$pagebar}</div> -->&nbsp;<in name="ainfo['me']" value="other,leader"><!-- 加空格保持高度`mxl:team20150116` -->
+	<a onclick="addAdminUser();" class="btn_a" href="javascript:void(0);">
+		<span class="addAttr_action">添加经纪人</span>
+	</a></in><!-- 增加身份限制，不允许经纪人添加`mxl:team20150116` -->
+    <in name="ainfo['me']" value="other"><a href="javascript:void(0);" class="btn_a" onclick="del();"><span>删除{$position}</span></a></in><!-- 增加身份限制，只允许管理员删除`mxl:team20150116` -->
+  </div>
+  
+  <div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th style="width:30px;">
+        <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+        <label for="checkbox"></label>
+    </th>
+    <th class="line_l">ID</th>
+    <th class="line_l">团队长账号</th>
+    <th class="line_l">经纪人账号</th>
+    <th class="line_l">真实姓名</th>
+    
+    <th class="line_l">是否禁用</th>
+    <th class="line_l">身份证号</th>
+    <th class="line_l">qq</th>
+    <th class="line_l">电话</th>
+    <th class="line_l" style="display:none">是不是客服</th>
+	<th class="line_l">添加时间</th>
+    <th class="line_l">关联时间</th>
+    <in name="ainfo['me']" value="other,leader"><th class="line_l">操作</th></in><!-- 增加身份限制，不允许经纪人操作`mxl:team20150116` -->
+  </tr>
+  	<php>$_REQUEST['p'] = isset($_REQUEST['p'])?$_REQUEST['p']:0; $cpage = (intval($_REQUEST['p'])<=1)?0:intval($_REQUEST['p']); $j=($cpage*C('ADMIN_PAGE_SIZE') + 1);</php>
+  <volist id="vo" name="admin_list">
+      <tr overstyle='on' id="list_{$vo.id}">
+        <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+        <td>{$vo.id}<!--<php>echo $j;</php>--></td>
+        <!-- <td>{$vo.parentuser_name}({$vo.parentreal_name}) --><!--<php>echo $j;</php>--><!-- </td> --><!-- `mxl:team20150116`hide -->
+		<td>{$vo.parentuser_name}{$vo.parentreal_name}</td><!-- `mxl:team20150116` -->
+        <td><span id="name_{$vo['id']}">{$vo.user_name}</span></td>
+        <td><span id="real_name_{$vo['id']}">{$vo.real_name}</span></td>
+		
+		<td><if condition="$vo.is_ban eq 1"><font color="#FF0000" id="is_ban_{$vo['id']}">禁用</font><else/><font color="#009900" id="is_ban_{$vo['id']}">正常</font></if></td>
+ 		<td><span id="card_{$vo['id']}">{$vo.card}</span></td>
+ 		<td><span id="qq_{$vo['id']}">{$vo.qq}</span></td>
+ 		<td><span id="phone_{$vo['id']}">{$vo.phone}</span></td>
+		<td style="display:none"><if condition="$vo.is_kf eq 1"><font color="#FF0000" id="is_kf_{$vo['id']}">是</font><else/><font color="#009900" id="is_kf_{$vo['id']}">否</font></if></td>
+		<td>{$vo.add_time|date="Y-m-d H:i:s",###}<span id="word_{$vo['id']}" style=" display:none;">{$vo.user_word}</span><div style=" display:none;"><span id="photo_{$vo['id']}"><img src="__ROOT__/{$vo.photo}" width="100" height="100" /></span><span id="sex_{$vo['id']}">{$vo.sex}</span><span id="email_{$vo['id']}">{$vo.email}</span><span id="province_{$vo['id']}">{$vo.province}</span><span id="city_{$vo['id']}">{$vo.city}</span><span id="area_{$vo['id']}">{$vo.area}</span><span id="address_{$vo['id']}">{$vo.address}</span><span id="content_{$vo['id']}">{$vo.content}</span><span id="parent_{$vo['id']}">{$vo.parent}</span></div></td>
+        <td><gt name="vo['guanlian_time']" value="0">{$vo.guanlian_time|date="Y-m-d H:i:s",###}</gt></td><!-- 增加是否关联的判断，无关联不显示关联时间`mxl:team20150116` -->
+		<in name="ainfo['me']" value="other,leader"><td>
+            <a href="javascript:void(0);" onclick="edit_f({$vo['id']});">编辑</a>
+            <eq name="ainfo['me']" value="other"><a href="javascript:void(0);" onclick="del({$vo['id']});">删除</a></eq><!-- 增加身份限制，只允许管理员删除`mxl:team20150116` -->
+            <if condition="$vo['parent'] gt 0"><a href="javascript:void(0);" onclick="relieve({$vo['id']});">解除关联</a>
+			<else/><a href="javascript:void(0);" onclick="reset({$vo['id']});">重置关联</a></if>
+        </td></in><!-- 增加身份限制，不允许经纪人操作`mxl:team20150116` -->
+
+      </tr>
+	<php>$j++;</php>
+  </volist>
+  </table>
+
+  </div>
+  <div class="Toolbar_inbox">
+  	<div class="page right">{$pagebar}</div>&nbsp;<in name="ainfo['me']" value="other,leader"><!-- 加空格保持高度`mxl:team20150116` -->
+	<a onclick="addAdminUser();" class="btn_a" href="javascript:void(0);">
+		<span class="addAttr_action">添加经纪人</span>
+	</a></in><!-- 增加身份限制，不允许经纪人添加`mxl:team20150116` -->
+    <in name="ainfo['me']" value="other"><a href="javascript:void(0);" class="btn_a" onclick="del();"><span>删除{$position}</span></a></in><!-- 增加身份限制，只允许管理员删除`mxl:team20150116` -->
+  </div>
+</div>
+<script type="text/javascript">
+var areaurl="__URL__/getarea/";
+var s = new GetAreaSelect('#province','#city','#area');
+</script>
+<script type="text/javascript">
+	function header(id){
+		ui.box.load("__URL__/header?id="+id, {title:"上传客服头像"});
+	}
+//	function reset(id){
+//	    ui.box.load("__URL__/ajax_reset?id="+id,{title:"重置关联"});
+//	}
+	function reset(id){
+	
+	$.jBox("get:__URL__/ajax_reset?id="+id, {
+		title: "重置关联",
+		width: "auto",
+		buttons: {'关闭': true }
+	});
+    }
+    //编辑地区
+    function edit_f(uid) {
+		$("#uid").attr("disabled","");
+		var name = $("#name_"+uid).html();
+		var real_name = $("#real_name_"+uid).html();
+		var group_name = $("#group_"+uid).html();
+		var area_name = $("#areax_"+uid).html();
+		var is_ban = $("#is_ban_"+uid).html();
+		var is_kf = $("#is_kf_"+uid).html();
+		var qq = $("#qq_"+uid).html();
+		var phone = $("#phone_"+uid).html();
+		var word = $("#word_"+uid).html();
+		var photo = $("#photo_"+uid).html();
+		var sex = $("#sex_"+uid).html();
+		var card = $("#card_"+uid).html();
+		var email = $("#email_"+uid).html();
+		var province = $("#province_"+uid).html();
+		var city = $("#city_"+uid).html();
+		var area = $("#area_"+uid).html();
+		var address = $("#address_"+uid).html();
+		var content = $("#content_"+uid).html();
+		var parent = $("#parent_"+uid).html();
+		
+				
+		if(is_ban=="禁用") b_r = 1;
+		else b_r = 0;
+
+		if(is_kf=="是") k_r = 1;
+		else k_r = 0;
+		
+        s_r = sex;
+		
+		
+		$("#uid").val(uid);
+		$("#user_name").val(name);
+		$("#real_name").val(real_name);
+		$("#qq").val(qq);
+		$("#phone").val(phone);
+		$("#u_group_id").find("option").each(function(){
+			if($(this).text() == group_name) $(this).attr("selected","selected");
+		});
+		$("#u_area_id").find("option").each(function(){
+			if($(this).text() == area_name) $(this).attr("selected","selected");
+		});
+		$("input:[type=radio]:[name='is_ban']:[value='"+b_r+"']").attr("checked",true);//
+		$("input:[type=radio]:[name='is_kf']:[value='"+k_r+"']").attr("checked",true);//
+		$("input:[type=radio]:[name='sex']:[value='"+s_r+"']").attr("checked",true);//
+		$("#parent").find("option").each(function(){
+		    if($(this).val() == parent) $(this).attr("selected","selected");
+		});
+		$("#user_word").val(word);
+		
+		$("#xiangpian").html(photo);
+		$("#uid").val(uid);
+		$("#card").val(card);
+		$("#email").val(email);
+		$("#address").val(address);
+		$("#content").val(content);
+		
+		$("#showwait").val("修改");
+		$("#pass_tip").html("如果不改密码，请留空");
+		$("#pass_tip").css("color","red");
+		
+		//var areaurl="__URL__/getarea/";
+        var s2 = new GetAreaSelect('#province','#city','#area',province,city,area);
+		//$("#area_"+uid).remove();
+		isSearchHidden = 1;
+		addAdminUser();
+    }
+ function relieve(id){
+	
+	var aid = id;
+	
+  
+	if(confirm('确定要解除关系吗?')){
+	  $.ajax({
+		url: "/Admin/Broker/relieve",
+		data: {"aid":aid},
+		cache: false,
+		type: "post",
+		dataType: "json",
+		success: function (d, s, r) {
+			if(d){
+				if(d.status==1)	 {
+					alert(d.message);
+					window.location.href="/Admin/Broker/index";
+					
+				}else{
+				    alert(d.message);
+					window.location.href="/Admin/Broker/index";
+				}
+			}
+		}
+	  });
+	}
+  }
+</script>
+
+<include file="Public:_footer" />

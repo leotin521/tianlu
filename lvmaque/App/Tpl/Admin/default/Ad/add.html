@@ -1,0 +1,31 @@
+<include file="Public:_header" />
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">添加广告</div>
+<div class="page_tab"></div>
+<div class="form2">
+	<form method="post" action="__URL__/doAdd" onsubmit="return subcheck();" enctype="multipart/form-data">
+	<div id="tab_1">
+	
+	<dl class="lineD"><dt>广告类型：</dt><dd><htmlA:radio id="ad_type" default="0|普通广告,1|多图广告" tip="*"/></dd></dl>
+	<dl class="lineD"><dt>广告位置：</dt><dd><htmlA:input id="title" tip="*"/></dd></dl>
+	<dl class="lineD"><dt>是否去除P标签：</dt><dd><htmlA:radio id="remove_p" default="1|否,0|是" /></dd></dl>
+	<dl class="lineD"><dt>广告内容：</dt>
+	  <dd>
+		<include file="./Style/Editor/kissy.html" />
+		<htmlA:editor id="content" w='780px' type='kissy'/>
+	  </dd>
+	</dl>
+	
+	</div><!--tab1-->
+
+	<div class="page_btm">
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+</div>
+
+</div>
+<include file="Public:_footer" />

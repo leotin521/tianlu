@@ -1,0 +1,72 @@
+<include file="Public:_header" />
+<script type="text/javascript" src="__ROOT__/Style/My97DatePicker/WdatePicker.js" language="javascript"></script>
+<tagLib name="htmlA" />
+<script type="text/javascript">
+	var delUrl = '__URL__/doDel';
+	var addUrl = '__URL__/add';
+	var isSearchHidden = 1;
+	var searchName = "搜索/筛选逾期借款";
+</script>
+<div class="so_main">
+  <div class="page_tit">已逾期的借款</div>
+<!--搜索/筛选逾期借款-->
+  <include file="search" />
+<!--搜索/筛选逾期借款-->
+
+  <div class="Toolbar_inbox">
+  	<!-- <div class="page right">{$pagebar}</div> -->
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索/筛选逾期借款" style="search_action" />
+  </div>
+  
+  <div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th style="width:30px;">
+        <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+        <label for="checkbox"></label>
+    </th>
+    <th class="line_l">标的ID</th>
+    <th class="line_l">用户名</th>
+    <th class="line_l">借款标题</th>
+    <th class="line_l">借款期限</th>
+	<th class="line_l">当前期数</th>
+    <th class="line_l">应还时间</th>
+    <th class="line_l">应还金额</th>
+    <th class="line_l">逾期天数</th>
+    <th class="line_l">罚金</th>
+    <th class="line_l">催收费</th>
+    <th class="line_l">操作</th>
+  </tr>
+  <volist id="vo" name="list">
+      <tr overstyle='on' id="list_{$vo.id}">
+        <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.id}"></td>
+        <td>{$vo.id}</td>
+        <td><htmlA:user id="vo.borrow_uid" uname="vo.user_name" /></td>
+        <td>
+		<a href="{$vo.id|getInvestUrl=$vo['borrow_type']}" title="{$vo.borrow_name}" target="_blank">{$vo.borrow_name|cnsubstr=###,"15"}</a></td>
+        <td>{$vo.borrow_duration}{$vo.duration_unit_name}</td>
+        <td>{$vo.sort_order}/{$vo.total}</td>
+        <td>{$vo.deadline|mydate="Y-m-d H:i",###}</td>
+        <td>{$vo['interest'] + $vo['capital']}元</td>
+        <td>{$vo.breakday|default=0}</td>
+        <td>{$vo.expired_money|default=0}元</td>
+        <td>{$vo.call_fee|default=0}元</td>
+        <td><if condition="$vo.substitute_money gt 0">---<else/><a href="__URL__/doexpired?id={$vo.id}&sort_order={$vo.sort_order}">代还</a></if></td>
+      </tr>
+  </volist>
+  </table>
+
+  </div>
+  
+  <div class="Toolbar_inbox">
+  	<div class="page right">{$pagebar}</div>
+    <htmlA:commonBtn type="jsfun" action="dosearch();" value="搜索/筛选逾期借款" style="search_action" />
+  </div>
+</div>
+<script type="text/javascript">
+function showurl(url,Title){
+	ui.box.load(url, {title:Title});
+}
+</script>
+
+<include file="Public:_footer" />

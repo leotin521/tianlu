@@ -1,0 +1,150 @@
+<include file="Public:js_ueditor" />
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<link href="__ROOT__/Style/newmobile/css/app.css" rel="stylesheet" type="text/css" />
+<form action="__URL__/dobanner" method="post" enctype="multipart/form-data" name="form">
+<input type="hidden" name="updateid" value="{$updateid}">
+  <table  border="1"  class="bannerupload"  width="100%;">
+   <tr>
+    <td colspan="4"  class="title" align="center">banner上传</td>
+    </tr>
+  <tr style="height:40px;">
+    <td width="8%" align="right">标题：</td>
+    <td width="33%"><input type="text" name="title" value="{$row.title}"  class="inputs"></td>
+    
+  </tr>
+  <tr style="height:40px;">
+	<td width="13%" align="right">排序：</td>
+    <td width="46%"><input type="text" name="ranges" value="{$row.ranges}" class="inputs" >&nbsp;&nbsp;<span style="color:#ff0000">数字越大越靠前</span></td>
+  </tr>
+  <tr style="height:40px;" >
+    <td height="27" align="right">文件：</td>
+    <td colspan="2"><input type="file"  name="pic" class="inputss" >&nbsp;&nbsp;<span style="color:#ff0000">注意:图片大小是640X230</span></td>
+  </tr>
+  <tr>
+    <td align="right">图片内容：</td>
+	<td colspan="3"> <textarea name="borrow_info" id="borrow_info" type="text/plain" style="width:780px;height:360px;">{$row.content}</textarea></td>
+  </tr>
+  <tr>
+    <td colspan="4"  class="title" align="center"><input type="submit" value="提交"  class="submit" ></td>
+  </tr>
+</table>
+</form>
+
+
+
+<script type="text/javascript">
+
+
+	//实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用ue就能拿到相关的实例
+    var ue = UE.getEditor('borrow_info');
+
+
+    function isFocus(e){
+        alert(ue.isFocus());
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function setblur(e){
+        ue.blur();
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        ue.execCommand('insertHtml', value)
+    }
+    function createEditor() {
+        enableBtn();
+        ue;
+    }
+    function getAllHtml() {
+        alert(ue.getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(ue.getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(ue.getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        ue.setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        ue.setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        ue.setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = ue.selection.getRange();
+        range.select();
+        var txt = ue.selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(ue.getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(ue.hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        ue.focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        ue.destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+
+    function getLocalData () {
+        alert(ue.execCommand( "getlocaldata" ));
+    }
+
+    function clearLocalData () {
+        ue.execCommand( "clearlocaldata" );
+        alert("已清空草稿箱")
+    }
+</script>
+<include file="Public:_footer" />

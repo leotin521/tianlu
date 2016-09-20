@@ -1,0 +1,78 @@
+<div class="first_top">
+    <div class="dv_header top ">
+        <!--迷你导航-->
+
+        <div class="dw_bgx dw_mini">
+            <div class="Cmml00">
+                <?php
+ $dws= session('u_user_name');
+?>
+                <div class="fl dw_Cbg zuo">
+                    <div class="fl">客服热线:<?php $dw_kefu=get_qq(2);echo($dw_kefu[0]["qq_num"]); ?></div>
+                    &nbsp;&nbsp;
+                    <if condition="$version['mobile'] eq 1 ">
+                    	<a href="__ROOT__/mobile/uploadfile/">
+                            <img src="__ROOT__/Style/H/images/head_phone.png" height="16" width="16"
+                                 style="margin-top:8px;margin-right: -5px;  vertical-align: top;"/>
+                            手机端下载</a>
+                    </if>
+                </div>
+                <div class="fr">
+                    <div class="fl">
+                        <a class="right_a" href="__APP__/member/">我的账户</a>
+                        <if condition="$unread gt 0 ">
+                            <a class="right_a" href="__APP__/member/msg/index?status=unread"
+                               style="position:relative;margin-right:20px;">消息
+                                <span style="background:url(__ROOT__/Style/H/images/message.png) no-repeat;height:16px;width:31px;position:absolute;top: 3px;left: 35px;text-align: center;line-height: 15px;color: #fff;padding-left:3px;">{$unread|default=0}</span></a>
+                            <else/>
+                            <a class="right_a" href="__APP__/member/msg/index?status=unread" style="position:relative;">消息</a>
+                        </if>
+                        <a class="right_a" href="__APP__/member/common/actlogout">退出</a>
+                    </div>
+                    <div class="fl " id="dw_qun">
+                        <ul id="erji">
+                            <li class=" dw_Cbg eq1">
+                                <h1>官方群号</h1>
+
+                                <div>
+                                    <volist name=":get_qq(1)" id="vq">
+                                        <if condition="$vq['idkey'] eq ''">
+                                            <p style="text-align:center;cursor:default;">
+                                                {$vq.qq_title}：{$vq.qq_num}
+                                            </p>
+                                            <else/>
+                                            <p style="text-align:center;">
+                                                <a target="_blank"
+                                                   href="http://shang.qq.com/wpa/qunwpa?idkey={$vq.idkey}">{$vq.qq_title}：{$vq.qq_num}</a>
+                                            </p>
+                                        </if>
+                                    </volist>
+                                </div>
+                            </li>
+                            <li class="dw_Cbg eq2">
+                                <h1>在线客服</h1>
+                                <div class="eq201">
+                                    <volist name=":get_qq(0)" id="vq">
+                                        <a class="icoTc"
+                                           href="tencent://Message/?Uin={$vq.qq_num}&amp;websiteName={$vq.qq_title}&amp;Menu=ye"
+                                           style="color:#b1b1b1"><img border="0" src="__ROOT__/Style/H/images/qq.gif"
+                                    {$vq.qq_title|cnsubstr=###,6,0,"utf-8",false}</a>
+                                    </volist>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fl">
+                        <div id="dw_kefu">
+                            <div class="QQkefu"></div>
+                            <div class="dw_show"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--迷你导航结束-->
+
+
+    </div>
+</div>

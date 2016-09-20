@@ -1,0 +1,229 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="format-detection" content="email=no" />
+    <title>修改银行卡</title>
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/email.css" rel="stylesheet" />
+    <link type="text/css" href="__ROOT__/Style/NewWeChat/css/jquery.toastmessage.css" rel="stylesheet" />
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.min.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/js/jquery.toastmessage.js"></script>
+    <script src="__ROOT__/Style/NewWeChat/layer/layer.js"></script>
+</head>
+	<body>
+	<div class="top_nav_h">
+		<div class="top_nav">
+			<div class="com_bgcolor">
+				<h1><a href="javascript:window.history.go(-1)" class="comm_back"></a>修改银行卡</h1>
+			</div>
+		</div>
+	</div>
+
+	<!-- email_content star -->
+
+    <div class="add_bank clearfix">
+    	<h2 style="text-indent: .7em;"><span style="float:right;margin-right:1rem">{$voinfo.real_name}</span>持卡者:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+    	<div class="add_bank_01 clearfix">
+            <li class="form-style-1-item">
+                <b>银行：</b>
+                <select name="bank" id="bank" class="select_01" id="sss">
+                    <foreach name="bank_list" item="data" key="key">
+                        <if condition="$vobank.bank_name eq $key ">
+                            <option id="sss" value="{$key}" selected="selected">{$data}</option>
+                        <else />
+                            <option id="sss" value="{$key}">{$data}</option>
+                        </if>
+                    </foreach>
+                </select>
+            </li>
+    	</div>
+
+
+    	<div class="add_bank_01 clearfix">
+    		<b>卡号：</b>
+    		<input class="select_01" style="width:63%; border:1px solid #69befa;padding-left:2%;" id="cardNum" name="bank_num" type="text" placeholder="请填写银行卡卡号" autofocus="autofocus" value="{$bankinfo.bank_num}"/>
+    	</div>
+
+
+        <div class="add_bank_01 clearfix">
+            <ul>
+                <li class="form-style-1-item">
+                    <b>开行所在省</b>
+                    <select class="city_01" id="province" name="province" onchange="sel('province','city')">
+                        <option>请选择</option>
+                        <volist name="province" id="pro">
+                            <if condition="$vobank.bank_province eq $pro.id ">
+                                <option value="{$pro.id}" selected="selected" >{$pro.name}</option>
+                                <else />
+                                <option value="{$pro.id}">{$pro.name}</option>
+                            </if>
+                        </volist>
+                    </select>
+                   <!--  <select id="city" name="city" class="city_02"  onchange="sel('city','')">
+                       <option value="">请选择</option>
+                       <foreach name="city" item="ci">
+                           <if condition="$vobank.bank_city eq $ci.id ">
+                               <option value="{$ci.id}" selected="selected" >{$ci.name}</option>
+                               <else />
+                               <option value="{$ci.id}" >{$ci.name}</option>
+                           </if>
+                       </foreach>
+                   </select> -->
+                    <span class="form-style-1-error" style="float:none;margin-left:10px"></span>
+                </li>
+            </ul>
+        </div>
+         <div class="add_bank_01 clearfix">
+            <ul>
+                <li class="form-style-1-item">
+                    <b>开行所在市</b>
+                   <!--  <select class="city_01" id="province" name="province" onchange="sel('province','city')">
+                       <option>请选择</option>
+                       <volist name="province" id="pro">
+                           <if condition="$vobank.bank_province eq $pro.id ">
+                               <option value="{$pro.id}" selected="selected" >{$pro.name}</option>
+                               <else />
+                               <option value="{$pro.id}">{$pro.name}</option>
+                           </if>
+                       </volist>
+                   </select> -->
+                    <select id="city" name="city" class="city_02"  onchange="sel('city','')">
+                        <option value="">请选择</option>
+                        <foreach name="city" item="ci">
+                            <if condition="$vobank.bank_city eq $ci.id ">
+                                <option value="{$ci.id}" selected="selected" >{$ci.name}</option>
+                                <else />
+                                <option value="{$ci.id}" >{$ci.name}</option>
+                            </if>
+                        </foreach>
+                    </select>
+                    <span class="form-style-1-error" style="float:none;margin-left:10px"></span>
+                </li>
+            </ul>
+        </div>
+
+    	<div class="add_bank_01 clearfix">
+    		 <b>开户支行:</b>
+    		<input class="select_01" style="width:63%; border:1px solid #69befa;padding-left:2%;" id="branchh" name="branchh" type="text" value="{$bankinfo.bank_address}" placeholder="请填写开户支行" />
+    	</div>
+    	<script src="__ROOT__/Style/NewWeChat/js/jquery.min.js" type="text/javascript"></script>
+    </div>
+
+
+	<div class="approve_rz_03 clearfix">
+        <input id="bank_id" type="hidden" value="{$id}" />
+        <input id="bank_name" type="hidden" value="{$bankname}" />
+		<!-- <input type="button" id="addBankSubmit" value="修改银行卡" class="com_bgcolor" /> -->
+         <button  class="com_bgcolor" id="addBankSubmit" value="修改银行卡"><a href="" style="width:90%;margin:0 auto;color: #fff;">修改银行卡</a></button>
+        
+	</div>
+	<!-- email_content end -->
+
+    <script>
+        var session_temp ="<php> echo session_name();</php>";
+        var picid ="<php> echo session_id();</php>";
+        var timer = null;
+        var leftsecond = 60; //倒计时
+        var msg = "";
+
+        function setError(tip){
+            layer.msg(tip,{icon:0});
+            return false;
+        }
+
+        function Setok(tip){
+            layer.msg(tip,{icon:1});
+            return false;
+        }
+
+
+        function sel(aid,bid) {
+            var pid=$("#"+aid).val();
+            $.ajax({
+                url:"__URL__/sele",
+                type:"post",
+                data:{"pid":pid},
+                success:function(e){
+                    var o=eval("("+e+")");
+                    var str="<option value=''>请选择</option>";
+                    for(var a in o){
+                        str=str+"<option value='"+o[a].id+"'>"+o[a].name+"</option>";
+                    }
+                    $("#"+bid).html(str);
+                }
+            })
+        }
+
+
+        $(function() {
+            $("#addBankSubmit").click(function() {
+                var is_manual = "<php> echo $is_manual; </php>";
+                var reg = new RegExp("[0-9]{15,19}$", "i");
+                var vcode = null;
+
+                var bank_num = $("#cardNum").val(); //卡号
+                var bank_province = $("#province").val(); //开户省
+                var bank_city = $("#city").val(); //开户市
+                var bank_address = $("#branchh").val(); //开户行
+                var bank_name = $("#bank" ).val() ;
+
+                var id = $("#bank_id").val(); //bank
+
+                if ($("#branchhs").val()=="") {
+                    $("#error").html('请选择银行~');return;
+                }
+
+                if ($("#cardNum").val().length < 1) {
+                    return setError('卡号不允许为空');
+
+                }else if (!reg.test($("#cardNum").val())) {
+                    return setError('请输入正确的卡号');
+                }else{
+                    $("#card_num").html('');
+                }
+                var branch = $("#branchh").val();
+
+                if (branch.length < 1) {
+                    return SetError('请输入开户行~');
+                }else if(!(/^[\u4e00-\u9fa5]+$/.test(branch))){
+                    return SetError1('开户行必须是中文~');
+                }else{
+                    $("#card_name").html('');
+                }
+
+
+                if ($("#province").val()=="") {
+                    return SetError1('请选择开户城市~');
+                }else if ($("#city").val()=="") {
+                    return SetError1('请选择开户地区~');
+                }else{
+                    $("#card_city").html('');
+                }
+                $.ajax({
+                    url: "__URL__/edit",
+                    type: "post",
+                    dataType: "json",
+                    timeout:2000,
+                    data: {"bank_num":bank_num,"bank_province":bank_province,"bank_city":bank_city,"bank_address":bank_address,"bank_name":bank_name,"id":id},
+                    success: function(d) {
+                        if (d.status == 1) {
+                            return Setok(d.message);
+                            setTimeout(window.location.href="__APP__/m/user/", 2000);
+                        }else if (d.status == 0) {
+                            return SetError(d.message);
+                        }
+                    }
+                });
+            });
+        });
+           $(function(){
+                 $('input:focus').css({ border:"1px solid #69befa"});
+             })          
+    </script>
+	</body>
+</html>

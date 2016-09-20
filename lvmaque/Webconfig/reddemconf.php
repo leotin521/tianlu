@@ -1,0 +1,2 @@
+<?php
+return array ( 1 => array ( 'integral' => '50000', 'money' => '5', 'invest_money' => '1000', 'is_taste' => '0', 'expired_time' => '3', ), 2 => array ( 'integral' => '190000', 'money' => '20', 'invest_money' => '4000', 'is_taste' => '0', 'expired_time' => '3', ), 3 => array ( 'integral' => '450000', 'money' => '50', 'invest_money' => '10000', 'is_taste' => '0', 'expired_time' => '3', ), 4 => array ( 'integral' => '1700000', 'money' => '200', 'invest_money' => '100000', 'is_taste' => '0', 'expired_time' => '3', ), ); ?>

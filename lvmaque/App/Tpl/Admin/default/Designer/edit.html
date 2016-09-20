@@ -1,0 +1,22 @@
+<include file="Public:_header" />
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="page_tit">标名设置</div>
+<div class="page_tab"><span data="tab_1" class="active">修改标名</span></div>
+<div class="form2">
+	<form method="post" action="__URL__/doEdit" onsubmit="return subcheck();">
+	<div id="tab_1">
+	<dl class="lineD"><dt>标名称：</dt><dd><htmlA:input id="borrow_name" value="{$borrow_name}" tip="*"/></dd></dl>
+	<!-- <dl class="lineD"><dt>是否隐藏：</dt><dd><htmlA:radio id="is_hiden" default="0|否,1|是" tip='隐藏的菜单名称不会自动调用,指定ID才会调用'/></dd></dl> -->
+	</div>
+	<div class="page_btm">
+	  <input type="hidden" name="borrow_id" value="{$borrow_id}" />
+	  <input type="submit" class="btn_b" value="确定" />
+	</div>
+	</form>
+</div>
+
+</div>
+
+<include file="Public:_footer" />

@@ -1,0 +1,25 @@
+<tagLib name="htmlA" />
+<div class="so_main">
+
+<div class="form2">
+	<div id="tab_1">
+	<volist id="tb" name="tablecontent">
+		<p style="border-bottom:1px dotted #CCCCCC; height:25p; line-height:25px">
+		<strong style="color:#000000">{$tb.Field}</strong>：类型={$tb.Type}&nbsp;&nbsp;<span style="color:#FF0000">|</span>&nbsp;&nbsp;索引={$tb.Key|default="无"}&nbsp;&nbsp;<span style="color:#FF0000">|</span>&nbsp;&nbsp;默认值={$tb.Default}&nbsp;&nbsp;<span style="color:#FF0000">|</span>&nbsp;&nbsp;其他={$tb.Extra}
+		</p>
+		
+	</volist>
+	</div><!--tab1-->
+	
+	<div class="page_btm">
+	  <input type="button" onclick="closeui();" class="btn_b" value="关闭" />
+	</div>
+	</form>
+</div>
+
+</div>
+<script type="text/javascript">
+function closeui(){
+	ui.box.close();
+}
+</script>

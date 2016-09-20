@@ -1,0 +1,194 @@
+.email_content{padding: 20px;}
+.email_content_01{text-align: center;}
+.email_content_01 input{height: 38px; line-height: 38px; 
+	border: 1px solid #DEDEDE;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	background: #fff;
+	width: 90%;
+	margin: 0 auto;
+	padding:3px;
+}
+.email_content_02{}
+
+
+/*************/
+.merbers_content{width: 100%; background: #fff; margin: 30px auto; min-height: 50px; border-bottom: 1px solid #DEDEDE; border-top: 1px solid #DEDEDE;}
+
+.merbers_content_01{width: 90%; margin: 0 auto; font-size: 15px;}
+
+.merbers_content_01_01{height: 50px; line-height: 50px;border-bottom: 1px solid #DEDEDE}
+.merbers_content_a{ display: block;padding: 0px 5px; height: 100%;}
+
+.merbers_content_img{height: 40px; width: 40px; position: relative; top: 5px;}
+
+.merbers_content_01_02{height: 50px; line-height: 50px;}
+.merbers_content_01_03{height: 50px; line-height: 50px;}
+
+.merbers_content_aim{background: transparent url("../images/new/d_black_right.png") no-repeat scroll 100% 50%;}
+
+.merbers_content_a span{padding-right: 20px; color: #aaa;}
+
+.merbers_content_01 b{display: block;float: left;}
+.merbers_content_01 input{border: none; padding: 5px;}
+.merbers_content_01_02 input{width: 100%;
+	border-radius: 6px;
+    height: 40px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	color: #fff;
+	font-size: 16px;
+}
+.merbers_content_01 p{height: 35px;
+	line-height: 35px;
+	color: #aaa;
+	font-size: 14px;
+}
+
+
+
+
+/******我的优惠券*******/
+
+.my_yhq{width: 100%; background: #fff padding:20px 0px; margin: 10px auto; background: #fff; min-height: 50px; border-bottom: 1px solid #DEDEDE; border-top: 1px solid #DEDEDE;}
+.my_yhq_01{width: 90%; min-height: 150px; margin: 10px auto; color: #fff;}
+.my_yhq_01_01{width: 80%; float: left; min-height:130px;padding-top: 20px; margin: 10px auto; background: url(../images/new/help_on_01.png) no-repeat;}
+.my_yhq_01_01 h2{ font-size: 12px;
+    padding-left: 13px;
+    text-indent: 1em;}
+.my_yhq_01_01 h3{font-size: 15px;text-align: right; line-height: 30px; padding-right: 20%;}
+.my_yhq_01_01 h3 b{font-size: 20px;}
+.my_yhq_01_01 p{padding-left: 10%; }
+.my_yhq_01_02{width: 19%; border-left: 2px dashed #fff; padding: 36px 0px;font-size: 18px; text-align: center; color: #fff; float: left; min-height: 78px; margin: 10px auto; background: url(../images/new/help_on_02.png) no-repeat 100% 0%;}
+.my_yhq_01_02 p{width: 20px; margin-left: 30%;}
+
+/******我的优惠券*******/
+.approve_rz{ 
+	width: 80%;
+	padding: 10px 20px;
+	border: 1px solid #DEDEDE;
+	background: #fff;
+	margin: 20px auto;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+
+.approve_rz_01{height: 45px; line-height: 45px;border-bottom: 1px solid #DEDEDE; clear: both;}
+.approve_rz_01 b{display:block; width: 75px; font-size: 15px; float: left;}
+.approve_rz_02 b{display:block; width: 75px; font-size: 15px; float: left;}
+.approve_rz input{float: left; border: none; padding: 5px; line-height: 35px;}
+.approve_rz_02{height: 45px; line-height: 45px;clear: both;}
+.approve_rz_03{width: 90%; margin: 10px auto;}
+.approve_rz_03 input{width: 100%; height: 45px; line-height: 45px; border: none; font-size: 16px; color: #fff;border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;}
+
+/***************************/
+.apply_rz{ background: #fff; padding: 10px 20px;}
+
+.apply_rz input{float: left; border: none; padding: 5px; line-height: 35px;}
+.apply_rz_01 b{display: block;height: 35px; line-height: 35px;}
+
+
+/***************************/
+.my_phone{padding: 10px 20px;}
+.my_phone_01{height: 45px;line-height: 45px; margin: 10px auto; background: #fff;}
+.my_phone input{ border: none; padding: 5px; line-height: 35px;
+	}
+.my_phone_01 b{display: block;height: 45px; line-height:45px; font-size: 14px;}
+
+.bor_ra{
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+
+
+/***************************/
+
+.add_bank{ background: #fff;padding: 10px;}
+.add_bank h2{height: 35px; line-height: 35px; font-size: 15px; text-indent: 0.5em;}
+.add_bank_01{
+	border: 1px solid #DEDEDE;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	height: 45px;
+	line-height: 45px;
+	margin: 10px auto;
+}
+.add_bank_01 b{ display: block;float: left; font-size: 15px; text-indent: 1em;}
+.add_bank_01 .select_01{border:none;float: right; width: 67%; height: 45px; line-height: 45px;color:#5A5A5A;}
+.add_bank_01 input{border:none;float: right; width: 67%; height: 45px; line-height: 45px;color:#5A5A5A;}
+
+.add_bank_01 select option{padding: 6px; }
+
+
+.city_01{
+    border:none;float: left;
+    margin-left: 10%;
+     width: 30%; height: 45px; line-height: 45px;color:#5A5A5A;
+}
+
+
+.city_02{
+    border:none;float: left;
+    margin-left: 2%;
+    width: 30%; height: 45px; line-height: 45px;color:#5A5A5A;
+}
+
+
+/************交易记录***************/
+
+.jyjl{width: 50%; margin: 0 auto; font-weight: 700; font-size: 16px; text-align: center; height: 35px;line-height: 35px;}
+
+.approve_jyjl{
+    width: 80%;
+    padding: 10px 20px;
+    border: 1px solid #DEDEDE;
+    background: #fff;
+    margin: 10px auto 20px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    line-height: 45px;border-bottom: 1px solid #DEDEDE; clear: both;
+}
+.approve_jyjl b{display:block; width: 40%; font-size: 15px; float: left;}
+.col_gre{color: #51ED4E;}
+.approve_jyjl_01 p{line-height: 25px;font-size: 13px;}
+.approve_rz_01 span{ font-size: 14px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
